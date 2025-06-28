@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "types": ["vite/client"],
+
+    "allowJs": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "useDefineForClassFields": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "src/components/forms/temp", "src/components/temp"]
+}

@@ -1,0 +1,123 @@
+npm install -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-config-prettier
+
+2. Archivo .eslintrc.json base
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:react-hooks/recommended",
+    "prettier"
+  ],
+  "plugins": ["react", "@typescript-eslint", "react-hooks", "jsx-a11y"],
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": { "jsx": true },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "rules": {
+    // 💡 Estilo preferido para componentes
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+
+    // Otras buenas prácticas
+    "react/prop-types": "off", // Usamos TypeScript para tipos
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "react/react-in-jsx-scope": "off", // No se requiere desde React 17+
+    "no-console": "warn"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
+
+
+Archivo .eslintignore
+node_modules
+dist
+build
+
+
+En tu package.json, dentro de "scripts":
+
+"scripts": {
+  "lint": "eslint --ext .ts,.tsx src",
+  "lint:fix": "eslint --ext .ts,.tsx src --fix"
+}
+
+
+Asume que tu código fuente está en la carpeta src. Si usás otra, reemplazalo por el nombre correcto.
+
+Ahora podés correr:
+
+🔍 npm run lint → Verifica errores y advertencias
+
+🛠️ npm run lint:fix → Arregla automáticamente los problemas que puede
+
+
+1. .editorconfig
+
+# .editorconfig
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+npm install -D prettier eslint-config-prettier
+
+3. .prettierrc (configuración Prettier)
+
+{
+  "semi": true,
+  "singleQuote": true,
+  "printWidth": 100,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "arrowParens": "avoid",
+  "endOfLine": "lf"
+}
+
+4. .prettierignore (opcional)
+node_modules
+dist
+build
+
+
+5. Asegurar compatibilidad ESLint + Prettier
+Ya lo hicimos al incluir "eslint-config-prettier" en el "extends" de .eslintrc.json:
+
+json
+Copy
+Edit
+"extends": [
+  "eslint:recommended",
+  ...
+  "prettier"
+]
+
+6. Script útil en package.json (opcional)
+json
+Copy
+Edit
+"scripts": {
+  "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\""
+}
