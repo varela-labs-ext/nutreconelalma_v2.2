@@ -2,6 +2,7 @@ import InsumoItemModel from "@/logic/models/common/InsumoItemModel";
 import { isValidNumber } from "@/utils/validators";
 import InputNumberField from "./InputNumberField";
 import ReadOnlyNumberField from "./ReadOnlyNumberField";
+import CalculosService from "@/logic/services/CalculosService";
 
 interface InsumoItemEditorProps {
     item: InsumoItemModel;
@@ -21,6 +22,9 @@ const InsumoItemEditor = (props: InsumoItemEditorProps) => {
                 ...item,
                 [inName]: value,
             };
+
+            // Actualiza los totales dentro del objeto
+            CalculosService.CalcularInsumo(updatedItem);
 
             props.onChange(updatedItem);
         }
