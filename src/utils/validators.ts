@@ -5,3 +5,8 @@ export const validNumber = (value: number, field: string = 'valor'): number => {
     }
     return value;
 };
+
+
+export const isValidNumber = (valor: unknown): boolean => {
+    return typeof valor === 'number' && !isNaN(valor);
+};

@@ -13,7 +13,7 @@ interface InputNumberFieldProps {
     labelAlways?: boolean;
 }
 
-export const InputNumberField = (props: InputNumberFieldProps) => {
+const InputNumberField = (props: InputNumberFieldProps) => {
     const [localValue, setLocalValue] = useState<number>(props.value);
     const [error, setError] = useState<string | null>(null);
     const labelPosition = props.labelPosition || "top";
