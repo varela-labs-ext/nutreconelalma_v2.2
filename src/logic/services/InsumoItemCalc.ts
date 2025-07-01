@@ -10,7 +10,7 @@ class InsumoItemCalc extends BaseCalc<InsumoItemModel> {
             return;
         }
 
-        if (!numberValidator.isValidateObj(inItem)) { //<- Temporal
+        if (!numberValidator.isValidObj(inItem)) { //<- Temporal
             console.log(`Insumo no calculable. [${inItem.label}]`)
             return;
         }

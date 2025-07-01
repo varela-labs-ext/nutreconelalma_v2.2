@@ -1,6 +1,6 @@
 
 class numberValidator {
-    public static isValidateObj(objeto: any, padre: string | null = null): boolean {
+    public static isValidObj(objeto: any, padre: string | null = null): boolean {
         if (!objeto || typeof objeto !== 'object') {
             return false;
         }
