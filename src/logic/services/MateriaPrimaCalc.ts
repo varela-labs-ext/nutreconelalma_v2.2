@@ -20,11 +20,10 @@ class MateriaPrimaCalc extends BaseCalc<MateriaPrimaModel> {
             if (subItem instanceof InsumoItemModel) {
                 const insumo = subItem as InsumoItemModel;
 
-                if (insumo.excluirDelCalculo === false) {
+                if (insumo && insumo.excluirDelCalculo === false) {
                     calc.calcular(insumo);
                     total += insumo.costoTotalPorUnidad;
                     totalPorMl += insumo.costoPorMl;
-
                 } else {
                     console.log(`Propiedad: ${clave} EXCLUIDA`);
                 }

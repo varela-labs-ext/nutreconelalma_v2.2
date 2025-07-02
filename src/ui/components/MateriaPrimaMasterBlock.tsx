@@ -1,5 +1,5 @@
 import MateriaPrimaModel from "@/logic/models/materiaPrima/MateriaPrimaModel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MateriaPrimaSummary from "./MateriaPrimaSummary";
 import MateriaPrimaDetails from "./MateriaPrimaDetails";
 
@@ -15,47 +15,39 @@ interface MateriaPrimaBlockProps {
 
 // Se utiliza dentro de 'CentralDeMezclasForm'. ???
 const MateriaPrimaBlock = (props: MateriaPrimaBlockProps) => {
+    const [internalData, setInternalData] = useState<MateriaPrimaModel>(props.inData);
     const [mostrarDetalles, setMostrarDetalles] = useState(true);
 
+    useEffect(() => {
+        setInternalData(props.inData);
+    }, [props.inData]);
+
     // Maneja solamente el cambio en la propiedad "cantidad", y actualiza los totales.
-    const handleCantidadChange = (nuevaCantidad: number) => {
-
-        // const output: MateriaPrimaModel = {
-        //     ...props.inData,
-        //     cantidad: nuevaCantidad,
-        //     //...calcularTotales({ ...data, cantidad: nuevaCantidad }),  // <- esto agrega los mismos campos al modelo original pero ya calculados
-        // };
-
-        // console.log("MateriaPrimaBlock.handleCantidadChange(), Cantidad: " + nuevaCantidad);
-
-        // props.onChange(output);
+    const handleCantidadChange = (inValue: number) => {
     };
 
-    const handleInsumoItemChange = (updatedItem: MateriaPrimaModel) => {
-        // props.onChange(updatedItem);
+    // Maneja el cambio en los detalles de la materia prima.
+    // Este método se llama desde el componente 'MateriaPrimaDetails'.
+    // Se espera que este método actualice el estado interno y notifique al padre.
+    const handleMateriaPrimaChange = (inItem: MateriaPrimaModel) => {
 
-        // const output: MateriaPrimaModel = {
-        //     ...props.inData,
-        //     cantidad: nuevaCantidad,
-        //     //...calcularTotales({ ...data, cantidad: nuevaCantidad }),  // <- esto agrega los mismos campos al modelo original pero ya calculados
-        // };
     }
 
     return (
         <div className="flex flex-col gap-6">
             <MateriaPrimaSummary
-                cantidad={props.inData.cantidad}
-                total={props.inData.total}
-                totalPorMl={props.inData.totalPorMl}
+                cantidad={internalData.cantidad}
+                total={internalData.total}
+                totalPorMl={internalData.totalPorMl}
                 // mostrarDetalles={mostrarDetalles}
                 onCantidadChange={handleCantidadChange} /* <- REVISAR LOGICA Y NOMBRES */
                 onMostrarDetallesChange={setMostrarDetalles}
             />
             <div>
                 <MateriaPrimaDetails
-                    item={props.inData}
+                    inData={internalData}
                     mostrarDetalles={mostrarDetalles}
-                    onChange={handleInsumoItemChange}
+                    onChange={handleMateriaPrimaChange}
                 />
             </div>
         </div>

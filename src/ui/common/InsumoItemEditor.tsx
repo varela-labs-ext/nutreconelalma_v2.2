@@ -3,30 +3,47 @@ import { isValidNumber } from "@/utils/validators";
 import InputNumberField from "./InputNumberField";
 import ReadOnlyNumberField from "./ReadOnlyNumberField";
 import CalculosService from "@/logic/services/CalculosService";
+import { useEffect, useRef, useState } from "react";
 
 interface InsumoItemEditorProps {
-    item: InsumoItemModel;
+    inData: InsumoItemModel;
     mostrarDetalles: boolean;
     onChange: (itemUpdated: InsumoItemModel) => void;
 }
 
 const InsumoItemEditor = (props: InsumoItemEditorProps) => {
-    const item = props.item;
+    const [internalData, setInternalData] = useState<InsumoItemModel>(props.inData);
+    const debounceRef = useRef<number | null>(null); // Ref para manejar el debounce
+
+    useEffect(() => {
+        setInternalData(props.inData);
+    }, [props.inData]);
 
     const handleChange = (inName: string, inValue: number) => {
         if (isValidNumber(inValue)) {
             console.debug(`InsomoEditor. Value: ${inValue}, Name: ${inName}`);
-
-            const value: number = inValue;
             const updatedItem: InsumoItemModel = {
-                ...item,
-                [inName]: value,
+                ...internalData,
+                [inName]: inValue,
             };
 
             // Actualiza los totales dentro del objeto
             CalculosService.CalcularInsumo(updatedItem);
 
-            props.onChange(updatedItem);
+            setInternalData(updatedItem);
+
+            // Limpiar debounce anterior. Esto es para evitar múltiples llamadas rápidas
+            // que puedan generar múltiples actualizaciones innecesarias.
+            // Si ya hay un debounce activo, lo cancelamos.
+            if (debounceRef.current !== null) {
+                clearTimeout(debounceRef.current);
+            }
+
+            // Agendar nueva ejecución. Esto es útil para evitar que se llame a onChange demasiadas veces
+            // cuando el usuario está escribiendo rápidamente.
+            debounceRef.current = setTimeout(() => {
+                props.onChange(updatedItem);
+            }, 700);
         }
     };
 
@@ -37,7 +54,7 @@ const InsumoItemEditor = (props: InsumoItemEditorProps) => {
 
                 <div className="md:col-span-2 w-full text-left">
                     <div className="text-sm text-gray-900 dark:text-white">
-                        {item.label}
+                        {internalData.label}
                     </div>
                 </div>
 
@@ -46,7 +63,7 @@ const InsumoItemEditor = (props: InsumoItemEditorProps) => {
                         <InputNumberField
                             label="presentacionMl"
                             name="presentacionMl"
-                            value={item.presentacionMl}
+                            value={internalData.presentacionMl}
                             readOnly={false}
                             onChange={handleChange}
                         />
@@ -57,7 +74,7 @@ const InsumoItemEditor = (props: InsumoItemEditorProps) => {
                     <InputNumberField
                         label="cantidadMl"
                         name="cantidadMl"
-                        value={item.cantidadMl}
+                        value={internalData.cantidadMl}
                         readOnly={false}
                         onChange={handleChange}
                     />
@@ -67,7 +84,7 @@ const InsumoItemEditor = (props: InsumoItemEditorProps) => {
                     <InputNumberField
                         label="costoPorUnidad"
                         name="costoPorUnidad"
-                        value={item.costoPorUnidad}
+                        value={internalData.costoPorUnidad}
                         readOnly={false}
                         onChange={handleChange}
                     />
@@ -77,7 +94,7 @@ const InsumoItemEditor = (props: InsumoItemEditorProps) => {
                     <ReadOnlyNumberField
                         label="costoTotalPorUnidad"
                         name="costoTotalPorUnidad"
-                        value={item.costoTotalPorUnidad}
+                        value={internalData.costoTotalPorUnidad}
                     />
                 </div>
             </div>

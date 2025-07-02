@@ -10,6 +10,9 @@ class InsumoItemCalc extends BaseCalc<InsumoItemModel> {
             return;
         }
 
+        inItem.costoTotalPorUnidad = 0;
+        inItem.costoPorMl = 0;
+
         if (!numberValidator.isValidObj(inItem)) { //<- Temporal
             console.log(`Insumo no calculable. [${inItem.label}]`)
             return;

@@ -1,64 +1,54 @@
 import InsumoItemModel from "@/logic/models/common/InsumoItemModel";
 import MateriaPrimaModel from "@/logic/models/materiaPrima/MateriaPrimaModel";
 import InsumoItemEditor from "../common/InsumoItemEditor";
+import { useEffect, useRef, useState } from "react";
+import CalculosService from "@/logic/services/CalculosService";
 
 
 interface MateriaPrimaDetailsProps {
-    item: MateriaPrimaModel;
+    inData: MateriaPrimaModel;
     mostrarDetalles: boolean;
     onChange: (updatedItem: MateriaPrimaModel) => void;
 }
 
 const MateriaPrimaDetails = (props: MateriaPrimaDetailsProps) => {
-    // const data = props.item;
-    const insumoEditorWrapperClass = "p-1";
+    const [internalData, setInternalData] = useState<MateriaPrimaModel>(props.inData);
+    const debounceRef = useRef<number | null>(null); // Ref para manejar el debounce
 
-    /* Calcula el monto total de todos los "costoTotalPorUnidad" y de todos los "costoPorMl", solamente de los elementos que se despliegan en pantalla */
-    const calcularTotales = (modelo: MateriaPrimaModel): { total: number; totalPorMl: number } => {
-        const items = Object.values(modelo).filter(
-            (val): val is InsumoItemModel =>
-                typeof val === "object" &&
-                val !== null &&
-                // "costoTotalPorUnidad" in val &&
-                !val.excluirDelCalculo
-        );
+    useEffect(() => {
+        setInternalData(props.inData);
+    }, [props.inData]);
 
-        const total = items.reduce((sum, item) => sum + item.costoTotalPorUnidad, 0);
-        const totalPorMl = items.reduce((sum, item) => sum + item.costoPorMl, 0);
 
-        return { total, totalPorMl };
-    };
+    const handleInsumoChange = (inKey: string, inItem: InsumoItemModel) => {
+        console.log("Insumo cambiado: " + inKey);
+        console.log(inItem);
 
-    const handleInsumoItemChange = (propertyName: string, updatedItem: InsumoItemModel) => {
-        console.log("Property: " + propertyName);
-
-        console.log("Insumo (anterior)");
-        console.log(props.item.Vitamina_C);
-
-        console.log("Insumo (nuevo)");
-        console.log(updatedItem);
-
-        const actualizado: MateriaPrimaModel = {
-            ...props.item,
-            [propertyName]: updatedItem
+        // Actualizar el estado interno con el nuevo item
+        const updatedData: MateriaPrimaModel = {
+            ...internalData,
+            [inKey]: inItem
         };
 
-        console.log("Modelo actualizado");
-        console.log(actualizado.Vitamina_C);
+        // Actualiza los totales dentro del objeto
+        CalculosService.CalcularMateriaPrima(updatedData);
 
-        console.log(actualizado);
+        setInternalData(updatedData);
 
+        if (debounceRef.current !== null) {
+            clearTimeout(debounceRef.current);
+        }
 
-        // const totales = calcularTotales(actualizado);
-        // // No se si sea buena idea calcular aqui, ya que se pierde visibilidad de donde debe estar la logica de los calculos, 
-        // // aunque sea una simple sumatoria
+        debounceRef.current = setTimeout(() => {
+            props.onChange(updatedData); // Llamar al callback onChange para notificar al padre
+        }, 500);
+    }
 
-        props.onChange(actualizado);
-    };
+    const insumoEditorWrapperClass = "p-1";
 
     return (
         <div className="flex flex-col gap-2">
-            {Object.entries(props.item).map(([clave, valor]) => {
+            {Object.entries(props.inData).map(([clave, valor]) => {
                 if (
                     typeof valor === "object" &&
                     valor !== null &&
@@ -70,9 +60,9 @@ const MateriaPrimaDetails = (props: MateriaPrimaDetailsProps) => {
                         <div id={clave} key={clave} className={insumoEditorWrapperClass} >
                             {/* Fila editable por cada InsumoItemModel */}
                             <InsumoItemEditor
-                                item={valor}
+                                inData={valor}
                                 mostrarDetalles={props.mostrarDetalles}
-                                onChange={(updated) => handleInsumoItemChange(clave, updated)}
+                                onChange={(updated) => handleInsumoChange(clave, updated)}
                             />
                         </div>
                     );
