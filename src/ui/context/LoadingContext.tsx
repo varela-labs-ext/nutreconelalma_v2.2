@@ -28,7 +28,7 @@ export const LoadingProvider = ({ children, minDurationMs = 400 }: LoadingProvid
             const now = Date.now();
             const start = loadingStartTimeRef.current;
             const elapsed = start ? now - start : 0;
-            const delay = Math.max(500 - elapsed, 0);
+            const delay = Math.max(minDurationMs - elapsed, 0);
 
             setTimeout(() => {
                 setIsLoading(false);

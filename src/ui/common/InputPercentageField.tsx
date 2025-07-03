@@ -78,7 +78,7 @@ export const InputPercentageField = (props: InputPercentageFieldProps) => {
     };
 
     const getInputClass = () => {
-        const baseClass = "border rounded-lg px-3 py-2 w-full pr-7";
+        const baseClass = "border rounded-lg px-3 py-2 w-full text-left pr-7";
         const baseClassB = "text-gray-700 shadow-sm focus:outline-none focus:ring-2";
         const withErrorClass = "border-red-500 focus:ring-red-400";
         const withoutErrorClass = "border-gray-300 focus:ring-blue-500";
@@ -109,7 +109,7 @@ export const InputPercentageField = (props: InputPercentageFieldProps) => {
                     max={100}
                     step={1}
                 />
-                <span className={percentSymbolClass}>% </span>
+                <span className={percentSymbolClass}>%</span>
                 {
                     error && (
                         <p className="mt-1 text-sm text-red-600" > {error} </p>

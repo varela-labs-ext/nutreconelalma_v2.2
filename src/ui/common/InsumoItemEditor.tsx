@@ -51,10 +51,10 @@ const InsumoItemEditor = (props: InsumoItemEditorProps) => {
 
     return (
         <div id="insumoItemEditorForm" className="flex flex-col md:flex-row md:items-start gap-4">
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-6 gap-2 w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-5 gap-2 w-full">
                 {/* <input type="number" className="w-full sm:w-auto text-left border max-w-full sm:max-w-[110px]" /> */}
 
-                <div className="md:col-span-2 w-full text-left">
+                <div className="md:col-span-1 w-full text-left">
                     <div className="text-sm text-gray-900 dark:text-white">
                         {internalData.label}
                     </div>
@@ -89,6 +89,7 @@ const InsumoItemEditor = (props: InsumoItemEditorProps) => {
                         value={internalData.costoPorUnidad}
                         readOnly={false}
                         onChange={handleChange}
+                        symbol="$"
                     />
                 </div>
 
