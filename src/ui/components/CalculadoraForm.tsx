@@ -1,17 +1,17 @@
 
-import ProduccionForm from "./ProduccionForm";
 import TipoCentralIdEnum from "@/logic/enums/TipoCentralIdEnum";
 import { useState } from "react";
 import TabsBlock from "../common/TabsBlock";
 import ProduccionSettingsModel from "@/logic/models/common/ProduccionSettingsModel";
 import MateriaPrimaBlock from "./MateriaPrimaMasterBlock";
+import CentralConfig from "./CentralConfig";
 
 
 const CalculadoraForm = () => {
     // const [selectedTipoCentral, setTipoCentral] = useState<TipoCentralIdEnum>(0);
     const [selectedProdSettings, setProdSettings] = useState<ProduccionSettingsModel>(new ProduccionSettingsModel());
 
-    const onProduccionFormChange = (updatedItem: ProduccionSettingsModel) => {
+    const onCentralConfigChange = (updatedItem: ProduccionSettingsModel) => {
         const output: ProduccionSettingsModel = {
             ...updatedItem
         }
@@ -42,9 +42,9 @@ const CalculadoraForm = () => {
 
             </div>
             <div>
-                <ProduccionForm
+                <CentralConfig
                     item={selectedProdSettings}
-                    onChange={onProduccionFormChange}
+                    onChange={onCentralConfigChange}
                 />
             </div>
             <div>

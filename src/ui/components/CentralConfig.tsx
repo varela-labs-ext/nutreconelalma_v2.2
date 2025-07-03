@@ -6,12 +6,12 @@ import TipoPoblacionField from "../common/TipoPoblacionField";
 import TipoPoblacionIdEnum from "@/logic/enums/TipoPoblacionIdEnum";
 import ProduccionSettingsModel from "@/logic/models/common/ProduccionSettingsModel";
 
-interface ProduccionFormProps {
+interface CentralConfigProps {
     item: ProduccionSettingsModel;
     onChange: (updatedItem: ProduccionSettingsModel) => void;
 }
 
-const ProduccionForm = (props: ProduccionFormProps) => {
+const CentralConfig = (props: CentralConfigProps) => {
     const [erroresPorcentaje, setErroresPorcentaje] = useState({
         porcentajeAdulto: "",
         porcentajePediatrico: "",
@@ -162,4 +162,4 @@ const ProduccionForm = (props: ProduccionFormProps) => {
     );
 }
 
-export default ProduccionForm;
+export default CentralConfig;
