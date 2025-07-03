@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useRef, useState } from 'react';
 
 type LoadingContextType = {
     isLoading: boolean;
@@ -10,11 +10,31 @@ export const LoadingContext = createContext<LoadingContextType>({
     setLoading: () => { },
 });
 
-export const LoadingProvider = ({ children }: { children: React.ReactNode }) => {
+type LoadingProviderProps = {
+    children: React.ReactNode;
+    minDurationMs?: number; // nuevo parámetro opcional
+};
+
+export const LoadingProvider = ({ children, minDurationMs = 400 }: LoadingProviderProps) => {
     const [isLoading, setIsLoading] = useState(false);
+    const loadingStartTimeRef = useRef<number | null>(null);
 
     const setLoading = (value: boolean) => {
-        setIsLoading(value);
+        // setIsLoading(value);
+        if (value) {
+            loadingStartTimeRef.current = Date.now();
+            setIsLoading(true);
+        } else {
+            const now = Date.now();
+            const start = loadingStartTimeRef.current;
+            const elapsed = start ? now - start : 0;
+            const delay = Math.max(500 - elapsed, 0);
+
+            setTimeout(() => {
+                setIsLoading(false);
+                loadingStartTimeRef.current = null;
+            }, delay);
+        }
     };
 
     return (

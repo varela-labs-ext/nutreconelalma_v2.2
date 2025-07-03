@@ -71,9 +71,9 @@ const MateriaPrimaBlock = (props: MateriaPrimaBlockProps) => {
             // loadingContext.setLoading(true); // activa el contexto de carga
 
             const mainKey = buildKeyName("current", props.inTipoCentral, props.inTipoPoblacion);
-            console.log("Guardando materia prima con clave:", mainKey);
+
             await DataService.setMateriaPrimaData(mainKey, data);
-            console.log("Materia prima guardada correctamente.");
+            // console.log("Materia prima guardada correctamente. Clave:", mainKey);
         } catch (error) {
             console.error("Error al guardar la materia prima en la base de datos:", error);
         } finally {
@@ -119,13 +119,13 @@ const MateriaPrimaBlock = (props: MateriaPrimaBlockProps) => {
 
         console.log("MateriaPrimaBlock: internalData ha cambiado, programando guardado...");
 
-        if (debounceRef.current !== null) {
-            clearTimeout(debounceRef.current);
-        }
+        // if (debounceRef.current !== null) {
+        //     clearTimeout(debounceRef.current);
+        // }
 
-        debounceRef.current = setTimeout(() => {
-            guardarMateriaPrima(internalData);
-        }, 1000);
+        // debounceRef.current = setTimeout(() => {
+        guardarMateriaPrima(internalData);
+        // }, 100);
     }, [internalData]);
 
     // Maneja solamente el cambio en la propiedad "cantidad", y actualiza los totales.
@@ -153,6 +153,8 @@ const MateriaPrimaBlock = (props: MateriaPrimaBlockProps) => {
                 ...internalData,
                 ...inItem, // Actualiza los campos que hayan cambiado
             };
+
+            console.log("MateriaPrimaBlock: Actualizando internalData con los cambios de materia prima:", outputData);
 
             setInternalData(outputData);
         } catch (error) {

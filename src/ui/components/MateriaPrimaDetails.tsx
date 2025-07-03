@@ -35,7 +35,7 @@ const MateriaPrimaDetails = (props: MateriaPrimaDetailsProps) => {
 
         setInternalData(updatedData); // Verificar si se puede meter dentro del metodo del setTimeout
 
-        props.onChange(internalData);
+        props.onChange(updatedData);
     }
 
     const insumoEditorWrapperClass = "p-1";
