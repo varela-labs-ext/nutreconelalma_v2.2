@@ -1,7 +1,7 @@
 import InsumoItemModel from "@/logic/models/common/InsumoItemModel";
 import MateriaPrimaModel from "@/logic/models/materiaPrima/MateriaPrimaModel";
 import InsumoItemEditor from "../common/InsumoItemEditor";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import CalculosService from "@/logic/services/CalculosService";
 
 
@@ -13,12 +13,12 @@ interface MateriaPrimaDetailsProps {
 
 const MateriaPrimaDetails = (props: MateriaPrimaDetailsProps) => {
     const [internalData, setInternalData] = useState<MateriaPrimaModel>(props.inData);
-    const debounceRef = useRef<number | null>(null); // Ref para manejar el debounce
 
     useEffect(() => {
         setInternalData(props.inData);
     }, [props.inData]);
 
+    // REGLA DE ORO, NUNCA LLAMAR AL EVENTO DEL PROPS DESDE DENTRO DEL USEFFECT, ya que esto puede generar un bucle infinito de actualizaciones.
 
     const handleInsumoChange = (inKey: string, inItem: InsumoItemModel) => {
         console.log("Insumo cambiado: " + inKey);
@@ -33,15 +33,9 @@ const MateriaPrimaDetails = (props: MateriaPrimaDetailsProps) => {
         // Actualiza los totales dentro del objeto
         CalculosService.CalcularMateriaPrima(updatedData);
 
-        setInternalData(updatedData);
+        setInternalData(updatedData); // Verificar si se puede meter dentro del metodo del setTimeout
 
-        if (debounceRef.current !== null) {
-            clearTimeout(debounceRef.current);
-        }
-
-        debounceRef.current = setTimeout(() => {
-            props.onChange(updatedData); // Llamar al callback onChange para notificar al padre
-        }, 500);
+        props.onChange(internalData);
     }
 
     const insumoEditorWrapperClass = "p-1";

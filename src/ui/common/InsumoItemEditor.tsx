@@ -42,6 +42,8 @@ const InsumoItemEditor = (props: InsumoItemEditorProps) => {
             // Agendar nueva ejecución. Esto es útil para evitar que se llame a onChange demasiadas veces
             // cuando el usuario está escribiendo rápidamente.
             debounceRef.current = setTimeout(() => {
+                console.log("InsumoItemEditor.handleChange() - Debounced call to onChange");
+                console.log("------------");
                 props.onChange(updatedItem);
             }, 700);
         }

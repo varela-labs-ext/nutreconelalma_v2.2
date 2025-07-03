@@ -7,3 +7,5 @@ abstract class BaseCalc<T> {
         return inItem !== null && typeof inItem === 'object';
     }
 }
+
+export default BaseCalc;

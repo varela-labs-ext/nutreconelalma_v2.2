@@ -3,8 +3,8 @@ import { useState } from "react";
 import InputNumberField from "../common/InputNumberField";
 import InputPercentageField from "../common/InputPercentageField";
 import TipoPoblacionField from "../common/TipoPoblacionField";
-import ProduccionSettingsModel from "@/logic/models/common/ProduccionModel";
 import TipoPoblacionIdEnum from "@/logic/enums/TipoPoblacionIdEnum";
+import ProduccionSettingsModel from "@/logic/models/common/ProduccionSettingsModel";
 
 interface ProduccionFormProps {
     item: ProduccionSettingsModel;

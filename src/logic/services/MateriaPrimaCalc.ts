@@ -1,12 +1,14 @@
 import InsumoItemModel from "../models/common/InsumoItemModel";
 import MateriaPrimaModel from "../models/materiaPrima/MateriaPrimaModel";
 import InsumoItemCalc from "./InsumoItemCalc";
+import BaseCalc from "./BaseCalc";
 
 class MateriaPrimaCalc extends BaseCalc<MateriaPrimaModel> {
 
     public calcular(inItem: MateriaPrimaModel): void {
-        if (this.isValidObj(inItem)) {
-            console.log("Objecto 'MateriaPrimaModel' no existe.")
+        if (!this.isValidObj(inItem)) {
+            console.log("Objecto 'MateriaPrimaModel' no existe.");
+            console.log(inItem);
             return;
         }
 

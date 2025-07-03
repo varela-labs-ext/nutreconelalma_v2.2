@@ -57,22 +57,21 @@ const InputNumberField = (props: InputNumberFieldProps) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue: number = event.target.valueAsNumber;
 
-        console.log(newValue);
+        // console.log(newValue);
 
         if (isValid(newValue)) {
             setError(null);
         } else {
             return;
         }
-        console.log("handleChange:" + newValue);
+        // console.log("handleChange:" + newValue);
         setLocalValue(isNaN(newValue) ? 0 : newValue);
     };
 
     const commitChange = () => {
         let value: number = localValue;
         if (value !== props.value) {
-            console.log("commitChange:" + value);
-            console.log("Name: " + props.name);
+            console.log(`Input: ${props.name} changed to ${value}`);
             props.onChange(props.name, value);
         }
     };

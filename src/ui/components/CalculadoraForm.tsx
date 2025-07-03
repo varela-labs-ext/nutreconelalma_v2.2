@@ -1,8 +1,10 @@
-import ProduccionSettingsModel from "@/logic/models/common/ProduccionModel";
+
 import ProduccionForm from "./ProduccionForm";
 import TipoCentralIdEnum from "@/logic/enums/TipoCentralIdEnum";
 import { useState } from "react";
 import TabsBlock from "../common/TabsBlock";
+import ProduccionSettingsModel from "@/logic/models/common/ProduccionSettingsModel";
+import MateriaPrimaBlock from "./MateriaPrimaMasterBlock";
 
 
 const CalculadoraForm = () => {
@@ -59,7 +61,17 @@ const CalculadoraForm = () => {
                         onChange={onCentralDeMezclasTabsChange}
                     >
                         <div>
-                            CT: {selectedProdSettings.tipoCentral}
+                            {/* CT: {selectedProdSettings.tipoCentral} */}
+
+                            <MateriaPrimaBlock
+                                inTipoCentral={selectedProdSettings.tipoCentral}
+                                inTipoPoblacion={selectedProdSettings.tipoPoblacion}
+                                onChange={() => {
+                                    console.log("CalculadoraForm.MateriaPrimaBlock.onChange()");
+                                }}
+                            />
+
+
                         </div>
                     </TabsBlock>
                 </div>
