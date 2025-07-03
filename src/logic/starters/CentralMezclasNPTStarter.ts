@@ -1,0 +1,67 @@
+// import TipoCentralIdEnum from "@/enums/TipoCentralIdEnum";
+// import TipoPoblacionIdEnum from "@/enums/TipoPoblacionIdEnum";
+// import CentralMezclasNPTModel from "@/models/centralMezclas/CentralMezclasNPTModel";
+// import MateriaPrimaStarter from "./MateriaPrimaStarter";
+
+// class CentralMezclasNPTStarter {
+
+//     public iniciarValores(inItem: CentralMezclasNPTModel, inTipoCentral: TipoCentralIdEnum, inTipoPoblacion: TipoPoblacionIdEnum): void {
+
+//         switch (inTipoCentral) {
+//             case TipoCentralIdEnum.Automatico:
+//                 this.iniciarCentralNptAutomatica(inItem, inTipoPoblacion);
+//                 break;
+
+//             //TODO: agregar los otros tipos de centrales aqui.
+
+//             case TipoCentralIdEnum.Manual:
+//             default:
+//                 this.iniciarCentralNptManual(inItem, inTipoPoblacion);
+//                 break;
+//         }
+
+//         MateriaPrimaStarter.getInstance().iniciarInsumos(inItem.costosMateriaPrima, inTipoCentral, inTipoPoblacion);
+//     }
+
+//     private iniciarCentralNptManual(inItem: CentralMezclasNPTModel, inTipoPoblacion: TipoPoblacionIdEnum): void {
+//         switch (inTipoPoblacion) {
+//             case TipoPoblacionIdEnum.Neonatal:
+//                 inItem.porcentajeNutricion = 33;
+//                 break;
+//             case TipoPoblacionIdEnum.Pediatrica:
+//                 inItem.porcentajeNutricion = 33;
+//                 break
+//             case TipoPoblacionIdEnum.Adulto:
+//             default:
+//                 inItem.porcentajeNutricion = 34;
+//                 break;
+//         }
+//     }
+
+//     private iniciarCentralNptAutomatica(inItem: CentralMezclasNPTModel, inTipoPoblacion: TipoPoblacionIdEnum): void {
+//         switch (inTipoPoblacion) {
+//             case TipoPoblacionIdEnum.Neonatal:
+//                 inItem.porcentajeNutricion = 33;
+//                 break;
+//             case TipoPoblacionIdEnum.Pediatrica:
+//                 inItem.porcentajeNutricion = 33;
+//                 break
+//             case TipoPoblacionIdEnum.Adulto:
+//             default:
+//                 inItem.porcentajeNutricion = 34;
+//                 break;
+//         }
+//     }
+
+//     private static _instance: CentralMezclasNPTStarter
+
+//     /* SINGLETON FOR THIS CLASS */
+//     public static getInstance(): CentralMezclasNPTStarter {
+//         if (!CentralMezclasNPTStarter._instance) {
+//             CentralMezclasNPTStarter._instance = new CentralMezclasNPTStarter();
+//         }
+//         return CentralMezclasNPTStarter._instance;
+//     }
+// }
+
+// export default CentralMezclasNPTStarter;
