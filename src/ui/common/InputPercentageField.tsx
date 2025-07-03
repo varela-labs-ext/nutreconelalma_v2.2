@@ -7,10 +7,11 @@ interface InputPercentageFieldProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     labelPosition?: "top" | "left";
     labelAlways?: boolean;
+    hayError?: boolean;
 }
 
 export const InputPercentageField = (props: InputPercentageFieldProps) => {
-    const [error, setError] = useState<string | null>(null);
+    // const [error, setError] = useState<string | null>("algo");
     const labelPosition = props.labelPosition || "top";
     const labelAlways = props.labelAlways || false;
 
@@ -20,18 +21,18 @@ export const InputPercentageField = (props: InputPercentageFieldProps) => {
         // Solo permitir números enteros del 0 al 100
         const numericValue = parseInt(input, 10);
 
-        if (!/^\d{0,3}$/.test(input)) {
-            setError("Solo characteres numéricos");
-            return; // Evitar caracteres no numéricos o más de 3 dígitos
-        } else if (isNaN(numericValue)) {
-            setError("Debe ser un número válido");
-            return;
-        } else if (numericValue < 0 || numericValue > 100) {
-            setError("Debe ser un número entre 0 y 100");
-            return;
-        } else {
-            setError(null);
-        }
+        // if (!/^\d{0,3}$/.test(input)) {
+        //     setError("Solo characteres numéricos");
+        //     return; // Evitar caracteres no numéricos o más de 3 dígitos
+        // } else if (isNaN(numericValue)) {
+        //     setError("Debe ser un número válido");
+        //     return;
+        // } else if (numericValue < 0 || numericValue > 100) {
+        //     setError("Debe ser un número entre 0 y 100");
+        //     return;
+        // } else {
+        //     setError(null);
+        // }
 
         console.log(numericValue);
 
@@ -53,7 +54,7 @@ export const InputPercentageField = (props: InputPercentageFieldProps) => {
 
 
 
-    const inputWrapperClass = "relative w-full"; // relative max-w-[200px]
+
 
     // const inputClass =
     //     "border rounded-lg px-3 py-2 w-full pr-7 " +
@@ -79,18 +80,24 @@ export const InputPercentageField = (props: InputPercentageFieldProps) => {
 
     const getInputClass = () => {
         const baseClass = "border rounded-lg px-3 py-2 w-full text-left pr-7";
-        const baseClassB = "text-gray-700 shadow-sm focus:outline-none focus:ring-2";
-        const withErrorClass = "border-red-500 focus:ring-red-400";
-        const withoutErrorClass = "border-gray-300 focus:ring-blue-500";
+        const baseClassB = "text-gray-700 shadow-sm focus:outline-none focus:ring-1";
+        // const withErrorClass = "border-red-500 focus:ring-red-500";
+        // const withoutErrorClass = "border-gray-300 focus:ring-blue-500";
         const moreClass = "dark:bg-gray-800 dark:text-white";
 
-        return `${baseClass} ${baseClassB} ${error ? withErrorClass : withoutErrorClass} ${moreClass}`;
+        const borderClass = props.hayError
+            ? "border-2 border-orange-500 focus:border-orange-500 focus:ring-orange-500"
+            : "border border-gray-200 focus:border-purple-500 focus:ring-purple-500";
+
+        return `${baseClass} ${baseClassB} ${borderClass} ${moreClass}`;
+
+        // return `${baseClass} ${baseClassB} ${props.hayError ? withErrorClass : withoutErrorClass} ${moreClass}`;
     };
 
     const percentSymbolClass =
         "absolute right-2 top-1/2 transform -translate-y-1/2 text-purple-600 pointer-events-none";
-    //"absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 pointer-events-none";
-    //"absolute right-3 top-1/2           -translate-y-1/2 text-purple-600
+
+    const inputWrapperClass = "relative w-full"; // relative max-w-[200px]
 
     return (
         <div className={getContainerClass()} >
@@ -110,10 +117,10 @@ export const InputPercentageField = (props: InputPercentageFieldProps) => {
                     step={1}
                 />
                 <span className={percentSymbolClass}>%</span>
-                {
-                    error && (
-                        <p className="mt-1 text-sm text-red-600" > {error} </p>
-                    )}
+                {/* {
+                    props.mensageError && (
+                        <p className="mt-1 text-sm text-red-600 text-right w-full block">{props.mensageError}</p>
+                    )} */}
             </div>
         </div>
     );

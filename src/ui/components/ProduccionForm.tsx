@@ -117,10 +117,11 @@ const ProduccionForm = (props: ProduccionFormProps) => {
                             name="porcentajeAdulto"
                             value={props.item.porcentajeAdulto}
                             labelAlways={true}
+                            hayError={(erroresPorcentaje.porcentajeAdulto !== "") ? true : false}
                             onChange={(e) => handlePorcentajeChange("porcentajeAdulto", parseInt(e.target.value))}
                         />
                         {erroresPorcentaje.porcentajeAdulto && (
-                            <p className="text-sm text-red-600 mt-1">{erroresPorcentaje.porcentajeAdulto}</p>
+                            <p className="text-sm font-bold text-orange-600 mt-1 text-right w-full block">{erroresPorcentaje.porcentajeAdulto}</p>
                         )}
                     </div>
 
@@ -130,10 +131,11 @@ const ProduccionForm = (props: ProduccionFormProps) => {
                             name="porcentajePediatrico"
                             value={props.item.porcentajePediatrico}
                             labelAlways={true}
+                            hayError={(erroresPorcentaje.porcentajePediatrico !== "") ? true : false}
                             onChange={(e) => handlePorcentajeChange("porcentajePediatrico", parseInt(e.target.value))}
                         />
                         {erroresPorcentaje.porcentajePediatrico && (
-                            <p className="text-sm text-red-600 mt-1">{erroresPorcentaje.porcentajePediatrico}</p>
+                            <p className="text-sm font-bold text-orange-600 mt-1 text-right w-full block">{erroresPorcentaje.porcentajePediatrico}</p>
                         )}
                     </div>
 
@@ -143,10 +145,11 @@ const ProduccionForm = (props: ProduccionFormProps) => {
                             name="porcentajeNeonatal"
                             value={props.item.porcentajeNeonatal}
                             labelAlways={true}
+                            hayError={(erroresPorcentaje.porcentajeNeonatal !== "") ? true : false}
                             onChange={(e) => handlePorcentajeChange("porcentajeNeonatal", parseInt(e.target.value))}
                         />
                         {erroresPorcentaje.porcentajeNeonatal && (
-                            <p className="text-sm text-red-600 mt-1">{erroresPorcentaje.porcentajeNeonatal}</p>
+                            <p className="text-sm font-bold text-orange-600 mt-1 text-right w-full block">{erroresPorcentaje.porcentajeNeonatal}</p>
                         )}
                     </div>
 

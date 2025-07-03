@@ -106,55 +106,16 @@ const InputNumberField = (props: InputNumberFieldProps) => {
     const getInputClass = () => {
         const paddingLeft = props.symbol ? "pl-7" : "pl-3";
         const baseClass = `rounded-lg ${paddingLeft} pr-3 py-2 w-full text-left`;
-        const baseClassB = "text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-0 transition-colors";
+        const baseClassB = "text-gray-700 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-0 transition-colors";
         const moreClass = "dark:bg-gray-800 dark:text-white";
 
         const borderClass = error
             ? "border border-red-500 focus:border-red-500 focus:ring-red-400"
-            : "border border-gray-300 focus:border-purple-500 focus:ring-purple-500";
+            : "border border-gray-200 focus:border-purple-500 focus:ring-purple-500";
 
         return `${baseClass} ${baseClassB} ${borderClass} ${moreClass}`;
     };
 
-    const getInputClass3 = () => {
-        const paddingLeft = props.symbol ? "pl-7" : "pl-3";
-        const baseClass = `border rounded-lg ${paddingLeft} pr-3 py-2 w-full text-left`;
-        const baseClassB = "text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1";
-
-        const withErrorClass = "border-red-500 focus:ring-red-400 focus:border-red-500 focus:shadow-md"; // <- agregado: focus:border-red-500
-
-        const withoutErrorClass = "border-gray-300 focus:border-purple-500 focus:ring-purple-500 focus:shadow-purple-500/40"; // <- agregado: focus:border-purple-500
-
-        const moreClass = "dark:bg-gray-800 dark:text-white";
-
-        return `${baseClass} ${baseClassB} ${error ? withErrorClass : withoutErrorClass} ${moreClass}`;
-    };
-
-    const getInputClass2 = () => {
-        const paddingLeft = props.symbol ? "pl-7" : "pl-3"; // <- línea agregada
-        const baseClass = `border rounded-lg ${paddingLeft} pr-3 py-2 w-full text-left`;
-        // const baseClass = "border rounded-lg px-3 py-2 w-full text-left pr-7";
-        // const baseClass = "border rounded-lg pl-7 pr-3 py-2 w-full text-left";
-
-        // const baseClassB = "text-gray-700 shadow-sm focus:outline-none focus:ring-2";
-        // const withErrorClass = "border-red-500 focus:ring-red-400";
-        // const withoutErrorClass = "border-gray-300 focus:ring-purple-500";
-
-        const baseClassB = "text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1"; // <- línea modificada
-        const withErrorClass = "border-red-500 focus:ring-red-400 focus:shadow-md"; // <- añadimos leve sombra para error también si querés
-        const withoutErrorClass = "border-gray-300 focus:ring-purple-500 focus:shadow-purple-500/40"; // <- línea modificada
-
-
-
-        const moreClass = "dark:bg-gray-800 dark:text-white";
-
-        return `${baseClass} ${baseClassB} ${error ? withErrorClass : withoutErrorClass} ${moreClass}`;
-    };
-
-    // const symbolClass =
-    //     "absolute right-2 top-1/2 transform -translate-y-1/2 text-purple-600 pointer-events-none";
-
-    // Línea modificada (antes estaba con right-2)
     const symbolClass =
         "absolute left-2 top-1/2 transform -translate-y-1/2 text-purple-600 pointer-events-none";
 
@@ -186,9 +147,8 @@ const InputNumberField = (props: InputNumberFieldProps) => {
                     readOnly={props.readOnly}
                     className={getInputClass()}
                 />
-
                 {error && (
-                    <p className="mt-1 text-sm text-red-600">{error}</p>
+                    <p className="mt-1 text-sm text-red-600 text-right w-full block">{error}</p>
                 )}
             </div>
         </div >
