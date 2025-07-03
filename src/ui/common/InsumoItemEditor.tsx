@@ -88,8 +88,8 @@ const InsumoItemEditor = (props: InsumoItemEditorProps) => {
                         name="costoPorUnidad"
                         value={internalData.costoPorUnidad}
                         readOnly={false}
-                        onChange={handleChange}
                         symbol="$"
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -97,6 +97,7 @@ const InsumoItemEditor = (props: InsumoItemEditorProps) => {
                     <ReadOnlyNumberField
                         label="costoTotalPorUnidad"
                         name="costoTotalPorUnidad"
+                        symbol="$"
                         value={internalData.costoTotalPorUnidad}
                     />
                 </div>

@@ -25,6 +25,10 @@ const InputNumberField = (props: InputNumberFieldProps) => {
         setLocalValue(props.value);
     }, [props.value]);
 
+    const cleanUp = (value: number): number => {
+        return isNaN(value) ? -99999 : value;
+    }
+
     const isValid = (value: number): boolean => {
         let _isValid: boolean = true;
 
@@ -101,7 +105,7 @@ const InputNumberField = (props: InputNumberFieldProps) => {
         return `${labelAlways === true ? alwaysClass : baseClass} ${labelPosition === "left" ? leftClass : topClass}`;
     };
 
-    const inputWrapperClass = "relative w-full";
+
 
     const getInputClass = () => {
         const paddingLeft = props.symbol ? "pl-7" : "pl-3";
@@ -120,9 +124,9 @@ const InputNumberField = (props: InputNumberFieldProps) => {
         "absolute left-2 top-1/2 transform -translate-y-1/2 text-purple-600 pointer-events-none";
 
 
-    const cleanUp = (value: number): number => {
-        return isNaN(value) ? -99999 : value;
-    }
+
+
+    const inputWrapperClass = "relative w-full";
 
     return (
         <div className={getContainerClass()}>

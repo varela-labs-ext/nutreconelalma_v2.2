@@ -9,6 +9,7 @@ import TipoCentralIdEnum from "@/logic/enums/TipoCentralIdEnum";
 import TipoPoblacionIdEnum from "@/logic/enums/TipoPoblacionIdEnum";
 import MateriaPrimaStarter from "@/logic/starters/MateriaPrimaStarter";
 import { LoadingContext } from "../context/LoadingContext";
+import CalculosService from "@/logic/services/CalculosService";
 
 
 
@@ -36,6 +37,7 @@ const MateriaPrimaBlock = (props: MateriaPrimaBlockProps) => {
     const crearMateriaPrimaInicial = (): MateriaPrimaModel => {
         const data = new MateriaPrimaModel();
         MateriaPrimaStarter.getInstance().iniciarInsumos(data, props.inTipoCentral, props.inTipoPoblacion);
+        CalculosService.CalcularMateriaPrima(data);
         return data;
     }
 
