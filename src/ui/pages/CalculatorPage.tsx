@@ -1,13 +1,10 @@
-
-import CalculadoraForm from "../components/CalculadoraForm";
-
+import ComputerForm from "../components/ComputerForm";
 
 const CalculadoraPage = () => {
-
     return (
         <div>
             <div className="bg-white border rounded-xl shadow-sm p-6 mb-6">
-                <CalculadoraForm />
+                <ComputerForm />
             </div>
         </div>
     );

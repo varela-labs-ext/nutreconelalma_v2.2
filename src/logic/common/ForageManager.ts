@@ -48,6 +48,14 @@ class ForageManager {
         await Promise.all(keys.map((k) => localforage.removeItem(k)));
     }
 
+    public static async deleteAllAsync(): Promise<void> {
+        try {
+            await localforage.clear();
+        } catch (error) {
+            console.error("Error al eliminar todas las claves:", error);
+        }
+    }
+
 
     // METODOS NO ASYNC DESDE AQUI
 

@@ -12,28 +12,6 @@ const ComputerForm = () => {
     const [computerSettings, setComputerSettings] = useState<ComputerBasicSettingsModel>(new ComputerBasicSettingsModel());
     // const [mixingCenterSettings, setMixingCenterSettings] = useState<MixingCenterSettingsModel | null>(null);
 
-    // const onCentralConfigChange = (updatedItem: ProduccionSettingsModel) => {
-    //     const output: ProduccionSettingsModel = {
-    //         ...updatedItem
-    //     }
-
-    //     console.log("CalculadoraForm.onProduccionFormChange()");
-    //     console.log(output);
-    //     setProdSettings(output);
-    // }
-
-    // const onCentralDeMezclasTabsChange = (value: CentralTypeIdEnum) => {
-    //     const output: ProduccionSettingsModel = {
-    //         ...selectedProdSettings,
-    //         tipoCentral: value
-    //     }
-
-    //     console.log("CalculadoraForm.onCentralDeMezclasTabsChange()");
-    //     console.log(output);
-
-    //     setProdSettings(output);
-    // }
-
     const handleMixingCenterConfigChange = (newData: MixingCenterSettingsModel) => {
         const output: ComputerBasicSettingsModel = {
             ...computerSettings,

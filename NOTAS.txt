@@ -1,3 +1,5 @@
+En cada archivo .tsx, abre el comando: > Reindent Lines o > Format Document.
+
 
 COSTOS MATERIA PRIMA
 COSTOS OPERACIONES
