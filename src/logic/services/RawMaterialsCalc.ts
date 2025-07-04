@@ -1,15 +1,15 @@
 import InsumoItemModel from "../models/common/InsumoItemModel";
 
 import BaseCalc from "./BaseCalc";
-import RawMaterialsModel from "../models/materiaPrima/RawMaterialModel";
+import RawMaterialModel from "../models/RawMaterialModel";
 import ClinicalInputCalc from "./ClinicalInputCalc";
 
-class RawMaterialsCalc extends BaseCalc<RawMaterialsModel> {
+class RawMaterialsCalc extends BaseCalc<RawMaterialModel> {
 
-    public compute(inItem: RawMaterialsModel): void {
+    public compute(inItem: RawMaterialModel): void {
 
         if (!this.isValidObj(inItem)) {
-            console.log("Objecto 'RawMaterialsModel' no existe.");
+            console.log("Objecto 'RawMaterialModel' no existe.");
             console.log(inItem);
             return;
         }

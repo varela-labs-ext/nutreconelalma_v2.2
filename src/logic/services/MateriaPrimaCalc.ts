@@ -1,13 +1,13 @@
 // import InsumoItemModel from "../models/common/InsumoItemModel";
-// import RawMaterialsModel from "../models/materiaPrima/RawMaterialsModel";
+// import RawMaterialModel from "../models/materiaPrima/RawMaterialModel";
 // import InsumoItemCalc from "./InsumoItemCalc";
 // import BaseCalc from "./BaseCalc";
 
-// class MateriaPrimaCalc extends BaseCalc<RawMaterialsModel> {
+// class MateriaPrimaCalc extends BaseCalc<RawMaterialModel> {
 
-//     public calcular(inItem: RawMaterialsModel): void {
+//     public calcular(inItem: RawMaterialModel): void {
 //         if (!this.isValidObj(inItem)) {
-//             console.log("Objecto 'RawMaterialsModel' no existe.");
+//             console.log("Objecto 'RawMaterialModel' no existe.");
 //             console.log(inItem);
 //             return;
 //         }

@@ -1,41 +1,45 @@
 
 import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
 import PopulationTypeIdEnum from "../enums/PopulationTypeIdEnum";
-import RawMaterialsModel from "../models/materiaPrima/RawMaterialsModel";
-import MateriaPrimaAdultoStarter from "./MateriaPrimaAdultoStarter";
-import MateriaPrimaNeonatalStarter from "./MateriaPrimaNeonatalStarter";
-import MateriaPrimaPediatricaStarter from "./MateriaPrimaPediatricaStarter";
+import RawMaterialModel from "../models/RawMaterialModel";
+import RawMaterialAdultStarter from "./RawMaterialAdultStarter";
+import RawMaterialNeonatalStarter from "./RawMaterialNeonatalStarter";
+import RawMaterialPediatricStarter from "./RawMaterialPediatricStarter";
 
 class RawMaterialStarter {
 
-    private _adultoStarter: MateriaPrimaAdultoStarter;
-    private _neonatalStarter: MateriaPrimaNeonatalStarter;
-    private _pediatricaStarter: MateriaPrimaPediatricaStarter;
+    private _adultStarter: RawMaterialAdultStarter;
+    private _neonatalStarter: RawMaterialNeonatalStarter;
+    private _pediatricStarter: RawMaterialPediatricStarter;
 
     protected constructor() {
-        this._adultoStarter = new MateriaPrimaAdultoStarter();
-        this._neonatalStarter = new MateriaPrimaNeonatalStarter();
-        this._pediatricaStarter = new MateriaPrimaPediatricaStarter();
+        this._adultStarter = new RawMaterialAdultStarter();
+        this._neonatalStarter = new RawMaterialNeonatalStarter();
+        this._pediatricStarter = new RawMaterialPediatricStarter();
     }
 
 
-    public iniciarInsumos(inItem: RawMaterialsModel, inTipoCentral: CentralTypeIdEnum, inTipoPoblacion: PopulationTypeIdEnum): void {
+    public buildRawMaterialModel(inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum): RawMaterialModel {
+        const inItem = new RawMaterialModel();
+
         inItem.cantidad = 1;
         inItem.total = 0;
         inItem.totalPorMl = 0;
 
-        switch (inTipoPoblacion) {
+        switch (inPopulationType) {
             case PopulationTypeIdEnum.Neonatal:
-                this._neonatalStarter.iniciarInsumos(inItem, inTipoCentral);
+                this._neonatalStarter.iniciarInsumos(inItem, inCentralType);
                 break
             case PopulationTypeIdEnum.Pediatrica:
-                this._pediatricaStarter.iniciarInsumos(inItem, inTipoCentral);
+                this._pediatricStarter.iniciarInsumos(inItem, inCentralType);
                 break
             case PopulationTypeIdEnum.Adulto:
             default:
-                this._adultoStarter.iniciarInsumos(inItem, inTipoCentral);
+                this._adultStarter.iniciarInsumos(inItem, inCentralType);
                 break
         }
+
+        return inItem;
     }
 
     private static _instance: RawMaterialStarter

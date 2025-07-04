@@ -1,10 +1,10 @@
 
-import RawMaterialsModel from "../models/materiaPrima/RawMaterialsModel";
+import RawMaterialModel from "../models/RawMaterialModel";
 import RawMaterialStarterBase from "./RawMaterialStarterBase";
 
-class MateriaPrimaPediatricaStarter extends RawMaterialStarterBase {
+class RawMaterialPediatricStarter extends RawMaterialStarterBase {
     /* 11 LINES */
-    protected iniciarInsumosCentralManualComunes(inItem: RawMaterialsModel): void {
+    protected iniciarInsumosCentralManualComunes(inItem: RawMaterialModel): void {
         this.iniciarInsumo(inItem.AguaEsteril_500ml, 500.00, 0, 1.00, 0, 4000.00, 0); // 4000.00
         // this.iniciarInsumo(inItem.CloruroPotasioVial_10cc, 10.00, 0, 1.00, 0, 1500.00, 0); //1500.00
         // this.iniciarInsumo(inItem.CloruroSodioVial_10cc, 10.00, 0, 1.00, 0, 1500.00, 0); //1500.00
@@ -19,7 +19,7 @@ class MateriaPrimaPediatricaStarter extends RawMaterialStarterBase {
     }
 
     /* 11 LINES */
-    protected iniciarInsumosCentralAutomaticaComunes(inItem: RawMaterialsModel): void {
+    protected iniciarInsumosCentralAutomaticaComunes(inItem: RawMaterialModel): void {
         this.iniciarInsumo(inItem.AguaEsteril_500ml, 500.00, 98.37, 1.00, 0, 4000.00, 0); // 4000.00
         // this.iniciarInsumo(inItem.CloruroPotasioVial_10cc, 10.00, 0, 1.00, 0, 1500.00, 0); //1500.00
         // this.iniciarInsumo(inItem.CloruroSodioVial_10cc, 10.00, 2.50, 1.00, 0, 1500.00, 0); //1500.00
@@ -34,7 +34,7 @@ class MateriaPrimaPediatricaStarter extends RawMaterialStarterBase {
     }
 
     /* 10 lines */
-    protected iniciarInsumosCentralManual(inItem: RawMaterialsModel): void {
+    protected iniciarInsumosCentralManual(inItem: RawMaterialModel): void {
         // this.iniciarInsumo(inItem.AminoacidosInfantil100Ml, 100.00, 0, 1.00, 0, 40000.00, 0); // 0.00
         // this.iniciarInsumo(inItem.AminoacidosInfantil1000Ml, 1000.00, 0, 0, 0, 20546.6, 0); // 0.00
         // this.iniciarInsumo(inItem.AminoacidosInfantil250Ml, 250.00, 0, 0, 0, 50000.00, 0); // 0.00
@@ -48,7 +48,7 @@ class MateriaPrimaPediatricaStarter extends RawMaterialStarterBase {
     }
 
     /* 12 lines */
-    protected iniciarInsumosCentralAutomatica(inItem: RawMaterialsModel): void {
+    protected iniciarInsumosCentralAutomatica(inItem: RawMaterialModel): void {
         // this.iniciarInsumo(inItem.AminoacidosInfantil100Ml, 100.00, 0, 1.00, 0, 40000.00, 0); // 0.00
         // this.iniciarInsumo(inItem.AminoacidosInfantil1000Ml, 1000.00, 0, 0, 0, 20546.6, 0); // 0.00
         // this.iniciarInsumo(inItem.AminoacidosInfantil250Ml, 250.00, 0, 0, 0, 50000.00, 0); // 0.00
@@ -65,4 +65,4 @@ class MateriaPrimaPediatricaStarter extends RawMaterialStarterBase {
 
 }
 
-export default MateriaPrimaPediatricaStarter;
+export default RawMaterialPediatricStarter;

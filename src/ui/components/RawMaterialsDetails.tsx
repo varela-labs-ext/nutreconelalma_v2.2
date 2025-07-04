@@ -1,4 +1,4 @@
-import RawMaterialsModel from "@/logic/models/materiaPrima/RawMaterialsModel";
+import RawMaterialModel from "@/logic/models/RawMaterialModel";
 import RawMaterialsDetailsHeader from "./RawMaterialsDetailsHeader";
 import RawMaterialsDetailsInputs from "./RawMaterialsDetailsInputs";
 import { useEffect, useState } from "react";
@@ -6,13 +6,13 @@ import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
 import CalculationService from "@/logic/services/CalculationService";
 
 interface RawMaterialsDetailsProps {
-    inData: RawMaterialsModel;
+    inData: RawMaterialModel;
     inShowDetails: boolean;
-    onChange: (inNewItem: RawMaterialsModel) => void;
+    onChange: (inNewItem: RawMaterialModel) => void;
 }
 
 const RawMaterialsDetails = (props: RawMaterialsDetailsProps) => {
-    const [internalData, setInternalData] = useState<RawMaterialsModel>(props.inData);
+    const [internalData, setInternalData] = useState<RawMaterialModel>(props.inData);
 
     useEffect(() => {
         setInternalData(props.inData);
@@ -23,12 +23,12 @@ const RawMaterialsDetails = (props: RawMaterialsDetailsProps) => {
     const handleClinicaInputChange = (inName: string, inNewItem: ClinicaInputModel) => {
 
         // Actualizar el estado interno con el nuevo item
-        const updatedData: RawMaterialsModel = {
+        const updatedData: RawMaterialModel = {
             ...internalData,
             [inName]: inNewItem
         };
 
-        CalculationService.ComputeRawMaterials(updatedData);
+        CalculationService.ComputeRawMaterial(updatedData);
         setInternalData(updatedData);
         props.onChange(updatedData);
     }

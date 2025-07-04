@@ -1,5 +1,5 @@
 import ClinicaInputModel from "../models/common/ClinicaInputModel";
-import RawMaterialsModel from "../models/materiaPrima/RawMaterialModel";
+import RawMaterialModel from "../models/RawMaterialModel";
 import ClinicalInputCalc from "./ClinicalInputCalc";
 import RawMaterialsCalc from "./RawMaterialsCalc";
 
@@ -13,7 +13,7 @@ class CalculationService {
         calc.compute(inItem);
     }
 
-    public static ComputeRawMaterials(inItem: RawMaterialsModel): void {
+    public static ComputeRawMaterial(inItem: RawMaterialModel): void {
         const calc = new RawMaterialsCalc();
         calc.compute(inItem);
     }

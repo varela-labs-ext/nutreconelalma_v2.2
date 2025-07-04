@@ -1,9 +1,9 @@
-import RawMaterialsModel from "@/logic/models/materiaPrima/RawMaterialsModel";
+import RawMaterialModel from "@/logic/models/RawMaterialModel";
 import ClinicaInputEditor from "../common/ClinicaInputEditor";
 import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
 
 interface RawMaterialsDetailsInputsProps {
-    inData: RawMaterialsModel;
+    inData: RawMaterialModel;
     inShowDetails: boolean;
     onClinicaInputChange: (inName: string, inNewItem: ClinicaInputModel) => void;
 }

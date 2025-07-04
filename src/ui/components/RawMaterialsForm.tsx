@@ -1,6 +1,6 @@
 // RawMaterialsForm
 
-import RawMaterialsModel from "@/logic/models/materiaPrima/RawMaterialsModel";
+import RawMaterialModel from "@/logic/models/RawMaterialModel";
 import { useContext, useEffect, useRef, useState } from "react";
 import RawMaterialsDetails from "./RawMaterialsDetails";
 import LoadingCard from "../common/LoadingCard";
@@ -11,6 +11,8 @@ import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
 import { LoadingContext } from "../context/LoadingContext";
 import CalculadoraStarter from "@/logic/starters/CalculadoraStarter";
+import RawMaterialStarter from "@/logic/starters/RawMaterialStarter";
+import CalculationService from "@/logic/services/CalculationService";
 
 interface RawMaterialsFormProps {
     inCentralType: CentralTypeIdEnum;
@@ -18,7 +20,7 @@ interface RawMaterialsFormProps {
 }
 
 const RawMaterialsForm = (props: RawMaterialsFormProps) => {
-    const [internalData, setInternalData] = useState<RawMaterialsModel | null>(null);
+    const [internalData, setInternalData] = useState<RawMaterialModel | null>(null);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [showDetails, setshowDetails] = useState(true);
     const debounceRef = useRef<number | null>(null);
@@ -27,49 +29,57 @@ const RawMaterialsForm = (props: RawMaterialsFormProps) => {
     // Cargar al montar
     useEffect(() => {
         loadDataFromDb();
-        console.log("RawMaterialsForm: Cargando materia prima");
     }, []);
 
-    // useEffect(() => {
-    //     setNewCentralType();
-    // }, [props.inCentralType]);
+    useEffect(() => {
+        handlePropsChange();
+    }, [props.inCentralType, props.inPopulationType]);
 
     // Autosave cuando cambia
     useEffect(() => {
         requestSaveData();
     }, [internalData]);
 
+    const handlePropsChange = (): void => {
+        if (internalData) {
+            console.log("RawMaterialsForm: Cambiando props inCentralType y inPopulationType");
+            loadDataFromDb();
+        }
+    }
 
+    const requestSaveData = (): void => {
+        if (!dataLoaded || internalData === null) {
+            console.warn("RawMaterialsForm: No se puede guardar, datos no cargados o internalData es null.");
+            return;
+        }
+
+        if (debounceRef.current !== null) {
+            clearTimeout(debounceRef.current);
+        }
+
+        debounceRef.current = setTimeout(() => {
+            saveDataInDb(internalData);
+        }, 400);
+    }
 
     const loadDataFromDb = async (): Promise<void> => {
         try {
-            let gatheredData: RawMaterialsModel | null = null;
+            console.log("RawMaterialsForm: Cargando materia prima...");
+            let gatheredData: RawMaterialModel | null = null;
             loadingContext.setLoading(true); // activa el contexto de carga
 
-            if (internalData) {
-                const mainKey = buildKeyName("current", props.inCentralType, props.inPopulationType);
-                console.log("Buscando materia prima con clave:", mainKey);
+            const mainKey = buildKeyName("current", props.inCentralType, props.inPopulationType);
+            console.log("Buscando materia prima con clave:", mainKey);
 
-                gatheredData = await DataService.getRawMaterialsData(mainKey);
-            }
+            gatheredData = await DataService.getRawMaterialsData(mainKey);
 
             if (!gatheredData) {
-                console.log("No se encontró 'central config' en la base de datos, inicializando con valores por defecto.");
-                gatheredData = CalculadoraStarter.getInstance()
+                gatheredData = RawMaterialStarter.getInstance().buildRawMaterialModel(props.inCentralType, props.inPopulationType);
+                CalculationService.ComputeRawMaterial(gatheredData);
+                console.log("No se encontró materia prima en la base de datos, inicializando con valores por defecto.");
             }
 
             setInternalData(gatheredData);
-
-
-            // let datos = await DataService.getRawMaterialsData(mainKey);
-
-            // if (!datos) {
-            //     console.log("No se encontró materia prima en la base de datos, inicializando con valores por defecto.");
-            //     datos = crearMateriaPrimaInicial();
-            //     console.log(datos);
-            // }
-
-            // setInternalData(datos);
             setDataLoaded(true);
         }
         catch (error) {
@@ -77,38 +87,11 @@ const RawMaterialsForm = (props: RawMaterialsFormProps) => {
         } finally {
             // setIsLoading(false); // termina carga
             loadingContext.setLoading(false);
+            console.log("RawMaterialsForm: Materia prima cargada correctamente.");
         }
-
-        // try {
-
-
-        //     // setIsLoading(true); // comienza carga
-        //     loadingContext.setLoading(true); // activa el contexto de carga
-
-        //     if (internalData) {
-        //         const mainKey = buildKeyName("current", internalData.centralType, internalData.populationType);
-        //         console.log("Buscando central config con clave:", mainKey);
-
-        //         gatheredData = await DataService.getCentralConfigData(mainKey);
-        //     }
-
-        //     if (!gatheredData) {
-        //         console.log("No se encontró 'central config' en la base de datos, inicializando con valores por defecto.");
-        //         gatheredData = CalculadoraStarter.getInstance().buildCentralConfigModel();
-        //     }
-
-        //     setInternalData(gatheredData);
-        //     setDataLoaded(true);
-        // }
-        // catch (error) {
-        //     console.error("Error al cargar la materia prima desde la base de datos:", error);
-        // } finally {
-        //     // setIsLoading(false); // termina carga
-        //     loadingContext.setLoading(false);
-        // }
     }
 
-    const saveDataInDb = async (inData: RawMaterialsModel): Promise<void> => {
+    const saveDataInDb = async (inData: RawMaterialModel): Promise<void> => {
         try {
             if (internalData) {
                 const mainKey = buildKeyName("current", props.inCentralType, props.inPopulationType);
@@ -123,21 +106,6 @@ const RawMaterialsForm = (props: RawMaterialsFormProps) => {
         }
     }
 
-    const requestSaveData = (): void => {
-        if (!dataLoaded || internalData === null) {
-            console.log("CentralConfig: No hay datos cargados o internalData es null, no se guardará nada.");
-            return;
-        }
-
-        if (debounceRef.current !== null) {
-            clearTimeout(debounceRef.current);
-        }
-
-        debounceRef.current = setTimeout(() => {
-            saveDataInDb(internalData);
-        }, 100);
-    }
-
     const handleQuantityChange = (newValue: number): void => {
 
     }
@@ -146,11 +114,11 @@ const RawMaterialsForm = (props: RawMaterialsFormProps) => {
         setshowDetails(newValue);
     }
 
-    const handleRawMaterialsDetailsChange = (newData: RawMaterialsModel): void => {
+    const handleRawMaterialsDetailsChange = (newData: RawMaterialModel): void => {
         if (!internalData) return;
 
         try {
-            const outputData: RawMaterialsModel = { ...newData };
+            const outputData: RawMaterialModel = { ...newData };
 
             setInternalData(outputData);
         } catch (error) {

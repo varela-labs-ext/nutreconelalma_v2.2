@@ -1,18 +1,18 @@
 // import InsumoItemModel from "@/logic/models/common/InsumoItemModel";
-// import RawMaterialsModel from "@/logic/models/materiaPrima/RawMaterialsModel";
+// import RawMaterialModel from "@/logic/models/materiaPrima/RawMaterialModel";
 // import InsumoItemEditor from "../common/InsumoItemEditor";
 // import { useEffect, useState } from "react";
 // import CalculosService from "@/logic/services/CalculosService";
 
 
 // interface MateriaPrimaDetailsProps {
-//     inData: RawMaterialsModel;
+//     inData: RawMaterialModel;
 //     mostrarDetalles: boolean;
-//     onChange: (updatedItem: RawMaterialsModel) => void;
+//     onChange: (updatedItem: RawMaterialModel) => void;
 // }
 
 // const MateriaPrimaDetails = (props: MateriaPrimaDetailsProps) => {
-//     const [internalData, setInternalData] = useState<RawMaterialsModel>(props.inData);
+//     const [internalData, setInternalData] = useState<RawMaterialModel>(props.inData);
 
 //     useEffect(() => {
 //         setInternalData(props.inData);
@@ -25,7 +25,7 @@
 //         console.log(inItem);
 
 //         // Actualizar el estado interno con el nuevo item
-//         const updatedData: RawMaterialsModel = {
+//         const updatedData: RawMaterialModel = {
 //             ...internalData,
 //             [inKey]: inItem
 //         };
