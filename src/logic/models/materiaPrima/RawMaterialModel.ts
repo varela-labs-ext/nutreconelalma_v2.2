@@ -3,7 +3,7 @@ import RawMaterialBaseModel from "./RawMaterialBaseModel";
 import ClinicaInputModel from "../common/ClinicaInputModel";
 
 
-class RawMaterialModel extends RawMaterialBaseModel {
+class RawMaterialsModel extends RawMaterialBaseModel {
     public AguaEsteril_500ml: ClinicaInputModel;
     public Complejo_B: ClinicaInputModel;
     public Vitamina_C: ClinicaInputModel;
@@ -17,4 +17,4 @@ class RawMaterialModel extends RawMaterialBaseModel {
     }
 }
 
-export default RawMaterialModel;
+export default RawMaterialsModel;

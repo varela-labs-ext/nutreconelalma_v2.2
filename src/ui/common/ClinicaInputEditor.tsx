@@ -1,9 +1,9 @@
-import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
+import { useEffect, useRef, useState } from "react";
 import { isValidNumber } from "@/utils/validators";
+import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
 import InputNumberField from "./InputNumberField";
 import ReadOnlyNumberField from "./ReadOnlyNumberField";
-import CalculosService from "@/logic/services/CalculosService";
-import { useEffect, useRef, useState } from "react";
+import CalculationService from "@/logic/services/CalculationService";
 
 interface ClinicaInputEditorProps {
     inData: ClinicaInputModel;
@@ -23,15 +23,16 @@ const ClinicaInputEditor = (props: ClinicaInputEditorProps) => {
     const handleChange = (inName: string, inValue: number) => {
         if (isValidNumber(inValue)) {
             console.debug(`InsomoEditor. Value: ${inValue}, Name: ${inName}`);
-            const updatedItem: ClinicaInputModel = {
+
+            const output: ClinicaInputModel = {
                 ...internalData,
                 [inName]: inValue,
             };
 
             // Actualiza los totales dentro del objeto
-            CalculosService.CalcularInsumo(updatedItem);
+            CalculationService.ComputeClinicalInput(output);
 
-            setInternalData(updatedItem);
+            setInternalData(output);
 
             // Limpiar debounce anterior. Esto es para evitar múltiples llamadas rápidas
             // que puedan generar múltiples actualizaciones innecesarias.
@@ -44,8 +45,7 @@ const ClinicaInputEditor = (props: ClinicaInputEditorProps) => {
             // cuando el usuario está escribiendo rápidamente.
             debounceRef.current = setTimeout(() => {
                 console.log("InsumoItemEditor.handleChange() - Debounced call to onChange");
-                console.log("------------");
-                props.onChange(updatedItem);
+                props.onChange(props.inName, output);
             }, 700);
         }
     };

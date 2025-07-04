@@ -1,40 +1,40 @@
-import InsumoItemModel from "../models/common/InsumoItemModel";
-import MateriaPrimaModel from "../models/materiaPrima/MateriaPrimaModel";
-import InsumoItemCalc from "./InsumoItemCalc";
-import BaseCalc from "./BaseCalc";
+// import InsumoItemModel from "../models/common/InsumoItemModel";
+// import MateriaPrimaModel from "../models/materiaPrima/MateriaPrimaModel";
+// import InsumoItemCalc from "./InsumoItemCalc";
+// import BaseCalc from "./BaseCalc";
 
-class MateriaPrimaCalc extends BaseCalc<MateriaPrimaModel> {
+// class MateriaPrimaCalc extends BaseCalc<MateriaPrimaModel> {
 
-    public calcular(inItem: MateriaPrimaModel): void {
-        if (!this.isValidObj(inItem)) {
-            console.log("Objecto 'MateriaPrimaModel' no existe.");
-            console.log(inItem);
-            return;
-        }
+//     public calcular(inItem: MateriaPrimaModel): void {
+//         if (!this.isValidObj(inItem)) {
+//             console.log("Objecto 'MateriaPrimaModel' no existe.");
+//             console.log(inItem);
+//             return;
+//         }
 
-        const calc = new InsumoItemCalc();
-        let total = 0;
-        let totalPorMl = 0;
+//         const calc = new InsumoItemCalc();
+//         let total = 0;
+//         let totalPorMl = 0;
 
-        Object.keys(inItem).forEach((clave) => {
-            const subItem = (inItem as Record<string, any>)[clave];
+//         Object.keys(inItem).forEach((clave) => {
+//             const subItem = (inItem as Record<string, any>)[clave];
 
-            if (subItem instanceof InsumoItemModel) {
-                const insumo = subItem as InsumoItemModel;
+//             if (subItem instanceof InsumoItemModel) {
+//                 const insumo = subItem as InsumoItemModel;
 
-                if (insumo && insumo.excluirDelCalculo === false) {
-                    calc.calcular(insumo);
-                    total += insumo.costoTotalPorUnidad;
-                    totalPorMl += insumo.costoPorMl;
-                } else {
-                    console.log(`Propiedad: ${clave} EXCLUIDA`);
-                }
-            }
-        });
+//                 if (insumo && insumo.excluirDelCalculo === false) {
+//                     calc.calcular(insumo);
+//                     total += insumo.costoTotalPorUnidad;
+//                     totalPorMl += insumo.costoPorMl;
+//                 } else {
+//                     console.log(`Propiedad: ${clave} EXCLUIDA`);
+//                 }
+//             }
+//         });
 
-        inItem.total = total;
-        inItem.totalPorMl = totalPorMl;
-    }
-}
+//         inItem.total = total;
+//         inItem.totalPorMl = totalPorMl;
+//     }
+// }
 
-export default MateriaPrimaCalc;
+// export default MateriaPrimaCalc;

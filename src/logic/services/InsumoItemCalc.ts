@@ -1,36 +1,36 @@
-import numberValidator from "@/utils/numberValidator";
-import InsumoItemModel from "../models/common/InsumoItemModel";
-import BaseCalc from "./BaseCalc";
+// import numberValidator from "@/utils/numberValidator";
+// import InsumoItemModel from "../models/common/InsumoItemModel";
+// import BaseCalc from "./BaseCalc";
 
-class InsumoItemCalc extends BaseCalc<InsumoItemModel> {
-    public calcular(inItem: InsumoItemModel): void {
-        if (inItem === null || inItem == undefined) {
-            console.log("Objecto insumo no existe.")
-            return;
-        }
+// class InsumoItemCalc extends BaseCalc<InsumoItemModel> {
+//     public calcular(inItem: InsumoItemModel): void {
+//         if (inItem === null || inItem == undefined) {
+//             console.log("Objecto insumo no existe.")
+//             return;
+//         }
 
-        inItem.costoTotalPorUnidad = 0;
-        inItem.costoPorMl = 0;
+//         inItem.costoTotalPorUnidad = 0;
+//         inItem.costoPorMl = 0;
 
-        if (!numberValidator.isValidObj(inItem)) { //<- Temporal
-            console.log(`Insumo no calculable. [${inItem.label}]`)
-            return;
-        }
+//         if (!numberValidator.isValidObj(inItem)) { //<- Temporal
+//             console.log(`Insumo no calculable. [${inItem.label}]`)
+//             return;
+//         }
 
-        if (inItem.presentacionMl === 0) {
-            console.log(`presentacionMl no puede ser 0 [${inItem.label}]`)
-            return;
-        }
+//         if (inItem.presentacionMl === 0) {
+//             console.log(`presentacionMl no puede ser 0 [${inItem.label}]`)
+//             return;
+//         }
 
-        inItem.costoTotalPorUnidad =
-            (inItem.costoPorUnidad / inItem.presentacionMl)
-            * inItem.cantidadMl;
+//         inItem.costoTotalPorUnidad =
+//             (inItem.costoPorUnidad / inItem.presentacionMl)
+//             * inItem.cantidadMl;
 
-        inItem.costoPorMl =
-            (inItem.cantidadMl * inItem.costoPorUnidad)
-            / inItem.presentacionMl;
-    }
+//         inItem.costoPorMl =
+//             (inItem.cantidadMl * inItem.costoPorUnidad)
+//             / inItem.presentacionMl;
+//     }
 
-}
+// }
 
-export default InsumoItemCalc;
+// export default InsumoItemCalc;

@@ -1,7 +1,7 @@
 
 
 abstract class BaseCalc<T> {
-    public abstract calcular(inItem: T): void;
+    public abstract compute(inItem: T): void;
 
     protected isValidObj(inItem: T): boolean {
         return inItem !== null && typeof inItem === 'object';
