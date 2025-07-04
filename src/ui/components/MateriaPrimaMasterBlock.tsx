@@ -1,4 +1,4 @@
-import MateriaPrimaModel from "@/logic/models/materiaPrima/MateriaPrimaModel";
+import RawMaterialsModel from "@/logic/models/materiaPrima/RawMaterialsModel";
 import { useContext, useEffect, useRef, useState } from "react";
 import MateriaPrimaSummary from "./MateriaPrimaSummary";
 import MateriaPrimaDetails from "./MateriaPrimaDetails";
@@ -7,7 +7,7 @@ import DataService from "@/logic/services/DataService";
 import { buildKeyName } from "@/logic/common/functions";
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
-import MateriaPrimaStarter from "@/logic/starters/MateriaPrimaStarter";
+import RawMaterialStarter from "@/logic/starters/RawMaterialStarter";
 import { LoadingContext } from "../context/LoadingContext";
 import CalculosService from "@/logic/services/CalculosService";
 
@@ -16,7 +16,7 @@ import CalculosService from "@/logic/services/CalculosService";
 interface MateriaPrimaBlockProps {
     inTipoCentral: CentralTypeIdEnum,
     inTipoPoblacion: PopulationTypeIdEnum,
-    // inData: MateriaPrimaModel;
+    // inData: RawMaterialsModel;
     // La idea es que el evento que le llegue al padre sea solamente un aviso y no la data.
     onChange: () => void;
 }
@@ -29,14 +29,14 @@ const MateriaPrimaBlock = (props: MateriaPrimaBlockProps) => {
     const debounceRef = useRef<number | null>(null); // Ref para manejar el debounce
     const loadingContext = useContext(LoadingContext);
     const [dataLoaded, setDataLoaded] = useState(false);
-    const [internalData, setInternalData] = useState<MateriaPrimaModel | null>(null);
+    const [internalData, setInternalData] = useState<RawMaterialsModel | null>(null);
     const [mostrarDetalles, setMostrarDetalles] = useState(true);
 
     // const [isLoading, setIsLoading] = useState(true); // nuevo estado
 
-    const crearMateriaPrimaInicial = (): MateriaPrimaModel => {
-        const data = new MateriaPrimaModel();
-        MateriaPrimaStarter.getInstance().iniciarInsumos(data, props.inTipoCentral, props.inTipoPoblacion);
+    const crearMateriaPrimaInicial = (): RawMaterialsModel => {
+        const data = new RawMaterialsModel();
+        RawMaterialStarter.getInstance().iniciarInsumos(data, props.inTipoCentral, props.inTipoPoblacion);
         CalculosService.CalcularMateriaPrima(data);
         return data;
     }
@@ -68,7 +68,7 @@ const MateriaPrimaBlock = (props: MateriaPrimaBlockProps) => {
         }
     }
 
-    const guardarMateriaPrima = async (data: MateriaPrimaModel): Promise<void> => {
+    const guardarMateriaPrima = async (data: RawMaterialsModel): Promise<void> => {
         try {
             // loadingContext.setLoading(true); // activa el contexto de carga
 
@@ -142,7 +142,7 @@ const MateriaPrimaBlock = (props: MateriaPrimaBlockProps) => {
     // Maneja el cambio en los detalles de la materia prima.
     // Este método se llama desde el componente 'MateriaPrimaDetails'.
     // Se espera que este método actualice el estado interno y notifique al padre.
-    const handleMateriaPrimaChange = (inItem: MateriaPrimaModel) => {
+    const handleMateriaPrimaChange = (inItem: RawMaterialsModel) => {
         console.log("MateriaPrimaBlock.handleMateriaPrimaChange()");
 
         if (!internalData) return;
@@ -151,7 +151,7 @@ const MateriaPrimaBlock = (props: MateriaPrimaBlockProps) => {
             // if (loadingContext.isLoading) return; // protección adicional
             // loadingContext.setLoading(true);
 
-            const outputData: MateriaPrimaModel = {
+            const outputData: RawMaterialsModel = {
                 ...internalData,
                 ...inItem, // Actualiza los campos que hayan cambiado
             };

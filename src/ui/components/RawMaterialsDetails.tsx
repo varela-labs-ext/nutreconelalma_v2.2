@@ -1,4 +1,4 @@
-import RawMaterialsModel from "@/logic/models/materiaPrima/RawMaterialModel";
+import RawMaterialsModel from "@/logic/models/materiaPrima/RawMaterialsModel";
 import RawMaterialsDetailsHeader from "./RawMaterialsDetailsHeader";
 import RawMaterialsDetailsInputs from "./RawMaterialsDetailsInputs";
 import { useEffect, useState } from "react";

@@ -1,4 +1,4 @@
-import RawMaterialsModel from "@/logic/models/materiaPrima/RawMaterialModel";
+import RawMaterialsModel from "@/logic/models/materiaPrima/RawMaterialsModel";
 import ClinicaInputEditor from "../common/ClinicaInputEditor";
 import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
 

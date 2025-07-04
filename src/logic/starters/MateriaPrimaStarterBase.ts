@@ -1,16 +1,16 @@
 import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
 import InsumoItemModel from "../models/common/InsumoItemModel";
-import MateriaPrimaModel from "../models/materiaPrima/MateriaPrimaModel";
+import RawMaterialsModel from "../models/materiaPrima/RawMaterialsModel";
 
 
-abstract class MateriaPrimaStarterBase {
+abstract class RawMaterialStarterBase {
     protected ZERO: number;
 
     public constructor() {
         this.ZERO = 0.00;
     }
 
-    public iniciarInsumos(inItem: MateriaPrimaModel, inTipoCentral: CentralTypeIdEnum): void {
+    public iniciarInsumos(inItem: RawMaterialsModel, inTipoCentral: CentralTypeIdEnum): void {
 
         switch (inTipoCentral) {
             case CentralTypeIdEnum.Automatico:
@@ -46,13 +46,13 @@ abstract class MateriaPrimaStarterBase {
         item.excluirDelCalculo = false;
     }
 
-    protected abstract iniciarInsumosCentralManualComunes(inItem: MateriaPrimaModel): void;
+    protected abstract iniciarInsumosCentralManualComunes(inItem: RawMaterialsModel): void;
 
-    protected abstract iniciarInsumosCentralAutomaticaComunes(inItem: MateriaPrimaModel): void;
+    protected abstract iniciarInsumosCentralAutomaticaComunes(inItem: RawMaterialsModel): void;
 
-    protected abstract iniciarInsumosCentralManual(inItem: MateriaPrimaModel): void;
+    protected abstract iniciarInsumosCentralManual(inItem: RawMaterialsModel): void;
 
-    protected abstract iniciarInsumosCentralAutomatica(inItem: MateriaPrimaModel): void;
+    protected abstract iniciarInsumosCentralAutomatica(inItem: RawMaterialsModel): void;
 }
 
-export default MateriaPrimaStarterBase;
+export default RawMaterialStarterBase;

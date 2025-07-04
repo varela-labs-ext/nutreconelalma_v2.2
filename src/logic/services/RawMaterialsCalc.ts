@@ -9,7 +9,7 @@ class RawMaterialsCalc extends BaseCalc<RawMaterialsModel> {
     public compute(inItem: RawMaterialsModel): void {
 
         if (!this.isValidObj(inItem)) {
-            console.log("Objecto 'MateriaPrimaModel' no existe.");
+            console.log("Objecto 'RawMaterialsModel' no existe.");
             console.log(inItem);
             return;
         }

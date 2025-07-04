@@ -1,17 +1,16 @@
 import ForageManager from "../common/ForageManager";
 import CentralConfigModel from "../models/common/CentralConfigModel";
-import ProduccionSettingsModel from "../models/common/ProduccionSettingsModel";
-import MateriaPrimaModel from "../models/materiaPrima/MateriaPrimaModel";
+import RawMaterialsModel from "../models/materiaPrima/RawMaterialsModel";
 
 class DataService {
-    private static readonly MATERIA_PRIMA_KEY = 'mpa';
+    private static readonly RAW_MATERIALS_KEY = 'rawMaterials';
     private static readonly CENTRAL_CONFIG_KEY = 'ctrlCfg';
 
-    static async getMateriaPrima(inSourceKey: string): Promise<MateriaPrimaModel | null> {
+    static async getRawMaterialsData(inSourceKey: string): Promise<RawMaterialsModel | null> {
         try {
-            const key: string = `${inSourceKey}:${DataService.MATERIA_PRIMA_KEY}`;
+            const key: string = `${inSourceKey}:${DataService.RAW_MATERIALS_KEY}`;
 
-            const data: MateriaPrimaModel | null = await ForageManager.getAsync<MateriaPrimaModel>(key);
+            const data: RawMaterialsModel | null = await ForageManager.getAsync<RawMaterialsModel>(key);
             if (!data) {
                 console.log(`No data found for key: ${key}`);
                 return null;
@@ -25,16 +24,15 @@ class DataService {
         }
     }
 
-    static async setMateriaPrimaData(inSourceKey: string, inData: MateriaPrimaModel): Promise<void> {
+    static async saveRawMaterialsData(inSourceKey: string, inData: RawMaterialsModel): Promise<void> {
         try {
             // console.log('Setting materia prima data:', data);
-            const key: string = `${inSourceKey}:${DataService.MATERIA_PRIMA_KEY}`;
+            const key: string = `${inSourceKey}:${DataService.RAW_MATERIALS_KEY}`;
 
-            await ForageManager.saveAsync<MateriaPrimaModel>(key, inData);
+            await ForageManager.saveAsync<RawMaterialsModel>(key, inData);
 
             console.log(`Materia prima data saved for key: ${key}`, inData);
 
-            // await localforage.setItem('materiaPrimaData', data);
         } catch (error) {
             console.error('Error setting materia prima data:', error);
         }

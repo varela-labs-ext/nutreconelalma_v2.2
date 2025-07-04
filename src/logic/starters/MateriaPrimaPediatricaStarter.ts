@@ -1,10 +1,10 @@
 
-import MateriaPrimaModel from "../models/materiaPrima/MateriaPrimaModel";
-import MateriaPrimaStarterBase from "./MateriaPrimaStarterBase";
+import RawMaterialsModel from "../models/materiaPrima/RawMaterialsModel";
+import RawMaterialStarterBase from "./RawMaterialStarterBase";
 
-class MateriaPrimaPediatricaStarter extends MateriaPrimaStarterBase {
+class MateriaPrimaPediatricaStarter extends RawMaterialStarterBase {
     /* 11 LINES */
-    protected iniciarInsumosCentralManualComunes(inItem: MateriaPrimaModel): void {
+    protected iniciarInsumosCentralManualComunes(inItem: RawMaterialsModel): void {
         this.iniciarInsumo(inItem.AguaEsteril_500ml, 500.00, 0, 1.00, 0, 4000.00, 0); // 4000.00
         // this.iniciarInsumo(inItem.CloruroPotasioVial_10cc, 10.00, 0, 1.00, 0, 1500.00, 0); //1500.00
         // this.iniciarInsumo(inItem.CloruroSodioVial_10cc, 10.00, 0, 1.00, 0, 1500.00, 0); //1500.00
@@ -19,7 +19,7 @@ class MateriaPrimaPediatricaStarter extends MateriaPrimaStarterBase {
     }
 
     /* 11 LINES */
-    protected iniciarInsumosCentralAutomaticaComunes(inItem: MateriaPrimaModel): void {
+    protected iniciarInsumosCentralAutomaticaComunes(inItem: RawMaterialsModel): void {
         this.iniciarInsumo(inItem.AguaEsteril_500ml, 500.00, 98.37, 1.00, 0, 4000.00, 0); // 4000.00
         // this.iniciarInsumo(inItem.CloruroPotasioVial_10cc, 10.00, 0, 1.00, 0, 1500.00, 0); //1500.00
         // this.iniciarInsumo(inItem.CloruroSodioVial_10cc, 10.00, 2.50, 1.00, 0, 1500.00, 0); //1500.00
@@ -34,7 +34,7 @@ class MateriaPrimaPediatricaStarter extends MateriaPrimaStarterBase {
     }
 
     /* 10 lines */
-    protected iniciarInsumosCentralManual(inItem: MateriaPrimaModel): void {
+    protected iniciarInsumosCentralManual(inItem: RawMaterialsModel): void {
         // this.iniciarInsumo(inItem.AminoacidosInfantil100Ml, 100.00, 0, 1.00, 0, 40000.00, 0); // 0.00
         // this.iniciarInsumo(inItem.AminoacidosInfantil1000Ml, 1000.00, 0, 0, 0, 20546.6, 0); // 0.00
         // this.iniciarInsumo(inItem.AminoacidosInfantil250Ml, 250.00, 0, 0, 0, 50000.00, 0); // 0.00
@@ -48,7 +48,7 @@ class MateriaPrimaPediatricaStarter extends MateriaPrimaStarterBase {
     }
 
     /* 12 lines */
-    protected iniciarInsumosCentralAutomatica(inItem: MateriaPrimaModel): void {
+    protected iniciarInsumosCentralAutomatica(inItem: RawMaterialsModel): void {
         // this.iniciarInsumo(inItem.AminoacidosInfantil100Ml, 100.00, 0, 1.00, 0, 40000.00, 0); // 0.00
         // this.iniciarInsumo(inItem.AminoacidosInfantil1000Ml, 1000.00, 0, 0, 0, 20546.6, 0); // 0.00
         // this.iniciarInsumo(inItem.AminoacidosInfantil250Ml, 250.00, 0, 0, 0, 50000.00, 0); // 0.00

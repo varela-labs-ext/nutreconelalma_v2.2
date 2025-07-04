@@ -1,12 +1,12 @@
 
 import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
 import PopulationTypeIdEnum from "../enums/PopulationTypeIdEnum";
-import MateriaPrimaModel from "../models/materiaPrima/MateriaPrimaModel";
+import RawMaterialsModel from "../models/materiaPrima/RawMaterialsModel";
 import MateriaPrimaAdultoStarter from "./MateriaPrimaAdultoStarter";
 import MateriaPrimaNeonatalStarter from "./MateriaPrimaNeonatalStarter";
 import MateriaPrimaPediatricaStarter from "./MateriaPrimaPediatricaStarter";
 
-class MateriaPrimaStarter {
+class RawMaterialStarter {
 
     private _adultoStarter: MateriaPrimaAdultoStarter;
     private _neonatalStarter: MateriaPrimaNeonatalStarter;
@@ -19,7 +19,7 @@ class MateriaPrimaStarter {
     }
 
 
-    public iniciarInsumos(inItem: MateriaPrimaModel, inTipoCentral: CentralTypeIdEnum, inTipoPoblacion: PopulationTypeIdEnum): void {
+    public iniciarInsumos(inItem: RawMaterialsModel, inTipoCentral: CentralTypeIdEnum, inTipoPoblacion: PopulationTypeIdEnum): void {
         inItem.cantidad = 1;
         inItem.total = 0;
         inItem.totalPorMl = 0;
@@ -38,15 +38,15 @@ class MateriaPrimaStarter {
         }
     }
 
-    private static _instance: MateriaPrimaStarter
+    private static _instance: RawMaterialStarter
 
     /* SINGLETON FOR THIS CLASS */
-    public static getInstance(): MateriaPrimaStarter {
-        if (!MateriaPrimaStarter._instance) {
-            MateriaPrimaStarter._instance = new MateriaPrimaStarter();
+    public static getInstance(): RawMaterialStarter {
+        if (!RawMaterialStarter._instance) {
+            RawMaterialStarter._instance = new RawMaterialStarter();
         }
-        return MateriaPrimaStarter._instance;
+        return RawMaterialStarter._instance;
     }
 }
 
-export default MateriaPrimaStarter;
+export default RawMaterialStarter;

@@ -1,7 +1,7 @@
 // import CentralTypeIdEnum from "@/enums/CentralTypeIdEnum";
 // import PopulationTypeIdEnum from "@/enums/PopulationTypeIdEnum";
 // import CentralMezclasNPTModel from "@/models/centralMezclas/CentralMezclasNPTModel";
-// import MateriaPrimaStarter from "./MateriaPrimaStarter";
+// import RawMaterialStarter from "./RawMaterialStarter";
 
 // class CentralMezclasNPTStarter {
 
@@ -20,7 +20,7 @@
 //                 break;
 //         }
 
-//         MateriaPrimaStarter.getInstance().iniciarInsumos(inItem.costosMateriaPrima, inTipoCentral, inTipoPoblacion);
+//         RawMaterialStarter.getInstance().iniciarInsumos(inItem.costosMateriaPrima, inTipoCentral, inTipoPoblacion);
 //     }
 
 //     private iniciarCentralNptManual(inItem: CentralMezclasNPTModel, inTipoPoblacion: PopulationTypeIdEnum): void {

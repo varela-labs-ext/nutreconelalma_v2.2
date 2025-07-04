@@ -1,6 +1,6 @@
 // import InsumoItemModel from "../models/common/InsumoItemModel";
 // import InsumoItemCalc from "./InsumoItemCalc";
-// import MateriaPrimaModel from '@/logic/models/materiaPrima/MateriaPrimaModel';
+// import RawMaterialsModel from '@/logic/models/materiaPrima/RawMaterialsModel';
 // import MateriaPrimaCalc from "./MateriaPrimaCalc";
 
 
@@ -12,7 +12,7 @@
 //         calc.calcular(inItem);
 //     }
 
-//     public static CalcularMateriaPrima(inItem: MateriaPrimaModel): void {
+//     public static CalcularMateriaPrima(inItem: RawMaterialsModel): void {
 //         const calc = new MateriaPrimaCalc();
 //         calc.calcular(inItem);
 //     }
