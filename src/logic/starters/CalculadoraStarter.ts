@@ -1,30 +1,45 @@
 
-// import CentralMezclasStarter from "./CentralMezclasStarter";
 
-// class CalculadoraStarter {
-//     public iniciarValores(inItem: CalculadoraModel): void {
+import TipoCentralIdEnum from "../enums/TipoCentralIdEnum";
+import TipoPoblacionIdEnum from "../enums/TipoPoblacionIdEnum";
+import ProduccionSettingsModel from "../models/common/ProduccionSettingsModel";
 
-//         inItem.produccionNutricion.porcentajeAdulto = 34;
-//         inItem.produccionNutricion.porcentajeNeonatal = 33;
-//         inItem.produccionNutricion.porcentajePediatrico = 33;
+class CalculadoraStarter {
+    public iniciarIngresoDatos(inItem: ProduccionSettingsModel, inTipoCentral: TipoCentralIdEnum, inTipoPoblacion: TipoPoblacionIdEnum): void {
+        inItem.porcentajeAdulto = 34;
+        inItem.porcentajeNeonatal = 33;
+        inItem.porcentajePediatrico = 33;
 
-//         CentralMezclasStarter.getInstance().iniciarValores(inItem.centralMezclasManual, inItem.produccionNutricion, TipoCentralIdEnum.Manual);
+        inItem.tipoCentral = inTipoCentral;
+        inItem.tipoPoblacion = inTipoPoblacion;
 
-//         CentralMezclasStarter.getInstance().iniciarValores(inItem.centralMezclasAutomatic, inItem.produccionNutricion, TipoCentralIdEnum.Automatico);
+        inItem.produccionDia = 10;
+        inItem.lineasProduccion = 4;
+    }
 
-//         console.log("CalculadoraStarter: Inicializando Calculadora");
-//         console.log(inItem);
-//     }
+    // public iniciarValores(inItem: CalculadoraModel): void {
 
-//     private static _instance: CalculadoraStarter
+    //     inItem.porcentajeAdulto = 34;
+    //     inItem.porcentajeNeonatal = 33;
+    //     inItem.porcentajePediatrico = 33;
 
-//     /* SINGLETON FOR THIS CLASS */
-//     public static getInstance(): CalculadoraStarter {
-//         if (!CalculadoraStarter._instance) {
-//             CalculadoraStarter._instance = new CalculadoraStarter();
-//         }
-//         return CalculadoraStarter._instance;
-//     }
-// }
+    //     CentralMezclasStarter.getInstance().iniciarValores(inItem.centralMezclasManual, inItem.produccionNutricion, TipoCentralIdEnum.Manual);
 
-// export default CalculadoraStarter;
+    //     CentralMezclasStarter.getInstance().iniciarValores(inItem.centralMezclasAutomatic, inItem.produccionNutricion, TipoCentralIdEnum.Automatico);
+
+    //     console.log("CalculadoraStarter: Inicializando Calculadora");
+    //     console.log(inItem);
+    // }
+
+    private static _instance: CalculadoraStarter
+
+    /* SINGLETON FOR THIS CLASS */
+    public static getInstance(): CalculadoraStarter {
+        if (!CalculadoraStarter._instance) {
+            CalculadoraStarter._instance = new CalculadoraStarter();
+        }
+        return CalculadoraStarter._instance;
+    }
+}
+
+export default CalculadoraStarter;

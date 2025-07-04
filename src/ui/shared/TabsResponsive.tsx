@@ -15,7 +15,7 @@ const TabsResponsive = (props: TabsResponsiveProps) => {
         return (
             'px-4 py-2 rounded transition ' +
             (props.selectedIndex === index
-                ? 'bg-blue-600 text-white '
+                ? 'bg-purple-500 text-white '
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300 ')
         );
     };

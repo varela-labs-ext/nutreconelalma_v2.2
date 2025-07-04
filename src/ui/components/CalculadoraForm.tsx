@@ -39,7 +39,6 @@ const CalculadoraForm = () => {
                 <h1 className="text-2xl sm:text-3xl font-bold text-purple-800 mb-4 sm:mb-0">
                     CALCULADORA NUTRICIÓN HOSPITALARIA
                 </h1>
-
             </div>
             <div>
                 <CentralConfig

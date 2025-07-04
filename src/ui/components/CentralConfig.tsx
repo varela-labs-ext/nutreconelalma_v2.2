@@ -1,14 +1,20 @@
 
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import InputNumberField from "../common/InputNumberField";
 import InputPercentageField from "../common/InputPercentageField";
-import TipoPoblacionField from "../common/TipoPoblacionField";
+import TipoPoblacionField from '../common/TipoPoblacionField';
 import TipoPoblacionIdEnum from "@/logic/enums/TipoPoblacionIdEnum";
 import ProduccionSettingsModel from "@/logic/models/common/ProduccionSettingsModel";
+import CalculadoraStarter from "@/logic/starters/CalculadoraStarter";
+import { LoadingContext } from "../context/LoadingContext";
+import DataService from "@/logic/services/DataService";
+import { buildKeyName } from "@/logic/common/functions";
+import TipoCentralIdEnum from "@/logic/enums/TipoCentralIdEnum";
 
 interface CentralConfigProps {
-    item: ProduccionSettingsModel;
-    onChange: (updatedItem: ProduccionSettingsModel) => void;
+    // item: ProduccionSettingsModel;
+    // onChange: (updatedItem: ProduccionSettingsModel) => void;
+    onNotify: () => void;
 }
 
 const CentralConfig = (props: CentralConfigProps) => {
@@ -17,32 +23,130 @@ const CentralConfig = (props: CentralConfigProps) => {
         porcentajePediatrico: "",
         porcentajeNeonatal: ""
     });
+    const [internalData, setInternalData] = useState<ProduccionSettingsModel | null>(null);
+    const [tipoCentral, setTipoCentral] = useState<TipoCentralIdEnum>(TipoCentralIdEnum.Manual);
+    const [tipoPoblacion, setTipoPoblacion] = useState<TipoPoblacionIdEnum>(TipoPoblacionIdEnum.Adulto);
+    const [dataLoaded, setDataLoaded] = useState(false);
+    const loadingContext = useContext(LoadingContext);
+
+
+    const crearCentralSettingsInicial = (): ProduccionSettingsModel => {
+        const data = new ProduccionSettingsModel();
+        CalculadoraStarter.getInstance().iniciarIngresoDatos(data, tipoCentral, tipoPoblacion);
+        return data;
+    }
+
+    const cargarSettings = async (): Promise<void> => {
+        try {
+            // setIsLoading(true); // comienza carga
+            loadingContext.setLoading(true); // activa el contexto de carga
+
+            const mainKey = buildKeyName("current", tipoCentral, tipoPoblacion);
+            console.log("Buscando central config con clave:", mainKey);
+
+            let datos = await DataService.getProduccionSettings(mainKey);
+
+            if (!datos) {
+                console.log("No se encontró 'central config' en la base de datos, inicializando con valores por defecto.");
+                datos = crearCentralSettingsInicial();
+                console.log(datos);
+            }
+
+            setInternalData(datos);
+            setDataLoaded(true);
+        }
+        catch (error) {
+            console.error("Error al cargar la materia prima desde la base de datos:", error);
+        } finally {
+            // setIsLoading(false); // termina carga
+            loadingContext.setLoading(false);
+        }
+    }
+
+    const guardarCentralSettings = async (data: ProduccionSettingsModel): Promise<void> => {
+        try {
+            // loadingContext.setLoading(true); // activa el contexto de carga
+
+            const mainKey = buildKeyName("current", tipoCentral, tipoPoblacion);
+
+            await DataService.setProduccionSettings(mainKey, data);
+
+            // console.log("Materia prima guardada correctamente. Clave:", mainKey);
+        } catch (error) {
+            console.error("Error al guardar la materia prima en la base de datos:", error);
+        } finally {
+            // loadingContext.setLoading(false); // desactiva el contexto de carga
+        }
+    }
+
+    // Cargar al montar
+    useEffect(() => {
+        cargarSettings();
+        console.log("CentralConfig: Cargando configuración de producción");
+    }, []);
+
+    useEffect(() => {
+        // if (debounceRef.current !== null) {
+        //     clearTimeout(debounceRef.current);
+        // }
+
+        if (internalData) {
+            cargarSettings();
+            console.log("CentralConfig: useEffect para cargar configuración de producción al cambiar tipo central o población.");
+        }
+    }, [tipoCentral, tipoPoblacion]);
+
+    // Autosave cuando cambia
+    useEffect(() => {
+        if (!dataLoaded || internalData === null) {
+            console.log("CentralConfig: No hay datos cargados o internalData es null, no se guardará nada.");
+            return;
+        }
+
+        console.log("CentralConfig: internalData ha cambiado, programando guardado...");
+
+        // if (debounceRef.current !== null) {
+        //     clearTimeout(debounceRef.current);
+        // }
+
+        // debounceRef.current = setTimeout(() => {
+        guardarCentralSettings(internalData);
+        // }, 100);
+    }, [internalData]);
+
+
 
     const handleTipoPoblacionOnChange = (selected: TipoPoblacionIdEnum) => {
         console.log(selected);
 
-        if (props.item.tipoPoblacion === selected) {
+        if (tipoPoblacion === selected) {
             return;
         }
 
-        const output: ProduccionSettingsModel = {
-            ...props.item,
-            tipoPoblacion: selected
-        }
+        // const output: ProduccionSettingsModel = {
+        //     ...props.item,
+        //     tipoPoblacion: selected
+        // }
 
-        props.onChange(output);
+        // props.onChange(output);
     }
 
     const handleProduccionChange = (field: "lineasProduccion" | "produccionDia", value: number) => {
         if (isNaN(value)) return;
-        if (props.item[field] === value) return;
+
+        if (internalData === null) {
+            console.error("Internal data is null, cannot handle production change.");
+            return;
+        }
+
+        if (internalData[field] === value) return;
 
         const output: ProduccionSettingsModel = {
-            ...props.item,
+            ...internalData,
             [field]: value
         }
 
-        props.onChange(output);
+        setInternalData(output);
     }
 
     const handlePorcentajeChange = (
@@ -50,10 +154,15 @@ const CentralConfig = (props: CentralConfigProps) => {
         value: number
     ) => {
         if (isNaN(value)) return;
-        if (props.item[field] === value) return;
+        if (internalData === null) {
+            console.error("Internal data is null, cannot handle production change.");
+            return;
+        }
+
+        if (internalData[field] === value) return;
 
         const output: ProduccionSettingsModel = {
-            ...props.item,
+            ...internalData,
             [field]: value
         }
 
@@ -73,7 +182,8 @@ const CentralConfig = (props: CentralConfigProps) => {
         }
 
         setErroresPorcentaje(nuevosErrores);
-        props.onChange(output);
+        // props.onChange(output);
+        setInternalData(output);
     }
 
     return (
@@ -84,7 +194,7 @@ const CentralConfig = (props: CentralConfigProps) => {
                 {/* Columna A */}
                 <div className="flex flex-col gap-4">
                     <TipoPoblacionField
-                        tipo={props.item.tipoPoblacion}
+                        tipo={internalData ? internalData.tipoPoblacion : TipoPoblacionIdEnum.Adulto}
                         labelAlways={true}
                         onChange={handleTipoPoblacionOnChange}
                     />
@@ -92,7 +202,7 @@ const CentralConfig = (props: CentralConfigProps) => {
                     <InputNumberField
                         label="Líneas de producción"
                         name="lineasProduccion"
-                        value={props.item.lineasProduccion}
+                        value={internalData ? internalData.lineasProduccion : 0}
                         labelAlways={true}
                         // onChange={(e) => handleProduccionChange("lineasProduccion", parseInt(e.target.value))}
                         //onChange={handleProduccionChange}
@@ -102,7 +212,7 @@ const CentralConfig = (props: CentralConfigProps) => {
                     <InputNumberField
                         label="Producción por día"
                         name="produccionDia"
-                        value={props.item.produccionDia}
+                        value={internalData ? internalData.produccionDia : 0}
                         labelAlways={true}
                         // onChange={(e) => handleProduccionChange("produccionDia", parseInt(e.target.value))}
                         onChange={(name, value) => handleProduccionChange("produccionDia", value)}
@@ -115,7 +225,7 @@ const CentralConfig = (props: CentralConfigProps) => {
                         <InputPercentageField
                             label="Porcentaje Adulto"
                             name="porcentajeAdulto"
-                            value={props.item.porcentajeAdulto}
+                            value={internalData ? internalData.porcentajeAdulto : 0}
                             labelAlways={true}
                             hayError={(erroresPorcentaje.porcentajeAdulto !== "") ? true : false}
                             onChange={(e) => handlePorcentajeChange("porcentajeAdulto", parseInt(e.target.value))}
@@ -129,7 +239,7 @@ const CentralConfig = (props: CentralConfigProps) => {
                         <InputPercentageField
                             label="Porcentaje Pediátrico"
                             name="porcentajePediatrico"
-                            value={props.item.porcentajePediatrico}
+                            value={internalData ? internalData.porcentajePediatrico : 0}
                             labelAlways={true}
                             hayError={(erroresPorcentaje.porcentajePediatrico !== "") ? true : false}
                             onChange={(e) => handlePorcentajeChange("porcentajePediatrico", parseInt(e.target.value))}
@@ -143,7 +253,7 @@ const CentralConfig = (props: CentralConfigProps) => {
                         <InputPercentageField
                             label="Porcentaje Neonatal"
                             name="porcentajeNeonatal"
-                            value={props.item.porcentajeNeonatal}
+                            value={internalData ? internalData.porcentajeNeonatal : 0}
                             labelAlways={true}
                             hayError={(erroresPorcentaje.porcentajeNeonatal !== "") ? true : false}
                             onChange={(e) => handlePorcentajeChange("porcentajeNeonatal", parseInt(e.target.value))}
