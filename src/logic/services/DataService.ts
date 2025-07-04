@@ -6,7 +6,7 @@ class DataService {
     private static readonly RAW_MATERIALS_KEY = 'rawMaterials';
     private static readonly CENTRAL_CONFIG_KEY = 'ctrlCfg';
 
-    static async getRawMaterialsData(inSourceKey: string): Promise<RawMaterialModel | null> {
+    static async getRawMaterialData(inSourceKey: string): Promise<RawMaterialModel | null> {
         try {
             const key: string = `${inSourceKey}:${DataService.RAW_MATERIALS_KEY}`;
 
@@ -24,7 +24,7 @@ class DataService {
         }
     }
 
-    static async saveRawMaterialsData(inSourceKey: string, inData: RawMaterialModel): Promise<void> {
+    static async saveRawMaterialData(inSourceKey: string, inData: RawMaterialModel): Promise<void> {
         try {
             // console.log('Setting materia prima data:', data);
             const key: string = `${inSourceKey}:${DataService.RAW_MATERIALS_KEY}`;
@@ -38,7 +38,7 @@ class DataService {
         }
     }
 
-    static async getCentralConfigData(inSourceKey: string): Promise<MixingCenterSettingsModel | null> {
+    static async getMixingCenterSettingsData(inSourceKey: string): Promise<MixingCenterSettingsModel | null> {
         try {
             const key: string = `${inSourceKey}:${DataService.CENTRAL_CONFIG_KEY}`;
 
@@ -57,7 +57,7 @@ class DataService {
         }
     }
 
-    static async saveCentralConfigData(inSourceKey: string, inData: MixingCenterSettingsModel): Promise<void> {
+    static async saveMixingCenterSettingsData(inSourceKey: string, inData: MixingCenterSettingsModel): Promise<void> {
         try {
             const key: string = `${inSourceKey}:${DataService.CENTRAL_CONFIG_KEY}`;
 

@@ -1,19 +1,19 @@
 import InsumoClinicoEnum from "@/logic/enums/InsumoClinicoNamesEnum";
-import InsumoItemModel from "../common/InsumoItemModel";
+import ClinicaInputModel from "../common/ClinicaInputModel";
 import MateriaPrimaBaseModel from "./MateriaPrimaBaseModel";
 
 
 class MateriaPrimaInsumosModel extends MateriaPrimaBaseModel {
-    public AguaEsteril_500ml: InsumoItemModel;
-    public Complejo_B: InsumoItemModel;
-    public Vitamina_C: InsumoItemModel;
+    public AguaEsteril_500ml: ClinicaInputModel;
+    public Complejo_B: ClinicaInputModel;
+    public Vitamina_C: ClinicaInputModel;
 
     constructor() {
         super();
 
-        this.AguaEsteril_500ml = new InsumoItemModel(InsumoClinicoEnum.AguaEsteril_500ml);
-        this.Complejo_B = new InsumoItemModel(InsumoClinicoEnum.Complejo_B);
-        this.Vitamina_C = new InsumoItemModel(InsumoClinicoEnum.Vitamina_C);
+        this.AguaEsteril_500ml = new ClinicaInputModel(InsumoClinicoEnum.AguaEsteril_500ml);
+        this.Complejo_B = new ClinicaInputModel(InsumoClinicoEnum.Complejo_B);
+        this.Vitamina_C = new ClinicaInputModel(InsumoClinicoEnum.Vitamina_C);
     }
 }
 

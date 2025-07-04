@@ -1,9 +1,9 @@
 // import numberValidator from "@/utils/numberValidator";
-// import InsumoItemModel from "../models/common/InsumoItemModel";
+// import ClinicaInputModel from "../models/common/ClinicaInputModel";
 // import BaseCalc from "./BaseCalc";
 
-// class InsumoItemCalc extends BaseCalc<InsumoItemModel> {
-//     public calcular(inItem: InsumoItemModel): void {
+// class InsumoItemCalc extends BaseCalc<ClinicaInputModel> {
+//     public calcular(inItem: ClinicaInputModel): void {
 //         if (inItem === null || inItem == undefined) {
 //             console.log("Objecto insumo no existe.")
 //             return;

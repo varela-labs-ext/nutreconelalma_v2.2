@@ -71,7 +71,7 @@ const RawMaterialsForm = (props: RawMaterialsFormProps) => {
             const mainKey = buildKeyName("current", props.inCentralType, props.inPopulationType);
             console.log("Buscando materia prima con clave:", mainKey);
 
-            gatheredData = await DataService.getRawMaterialsData(mainKey);
+            gatheredData = await DataService.getRawMaterialData(mainKey);
 
             if (!gatheredData) {
                 gatheredData = RawMaterialStarter.getInstance().buildRawMaterialModel(props.inCentralType, props.inPopulationType);
@@ -95,7 +95,7 @@ const RawMaterialsForm = (props: RawMaterialsFormProps) => {
         try {
             if (internalData) {
                 const mainKey = buildKeyName("current", props.inCentralType, props.inPopulationType);
-                await DataService.saveRawMaterialsData(mainKey, inData);
+                await DataService.saveRawMaterialData(mainKey, inData);
             } else {
                 console.error("Error: internalData is null when trying to save data.");
             }

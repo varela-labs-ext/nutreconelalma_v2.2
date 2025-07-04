@@ -1,4 +1,4 @@
-// import InsumoItemModel from "@/logic/models/common/InsumoItemModel";
+// import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
 // import RawMaterialModel from "@/logic/models/materiaPrima/RawMaterialModel";
 // import InsumoItemEditor from "../common/InsumoItemEditor";
 // import { useEffect, useState } from "react";
@@ -20,7 +20,7 @@
 
 //     // REGLA DE ORO, NUNCA LLAMAR AL EVENTO DEL PROPS DESDE DENTRO DEL USEFFECT, ya que esto puede generar un bucle infinito de actualizaciones.
 
-//     const handleInsumoChange = (inKey: string, inItem: InsumoItemModel) => {
+//     const handleInsumoChange = (inKey: string, inItem: ClinicaInputModel) => {
 //         console.log("Insumo cambiado: " + inKey);
 //         console.log(inItem);
 
@@ -77,13 +77,13 @@
 //                 if (
 //                     typeof valor === "object" &&
 //                     valor !== null &&
-//                     // valor instanceof InsumoItemModel &&
+//                     // valor instanceof ClinicaInputModel &&
 //                     !valor.excluirDelCalculo &&
 //                     1 == 1
 //                 ) {
 //                     return (
 //                         <div id={clave} key={clave} className={insumoEditorWrapperClass} >
-//                             {/* Fila editable por cada InsumoItemModel */}
+//                             {/* Fila editable por cada ClinicaInputModel */}
 //                             <InsumoItemEditor
 //                                 inData={valor}
 //                                 mostrarDetalles={props.mostrarDetalles}

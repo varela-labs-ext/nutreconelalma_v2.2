@@ -53,7 +53,7 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
                 const mainKey = buildKeyName("current", internalData.centralType, internalData.populationType);
                 console.log("Buscando central config con clave:", mainKey);
 
-                gatheredData = await DataService.getCentralConfigData(mainKey);
+                gatheredData = await DataService.getMixingCenterSettingsData(mainKey);
             }
 
             if (!gatheredData) {
@@ -78,7 +78,7 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
 
             if (internalData) {
                 const mainKey = buildKeyName("current", internalData.centralType, internalData.populationType);
-                await DataService.saveCentralConfigData(mainKey, inData);
+                await DataService.saveMixingCenterSettingsData(mainKey, inData);
             } else {
                 console.error("Error: internalData is null when trying to save data.");
             }
