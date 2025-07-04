@@ -2,35 +2,52 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import { useState } from "react";
 import TabsBlock from "../common/TabsBlock";
-import ProduccionSettingsModel from "@/logic/models/common/ProduccionSettingsModel";
-import MateriaPrimaBlock from "./MateriaPrimaMasterBlock";
-import CentralConfig from "./CentralConfig";
+import MixingCenterConfigForm from "./MixingCenterConfigForm";
+import ComputerBasicSettingsModel from "@/logic/models/common/ComputerBasicSettingsModel";
+import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSettingsModel";
+import RawMaterialsForm from "./RawMaterialsForm";
 
 
-const CalculadoraForm = () => {
-    // const [selectedTipoCentral, setTipoCentral] = useState<CentralTypeIdEnum>(0);
-    const [selectedProdSettings, setProdSettings] = useState<ProduccionSettingsModel>(new ProduccionSettingsModel());
+const ComputerForm = () => {
+    const [computerSettings, setComputerSettings] = useState<ComputerBasicSettingsModel>(new ComputerBasicSettingsModel());
+    // const [mixingCenterSettings, setMixingCenterSettings] = useState<MixingCenterSettingsModel | null>(null);
 
-    const onCentralConfigChange = (updatedItem: ProduccionSettingsModel) => {
-        const output: ProduccionSettingsModel = {
-            ...updatedItem
-        }
+    // const onCentralConfigChange = (updatedItem: ProduccionSettingsModel) => {
+    //     const output: ProduccionSettingsModel = {
+    //         ...updatedItem
+    //     }
 
-        console.log("CalculadoraForm.onProduccionFormChange()");
-        console.log(output);
-        setProdSettings(output);
+    //     console.log("CalculadoraForm.onProduccionFormChange()");
+    //     console.log(output);
+    //     setProdSettings(output);
+    // }
+
+    // const onCentralDeMezclasTabsChange = (value: CentralTypeIdEnum) => {
+    //     const output: ProduccionSettingsModel = {
+    //         ...selectedProdSettings,
+    //         tipoCentral: value
+    //     }
+
+    //     console.log("CalculadoraForm.onCentralDeMezclasTabsChange()");
+    //     console.log(output);
+
+    //     setProdSettings(output);
+    // }
+
+    const handleMixingCenterConfigChange = (newData: MixingCenterSettingsModel) => {
+        const output: ComputerBasicSettingsModel = {
+            ...computerSettings,
+            populationType: newData.populationType,
+        };
+        setComputerSettings(output);
     }
 
-    const onCentralDeMezclasTabsChange = (value: CentralTypeIdEnum) => {
-        const output: ProduccionSettingsModel = {
-            ...selectedProdSettings,
-            tipoCentral: value
-        }
-
-        console.log("CalculadoraForm.onCentralDeMezclasTabsChange()");
-        console.log(output);
-
-        setProdSettings(output);
+    const handleTabsChange = (inNewCentralType: CentralTypeIdEnum) => {
+        const output: ComputerBasicSettingsModel = {
+            ...computerSettings,
+            centralType: inNewCentralType
+        };
+        setComputerSettings(output);
     }
 
     return (
@@ -41,42 +58,27 @@ const CalculadoraForm = () => {
                 </h1>
             </div>
             <div>
-                <CentralConfig
-                    item={selectedProdSettings}
-                    onChange={onCentralConfigChange}
+                <MixingCenterConfigForm
+                    inCentralType={CentralTypeIdEnum.Manual} // TODO: por el momento es "Manual", hasta que se define si se necesita o no. Entonces siempre se va a salvar como manual esta parte.
+                    onChange={handleMixingCenterConfigChange}
                 />
             </div>
             <div>
-                {/* SOMETHING */}
-                {/* <div className="bg-white border rounded-xl shadow-sm p-6 mb-6">
-                    <div className="mt-8">
-
-                        ALGO
+                <TabsBlock
+                    inCentralType={computerSettings.centralType}
+                    onChange={handleTabsChange}
+                >
+                    <div>
+                        <RawMaterialsForm
+                            inCentralType={computerSettings.centralType}
+                            inPopulationType={computerSettings.populationType}
+                        />
                     </div>
-                </div> */}
-                <div>
-                    <TabsBlock
-                        tipoCentral={selectedProdSettings.tipoCentral}
-                        onChange={onCentralDeMezclasTabsChange}
-                    >
-                        <div>
-                            {/* CT: {selectedProdSettings.tipoCentral} */}
+                </TabsBlock>
 
-                            <MateriaPrimaBlock
-                                inTipoCentral={selectedProdSettings.tipoCentral}
-                                inTipoPoblacion={selectedProdSettings.tipoPoblacion}
-                                onChange={() => {
-                                    console.log("CalculadoraForm.MateriaPrimaBlock.onChange()");
-                                }}
-                            />
-
-
-                        </div>
-                    </TabsBlock>
-                </div>
             </div>
         </div>
     );
 }
 
-export default CalculadoraForm;
+export default ComputerForm;

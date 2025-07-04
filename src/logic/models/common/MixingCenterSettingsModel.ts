@@ -1,7 +1,7 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
 
-class CentralConfigModel {
+class MixingCenterSettingsModel {
     public populationType: PopulationTypeIdEnum;
     public centralType: CentralTypeIdEnum;
 
@@ -25,4 +25,4 @@ class CentralConfigModel {
     }
 }
 
-export default CentralConfigModel;
+export default MixingCenterSettingsModel;

@@ -1,5 +1,5 @@
 import ForageManager from "../common/ForageManager";
-import CentralConfigModel from "../models/common/CentralConfigModel";
+import MixingCenterSettingsModel from "../models/common/MixingCenterSettingsModel";
 import RawMaterialModel from "../models/RawMaterialModel";
 
 class DataService {
@@ -38,11 +38,11 @@ class DataService {
         }
     }
 
-    static async getCentralConfigData(inSourceKey: string): Promise<CentralConfigModel | null> {
+    static async getCentralConfigData(inSourceKey: string): Promise<MixingCenterSettingsModel | null> {
         try {
             const key: string = `${inSourceKey}:${DataService.CENTRAL_CONFIG_KEY}`;
 
-            const data: CentralConfigModel | null = await ForageManager.getAsync<CentralConfigModel>(key);
+            const data: MixingCenterSettingsModel | null = await ForageManager.getAsync<MixingCenterSettingsModel>(key);
 
             if (!data) {
                 console.log(`No data found for key: ${key}`);
@@ -57,11 +57,11 @@ class DataService {
         }
     }
 
-    static async saveCentralConfigData(inSourceKey: string, inData: CentralConfigModel): Promise<void> {
+    static async saveCentralConfigData(inSourceKey: string, inData: MixingCenterSettingsModel): Promise<void> {
         try {
             const key: string = `${inSourceKey}:${DataService.CENTRAL_CONFIG_KEY}`;
 
-            await ForageManager.saveAsync<CentralConfigModel>(key, inData);
+            await ForageManager.saveAsync<MixingCenterSettingsModel>(key, inData);
 
             console.log(`Materia prima data saved for key: ${key}`, inData);
 

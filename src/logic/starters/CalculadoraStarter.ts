@@ -2,12 +2,12 @@
 
 import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
 import PopulationTypeIdEnum from "../enums/PopulationTypeIdEnum";
-import CentralConfigModel from "../models/common/CentralConfigModel";
+import MixingCenterSettingsModel from "../models/common/MixingCenterSettingsModel";
 
 class CalculadoraStarter {
-    public buildCentralConfigModel(): CentralConfigModel {
+    public buildCentralConfigModel(): MixingCenterSettingsModel {
         //inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum
-        const inItem: CentralConfigModel = new CentralConfigModel();
+        const inItem: MixingCenterSettingsModel = new MixingCenterSettingsModel();
 
         inItem.percentPerAdult = 34;
         inItem.percentPerNeonatal = 33;

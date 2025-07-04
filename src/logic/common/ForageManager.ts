@@ -51,49 +51,49 @@ class ForageManager {
 
     // METODOS NO ASYNC DESDE AQUI
 
-    // Guardar un item
-    static save<T>(clave: string, data: T): Promise<void> {
-        return localforage.setItem<T>(clave, data).then(() => { });
-    }
+    // // Guardar un item
+    // static save<T>(clave: string, data: T): Promise<void> {
+    //     return localforage.setItem<T>(clave, data).then(() => { });
+    // }
 
-    // Obtener un item
-    static get<T>(clave: string): Promise<T | null> {
-        return localforage.getItem<T>(clave).then((data) => data ?? null);
-    }
+    // // Obtener un item
+    // static get<T>(clave: string): Promise<T | null> {
+    //     return localforage.getItem<T>(clave).then((data) => data ?? null);
+    // }
 
-    // Eliminar un item
-    static delete(clave: string): Promise<void> {
-        return localforage.removeItem(clave);
-    }
+    // // Eliminar un item
+    // static delete(clave: string): Promise<void> {
+    //     return localforage.removeItem(clave);
+    // }
 
-    // Listar todas las claves
-    static getAllKeys(): Promise<string[]> {
-        const keys: string[] = [];
-        return localforage.iterate((_value, key) => {
-            keys.push(key);
-        }).then(() => keys);
-    }
+    // // Listar todas las claves
+    // static getAllKeys(): Promise<string[]> {
+    //     const keys: string[] = [];
+    //     return localforage.iterate((_value, key) => {
+    //         keys.push(key);
+    //     }).then(() => keys);
+    // }
 
-    // Obtener todos los items
-    static getAll<T>(): Promise<{ key: string; value: T }[]> {
-        const items: { key: string; value: T }[] = [];
+    // // Obtener todos los items
+    // static getAll<T>(): Promise<{ key: string; value: T }[]> {
+    //     const items: { key: string; value: T }[] = [];
 
-        return localforage.iterate((value: any, key) => {
-            items.push({ key, value: value as T });
-        }).then(() => items);
-    }
+    //     return localforage.iterate((value: any, key) => {
+    //         items.push({ key, value: value as T });
+    //     }).then(() => items);
+    // }
 
-    // Eliminar todos los items que coincidan con un patrón en la clave
-    static deleteByPattern(patron: string): Promise<void> {
-        const keys: string[] = [];
-        return localforage.iterate((_value, key) => {
-            if (key.includes(patron)) {
-                keys.push(key);
-            }
-        }).then(() => {
-            return Promise.all(keys.map((k) => localforage.removeItem(k))).then(() => { });
-        });
-    }
+    // // Eliminar todos los items que coincidan con un patrón en la clave
+    // static deleteByPattern(patron: string): Promise<void> {
+    //     const keys: string[] = [];
+    //     return localforage.iterate((_value, key) => {
+    //         if (key.includes(patron)) {
+    //             keys.push(key);
+    //         }
+    //     }).then(() => {
+    //         return Promise.all(keys.map((k) => localforage.removeItem(k))).then(() => { });
+    //     });
+    // }
 }
 
 export default ForageManager;

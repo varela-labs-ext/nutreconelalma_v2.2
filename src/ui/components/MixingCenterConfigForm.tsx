@@ -3,20 +3,21 @@ import MixingCenterLeftSide from "./MixingCenterLeftSide";
 import MixingCenterRightSide from "./MixingCenterRightSide";
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import { useContext, useEffect, useRef, useState } from "react";
-import CentralConfigModel from "@/logic/models/common/CentralConfigModel";
 import { isValidNumber } from "@/utils/validators";
 import { LoadingContext } from "../context/LoadingContext";
 import { buildKeyName } from "@/logic/common/functions";
 import DataService from "@/logic/services/DataService";
 import CalculadoraStarter from "@/logic/starters/CalculadoraStarter";
+import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSettingsModel";
 
 interface MixingCenterConfigFormProps {
     inCentralType: CentralTypeIdEnum;
+    onChange: (inNewData: MixingCenterSettingsModel) => void;
     // onNotifyChange: () => void; // Callback para notificar cambios al padre // PENDIENTE DE IMPLEMENTAR
 }
 
 const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
-    const [internalData, setInternalData] = useState<CentralConfigModel | null>(null);
+    const [internalData, setInternalData] = useState<MixingCenterSettingsModel | null>(null);
     const [dataLoaded, setDataLoaded] = useState(false);
     const loadingContext = useContext(LoadingContext);
     const debounceRef = useRef<number | null>(null); // Ref para manejar el debounce
@@ -43,7 +44,7 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
 
     const loadDataFromDb = async (): Promise<void> => {
         try {
-            let gatheredData: CentralConfigModel | null = null;
+            let gatheredData: MixingCenterSettingsModel | null = null;
 
             // setIsLoading(true); // comienza carga
             loadingContext.setLoading(true); // activa el contexto de carga
@@ -71,7 +72,7 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
         }
     }
 
-    const saveDataInDb = async (inData: CentralConfigModel): Promise<void> => {
+    const saveDataInDb = async (inData: MixingCenterSettingsModel): Promise<void> => {
         try {
             // loadingContext.setLoading(true); // activa el contexto de carga
 
@@ -115,7 +116,7 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
         }
     }
 
-    const validatePercentages = (field: "percentPerAdult" | "percentPerPediatric" | "percentPerNeonatal", inData: CentralConfigModel): void => {
+    const validatePercentages = (field: "percentPerAdult" | "percentPerPediatric" | "percentPerNeonatal", inData: MixingCenterSettingsModel): void => {
         if (inData) {
             const totalPercent = inData.percentPerAdult + inData.percentPerPediatric + inData.percentPerNeonatal;
             const newErrors = {
