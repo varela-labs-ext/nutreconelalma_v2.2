@@ -1,4 +1,4 @@
-class EstimadoItemModel {
+class EstimatedCalcItemModel {
     public valorEstimado: number; // Editable
     public valorUnitario: number; // Calculado
     public excluirDelCalculo: boolean;
@@ -10,4 +10,4 @@ class EstimadoItemModel {
     }
 }
 
-export default EstimadoItemModel;
+export default EstimatedCalcItemModel;

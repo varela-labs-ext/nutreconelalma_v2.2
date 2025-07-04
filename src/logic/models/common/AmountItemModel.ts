@@ -1,6 +1,6 @@
 // Antigua Cantidad_UnidadTotalItemModel
 
-class CantidadItemModel {
+class AmountItemModel {
     public cantidadUnidad: number;
     public costoUnitario: number;
     public costoTotal: number;
@@ -14,4 +14,4 @@ class CantidadItemModel {
     }
 }
 
-export default CantidadItemModel;
+export default AmountItemModel;

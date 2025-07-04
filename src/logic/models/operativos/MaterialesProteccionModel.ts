@@ -1,21 +1,21 @@
 import BasicModel from "../common/BasicModel";
-import CantidadItemModel from "../common/CantidadItemModel";
+import AmountItemModel from "../common/AmountItemModel";
 
 class MaterialesProteccionModel extends BasicModel {
-  public guantesEsterilesDesechables: CantidadItemModel;
-  public bataEsterilUnUso: CantidadItemModel;
-  public gorroDesechable: CantidadItemModel;
-  public mascarillaQuirurgica: CantidadItemModel;
-  public cubrezapatosDesechables: CantidadItemModel;
+  public guantesEsterilesDesechables: AmountItemModel;
+  public bataEsterilUnUso: AmountItemModel;
+  public gorroDesechable: AmountItemModel;
+  public mascarillaQuirurgica: AmountItemModel;
+  public cubrezapatosDesechables: AmountItemModel;
 
   constructor() {
     super();
 
-    this.guantesEsterilesDesechables = new CantidadItemModel();
-    this.bataEsterilUnUso = new CantidadItemModel();
-    this.gorroDesechable = new CantidadItemModel();
-    this.mascarillaQuirurgica = new CantidadItemModel();
-    this.cubrezapatosDesechables = new CantidadItemModel();
+    this.guantesEsterilesDesechables = new AmountItemModel();
+    this.bataEsterilUnUso = new AmountItemModel();
+    this.gorroDesechable = new AmountItemModel();
+    this.mascarillaQuirurgica = new AmountItemModel();
+    this.cubrezapatosDesechables = new AmountItemModel();
   }
 }
 

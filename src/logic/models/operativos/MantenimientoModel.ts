@@ -1,34 +1,34 @@
 import BasicModel from "../common/BasicModel";
-import CantidadItemModel from "../common/CantidadItemModel";
+import AmountItemModel from "../common/AmountItemModel";
 
 class MantenimientoModel extends BasicModel {
 
-  public validacionSistemaAire: CantidadItemModel; // Validación del sistema de Aire
-  public pruebasMicrobiologia: CantidadItemModel; // Pruebas de Microbiologia
-  public llenadosAsepticosQuimicos: CantidadItemModel; //Llenados asepticos Quimicos
-  public desafioDesinfectantes: CantidadItemModel; // Desafio de Desinfectantes
-  public mantenimientoCabinas: CantidadItemModel; // Mantenimiento de Cabinas
-  public calificacionCabinas: CantidadItemModel; // Calificación de Cabinas
-  public calibracionManometros: CantidadItemModel; // Calibración de manometros de diferenciacion de presion
-  public cambiosFiltrosUMA: CantidadItemModel; // Cambios de Filtros UMA
-  public mantenimientoUMA: CantidadItemModel; // Mantenimientos UMA
-  public calibracionTermohigrometros: CantidadItemModel; // Calibración Termohigrometros
-  public mantenimientosLocativosPintura: CantidadItemModel; // Mantenimientos Locativos Pintura
+  public validacionSistemaAire: AmountItemModel; // Validación del sistema de Aire
+  public pruebasMicrobiologia: AmountItemModel; // Pruebas de Microbiologia
+  public llenadosAsepticosQuimicos: AmountItemModel; //Llenados asepticos Quimicos
+  public desafioDesinfectantes: AmountItemModel; // Desafio de Desinfectantes
+  public mantenimientoCabinas: AmountItemModel; // Mantenimiento de Cabinas
+  public calificacionCabinas: AmountItemModel; // Calificación de Cabinas
+  public calibracionManometros: AmountItemModel; // Calibración de manometros de diferenciacion de presion
+  public cambiosFiltrosUMA: AmountItemModel; // Cambios de Filtros UMA
+  public mantenimientoUMA: AmountItemModel; // Mantenimientos UMA
+  public calibracionTermohigrometros: AmountItemModel; // Calibración Termohigrometros
+  public mantenimientosLocativosPintura: AmountItemModel; // Mantenimientos Locativos Pintura
 
   constructor() {
     super();
 
-    this.validacionSistemaAire = new CantidadItemModel();
-    this.pruebasMicrobiologia = new CantidadItemModel();
-    this.llenadosAsepticosQuimicos = new CantidadItemModel();
-    this.desafioDesinfectantes = new CantidadItemModel();
-    this.mantenimientoCabinas = new CantidadItemModel();
-    this.calificacionCabinas = new CantidadItemModel();
-    this.calibracionManometros = new CantidadItemModel();
-    this.cambiosFiltrosUMA = new CantidadItemModel();
-    this.mantenimientoUMA = new CantidadItemModel();
-    this.calibracionTermohigrometros = new CantidadItemModel();
-    this.mantenimientosLocativosPintura = new CantidadItemModel();
+    this.validacionSistemaAire = new AmountItemModel();
+    this.pruebasMicrobiologia = new AmountItemModel();
+    this.llenadosAsepticosQuimicos = new AmountItemModel();
+    this.desafioDesinfectantes = new AmountItemModel();
+    this.mantenimientoCabinas = new AmountItemModel();
+    this.calificacionCabinas = new AmountItemModel();
+    this.calibracionManometros = new AmountItemModel();
+    this.cambiosFiltrosUMA = new AmountItemModel();
+    this.mantenimientoUMA = new AmountItemModel();
+    this.calibracionTermohigrometros = new AmountItemModel();
+    this.mantenimientosLocativosPintura = new AmountItemModel();
   }
 }
 

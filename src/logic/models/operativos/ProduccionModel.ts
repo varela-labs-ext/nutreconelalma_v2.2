@@ -1,27 +1,27 @@
 import BasicModel from "../common/BasicModel";
-import EstimadoItemModel from "../common/EstimadoItemModel";
+import EstimatedCalcItemModel from "../common/EstimatedCalcItemModel";
 
 //Costos de producción 
 class ProduccionModel extends BasicModel {
 
-  public aguaM3: EstimadoItemModel; // Agua (m³)
+  public aguaM3: EstimatedCalcItemModel; // Agua (m³)
 
-  public luzKw: EstimadoItemModel; // Luz (Kw)
+  public luzKw: EstimatedCalcItemModel; // Luz (Kw)
 
-  public manoObraIndirecta: EstimadoItemModel; // Mano de obra indirecta
+  public manoObraIndirecta: EstimatedCalcItemModel; // Mano de obra indirecta
 
-  public telefoniaInternetAdmin: EstimadoItemModel; // Teléfono/Internet/Sistema Administrativo
+  public telefoniaInternetAdmin: EstimatedCalcItemModel; // Teléfono/Internet/Sistema Administrativo
 
-  public depreciacionCabinaFlujoLaminar: EstimadoItemModel; // Depreciación mensual cabina flujo laminar
+  public depreciacionCabinaFlujoLaminar: EstimatedCalcItemModel; // Depreciación mensual cabina flujo laminar
 
   constructor() {
     super();
 
-    this.aguaM3 = new EstimadoItemModel();
-    this.luzKw = new EstimadoItemModel();
-    this.manoObraIndirecta = new EstimadoItemModel();
-    this.telefoniaInternetAdmin = new EstimadoItemModel();
-    this.depreciacionCabinaFlujoLaminar = new EstimadoItemModel();
+    this.aguaM3 = new EstimatedCalcItemModel();
+    this.luzKw = new EstimatedCalcItemModel();
+    this.manoObraIndirecta = new EstimatedCalcItemModel();
+    this.telefoniaInternetAdmin = new EstimatedCalcItemModel();
+    this.depreciacionCabinaFlujoLaminar = new EstimatedCalcItemModel();
   }
 }
 

@@ -1,17 +1,17 @@
 import BasicModel from "../common/BasicModel";
-import CantidadItemModel from "../common/CantidadItemModel";
+import AmountItemModel from "../common/AmountItemModel";
 
 class EquiposAutomatizadaModel extends BasicModel {
-  public tamperResistantClamps: CantidadItemModel;
-  public setsTransferenciaX6: CantidadItemModel;
-  public setsTransferenciaX9: CantidadItemModel;
+  public tamperResistantClamps: AmountItemModel;
+  public setsTransferenciaX6: AmountItemModel;
+  public setsTransferenciaX9: AmountItemModel;
 
   constructor() {
     super();
 
-    this.tamperResistantClamps = new CantidadItemModel();
-    this.setsTransferenciaX6 = new CantidadItemModel();
-    this.setsTransferenciaX9 = new CantidadItemModel();
+    this.tamperResistantClamps = new AmountItemModel();
+    this.setsTransferenciaX6 = new AmountItemModel();
+    this.setsTransferenciaX9 = new AmountItemModel();
   }
 }
 
