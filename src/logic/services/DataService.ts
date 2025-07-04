@@ -1,10 +1,11 @@
 import ForageManager from "../common/ForageManager";
+import CentralConfigModel from "../models/common/CentralConfigModel";
 import ProduccionSettingsModel from "../models/common/ProduccionSettingsModel";
 import MateriaPrimaModel from "../models/materiaPrima/MateriaPrimaModel";
 
 class DataService {
     private static readonly MATERIA_PRIMA_KEY = 'mpa';
-    private static readonly PRODUCCION_SETTINGS_KEY = 'pst';
+    private static readonly CENTRAL_CONFIG_KEY = 'ctrlCfg';
 
     static async getMateriaPrima(inSourceKey: string): Promise<MateriaPrimaModel | null> {
         try {
@@ -39,11 +40,11 @@ class DataService {
         }
     }
 
-    static async getProduccionSettings(inSourceKey: string): Promise<ProduccionSettingsModel | null> {
+    static async getCentralConfigData(inSourceKey: string): Promise<CentralConfigModel | null> {
         try {
-            const key: string = `${inSourceKey}:${DataService.PRODUCCION_SETTINGS_KEY}`;
+            const key: string = `${inSourceKey}:${DataService.CENTRAL_CONFIG_KEY}`;
 
-            const data: ProduccionSettingsModel | null = await ForageManager.getAsync<ProduccionSettingsModel>(key);
+            const data: CentralConfigModel | null = await ForageManager.getAsync<CentralConfigModel>(key);
 
             if (!data) {
                 console.log(`No data found for key: ${key}`);
@@ -58,11 +59,11 @@ class DataService {
         }
     }
 
-    static async setProduccionSettings(inSourceKey: string, inData: ProduccionSettingsModel): Promise<void> {
+    static async saveCentralConfigData(inSourceKey: string, inData: CentralConfigModel): Promise<void> {
         try {
-            const key: string = `${inSourceKey}:${DataService.PRODUCCION_SETTINGS_KEY}`;
+            const key: string = `${inSourceKey}:${DataService.CENTRAL_CONFIG_KEY}`;
 
-            await ForageManager.saveAsync<ProduccionSettingsModel>(key, inData);
+            await ForageManager.saveAsync<CentralConfigModel>(key, inData);
 
             console.log(`Materia prima data saved for key: ${key}`, inData);
 

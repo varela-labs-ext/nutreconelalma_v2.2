@@ -1,7 +1,7 @@
 import InsumoClinicoIdEnum from "../enums/InsumoClinicoIdEnum";
 import InsumoClinicoNamesEnum from "../enums/InsumoClinicoNamesEnum";
-import TipoCentralIdEnum from "../enums/TipoCentralIdEnum";
-import TipoPoblacionIdEnum from "../enums/TipoPoblacionIdEnum";
+import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
+import PopulationTypeIdEnum from "../enums/PopulationTypeIdEnum";
 
 export const enumToKeyValueArray = (enumObj: any): { key: number, value: string }[] => {
     const output = Object.keys(enumObj)
@@ -44,10 +44,10 @@ export const getInsumoClinicoName = (id: number): string => {
 
 export const buildKeyName = (
     inSourceKey: string,
-    inTipoCentral: TipoCentralIdEnum,
-    inTipoPoblacion: TipoPoblacionIdEnum
+    inCentralType: CentralTypeIdEnum,
+    inPopulationType: PopulationTypeIdEnum
 ): string => {
-    const tipoCentral = TipoCentralIdEnum[inTipoCentral]?.toLowerCase();
-    const tipoPoblacion = TipoPoblacionIdEnum[inTipoPoblacion]?.toLowerCase();
-    return `${inSourceKey}:${tipoCentral}:${tipoPoblacion}`;
+    const centralType = CentralTypeIdEnum[inCentralType]?.toLowerCase();
+    const populationType = PopulationTypeIdEnum[inPopulationType]?.toLowerCase();
+    return `${inSourceKey}:${centralType}:${populationType}`;
 };

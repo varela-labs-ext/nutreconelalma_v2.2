@@ -5,8 +5,8 @@ import MateriaPrimaDetails from "./MateriaPrimaDetails";
 import LoadingCard from "../common/LoadingCard";
 import DataService from "@/logic/services/DataService";
 import { buildKeyName } from "@/logic/common/functions";
-import TipoCentralIdEnum from "@/logic/enums/TipoCentralIdEnum";
-import TipoPoblacionIdEnum from "@/logic/enums/TipoPoblacionIdEnum";
+import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
+import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
 import MateriaPrimaStarter from "@/logic/starters/MateriaPrimaStarter";
 import { LoadingContext } from "../context/LoadingContext";
 import CalculosService from "@/logic/services/CalculosService";
@@ -14,8 +14,8 @@ import CalculosService from "@/logic/services/CalculosService";
 
 
 interface MateriaPrimaBlockProps {
-    inTipoCentral: TipoCentralIdEnum,
-    inTipoPoblacion: TipoPoblacionIdEnum,
+    inTipoCentral: CentralTypeIdEnum,
+    inTipoPoblacion: PopulationTypeIdEnum,
     // inData: MateriaPrimaModel;
     // La idea es que el evento que le llegue al padre sea solamente un aviso y no la data.
     onChange: () => void;

@@ -1,19 +1,19 @@
-import TipoCentralIdEnum from "../enums/TipoCentralIdEnum";
+import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
 import CantidadItemModel from "../models/common/CantidadItemModel";
 import EstimadoItemModel from "../models/common/EstimadoItemModel";
 
 
 abstract class TotalesStarterBase<T> {
 
-    public iniciarValores(inItem: T, inTipoCentral: TipoCentralIdEnum): void {
+    public iniciarValores(inItem: T, inTipoCentral: CentralTypeIdEnum): void {
         this.iniciarComunes(inItem);
 
         switch (inTipoCentral) {
-            case TipoCentralIdEnum.Automatico:
+            case CentralTypeIdEnum.Automatico:
                 this.iniciarCentralAutomatica(inItem);
                 break
             //TODO: agregar aqui las otras centrales
-            case TipoCentralIdEnum.Manual:
+            case CentralTypeIdEnum.Manual:
             default:
                 this.iniciarCentralManual(inItem);
                 break

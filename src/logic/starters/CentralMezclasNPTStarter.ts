@@ -1,20 +1,20 @@
-// import TipoCentralIdEnum from "@/enums/TipoCentralIdEnum";
-// import TipoPoblacionIdEnum from "@/enums/TipoPoblacionIdEnum";
+// import CentralTypeIdEnum from "@/enums/CentralTypeIdEnum";
+// import PopulationTypeIdEnum from "@/enums/PopulationTypeIdEnum";
 // import CentralMezclasNPTModel from "@/models/centralMezclas/CentralMezclasNPTModel";
 // import MateriaPrimaStarter from "./MateriaPrimaStarter";
 
 // class CentralMezclasNPTStarter {
 
-//     public iniciarValores(inItem: CentralMezclasNPTModel, inTipoCentral: TipoCentralIdEnum, inTipoPoblacion: TipoPoblacionIdEnum): void {
+//     public iniciarValores(inItem: CentralMezclasNPTModel, inTipoCentral: CentralTypeIdEnum, inTipoPoblacion: PopulationTypeIdEnum): void {
 
 //         switch (inTipoCentral) {
-//             case TipoCentralIdEnum.Automatico:
+//             case CentralTypeIdEnum.Automatico:
 //                 this.iniciarCentralNptAutomatica(inItem, inTipoPoblacion);
 //                 break;
 
 //             //TODO: agregar los otros tipos de centrales aqui.
 
-//             case TipoCentralIdEnum.Manual:
+//             case CentralTypeIdEnum.Manual:
 //             default:
 //                 this.iniciarCentralNptManual(inItem, inTipoPoblacion);
 //                 break;
@@ -23,30 +23,30 @@
 //         MateriaPrimaStarter.getInstance().iniciarInsumos(inItem.costosMateriaPrima, inTipoCentral, inTipoPoblacion);
 //     }
 
-//     private iniciarCentralNptManual(inItem: CentralMezclasNPTModel, inTipoPoblacion: TipoPoblacionIdEnum): void {
+//     private iniciarCentralNptManual(inItem: CentralMezclasNPTModel, inTipoPoblacion: PopulationTypeIdEnum): void {
 //         switch (inTipoPoblacion) {
-//             case TipoPoblacionIdEnum.Neonatal:
+//             case PopulationTypeIdEnum.Neonatal:
 //                 inItem.porcentajeNutricion = 33;
 //                 break;
-//             case TipoPoblacionIdEnum.Pediatrica:
+//             case PopulationTypeIdEnum.Pediatrica:
 //                 inItem.porcentajeNutricion = 33;
 //                 break
-//             case TipoPoblacionIdEnum.Adulto:
+//             case PopulationTypeIdEnum.Adulto:
 //             default:
 //                 inItem.porcentajeNutricion = 34;
 //                 break;
 //         }
 //     }
 
-//     private iniciarCentralNptAutomatica(inItem: CentralMezclasNPTModel, inTipoPoblacion: TipoPoblacionIdEnum): void {
+//     private iniciarCentralNptAutomatica(inItem: CentralMezclasNPTModel, inTipoPoblacion: PopulationTypeIdEnum): void {
 //         switch (inTipoPoblacion) {
-//             case TipoPoblacionIdEnum.Neonatal:
+//             case PopulationTypeIdEnum.Neonatal:
 //                 inItem.porcentajeNutricion = 33;
 //                 break;
-//             case TipoPoblacionIdEnum.Pediatrica:
+//             case PopulationTypeIdEnum.Pediatrica:
 //                 inItem.porcentajeNutricion = 33;
 //                 break
-//             case TipoPoblacionIdEnum.Adulto:
+//             case PopulationTypeIdEnum.Adulto:
 //             default:
 //                 inItem.porcentajeNutricion = 34;
 //                 break;

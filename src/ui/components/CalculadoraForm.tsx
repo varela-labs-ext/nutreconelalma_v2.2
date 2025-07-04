@@ -1,5 +1,5 @@
 
-import TipoCentralIdEnum from "@/logic/enums/TipoCentralIdEnum";
+import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import { useState } from "react";
 import TabsBlock from "../common/TabsBlock";
 import ProduccionSettingsModel from "@/logic/models/common/ProduccionSettingsModel";
@@ -8,7 +8,7 @@ import CentralConfig from "./CentralConfig";
 
 
 const CalculadoraForm = () => {
-    // const [selectedTipoCentral, setTipoCentral] = useState<TipoCentralIdEnum>(0);
+    // const [selectedTipoCentral, setTipoCentral] = useState<CentralTypeIdEnum>(0);
     const [selectedProdSettings, setProdSettings] = useState<ProduccionSettingsModel>(new ProduccionSettingsModel());
 
     const onCentralConfigChange = (updatedItem: ProduccionSettingsModel) => {
@@ -21,7 +21,7 @@ const CalculadoraForm = () => {
         setProdSettings(output);
     }
 
-    const onCentralDeMezclasTabsChange = (value: TipoCentralIdEnum) => {
+    const onCentralDeMezclasTabsChange = (value: CentralTypeIdEnum) => {
         const output: ProduccionSettingsModel = {
             ...selectedProdSettings,
             tipoCentral: value

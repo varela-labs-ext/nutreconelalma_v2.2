@@ -8,5 +8,10 @@ export const validNumber = (value: number, field: string = 'valor'): number => {
 
 
 export const isValidNumber = (valor: unknown): boolean => {
-    return typeof valor === 'number' && !isNaN(valor);
+    if (typeof valor === 'number' && !isNaN(valor)) {
+        return true;
+    }
+
+    console.error(`El valor "${valor}" no es un número válido.`);
+    return false;
 };

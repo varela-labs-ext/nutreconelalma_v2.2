@@ -1,15 +1,15 @@
-import TipoCentralIdEnum from "@/logic/enums/TipoCentralIdEnum";
-import TipoPoblacionIdEnum from "@/logic/enums/TipoPoblacionIdEnum";
+import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
+import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
 
 abstract class BasicModel {
     public costoTotal: number;
-    public tipoCentral: TipoCentralIdEnum;
-    public tipoPoblacion: TipoPoblacionIdEnum;
+    public tipoCentral: CentralTypeIdEnum;
+    public tipoPoblacion: PopulationTypeIdEnum;
 
     protected constructor() {
         this.costoTotal = 0;
-        this.tipoCentral = TipoCentralIdEnum.Manual;
-        this.tipoPoblacion = TipoPoblacionIdEnum.Adulto;
+        this.tipoCentral = CentralTypeIdEnum.Manual;
+        this.tipoPoblacion = PopulationTypeIdEnum.Adulto;
     }
 }
 

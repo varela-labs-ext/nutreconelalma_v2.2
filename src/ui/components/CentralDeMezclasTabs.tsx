@@ -1,16 +1,16 @@
-// import TipoCentralIdEnum from "@/logic/enums/TipoCentralIdEnum";
+// import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 // import TabsResponsive from "../shared/TabsResponsive";
 // import { useState } from "react";
 
 
 // interface CentralDeMezclasTabsProps {
-//     tipoCentral: TipoCentralIdEnum;
-//     onChange: (value: TipoCentralIdEnum) => void;
+//     tipoCentral: CentralTypeIdEnum;
+//     onChange: (value: CentralTypeIdEnum) => void;
 //     children: React.ReactNode;
 // }
 
 // const CentralDeMezclasTabs = (props: CentralDeMezclasTabsProps) => {
-//     // const [selectedTipoCentral, setTipoCentral] = useState<TipoCentralIdEnum>(0);
+//     // const [selectedTipoCentral, setTipoCentral] = useState<CentralTypeIdEnum>(0);
 
 //     const generarTitulos = (): string[] => {
 //         let titulos: string[] = [
@@ -25,7 +25,7 @@
 
 //     const handleOnSelectedCentralChange = (index: number) => {
 
-//         // const output: TipoCentralIdEnum = index;
+//         // const output: CentralTypeIdEnum = index;
 
 //         // console.log("TABS:");
 //         // console.log(index);
@@ -35,7 +35,7 @@
 //         // props.onChange(output);
 
 //         const updateValue = Number(index);
-//         const output: TipoCentralIdEnum = updateValue as TipoCentralIdEnum;
+//         const output: CentralTypeIdEnum = updateValue as CentralTypeIdEnum;
 //         props.onChange(output);
 //     };
 

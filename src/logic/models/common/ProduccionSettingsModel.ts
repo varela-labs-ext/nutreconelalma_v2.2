@@ -1,9 +1,9 @@
-import TipoCentralIdEnum from "@/logic/enums/TipoCentralIdEnum";
-import TipoPoblacionIdEnum from "@/logic/enums/TipoPoblacionIdEnum";
+import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
+import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
 
 class ProduccionSettingsModel {
-    public tipoPoblacion: TipoPoblacionIdEnum;
-    public tipoCentral: TipoCentralIdEnum;
+    public tipoPoblacion: PopulationTypeIdEnum;
+    public tipoCentral: CentralTypeIdEnum;
     public lineasProduccion: number; // Líneas de producción de la central
     public produccionDia: number; // Producción día
     public porcentajeAdulto: number; // Porcentaje de nutriciones de adulto
@@ -11,8 +11,8 @@ class ProduccionSettingsModel {
     public porcentajeNeonatal: number; // Porcentaje de nutriciones neonatal
 
     constructor() {
-        this.tipoPoblacion = TipoPoblacionIdEnum.Adulto; // Se podría configurar mas adelante
-        this.tipoCentral = TipoCentralIdEnum.Manual;
+        this.tipoPoblacion = PopulationTypeIdEnum.Adulto; // Se podría configurar mas adelante
+        this.tipoCentral = CentralTypeIdEnum.Manual;
         this.lineasProduccion = 0;
         this.produccionDia = 0;
         this.porcentajeAdulto = 0;

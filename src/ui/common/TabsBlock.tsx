@@ -1,9 +1,9 @@
-import TipoCentralIdEnum from "@/logic/enums/TipoCentralIdEnum";
+import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import TabsResponsive from "../shared/TabsResponsive";
 
 interface TabsBlockProps {
-    tipoCentral: TipoCentralIdEnum;
-    onChange: (value: TipoCentralIdEnum) => void;
+    tipoCentral: CentralTypeIdEnum;
+    onChange: (value: CentralTypeIdEnum) => void;
     children: React.ReactNode;
 }
 
@@ -21,7 +21,7 @@ const TabsBlock = (props: TabsBlockProps) => {
 
     const handleOnSelectedCentralChange = (index: number) => {
         const updateValue = Number(index);
-        const output: TipoCentralIdEnum = updateValue as TipoCentralIdEnum;
+        const output: CentralTypeIdEnum = updateValue as CentralTypeIdEnum;
         props.onChange(output);
     };
 

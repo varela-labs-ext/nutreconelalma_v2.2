@@ -1,14 +1,17 @@
+// PopulationTypeInput
+
+
 import { enumToKeyValueArray } from "@/logic/common/functions";
 import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
 
-interface TipoPoblacionFieldProps {
-    tipo: PopulationTypeIdEnum;
-    onChange: (selected: PopulationTypeIdEnum) => void;
+interface PopulationTypeInputProps {
+    inPopulationType: PopulationTypeIdEnum;
     labelPosition?: "top" | "left";
     labelAlways?: boolean;
+    onChange: (selected: PopulationTypeIdEnum) => void;
 }
 
-export const TipoPoblacionField: React.FC<TipoPoblacionFieldProps> = (props) => {
+export const PopulationTypeInput = (props: PopulationTypeInputProps) => {
     const labelPosition = props.labelPosition || "top";
     const labelAlways = props.labelAlways || false;
 
@@ -55,7 +58,7 @@ export const TipoPoblacionField: React.FC<TipoPoblacionFieldProps> = (props) => 
             </label>
             < select
                 name="tipoPoblacion"
-                value={props.tipo}
+                value={props.inPopulationType}
                 onChange={(e) => handleTipoPoblacionChange(e.target.value)}
                 className={getSelectClass()}
             >
@@ -71,4 +74,4 @@ export const TipoPoblacionField: React.FC<TipoPoblacionFieldProps> = (props) => 
     );
 }
 
-export default TipoPoblacionField;
+export default PopulationTypeInput;

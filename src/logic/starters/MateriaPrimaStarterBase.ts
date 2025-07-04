@@ -1,4 +1,4 @@
-import TipoCentralIdEnum from "../enums/TipoCentralIdEnum";
+import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
 import InsumoItemModel from "../models/common/InsumoItemModel";
 import MateriaPrimaModel from "../models/materiaPrima/MateriaPrimaModel";
 
@@ -10,17 +10,17 @@ abstract class MateriaPrimaStarterBase {
         this.ZERO = 0.00;
     }
 
-    public iniciarInsumos(inItem: MateriaPrimaModel, inTipoCentral: TipoCentralIdEnum): void {
+    public iniciarInsumos(inItem: MateriaPrimaModel, inTipoCentral: CentralTypeIdEnum): void {
 
         switch (inTipoCentral) {
-            case TipoCentralIdEnum.Automatico:
+            case CentralTypeIdEnum.Automatico:
                 this.iniciarInsumosCentralAutomaticaComunes(inItem);
                 this.iniciarInsumosCentralAutomatica(inItem);
                 break;
 
             //TODO: agregar los otros tipos de centrales aqui.
 
-            case TipoCentralIdEnum.Manual:
+            case CentralTypeIdEnum.Manual:
             default:
                 this.iniciarInsumosCentralManualComunes(inItem);
                 this.iniciarInsumosCentralManual(inItem);

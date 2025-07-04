@@ -1,6 +1,6 @@
 
-import TipoCentralIdEnum from "../enums/TipoCentralIdEnum";
-import TipoPoblacionIdEnum from "../enums/TipoPoblacionIdEnum";
+import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
+import PopulationTypeIdEnum from "../enums/PopulationTypeIdEnum";
 import MateriaPrimaModel from "../models/materiaPrima/MateriaPrimaModel";
 import MateriaPrimaAdultoStarter from "./MateriaPrimaAdultoStarter";
 import MateriaPrimaNeonatalStarter from "./MateriaPrimaNeonatalStarter";
@@ -19,19 +19,19 @@ class MateriaPrimaStarter {
     }
 
 
-    public iniciarInsumos(inItem: MateriaPrimaModel, inTipoCentral: TipoCentralIdEnum, inTipoPoblacion: TipoPoblacionIdEnum): void {
+    public iniciarInsumos(inItem: MateriaPrimaModel, inTipoCentral: CentralTypeIdEnum, inTipoPoblacion: PopulationTypeIdEnum): void {
         inItem.cantidad = 1;
         inItem.total = 0;
         inItem.totalPorMl = 0;
 
         switch (inTipoPoblacion) {
-            case TipoPoblacionIdEnum.Neonatal:
+            case PopulationTypeIdEnum.Neonatal:
                 this._neonatalStarter.iniciarInsumos(inItem, inTipoCentral);
                 break
-            case TipoPoblacionIdEnum.Pediatrica:
+            case PopulationTypeIdEnum.Pediatrica:
                 this._pediatricaStarter.iniciarInsumos(inItem, inTipoCentral);
                 break
-            case TipoPoblacionIdEnum.Adulto:
+            case PopulationTypeIdEnum.Adulto:
             default:
                 this._adultoStarter.iniciarInsumos(inItem, inTipoCentral);
                 break

@@ -1,22 +1,22 @@
-import TipoCentralIdEnum from "../enums/TipoCentralIdEnum";
+import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
 import PorcentajeItemModel from "../models/common/PorcentajeItemModel";
 import SalarioFiscalesModel from "../models/empleados/SalarioFiscalesModel";
 
 
 abstract class ParaFiscalesStarter<T extends SalarioFiscalesModel> {
 
-    public iniciarValores(inItem: T, inTipoCentral: TipoCentralIdEnum): void {
+    public iniciarValores(inItem: T, inTipoCentral: CentralTypeIdEnum): void {
         this.iniciarParafiscales(inItem);
         this.iniciarComunes(inItem);
 
         switch (inTipoCentral) {
-            case TipoCentralIdEnum.Automatico:
+            case CentralTypeIdEnum.Automatico:
                 this.iniciarCentralAutomatica(inItem);
                 break;
 
             //TODO: agregar los otros tipos de centrales aqui.
 
-            case TipoCentralIdEnum.Manual:
+            case CentralTypeIdEnum.Manual:
             default:
                 this.iniciarCentralManual(inItem);
                 break;
