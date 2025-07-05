@@ -83,7 +83,7 @@ const NavigationMenuC = (props: NavigationMenuCProps) => {
 
                 </div>
                 <div className="hidden lg:flex items-center justify-between px-4 py-3">
-                    <h2 className="text-xl text-purple-500 font-bold text-primary">Nutrición Hospitalaria</h2>
+                    <h2 className="text-xl text-purple-500 font-bold text-primary">Menú Principal</h2>
                 </div>
 
                 <nav className="flex-1 space-y-1 px-2 py-4">
