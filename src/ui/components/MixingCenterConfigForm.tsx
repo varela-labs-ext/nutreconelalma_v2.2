@@ -12,14 +12,16 @@ import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSetting
 
 interface MixingCenterConfigFormProps {
     inCentralType: CentralTypeIdEnum;
-    onChange: (inNewData: MixingCenterSettingsModel) => void;
+    onPopulationTypeChange: (newValue: PopulationTypeIdEnum) => void;
+    onSetLoading: (inStatus: boolean) => void;
+    //onChange: (inNewData: MixingCenterSettingsModel) => void;
     // onNotifyChange: () => void; // Callback para notificar cambios al padre // PENDIENTE DE IMPLEMENTAR
 }
 
 const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
     const [internalData, setInternalData] = useState<MixingCenterSettingsModel | null>(null);
     const [dataLoaded, setDataLoaded] = useState(false);
-    const loadingContext = useContext(LoadingContext);
+    // const loadingContext = useContext(LoadingContext);
     const debounceRef = useRef<number | null>(null); // Ref para manejar el debounce
     const [percentageErrors, setPercentageErrors] = useState({
         percentPerAdult: false,
@@ -29,16 +31,18 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
 
     // Cargar al montar
     useEffect(() => {
+        console.log("Running useEffect [] - Cargar al montar...");
         loadDataFromDb();
-        console.log("CentralConfig: Cargando configuración de producción");
     }, []);
 
     useEffect(() => {
+        console.log("Running useEffect [props.inCentralType] - al cambiar el props");
         setNewCentralType();
     }, [props.inCentralType]);
 
     // Autosave cuando cambia
     useEffect(() => {
+        console.log("Running useEffect [internalData] - cuando cambian los datos internos. ***");
         requestSaveData();
     }, [internalData]);
 
@@ -46,29 +50,31 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
         try {
             let gatheredData: MixingCenterSettingsModel | null = null;
 
-            // setIsLoading(true); // comienza carga
-            loadingContext.setLoading(true); // activa el contexto de carga
+            props.onSetLoading(true);
 
-            if (internalData) {
-                const mainKey = buildKeyName("current", internalData.centralType, internalData.populationType);
-                console.log("Buscando central config con clave:", mainKey);
+            const mainKey = buildKeyName("current", CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Adulto);
+            console.log("Buscando central config con clave:", mainKey);
 
-                gatheredData = await DataService.getMixingCenterSettingsData(mainKey);
-            }
+            gatheredData = await DataService.getMixingCenterSettingsData(mainKey);
 
             if (!gatheredData) {
                 console.log("No se encontró 'central config' en la base de datos, inicializando con valores por defecto.");
                 gatheredData = CalculadoraStarter.getInstance().buildCentralConfigModel();
             }
 
-            setInternalData(gatheredData);
+            const updatedGatheredData = {
+                ...gatheredData,
+                centralType: props.inCentralType
+            };
+
+            setInternalData(updatedGatheredData);
             setDataLoaded(true);
         }
         catch (error) {
             console.error("Error al cargar la materia prima desde la base de datos:", error);
         } finally {
-            // setIsLoading(false); // termina carga
-            loadingContext.setLoading(false);
+            props.onSetLoading(false);
+            console.log("***** MixingCenter data loaded... *****");
         }
     }
 
@@ -77,7 +83,7 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
             // loadingContext.setLoading(true); // activa el contexto de carga
 
             if (internalData) {
-                const mainKey = buildKeyName("current", internalData.centralType, internalData.populationType);
+                const mainKey = buildKeyName("current", CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Adulto);
                 await DataService.saveMixingCenterSettingsData(mainKey, inData);
             } else {
                 console.error("Error: internalData is null when trying to save data.");
@@ -93,7 +99,8 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
 
     const requestSaveData = (): void => {
         if (!dataLoaded || internalData === null) {
-            console.log("CentralConfig: No hay datos cargados o internalData es null, no se guardará nada.");
+            console.log("*** No hay datos cargados o internalData es null ***");
+            console.log(`"dataLoaded" flag: ${dataLoaded}, internalData: ${internalData}`);
             return;
         }
 
@@ -107,7 +114,8 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
     }
 
     const setNewCentralType = (): void => {
-        if (internalData !== null && props.inCentralType !== internalData.centralType) {
+        if (dataLoaded && internalData !== null && props.inCentralType !== internalData.centralType) {
+            console.log(`Central type changed: ${props.inCentralType}`);
             const newData = {
                 ...internalData,
                 centralType: props.inCentralType
@@ -143,6 +151,7 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
                 ...internalData,
                 populationType: newPopulationType
             };
+            props.onPopulationTypeChange(newPopulationType);
             setInternalData(newData);
         } else {
             console.error("Error: internalData is null when trying to change population type.");

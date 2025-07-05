@@ -9,7 +9,10 @@ interface KeyLineFieldProps {
 
 const KeyLineField = (props: KeyLineFieldProps) => {
     return (
-        <div>
+        <li
+            key={props.inKeySelected}
+            className="flex justify-between items-center bg-gray-100 px-4 py-2 rounded hover:bg-gray-200"
+        >
             <span
                 className="flex-1 truncate cursor-pointer text-left"
                 onClick={() => props.onShowData(props.inKeySelected)}
@@ -34,7 +37,7 @@ const KeyLineField = (props: KeyLineFieldProps) => {
                     <Trash size={20} />
                 </button>
             </div>
-        </div>
+        </li>
     );
 };
 

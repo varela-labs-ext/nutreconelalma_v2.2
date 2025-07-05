@@ -66,7 +66,7 @@ const HistoryForm = () => {
         <div>
             <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
                 <h1 className="text-2xl sm:text-3xl font-bold text-purple-800 mb-4 sm:mb-0">
-                    CALCULADORA NUTRICIÓN HOSPITALARIA HISTORICO
+                    HISTORICO
                 </h1>
             </div>
             <div>
@@ -84,17 +84,12 @@ const HistoryForm = () => {
                     ) : (
                         <ul className="space-y-2">
                             {keys.map((cKey) => (
-                                <li
-                                    key={cKey}
-                                    className="flex justify-between items-center bg-gray-100 px-4 py-2 rounded hover:bg-gray-200"
-                                >
-                                    <KeyLineField
-                                        inKeySelected={cKey}
-                                        onShowData={handleOnKeyShowData}
-                                        onUpload={handleOnKeyUpload}
-                                        onKeyToDelete={(key) => setKeyToDelete(key)}
-                                    />
-                                </li>
+                                <KeyLineField
+                                    inKeySelected={cKey}
+                                    onShowData={handleOnKeyShowData}
+                                    onUpload={handleOnKeyUpload}
+                                    onKeyToDelete={(key) => setKeyToDelete(key)}
+                                />
                             ))}
                         </ul>
                     )}

@@ -1,6 +1,6 @@
 // import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
 // import RawMaterialModel from "@/logic/models/materiaPrima/RawMaterialModel";
-// import InsumoItemEditor from "../common/InsumoItemEditor";
+// import ClinicaInputEditor from "../common/ClinicaInputEditor";
 // import { useEffect, useState } from "react";
 // import CalculosService from "@/logic/services/CalculosService";
 
@@ -84,7 +84,7 @@
 //                     return (
 //                         <div id={clave} key={clave} className={insumoEditorWrapperClass} >
 //                             {/* Fila editable por cada ClinicaInputModel */}
-//                             <InsumoItemEditor
+//                             <ClinicaInputEditor
 //                                 inData={valor}
 //                                 mostrarDetalles={props.mostrarDetalles}
 //                                 onChange={(updated) => handleInsumoChange(clave, updated)}

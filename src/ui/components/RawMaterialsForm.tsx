@@ -17,6 +17,7 @@ import CalculationService from "@/logic/services/CalculationService";
 interface RawMaterialsFormProps {
     inCentralType: CentralTypeIdEnum;
     inPopulationType: PopulationTypeIdEnum;
+    onSetLoading: (inStatus: boolean) => void;
 }
 
 const RawMaterialsForm = (props: RawMaterialsFormProps) => {
@@ -24,7 +25,7 @@ const RawMaterialsForm = (props: RawMaterialsFormProps) => {
     const [dataLoaded, setDataLoaded] = useState(false);
     const [showDetails, setshowDetails] = useState(true);
     const debounceRef = useRef<number | null>(null);
-    const loadingContext = useContext(LoadingContext);
+    // const loadingContext = useContext(LoadingContext);
 
     // Cargar al montar
     useEffect(() => {
@@ -41,6 +42,7 @@ const RawMaterialsForm = (props: RawMaterialsFormProps) => {
     }, [internalData]);
 
     const handlePropsChange = (): void => {
+        console.log("handlePropsChange.......");
         if (internalData) {
             console.log("RawMaterialsForm: Cambiando props inCentralType y inPopulationType");
             loadDataFromDb();
@@ -49,7 +51,7 @@ const RawMaterialsForm = (props: RawMaterialsFormProps) => {
 
     const requestSaveData = (): void => {
         if (!dataLoaded || internalData === null) {
-            console.warn("RawMaterialsForm: No se puede guardar, datos no cargados o internalData es null.");
+            console.log("RawMaterialsForm: No se puede guardar, datos no cargados o internalData es null.");
             return;
         }
 
@@ -59,14 +61,14 @@ const RawMaterialsForm = (props: RawMaterialsFormProps) => {
 
         debounceRef.current = setTimeout(() => {
             saveDataInDb(internalData);
-        }, 400);
+        }, 100);
     }
 
     const loadDataFromDb = async (): Promise<void> => {
         try {
             console.log("RawMaterialsForm: Cargando materia prima...");
             let gatheredData: RawMaterialModel | null = null;
-            loadingContext.setLoading(true); // activa el contexto de carga
+            props.onSetLoading(true);
 
             const mainKey = buildKeyName("current", props.inCentralType, props.inPopulationType);
             console.log("Buscando materia prima con clave:", mainKey);
@@ -85,8 +87,7 @@ const RawMaterialsForm = (props: RawMaterialsFormProps) => {
         catch (error) {
             console.error("Error al cargar la materia prima desde la base de datos:", error);
         } finally {
-            // setIsLoading(false); // termina carga
-            loadingContext.setLoading(false);
+            props.onSetLoading(false);
             console.log("RawMaterialsForm: Materia prima cargada correctamente.");
         }
     }

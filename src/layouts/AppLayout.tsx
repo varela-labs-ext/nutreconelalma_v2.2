@@ -4,19 +4,19 @@ import { LoadingProvider } from "@/ui/context/LoadingContext";
 import LoadingOverlay from "@/ui/common/LoadingOverlay";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <LoadingProvider>
-      <LoadingOverlay />
-      <div className="min-h-screen bg-gray-50">
-        <NavigationMenu />
-        <main className="p-4">
-          <SubLayout>
-            {children}
-          </SubLayout>
-        </main>
-      </div>
-    </LoadingProvider>
-  );
+    return (
+        <LoadingProvider minDurationMs={300}>
+            <LoadingOverlay />
+            <div className="min-h-screen bg-gray-50">
+                <NavigationMenu />
+                <main className="p-4">
+                    <SubLayout>
+                        {children}
+                    </SubLayout>
+                </main>
+            </div>
+        </LoadingProvider>
+    );
 };
 
 export default AppLayout;

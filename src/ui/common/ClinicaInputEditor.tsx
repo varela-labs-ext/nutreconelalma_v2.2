@@ -44,7 +44,7 @@ const ClinicaInputEditor = (props: ClinicaInputEditorProps) => {
             // Agendar nueva ejecución. Esto es útil para evitar que se llame a onChange demasiadas veces
             // cuando el usuario está escribiendo rápidamente.
             debounceRef.current = setTimeout(() => {
-                console.log("InsumoItemEditor.handleChange() - Debounced call to onChange");
+                console.log("ClinicaInputEditor.handleChange() - Debounced call to onChange");
                 props.onChange(props.inName, output);
             }, 700);
         }

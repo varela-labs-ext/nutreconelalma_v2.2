@@ -47,7 +47,7 @@ export const buildKeyName = (
     inCentralType: CentralTypeIdEnum,
     inPopulationType: PopulationTypeIdEnum
 ): string => {
-    const centralType = CentralTypeIdEnum[inCentralType]?.toLowerCase();
-    const populationType = PopulationTypeIdEnum[inPopulationType]?.toLowerCase();
-    return `${inSourceKey}:${centralType}:${populationType}`;
+    const centralType = CentralTypeIdEnum[inCentralType];
+    const populationType = PopulationTypeIdEnum[inPopulationType];
+    return `${populationType}:${centralType}:${inSourceKey}`;
 };

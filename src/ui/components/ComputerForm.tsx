@@ -1,22 +1,34 @@
 
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TabsBlock from "../common/TabsBlock";
 import MixingCenterConfigForm from "./MixingCenterConfigForm";
 import ComputerBasicSettingsModel from "@/logic/models/common/ComputerBasicSettingsModel";
 import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSettingsModel";
 import RawMaterialsForm from "./RawMaterialsForm";
+import { LoadingContext } from "../context/LoadingContext";
+import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
 
 
 const ComputerForm = () => {
+    const loadingContext = useContext(LoadingContext);
+    const [mixingCenterLoad, setMixingCenterLoad] = useState(false);
+    const [rawMaterialsLoad, setRawMaterialsLoad] = useState(false);
+    const [cargandoB, setCargandoB] = useState(false);
     const [computerSettings, setComputerSettings] = useState<ComputerBasicSettingsModel>(new ComputerBasicSettingsModel());
     // const [mixingCenterSettings, setMixingCenterSettings] = useState<MixingCenterSettingsModel | null>(null);
 
-    const handleMixingCenterConfigChange = (newData: MixingCenterSettingsModel) => {
+    useEffect(() => {
+        loadingContext.setLoading(mixingCenterLoad || rawMaterialsLoad);
+    }, [mixingCenterLoad, rawMaterialsLoad]);
+
+    const handlePopulationTypeChange = (newValue: PopulationTypeIdEnum) => {
         const output: ComputerBasicSettingsModel = {
             ...computerSettings,
-            populationType: newData.populationType,
+            populationType: newValue,
         };
+        console.log("handleMixingCenterConfigChange...");
+        console.log(output);
         setComputerSettings(output);
     }
 
@@ -38,7 +50,8 @@ const ComputerForm = () => {
             <div>
                 <MixingCenterConfigForm
                     inCentralType={CentralTypeIdEnum.Manual} // TODO: por el momento es "Manual", hasta que se define si se necesita o no. Entonces siempre se va a salvar como manual esta parte.
-                    onChange={handleMixingCenterConfigChange}
+                    onPopulationTypeChange={handlePopulationTypeChange}
+                    onSetLoading={setMixingCenterLoad}
                 />
             </div>
             <div>
@@ -50,6 +63,7 @@ const ComputerForm = () => {
                         <RawMaterialsForm
                             inCentralType={computerSettings.centralType}
                             inPopulationType={computerSettings.populationType}
+                            onSetLoading={setRawMaterialsLoad}
                         />
                     </div>
                 </TabsBlock>
