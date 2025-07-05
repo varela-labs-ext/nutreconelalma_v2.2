@@ -9,6 +9,8 @@ import RawMaterialsForm from "./RawMaterialsForm";
 import { LoadingContext } from "../context/LoadingContext";
 import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
 import ComputeButton from "../common/ComputeButton";
+import ResultsForm from "./ResultsForm";
+import ResultsModel from "@/logic/models/ResultsModel";
 
 
 const ComputerForm = () => {
@@ -77,6 +79,11 @@ const ComputerForm = () => {
                 <ComputeButton
                     disabled={false}
                     onClick={handleOnClickCalcular}
+                />
+            </div>
+            <div className="w-full">
+                <ResultsForm
+                    inData={new ResultsModel()}
                 />
             </div>
         </div>

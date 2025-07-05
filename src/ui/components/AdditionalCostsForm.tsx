@@ -10,7 +10,7 @@ const AdditionalCostsForm = (props: AdditionalCostsFormProps) => {
     return (
         <div>
             {props.inShowDetails && (
-                < div className="w-full" >
+                <div className="w-full">
                     <h3 className="text-lg font-semibold text-purple-500 mb-4">Costos Adicionales</h3>
                     <div className="flex flex-col lg:flex-row gap-4">
                         {/* Columna 1 */}
