@@ -26,6 +26,8 @@ class RawMaterialStarter {
         inItem.total = 0;
         inItem.totalPorMl = 0;
 
+
+
         switch (inPopulationType) {
             case PopulationTypeIdEnum.Neonatal:
                 this._neonatalStarter.iniciarInsumos(inItem, inCentralType);
@@ -38,6 +40,11 @@ class RawMaterialStarter {
                 this._adultStarter.iniciarInsumos(inItem, inCentralType);
                 break
         }
+
+        console.log("-------");
+        console.log("-------");
+        console.log(`inCentralType: ${inCentralType}, inPopulationType: ${inPopulationType}`);
+        console.warn(inItem);
 
         return inItem;
     }

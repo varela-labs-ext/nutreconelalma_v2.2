@@ -23,7 +23,7 @@ const RawMaterialsDetailsInputs = (props: RawMaterialsDetailsInputsProps) => {
             if (
                 typeof valor === "object" &&
                 valor !== null &&
-                !valor.excluirDelCalculo
+                valor.excluirDelCalculo === false
             ) {
                 resultado.push([clave, valor as ClinicaInputModel]);
             }
