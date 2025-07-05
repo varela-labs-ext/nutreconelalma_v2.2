@@ -79,7 +79,7 @@ export const InputPercentageField = (props: InputPercentageFieldProps) => {
     };
 
     const getInputClass = () => {
-        const baseClass = "border rounded-lg px-3 py-2 w-full text-left pr-7";
+        const baseClass = "border rounded-xl px-3 py-2 w-full text-left pr-7";
         const baseClassB = "shadow-sm focus:outline-none focus:ring-1";
         // const withErrorClass = "border-red-500 focus:ring-red-500";
         // const withoutErrorClass = "border-gray-300 focus:ring-blue-500";

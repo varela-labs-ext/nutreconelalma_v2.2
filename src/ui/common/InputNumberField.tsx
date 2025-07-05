@@ -109,7 +109,7 @@ const InputNumberField = (props: InputNumberFieldProps) => {
 
     const getInputClass = () => {
         const paddingLeft = props.symbol ? "pl-7" : "pl-3";
-        const baseClass = `rounded-lg ${paddingLeft} pr-3 py-2 w-full text-left`;
+        const baseClass = `rounded-xl ${paddingLeft} pr-3 py-2 w-full text-left`;
         const baseClassB = "text-gray-500 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-0 transition-colors";
         const moreClass = "dark:bg-gray-800 dark:text-white";
 

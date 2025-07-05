@@ -8,6 +8,7 @@ import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSetting
 import RawMaterialsForm from "./RawMaterialsForm";
 import { LoadingContext } from "../context/LoadingContext";
 import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
+import ComputeButton from "../common/ComputeButton";
 
 
 const ComputerForm = () => {
@@ -40,6 +41,10 @@ const ComputerForm = () => {
         setComputerSettings(output);
     }
 
+    const handleOnClickCalcular = () => {
+
+    }
+
     return (
         <div>
             <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
@@ -67,7 +72,12 @@ const ComputerForm = () => {
                         />
                     </div>
                 </TabsBlock>
-
+            </div>
+            <div className="w-full p-8">
+                <ComputeButton
+                    disabled={false}
+                    onClick={handleOnClickCalcular}
+                />
             </div>
         </div>
     );
