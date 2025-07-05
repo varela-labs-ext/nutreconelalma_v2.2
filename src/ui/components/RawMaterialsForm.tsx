@@ -13,6 +13,8 @@ import { LoadingContext } from "../context/LoadingContext";
 import CalculadoraStarter from "@/logic/starters/CalculadoraStarter";
 import RawMaterialStarter from "@/logic/starters/RawMaterialStarter";
 import CalculationService from "@/logic/services/CalculationService";
+import AdditionalCostsForm from "./AdditionalCostsForm";
+import AdditionalCostsModel from "@/logic/models/AdditionalCostsModel";
 
 interface RawMaterialsFormProps {
     inCentralType: CentralTypeIdEnum;
@@ -23,7 +25,8 @@ interface RawMaterialsFormProps {
 const RawMaterialsForm = (props: RawMaterialsFormProps) => {
     const [internalData, setInternalData] = useState<RawMaterialModel | null>(null);
     const [dataLoaded, setDataLoaded] = useState(false);
-    const [showDetails, setshowDetails] = useState(true);
+    const [showDetails, setShowDetails] = useState(false);
+    const [showPresentation, setShowPresentation] = useState(false);
     const debounceRef = useRef<number | null>(null);
     // const loadingContext = useContext(LoadingContext);
 
@@ -112,7 +115,11 @@ const RawMaterialsForm = (props: RawMaterialsFormProps) => {
     }
 
     const handleShowDetailsChange = (newValue: boolean): void => {
-        setshowDetails(newValue);
+        setShowDetails(newValue);
+    }
+
+    const handleShowPresentationChange = (newValue: boolean): void => {
+        setShowPresentation(newValue);
     }
 
     const handleRawMaterialsDetailsChange = (newData: RawMaterialModel): void => {
@@ -134,19 +141,23 @@ const RawMaterialsForm = (props: RawMaterialsFormProps) => {
             <div className="flex flex-col gap-6">
                 <RawMateriaSummary
                     inQuantity={0}
-                    inTotal={0}
+                    inTotalPerNpt={0}
                     inTotalPerMl={0}
                     inShowDetails={showDetails}
+                    inShowPresentation={showPresentation}
                     onQuantityChange={handleQuantityChange}
                     onShowDetailsChange={handleShowDetailsChange}
+                    onShowPresentation={handleShowPresentationChange}
                 />
-                <div>
-                    <RawMaterialsDetails
-                        inData={internalData}
-                        inShowDetails={showDetails}
-                        onChange={handleRawMaterialsDetailsChange}
-                    />
-                </div>
+                <RawMaterialsDetails
+                    inData={internalData}
+                    inShowDetails={showDetails}
+                    inShowPresentation={showPresentation}
+                    onChange={handleRawMaterialsDetailsChange}
+                />
+                <AdditionalCostsForm
+                    inData={new AdditionalCostsModel()}
+                />
             </div>
         ) : (
             <LoadingCard mensaje="Cargando materia prima..." />

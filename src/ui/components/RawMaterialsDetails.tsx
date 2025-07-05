@@ -8,6 +8,7 @@ import CalculationService from "@/logic/services/CalculationService";
 interface RawMaterialsDetailsProps {
     inData: RawMaterialModel;
     inShowDetails: boolean;
+    inShowPresentation: boolean;
     onChange: (inNewItem: RawMaterialModel) => void;
 }
 
@@ -34,15 +35,19 @@ const RawMaterialsDetails = (props: RawMaterialsDetailsProps) => {
     }
 
     return (
-        <div className="flex flex-col gap-2">
-            <RawMaterialsDetailsHeader
-                inShowDetails={props.inShowDetails}
-            />
-            <RawMaterialsDetailsInputs
-                inShowDetails={props.inShowDetails}
-                inData={internalData}
-                onClinicaInputChange={handleClinicaInputChange}
-            />
+        <div>
+            {props.inShowDetails && (
+                <div className="flex flex-col gap-2">
+                    <RawMaterialsDetailsHeader
+                        inShowPresentation={props.inShowPresentation}
+                    />
+                    <RawMaterialsDetailsInputs
+                        inShowPresentation={props.inShowPresentation}
+                        inData={internalData}
+                        onClinicaInputChange={handleClinicaInputChange}
+                    />
+                </div>
+            )}
         </div>
     );
 }

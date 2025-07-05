@@ -99,8 +99,8 @@ const InputNumberField = (props: InputNumberFieldProps) => {
     const getLabelClass = () => {
         const baseClass = "block md:hidden"; /* Esto hace que cuando sea mayor o igual a md (el size) se oculte */
         const alwaysClass = "";
-        const leftClass = "w-32 text-sm font-medium text-gray-700 dark:text-gray-300";
-        const topClass = "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
+        const leftClass = "w-32 text-sm font-medium text-gray-500 dark:text-gray-300";
+        const topClass = "block text-sm font-medium text-gray-500 dark:text-gray-300 mb-1";
 
         return `${labelAlways === true ? alwaysClass : baseClass} ${labelPosition === "left" ? leftClass : topClass}`;
     };
@@ -110,7 +110,7 @@ const InputNumberField = (props: InputNumberFieldProps) => {
     const getInputClass = () => {
         const paddingLeft = props.symbol ? "pl-7" : "pl-3";
         const baseClass = `rounded-lg ${paddingLeft} pr-3 py-2 w-full text-left`;
-        const baseClassB = "text-gray-700 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-0 transition-colors";
+        const baseClassB = "text-gray-500 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-0 transition-colors";
         const moreClass = "dark:bg-gray-800 dark:text-white";
 
         const borderClass = error

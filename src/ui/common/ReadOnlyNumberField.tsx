@@ -27,8 +27,8 @@ export const ReadOnlyNumberField: React.FC<ReadOnlyNumberFieldProps> = (props) =
     const getLabelClass = () => {
         const baseClass = "block md:hidden";
         const alwaysClass = "";
-        const leftClass = "w-32 text-sm font-medium text-gray-700 dark:text-gray-300";
-        const topClass = "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
+        const leftClass = "w-32 text-sm text-gray-500 dark:text-gray-300";
+        const topClass = "block text-sm text-gray-500 dark:text-gray-300 mb-1";
 
         return `${labelAlways === true ? alwaysClass : baseClass} ${labelPosition === "left" ? leftClass : topClass}`;
     };
@@ -47,12 +47,13 @@ export const ReadOnlyNumberField: React.FC<ReadOnlyNumberFieldProps> = (props) =
     const getInputClass = () => {
         const paddingLeft = props.symbol ? "pl-7" : "pl-3";
         const baseClass = `rounded-lg ${paddingLeft} pr-3 py-2 w-full text-left`;
-        const baseClassB = "text-gray-700 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-0 transition-colors";
-        const moreClass = "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-white";
+        const baseClassB = "text-gray-500 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-0 transition-colors";
+        const moreClass = "bg-gray-50 dark:bg-gray-800 dark:text-white";
 
         const borderClass = "border border-gray-200 focus:border-purple-500 focus:ring-purple-500";
+        const cursorClass = "cursor-not-allowed";
 
-        return `${baseClass} ${baseClassB} ${borderClass} ${moreClass}`;
+        return `${baseClass} ${baseClassB} ${borderClass} ${moreClass} ${cursorClass}`;
     };
 
     const symbolClass =

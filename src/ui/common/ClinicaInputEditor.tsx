@@ -8,7 +8,7 @@ import CalculationService from "@/logic/services/CalculationService";
 interface ClinicaInputEditorProps {
     inData: ClinicaInputModel;
     inName: string;
-    inShowDetails: boolean;
+    inShowPresentation: boolean;
     onChange: (inName: string, newItem: ClinicaInputModel) => void;
 }
 
@@ -51,18 +51,21 @@ const ClinicaInputEditor = (props: ClinicaInputEditorProps) => {
     };
 
     return (
-        <div id="insumoItemEditorForm" className="flex flex-col md:flex-row md:items-start gap-4">
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-5 gap-2 w-full">
+        <div className="flex flex-col md:flex-row md:items-start gap-4 bg-white 
+    hover:bg-sky-50 
+    focus-within:bg-sky-50 
+    transition-colors duration-300 p-2 border-b border-gray-200">
+            <div className="pt-2 pb-2 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-5 gap-2 w-full">
                 {/* <input type="number" className="w-full sm:w-auto text-left border max-w-full sm:max-w-[110px]" /> */}
 
                 <div className="md:col-span-1 w-full text-left">
-                    <div className="text-sm text-gray-900 dark:text-white">
+                    <div className="pt-2 text-sm text-gray-500 dark:text-white">
                         {internalData.label}
                     </div>
                 </div>
 
                 <div className="md:col-span-1 w-full ">
-                    {props.inShowDetails && (
+                    {props.inShowPresentation && (
                         <InputNumberField
                             label="presentacionMl"
                             name="presentacionMl"

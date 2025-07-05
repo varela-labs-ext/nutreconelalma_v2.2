@@ -82,7 +82,7 @@ export const PercentTypeInput = (props: PercentTypeInputProps) => {
 
     const getInputClass = () => {
         const baseClass = "border rounded-lg px-3 py-2 w-full text-left pr-7";
-        const baseClassB = "text-gray-700 shadow-sm focus:outline-none focus:ring-1";
+        const baseClassB = "text-gray-500 shadow-sm focus:outline-none focus:ring-1";
         // const withErrorClass = "border-red-500 focus:ring-red-500";
         // const withoutErrorClass = "border-gray-300 focus:ring-blue-500";
         const moreClass = "dark:bg-gray-800 dark:text-white";

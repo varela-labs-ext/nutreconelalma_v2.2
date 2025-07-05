@@ -72,18 +72,18 @@ export const InputPercentageField = (props: InputPercentageFieldProps) => {
     const getLabelClass = () => {
         const baseClass = "block md:hidden"; /* Esto hace que cuando sea mayor o igual a md (el size) se oculte */
         const alwaysClass = "";
-        const leftClass = "w-32 text-sm font-medium text-gray-700 dark:text-gray-300";
-        const topClass = "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
+        const leftClass = "w-32 text-sm font-medium text-gray-500 dark:text-gray-300";
+        const topClass = "block text-sm font-medium text-gray-500 dark:text-gray-300 mb-1";
 
         return `${labelAlways === true ? alwaysClass : baseClass} ${labelPosition === "left" ? leftClass : topClass}`;
     };
 
     const getInputClass = () => {
         const baseClass = "border rounded-lg px-3 py-2 w-full text-left pr-7";
-        const baseClassB = "text-gray-700 shadow-sm focus:outline-none focus:ring-1";
+        const baseClassB = "shadow-sm focus:outline-none focus:ring-1";
         // const withErrorClass = "border-red-500 focus:ring-red-500";
         // const withoutErrorClass = "border-gray-300 focus:ring-blue-500";
-        const moreClass = "dark:bg-gray-800 dark:text-white";
+        const moreClass = "dark:bg-gray-800 dark:text-white text-red-500";
 
         const borderClass = props.hayError
             ? "border-2 border-orange-500 focus:border-orange-500 focus:ring-orange-500"

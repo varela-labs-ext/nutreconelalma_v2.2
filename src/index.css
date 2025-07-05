@@ -1,7 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
+}
+
+body {
+    @apply font-sans text-gray-800; /* fuente por defecto y texto gris oscuro */
+}
+
+/* Scrollbar base */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+/* Track (fondo del scrollbar) */
+::-webkit-scrollbar-track {
+    background: #f3f0ff; /* base muy clara, similar a purple-50 */
+}
+
+/* Thumb (barra movible) */
+::-webkit-scrollbar-thumb {
+    background-color: rgba(168, 85, 247, 0.5); /* #a855f7; */ /* Tailwind's purple-500 */
+    border-radius: 10px;
+    border: 2px solid #f3f0ff; /* para que no se vea pegado al borde */
+}
+
+/* Hover del thumb */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #9333ea; /* purple-600 */
 }

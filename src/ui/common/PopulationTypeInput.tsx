@@ -45,7 +45,7 @@ export const PopulationTypeInput = (props: PopulationTypeInputProps) => {
     const getSelectClass = () => {
         const baseClass = "rounded-lg px-3 py-2 w-full";
         const baseClassB = "shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-0 transition-colors";
-        const moreClass = "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-white";
+        const moreClass = "bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-white";
         const borderClass = "border border-gray-200 focus:border-purple-500 focus:ring-purple-500";
 
         return `${baseClass} ${baseClassB} ${borderClass} ${moreClass}`;
