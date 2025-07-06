@@ -15,9 +15,6 @@ interface NavigationMenuCProps {
 }
 
 const NavigationMenuC = (props: NavigationMenuCProps) => {
-    // const [sidebarOpen, setSidebarOpen] = useState(false)
-
-    // const [sidebarOpen, setSidebarOpen] = useState(false);
     const { pathname } = useLocation();
     const { logout, isAuthenticated } = useAuth();
     const navigate = useNavigate();
@@ -45,29 +42,10 @@ const NavigationMenuC = (props: NavigationMenuCProps) => {
         },
     ];
 
-    // const toggleMenu = () => setSidebarOpen(!sidebarOpen);
-
-    const routes = [
-        {
-            name: "Calculadora",
-            path: "/calculadora",
-            icon: <Calculator className="h-5 w-5" />,
-        },
-        {
-            name: "Configuración",
-            path: "/configuracion",
-            icon: <Settings className="h-5 w-5" />,
-        },
-        {
-            name: "Historial",
-            path: "/historico",
-            icon: <ClipboardList className="h-5 w-5" />,
-        },
-    ]
-
-    // const getClassName = (): string => {
-    //     return `flex items-center rounded-full px-3 py-2 text-sm font-medium transition-colors ${pathname === route.path ? "bg-primary text-primary-foreground" : "text-gray-700 hover:bg-gray-100"}`
-    // }
+    const handleOnLogoutClick = (): void => {
+        logout();
+        props.onSidebarOpen(false);
+    }
 
     const getClassName = (inTo: string): string => {
         return `flex items-center rounded-full px-3 py-2 text-sm font-medium transition-colors ${inTo === inTo ? "bg-primary text-primary-foreground" : "text-gray-700 hover:bg-gray-100"}`
@@ -87,37 +65,17 @@ const NavigationMenuC = (props: NavigationMenuCProps) => {
                 </div>
 
                 <nav className="flex-1 space-y-1 px-2 py-4">
-                    {/* {routes.map((route) => (
-                        <link
-                            key={route.path}
-                            href={route.path}
-                            className={`flex items-center rounded-full px-3 py-2 text-sm font-medium transition-colors ${pathname === route.path ? "bg-primary text-primary-foreground" : "text-gray-700 hover:bg-gray-100"
-                                }`}
-                            onClick={() => props.onSidebarOpen(false)}
-                        >
-                            {route.icon}
-                            <span className="ml-3">{route.name}</span>
-                        </link>
-                    ))} */}
                     {menuItems.map(({ label, icon, path }) => (
                         <button
                             key={path}
-                            // className={getClassName(path)}
                             className={` w-full flex items-center rounded-full px-3 py-2 text-sm font-medium transition-colors ${pathname === path ? "bg-green-500 text-white" : "text-gray-700 hover:bg-gray-100"
                                 }`}
-                            // className={clsx(
-                            //     "flex items-center px-4 py-2 rounded text-left gap-2 mb-2",
-                            //     pathname === path
-                            //         ? "bg-blue-500 text-white"
-                            //         : "hover:bg-gray-100 dark:hover:bg-gray-700"
-                            // )}
                             onClick={() => {
                                 navigate(path);
                                 props.onSidebarOpen(false);
                             }}
                         >
                             {icon}
-
                             <span className="ml-3">{label}</span>
                         </button>
                     ))}
@@ -133,16 +91,21 @@ const NavigationMenuC = (props: NavigationMenuCProps) => {
                         
                     </link> */}
                     {/* variant="outline" */}
-                    <button
+                    {/* <button
                         onClick={() => {
                             logout();
                             props.onSidebarOpen(false);
                         }}
-                        className="flex items-center px-4 py-2 mt-auto text-red-600 hover:bg-red-100 dark:hover:bg-red-900 rounded gap-2"
-                    >
-                        <LogOut size={18} />
+                        // flex items-center px-4 py-2 mt-auto text-red-600 hover:bg-red-100 dark:hover:bg-red-900 rounded gap-2
+                        className="w-full justify-start rounded-full">
+                        <LogOut className="mr-2 h-4 w-4" size={18} />
                         Cerrar sesión
-                    </button>
+                    </button> */}
+                    <div className="pt-2 pb-2  hover:bg-grey-400">
+                        <button onClick={handleOnLogoutClick} className="w-full flex justify-start border border-grey-200 rounded-full px-3 py-2 text-sm font-medium gap-2 hover:bg-grey-400">
+                            <LogOut className="mr-2 h-4 w-4  hover:bg-grey-400" />Cerrar Sesión
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
