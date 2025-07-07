@@ -10,7 +10,7 @@ import LoginPage from "./ui/pages/auth/LoginPage";
 import ResumenImprimible from "./ui/pdf/ResumenImprimible";
 import CalculadoraPage from "./ui/pages/CalculatorPage";
 import HistoryPage from "./ui/pages/HistoryPage";
-import { CalculadoraProvider } from "./ui/context/CalculadoraContext";
+import { MultiActionProvider } from "./ui/context/MultiActionContext";
 
 
 
@@ -20,7 +20,7 @@ function App() {
             <ErrorBoundary>
                 <Router>
                     <AuthProvider>
-                        <CalculadoraProvider>
+                        <MultiActionProvider>
                             <Routes>
                                 <Route path="/" element={<LoginPage />} />
                                 <Route path="/resumen" element={
@@ -39,7 +39,7 @@ function App() {
                                     </ProtectedRoute>
                                 } />
                             </Routes>
-                        </CalculadoraProvider>
+                        </MultiActionProvider>
                     </AuthProvider>
                 </Router>
                 <ToastContainer position="top-right" />

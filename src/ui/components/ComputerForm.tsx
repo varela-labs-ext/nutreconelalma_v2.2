@@ -12,6 +12,7 @@ import ComputeButton from "../common/ComputeButton";
 import ResultsForm from "./ResultsForm";
 import ResultsModel from "@/logic/models/ResultsModel";
 import { useCalculadoraContext } from "../context/CalculadoraContext";
+import { useMultiActionContext } from "../context/MultiActionContext";
 
 
 const ComputerForm = () => {
@@ -21,27 +22,30 @@ const ComputerForm = () => {
     const [cargandoB, setCargandoB] = useState(false);
     const [computerSettings, setComputerSettings] = useState<ComputerBasicSettingsModel>(new ComputerBasicSettingsModel());
     // const [mixingCenterSettings, setMixingCenterSettings] = useState<MixingCenterSettingsModel | null>(null);
-    const { accionActual, setAccion } = useCalculadoraContext();
+    // const { accionActual, setAccion } = useCalculadoraContext();
+    const { getAction, setAction, clearAction } = useMultiActionContext();
+    const currentAction = getAction("calculadora");
 
     useEffect(() => {
         loadingContext.setLoading(mixingCenterLoad || rawMaterialsLoad);
     }, [mixingCenterLoad, rawMaterialsLoad]);
 
     useEffect(() => {
-        if (accionActual === "nueva") {
+        if (currentAction === "nueva") {
             console.log("Nueva calculadora");
             // ejecutarCrearNuevaCalculadora();
-        } else if (accionActual === "cargar") {
+        } else if (currentAction === "cargar") {
             console.log("Cargar calculadora");
             // ejecutarCargaCalculadora();
-        } else if (accionActual === "salvar") {
+        } else if (currentAction === "salvar") {
             console.log("Salvar calculadora");
             // ejecutarSalvarCalculadora();
         }
 
         // Limpiar acción luego de ejecutarla para que no se repita en cada render
-        setAccion(null);
-    }, [accionActual]);
+        // setAction(null);
+        clearAction("calculadora"); // Limpiar después de usar
+    }, [currentAction]);
 
     const handlePopulationTypeChange = (newValue: PopulationTypeIdEnum) => {
         const output: ComputerBasicSettingsModel = {

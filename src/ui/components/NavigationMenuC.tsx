@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import { Menu, LogOut, Settings, Calculator, History } from "lucide-react";
-import { Calculator, Settings, ClipboardList, LogOut, Menu, X, History, ChevronDown, ChevronUp } from "lucide-react"
+import { Calculator, Settings, ClipboardList, LogOut, Menu, X, History, ChevronDown, ChevronUp, FilePlus, UploadCloud, Save } from "lucide-react"
 
 import { useLocation, useNavigate } from "react-router-dom";
 // import { AuthContext } from "../context/AuthContext";
@@ -9,7 +9,11 @@ import React from "react";
 // import AuthContext from "../context/AuthContext";
 import { useAuth } from "@/hooks/useAuth";
 
-import { useCalculadoraContext } from "@/ui/context/CalculadoraContext";
+// import { useCalculadoraContext } from "@/ui/context/CalculadoraContext";
+
+import AccordionMenuItemWithLinks from "../common/AccordionMenuItemWithLinks";
+import { useMultiActionContext } from "../context/MultiActionContext";
+import AccordionMenuItemWithContextAction from "../common/AccordionMenuItemWithContextAction";
 
 interface NavigationMenuCProps {
     isSidebarOpen: boolean;
@@ -22,6 +26,7 @@ const NavigationMenuC = (props: NavigationMenuCProps) => {
     const { logout, isAuthenticated } = useAuth();
     const [isCalculadoraOpen, setIsCalculadoraOpen] = useState<boolean>(pathname.startsWith("/calculadora"));
     const navigate = useNavigate();
+    const { getAction, setAction, clearAction } = useMultiActionContext();
 
     if (!isAuthenticated || pathname === "/") return null;
 
@@ -35,10 +40,11 @@ const NavigationMenuC = (props: NavigationMenuCProps) => {
         props.onSidebarOpen(false);
     }
 
-    const { setAccion } = useCalculadoraContext();
+    // const { setAccion } = useCalculadoraContext();
 
     const handleAccionYRedirigir = (accion: "nueva" | "cargar" | "salvar") => {
-        setAccion(accion);
+        // setAccion(accion);
+        setAction("calculadora", "cargar");
         setIsCalculadoraOpen(false);
         navigate("/calculadora");
         props.onSidebarOpen(false);
@@ -57,8 +63,22 @@ const NavigationMenuC = (props: NavigationMenuCProps) => {
 
                 <nav className="flex-1 space-y-1 px-2 py-4">
 
+                    <AccordionMenuItemWithContextAction
+                        label="Calculadora"
+                        to="/calculadora"
+                        icon={<ClipboardList className="h-5 w-5 mr-2" />}
+                        isActive={pathname.startsWith("/calculadora")}
+                        onCloseSidebar={() => props.onSidebarOpen(false)}
+                        setAccion={(actionName) => setAction("calculadora", actionName)}
+                        items={[
+                            { label: "Nueva", actionName: "new", icon: <FilePlus className="h-4 w-4" /> },
+                            { label: "Cargar", actionName: "load", icon: <UploadCloud className="h-4 w-4" /> },
+                            { label: "Salvar", actionName: "save", icon: <Save className="h-4 w-4" /> },
+                        ]}
+                    />
+
                     {/* Menú Calculadora con subitems */}
-                    <div className="space-y-1">
+                    {/* <div className="space-y-1">
                         <button
                             className={clsx(
                                 "w-full flex items-center justify-between px-3 py-2 text-sm font-medium rounded-full transition-colors",
@@ -70,34 +90,50 @@ const NavigationMenuC = (props: NavigationMenuCProps) => {
                         >
                             <div className="flex items-center">
                                 <Calculator className="h-5 w-5 mr-2" />
-                                Calculadora
+                                Calculadoras
                             </div>
-                            {isCalculadoraOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                            <ChevronDown
+                                className={clsx(
+                                    "h-4 w-4 transition-transform duration-300",
+                                    isCalculadoraOpen ? "rotate-180" : "rotate-0"
+                                )}
+                            />
                         </button>
 
-                        {isCalculadoraOpen && (
-                            <div className="ml-8 space-y-1 transition-all duration-300">
-                                <button
-                                    className="w-full text-left text-sm px-4 py-1.5 hover:bg-gray-100 rounded-full transition-colors"
-                                    onClick={() => handleAccionYRedirigir("nueva")}
-                                >
-                                    Nueva Calculadora
-                                </button>
-                                <button
-                                    className="w-full text-left text-sm px-4 py-1.5 hover:bg-gray-100 rounded-full transition-colors"
-                                    onClick={() => handleAccionYRedirigir("cargar")}
-                                >
-                                    Cargar Calculadora
-                                </button>
-                                <button
-                                    className="w-full text-left text-sm px-4 py-1.5 hover:bg-gray-100 rounded-full transition-colors"
-                                    onClick={() => handleAccionYRedirigir("salvar")}
-                                >
-                                    Salvar Calculadora
-                                </button>
-                            </div>
-                        )}
-                    </div>
+                        <div
+                            className={clsx(
+                                "ml-8 space-y-1 overflow-hidden transition-all duration-300 ease-in-out",
+                                isCalculadoraOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+                            )}
+                        >
+                            <button
+                                className="w-full text-left text-sm px-4 py-1.5 hover:bg-gray-100 rounded-full transition-colors"
+                                onClick={() => handleAccionYRedirigir("nueva")}
+                            >
+                                Nueva Calculadora
+                            </button>
+                            <button
+                                className="w-full text-left text-sm px-4 py-1.5 hover:bg-gray-100 rounded-full transition-colors"
+                                onClick={() => handleAccionYRedirigir("cargar")}
+                            >
+                                Cargar Calculadora
+                            </button>
+                            <button
+                                className="w-full text-left text-sm px-4 py-1.5 hover:bg-gray-100 rounded-full transition-colors"
+                                onClick={() => handleAccionYRedirigir("salvar")}
+                            >
+                                Salvar Calculadora
+                            </button>
+                        </div>
+                    </div> */}
+
+                    <button
+                        className={`w-full flex items-center rounded-full px-3 py-2 text-sm font-medium transition-colors ${pathname === "/historico" ? "bg-green-500 text-white" : "text-gray-700 hover:bg-gray-100"}`}
+                        onClick={() => handleNavigation("/historico")}
+                    >
+                        <ClipboardList className="h-5 w-5" />
+                        <span className="ml-3">Histórico</span>
+                    </button>
 
                     {/* Otros ítems */}
                     <button
@@ -108,13 +144,34 @@ const NavigationMenuC = (props: NavigationMenuCProps) => {
                         <span className="ml-3">Configuración</span>
                     </button>
 
-                    <button
-                        className={`w-full flex items-center rounded-full px-3 py-2 text-sm font-medium transition-colors ${pathname === "/historico" ? "bg-green-500 text-white" : "text-gray-700 hover:bg-gray-100"}`}
-                        onClick={() => handleNavigation("/historico")}
-                    >
-                        <ClipboardList className="h-5 w-5" />
-                        <span className="ml-3">Histórico</span>
-                    </button>
+
+                    <AccordionMenuItemWithLinks
+                        icon={<ClipboardList className="h-5 w-5 mr-2" />}
+                        label="Reportes"
+                        isActive={pathname.startsWith("/reportes")}
+                        onCloseSidebar={() => props.onSidebarOpen(false)}
+                        items={[
+                            { label: "Reporte por Usuario", to: "/reportes/usuarios" },
+                            { label: "Reporte por Fecha", to: "/reportes/fechas" },
+                            { label: "Resumen General", to: "/reportes/resumen" },
+                        ]}
+                    />
+
+                    <AccordionMenuItemWithContextAction
+                        label="Reportes2"
+                        to="/reportes"
+                        icon={<ClipboardList className="h-5 w-5 mr-2" />}
+                        isActive={pathname.startsWith("/reportes")}
+                        onCloseSidebar={() => props.onSidebarOpen(false)}
+                        setAccion={(accion) => setAction("reportes", accion)}
+                        items={[
+                            { label: "Por Usuario", actionName: "usuarios" },
+                            { label: "Por Fecha", actionName: "fechas" },
+                            { label: "Resumen General", actionName: "resumen" },
+                        ]}
+                    />
+
+
 
                 </nav>
 
