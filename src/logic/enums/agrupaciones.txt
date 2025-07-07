@@ -1,0 +1,89 @@
+Gracias Joe, aquí tienes las agrupaciones basadas **únicamente** en los valores reales del `enum InsumoClinicoNamesEnum`:
+
+---
+
+### ✅ **Agrupaciones derivadas del enum**
+
+#### 1. 🧬 **Aminoácidos**
+
+Todos estos son productos con variaciones en concentración, volumen o si contienen electrolitos:
+
+* "Aminoácidos 15 % x 1000 ml"
+* "Aminoácidos 15 % x 500 ml"
+* "Aminoácidos con electrolitos 10% x 500 ml"
+* "Aminoácidos infantil x 100 ml"
+* "Aminoácidos infantil x 1000 ml"
+* "Aminoácidos infantil x 250 ml"
+* "Aminoácidos infantil x 500 ml"
+* "Aminoácidos sin electrolitos 10% x 500 ml"
+
+---
+
+#### 2. 🧂 **Electrolitos y Minerales**
+
+* "Cloruro de potasio vial x 10cc"
+* "Cloruro de sodio vial x 10cc"
+* "Fosfato de potasio vial x 10cc"
+* "Glicerofosfato de sodio x 20 ml"
+* "Gluconato de calcio vial x 10cc"
+* "Sulfato de magnesio vial x 10 cc"
+
+---
+
+#### 3. 🧪 **Elementos traza**
+
+* "Elementos traza x 10 ml"
+* "Elementos traza pediatricos x 10 ml"
+
+---
+
+#### 4. 💊 **Vitaminas**
+
+* "Tiamina"
+* "Vitamina c - acido ascorbico"
+* "Vitaminas hidrosolubles"
+* "Vitaminas liposolubles adulto"
+* "Vitaminas liposolubles infantil"
+* "Multivitaminas"
+* "Complejo B"
+
+> Nota: Aunque “Complejo B” no tiene la palabra “vitamina”, pertenece a este grupo.
+
+---
+
+#### 5. 🥼 **Lípidos / Emulsiones lipídicas**
+
+* "Lípidos (lipofundin) frasco vial x 100 cc"
+* "Lípidos (lipofundin) frasco x 500 cc"
+
+---
+
+#### 6. 🍬 **Carbohidratos / Energéticos**
+
+* "Dextrosa al 50% bolsa x 500cc"
+
+---
+
+#### 7. 💧 **Diluyentes o vehículos**
+
+* "Agua esteril x 500 ml"
+
+---
+
+#### 8. 🧴 **Contenedores o mezcladores**
+
+* "Bolsa x 1000 ml"
+* "Bolsa x 2000 ml"
+* "Bolsa x 500 ml"
+* "Single-chamber mixing container eva 1000 ml"
+* "Single-chamber mixing container eva 2000 ml"
+* "Single-chamber mixing container eva 250 ml"
+* "Single-chamber mixing container eva 500 ml"
+
+> Posiblemente usados como base o recipiente en la preparación.
+
+---
+
+¿Te gustaría que prepare un `enum` complementario o una función que agrupe automáticamente estos valores según su categoría? También se puede generar un `Map<string, CategoriaEnum>` que facilite búsquedas o agrupaciones visuales.
+
+Solo dime el siguiente paso.

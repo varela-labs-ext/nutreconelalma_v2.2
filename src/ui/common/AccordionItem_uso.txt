@@ -1,0 +1,27 @@
+import AccordionItem from "@/components/AccordionItem";
+import { Folder } from "lucide-react";
+
+<AccordionItem
+    title="Vitaminas"
+    icon={<Folder className="h-4 w-4 text-purple-500" />}
+    onExpand={() => console.log("Renderizó sección Vitaminas")}
+>
+    <p>Aquí se muestran los insumos de vitaminas...</p>
+</AccordionItem>
+
+
+
+
+----
+
+
+<AccordionGroup multiOpen>
+    <AccordionItem id="a" title="A">Contenido A</AccordionItem>
+    <AccordionItem id="b" title="B">Contenido B</AccordionItem>
+</AccordionGroup>
+
+
+<AccordionGroup>
+    <AccordionItem id="a" title="A">Contenido A</AccordionItem>
+    <AccordionItem id="b" title="B">Contenido B</AccordionItem>
+</AccordionGroup>

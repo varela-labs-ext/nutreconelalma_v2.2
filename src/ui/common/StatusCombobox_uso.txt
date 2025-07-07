@@ -1,0 +1,26 @@
+const opciones = [
+    { id: "activo", label: "Activo", color: "bg-green-500" },
+    { id: "pendiente", label: "Pendiente", color: "bg-yellow-400" },
+    { id: "inactivo", label: "Inactivo", color: "bg-red-500" },
+];
+
+<StatusCombobox
+    options={opciones}
+    value={estadoActual}
+    onChange={(nuevoId) => setEstadoActual(nuevoId)}
+    placeholder="Selecciona estado"
+/>
+
+
+const opciones = [
+  { id: "activo", label: "Activo", color: "bg-green-500" },
+  { id: "pendiente", label: "Pendiente", color: "bg-yellow-400" },
+  { id: "inactivo", label: "Inactivo", color: "bg-red-500" },
+];
+
+<StatusCombobox
+  options={opciones}
+  value={estadoActual}
+  onChange={(nuevoId) => setEstadoActual(nuevoId)}
+  placeholder="Selecciona estado"
+/>;

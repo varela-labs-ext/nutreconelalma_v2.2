@@ -1,0 +1,7 @@
+<InputNumberField
+    value={precio}
+    onChange={(nuevo) => setPrecio(nuevo)}
+    prefix="$"
+    suffix="USD"
+    placeholder="0.00"
+/>

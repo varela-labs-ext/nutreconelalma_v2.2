@@ -1,3 +1,5 @@
+import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
+
 class ClinicaInputModel {
     public presentacionMl: number; // Editable
     public cantidadMl: number; // Editable
@@ -7,8 +9,9 @@ class ClinicaInputModel {
     public costoTotalPorUnidad: number; // Calculado
     public label: string;
     public excluirDelCalculo: boolean;
+    public category: ClinicalInputCategoryEnumId;
 
-    constructor(inLabel: string) {
+    constructor(inLabel: string, inCategory: ClinicalInputCategoryEnumId) {
         this.excluirDelCalculo = true; // La idea es que todos se excluyan por defecto. Y al momento de usar el factory, justo ahí se definen los que estaran dentro del calculo final.
         this.label = inLabel;
         this.presentacionMl = 0;
@@ -17,6 +20,7 @@ class ClinicaInputModel {
         this.costoPorMl = 0;
         this.costoPorUnidad = 0;
         this.costoTotalPorUnidad = 0;
+        this.category = inCategory;
     }
 }
 
