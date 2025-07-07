@@ -1,47 +1,83 @@
-import clsx from "clsx";
-import React, { useState } from "react";
+import {
+    useState,
+    useEffect,
+    ReactElement,
+    Children,
+    isValidElement,
+} from 'react';
+import IconTab, { IconTabProps } from './IconTab';
 
-interface TabItem {
-    id: string;
-    label: string;
-    icon: React.ReactNode;
-    disabled?: boolean;
-}
+type IconTabsProps = {
+    children: ReactElement<IconTabProps>[];
+    onTabChange?: (index: number) => void;
+    defaultTabIndex?: number;
+    activeTabIndex?: number; // ✅ NUEVO
+    setActiveTabIndex?: (index: number) => void; // ✅ NUEVO
+};
 
-interface IconTabsProps {
-    items: TabItem[];
-    selectedId: string;
-    onChange: (id: string) => void;
-}
+const IconTabs = (props: IconTabsProps) => {
+    const validTabs = Children.toArray(props.children).filter(
+        (child) => isValidElement(child) && child.type === IconTab
+    ) as ReactElement<IconTabProps>[];
 
-const IconTabs = ({ items, selectedId, onChange }: IconTabsProps) => {
+    // ✅ Si es modo controlado, usamos el index externo; si no, usamos estado interno
+    const isControlled = props.activeTabIndex !== undefined && props.setActiveTabIndex !== undefined;
+
+    const [internalIndex, setInternalIndex] = useState(() => {
+        if (
+            props.defaultTabIndex !== undefined &&
+            props.defaultTabIndex >= 0 &&
+            props.defaultTabIndex < validTabs.length
+        ) {
+            return props.defaultTabIndex;
+        }
+        return 0;
+    });
+
+    const activeIndex = isControlled ? props.activeTabIndex! : internalIndex;
+    const setActiveIndex = isControlled ? props.setActiveTabIndex! : setInternalIndex;
+
+    const activeTab = validTabs[activeIndex];
+
+    useEffect(() => {
+        if (props.onTabChange) {
+            props.onTabChange(activeIndex);
+        }
+    }, [activeIndex]);
+
     return (
-        <div className="border-b border-gray-200">
-            <nav className="-mb-px flex space-x-6" aria-label="Tabs">
-                {items.map((tab) => {
-                    const isActive = tab.id === selectedId;
-                    const isDisabled = tab.disabled;
+        <div>
+            <div className="flex border-b border-gray-300 mb-4">
+                {validTabs.map((tab, index) => {
+                    const Icon = tab.props.icon;
+                    const isActive = index === activeIndex;
+                    const isDisabled = tab.props.disabled;
 
                     return (
                         <button
-                            key={tab.id}
-                            onClick={() => !isDisabled && onChange(tab.id)}
-                            disabled={isDisabled}
-                            className={clsx(
-                                "group inline-flex items-center py-4 px-1 border-b-2 text-sm font-medium transition-colors",
-                                {
-                                    "cursor-not-allowed text-gray-300 border-transparent": isDisabled,
-                                    "border-purple-500 text-purple-600": isActive && !isDisabled,
-                                    "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300": !isActive && !isDisabled,
+                            key={index}
+                            onClick={() => {
+                                if (!isDisabled) {
+                                    setActiveIndex(index);
                                 }
-                            )}
+                            }}
+                            disabled={isDisabled}
+                            className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors border-b-2
+                  ${isActive
+                                    ? 'text-purple-600 border-purple-600'
+                                    : isDisabled
+                                        ? 'text-gray-400 border-transparent cursor-not-allowed'
+                                        : 'text-gray-500 border-transparent hover:text-purple-500'
+                                }`}
                         >
-                            <span className="mr-2">{tab.icon}</span>
-                            <span>{tab.label}</span>
+                            <Icon className="w-4 h-4" />
+                            {tab.props.label}
                         </button>
                     );
                 })}
-            </nav>
+            </div>
+
+            <div>{activeTab}</div>
         </div>
     );
 };

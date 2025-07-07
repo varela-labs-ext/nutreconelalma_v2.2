@@ -27,3 +27,53 @@ const tabs = [
     { id: "formulario", label: "Formulario", icon: <Settings className="h-4 w-4" /> },
     { id: "resultados", label: "Resultados", icon: <BarChart2 className="h-4 w-4" />, disabled: true },
 ];
+
+
+
+-----
+
+<IconTabs onTabChange={(index) => console.log('Cambió a tab:', index)}>
+  <IconTab label="A" icon={Home}>
+    <p>Contenido A</p>
+  </IconTab>
+  <IconTab label="B" icon={FileText}>
+    <p>Contenido B</p>
+  </IconTab>
+</IconTabs>
+
+<IconTabs defaultTabIndex={0}>
+  <IconTab label="Resumen" icon={Home}>
+    <ResumenTab />
+  </IconTab>
+
+  <IconTab label="Detalle" icon={FileText} disabled>
+    <DetalleTab />
+  </IconTab>
+
+  <IconTab label="Configuración" icon={Settings}>
+    <ConfigTab />
+  </IconTab>
+</IconTabs>
+
+
+Ejemplo de uso (modo controlado)
+
+const [tabIndex, setTabIndex] = useState(1);
+
+<IconTabs
+  activeTabIndex={tabIndex}
+  setActiveTabIndex={setTabIndex}
+  onTabChange={(i) => console.log('Tab actual:', i)}
+>
+  <IconTab label="Uno" icon={Home}>
+    <TabUno />
+  </IconTab>
+  <IconTab label="Dos" icon={FileText} disabled>
+    <TabDos />
+  </IconTab>
+  <IconTab label="Tres" icon={Settings}>
+    <TabTres />
+  </IconTab>
+</IconTabs>
+
+
