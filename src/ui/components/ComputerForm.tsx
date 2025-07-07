@@ -13,6 +13,9 @@ import ResultsForm from "./ResultsForm";
 import ResultsModel from "@/logic/models/ResultsModel";
 import { useCalculadoraContext } from "../context/CalculadoraContext";
 import { useMultiActionContext } from "../context/MultiActionContext";
+import IconTabs from "../common/IconTabs";
+import IconTab from "../common/IconTab";
+import { FileText, Home, Settings } from "lucide-react";
 
 
 const ComputerForm = () => {
@@ -76,38 +79,53 @@ const ComputerForm = () => {
                     CALCULADORA NUTRICIÓN HOSPITALARIA
                 </h1>
             </div>
-            <div>
-                <MixingCenterConfigForm
-                    inCentralType={CentralTypeIdEnum.Manual} // TODO: por el momento es "Manual", hasta que se define si se necesita o no. Entonces siempre se va a salvar como manual esta parte.
-                    onPopulationTypeChange={handlePopulationTypeChange}
-                    onSetLoading={setMixingCenterLoad}
-                />
-            </div>
-            <div>
-                <TabsBlock
-                    inCentralType={computerSettings.centralType}
-                    onChange={handleTabsChange}
-                >
+
+            <IconTabs defaultTabIndex={0}>
+                <IconTab label="Central de Mezclas" icon={Home}>
                     <div>
-                        <RawMaterialsForm
-                            inCentralType={computerSettings.centralType}
-                            inPopulationType={computerSettings.populationType}
-                            onSetLoading={setRawMaterialsLoad}
+                        <div>
+                            <MixingCenterConfigForm
+                                inCentralType={CentralTypeIdEnum.Manual} // TODO: por el momento es "Manual", hasta que se define si se necesita o no. Entonces siempre se va a salvar como manual esta parte.
+                                onPopulationTypeChange={handlePopulationTypeChange}
+                                onSetLoading={setMixingCenterLoad}
+                            />
+                        </div>
+                        <div>
+                            <TabsBlock
+                                inCentralType={computerSettings.centralType}
+                                onChange={handleTabsChange}
+                            >
+                                <div>
+                                    <RawMaterialsForm
+                                        inCentralType={computerSettings.centralType}
+                                        inPopulationType={computerSettings.populationType}
+                                        onSetLoading={setRawMaterialsLoad}
+                                    />
+                                </div>
+                            </TabsBlock>
+                        </div>
+                    </div>
+                </IconTab>
+
+                <IconTab label="Resultados" icon={FileText}>
+                    <div className="w-full">
+                        <ResultsForm
+                            inData={new ResultsModel()}
                         />
                     </div>
-                </TabsBlock>
-            </div>
-            <div className="w-full p-8">
+                </IconTab>
+            </IconTabs>
+
+
+
+
+            {/* <div className="w-full p-8">
                 <ComputeButton
                     disabled={false}
                     onClick={handleOnClickCalcular}
                 />
-            </div>
-            <div className="w-full">
-                <ResultsForm
-                    inData={new ResultsModel()}
-                />
-            </div>
+            </div> */}
+
         </div>
     );
 }
