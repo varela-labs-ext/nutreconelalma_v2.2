@@ -66,7 +66,7 @@ const NavigationMenuC = (props: NavigationMenuCProps) => {
                     <AccordionMenuItemWithContextAction
                         label="Calculadora"
                         to="/calculadora"
-                        icon={<ClipboardList className="h-5 w-5 mr-2" />}
+                        icon={<Calculator className="h-5 w-5 mr-2" />}
                         isActive={pathname.startsWith("/calculadora")}
                         onCloseSidebar={() => props.onSidebarOpen(false)}
                         setAccion={(actionName) => setAction("calculadora", actionName)}
