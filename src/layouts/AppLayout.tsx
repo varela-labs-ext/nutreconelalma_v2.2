@@ -20,7 +20,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
 
                 {/* <NavigationMenu /> */}
                 <NavigationMenu isSidebarOpen={sidebarOpen} onSidebarOpen={setSidebarOpen} />
-                <main className="p-4">
+                <main id="main_div">
                     <SubLayout>
                         {children}
                     </SubLayout>
