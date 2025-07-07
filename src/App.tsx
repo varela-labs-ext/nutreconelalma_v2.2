@@ -10,6 +10,7 @@ import LoginPage from "./ui/pages/auth/LoginPage";
 import ResumenImprimible from "./ui/pdf/ResumenImprimible";
 import CalculadoraPage from "./ui/pages/CalculatorPage";
 import HistoryPage from "./ui/pages/HistoryPage";
+import { CalculadoraProvider } from "./ui/context/CalculadoraContext";
 
 
 
@@ -19,24 +20,26 @@ function App() {
             <ErrorBoundary>
                 <Router>
                     <AuthProvider>
-                        <Routes>
-                            <Route path="/" element={<LoginPage />} />
-                            <Route path="/resumen" element={
-                                <ProtectedRoute>
-                                    <AppLayout><ResumenImprimible /></AppLayout>
-                                </ProtectedRoute>
-                            } />
-                            <Route path="/calculadora" element={
-                                <ProtectedRoute>
-                                    <AppLayout><CalculadoraPage /></AppLayout>
-                                </ProtectedRoute>
-                            } />
-                            <Route path="/historico" element={
-                                <ProtectedRoute>
-                                    <AppLayout><HistoryPage /></AppLayout>
-                                </ProtectedRoute>
-                            } />
-                        </Routes>
+                        <CalculadoraProvider>
+                            <Routes>
+                                <Route path="/" element={<LoginPage />} />
+                                <Route path="/resumen" element={
+                                    <ProtectedRoute>
+                                        <AppLayout><ResumenImprimible /></AppLayout>
+                                    </ProtectedRoute>
+                                } />
+                                <Route path="/calculadora" element={
+                                    <ProtectedRoute>
+                                        <AppLayout><CalculadoraPage /></AppLayout>
+                                    </ProtectedRoute>
+                                } />
+                                <Route path="/historico" element={
+                                    <ProtectedRoute>
+                                        <AppLayout><HistoryPage /></AppLayout>
+                                    </ProtectedRoute>
+                                } />
+                            </Routes>
+                        </CalculadoraProvider>
                     </AuthProvider>
                 </Router>
                 <ToastContainer position="top-right" />

@@ -12,6 +12,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <LoadingProvider minDurationMs={300}>
             <LoadingOverlay />
+
             <div className="min-h-screen bg-gray-50">
 
                 <FixHeader isSidebarOpen={sidebarOpen} onClick={setSidebarOpen} />

@@ -11,6 +11,7 @@ import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
 import ComputeButton from "../common/ComputeButton";
 import ResultsForm from "./ResultsForm";
 import ResultsModel from "@/logic/models/ResultsModel";
+import { useCalculadoraContext } from "../context/CalculadoraContext";
 
 
 const ComputerForm = () => {
@@ -20,10 +21,27 @@ const ComputerForm = () => {
     const [cargandoB, setCargandoB] = useState(false);
     const [computerSettings, setComputerSettings] = useState<ComputerBasicSettingsModel>(new ComputerBasicSettingsModel());
     // const [mixingCenterSettings, setMixingCenterSettings] = useState<MixingCenterSettingsModel | null>(null);
+    const { accionActual, setAccion } = useCalculadoraContext();
 
     useEffect(() => {
         loadingContext.setLoading(mixingCenterLoad || rawMaterialsLoad);
     }, [mixingCenterLoad, rawMaterialsLoad]);
+
+    useEffect(() => {
+        if (accionActual === "nueva") {
+            console.log("Nueva calculadora");
+            // ejecutarCrearNuevaCalculadora();
+        } else if (accionActual === "cargar") {
+            console.log("Cargar calculadora");
+            // ejecutarCargaCalculadora();
+        } else if (accionActual === "salvar") {
+            console.log("Salvar calculadora");
+            // ejecutarSalvarCalculadora();
+        }
+
+        // Limpiar acción luego de ejecutarla para que no se repita en cada render
+        setAccion(null);
+    }, [accionActual]);
 
     const handlePopulationTypeChange = (newValue: PopulationTypeIdEnum) => {
         const output: ComputerBasicSettingsModel = {

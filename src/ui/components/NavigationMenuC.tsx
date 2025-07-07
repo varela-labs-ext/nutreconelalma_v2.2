@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import { Menu, LogOut, Settings, Calculator, History } from "lucide-react";
-import { Calculator, Settings, ClipboardList, LogOut, Menu, X, History } from "lucide-react"
+import { Calculator, Settings, ClipboardList, LogOut, Menu, X, History, ChevronDown, ChevronUp } from "lucide-react"
 
 import { useLocation, useNavigate } from "react-router-dom";
 // import { AuthContext } from "../context/AuthContext";
@@ -9,101 +9,121 @@ import React from "react";
 // import AuthContext from "../context/AuthContext";
 import { useAuth } from "@/hooks/useAuth";
 
+import { useCalculadoraContext } from "@/ui/context/CalculadoraContext";
+
 interface NavigationMenuCProps {
     isSidebarOpen: boolean;
     onSidebarOpen: (newValue: boolean) => void;
 }
 
+
 const NavigationMenuC = (props: NavigationMenuCProps) => {
     const { pathname } = useLocation();
     const { logout, isAuthenticated } = useAuth();
+    const [isCalculadoraOpen, setIsCalculadoraOpen] = useState<boolean>(pathname.startsWith("/calculadora"));
     const navigate = useNavigate();
 
     if (!isAuthenticated || pathname === "/") return null;
-
-    const menuItems = [
-        {
-            label: "Calculadora",
-            iconId: Calculator,
-            icon: <Calculator className="h-5 w-5" />,
-            path: "/calculadora"
-        },
-        {
-            label: "Configuración",
-            iconId: Settings,
-            icon: <Settings className="h-5 w-5" />,
-            path: "/configuracion"
-        },
-        {
-            label: "Histórico",
-            iconId: History,
-            icon: <ClipboardList className="h-5 w-5" />,
-            path: "/historico"
-        },
-    ];
 
     const handleOnLogoutClick = (): void => {
         logout();
         props.onSidebarOpen(false);
     }
 
-    const getClassName = (inTo: string): string => {
-        return `flex items-center rounded-full px-3 py-2 text-sm font-medium transition-colors ${inTo === inTo ? "bg-primary text-primary-foreground" : "text-gray-700 hover:bg-gray-100"}`
+    const handleNavigation = (pathWithQuery: string): void => {
+        navigate(pathWithQuery);
+        props.onSidebarOpen(false);
     }
+
+    const { setAccion } = useCalculadoraContext();
+
+    const handleAccionYRedirigir = (accion: "nueva" | "cargar" | "salvar") => {
+        setAccion(accion);
+        setIsCalculadoraOpen(false);
+        navigate("/calculadora");
+        props.onSidebarOpen(false);
+    };
 
     return (
         <div
-            className={`fixed inset-y-0 left-0 z-40 w-64 transform bg-white shadow-lg transition-transform duration-300 ease-in-out ${props.isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-                }`}
+            className={`fixed inset-y-0 left-0 z-40 w-64 transform bg-white shadow-lg transition-transform duration-300 ease-in-out ${props.isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
             <div className="flex h-full flex-col">
-                <div className="pt-16">
+                <div className="pt-16"></div>
 
-                </div>
                 <div className="hidden lg:flex items-center justify-between px-4 py-3">
                     <h2 className="text-xl text-purple-500 font-bold text-primary">Menú Principal</h2>
                 </div>
 
                 <nav className="flex-1 space-y-1 px-2 py-4">
-                    {menuItems.map(({ label, icon, path }) => (
+
+                    {/* Menú Calculadora con subitems */}
+                    <div className="space-y-1">
                         <button
-                            key={path}
-                            className={` w-full flex items-center rounded-full px-3 py-2 text-sm font-medium transition-colors ${pathname === path ? "bg-green-500 text-white" : "text-gray-700 hover:bg-gray-100"
-                                }`}
-                            onClick={() => {
-                                navigate(path);
-                                props.onSidebarOpen(false);
-                            }}
+                            className={clsx(
+                                "w-full flex items-center justify-between px-3 py-2 text-sm font-medium rounded-full transition-colors",
+                                pathname.startsWith("/calculadora")
+                                    ? "bg-green-500 text-white"
+                                    : "text-gray-700 hover:bg-gray-100"
+                            )}
+                            onClick={() => setIsCalculadoraOpen(!isCalculadoraOpen)}
                         >
-                            {icon}
-                            <span className="ml-3">{label}</span>
+                            <div className="flex items-center">
+                                <Calculator className="h-5 w-5 mr-2" />
+                                Calculadora
+                            </div>
+                            {isCalculadoraOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                         </button>
-                    ))}
+
+                        {isCalculadoraOpen && (
+                            <div className="ml-8 space-y-1 transition-all duration-300">
+                                <button
+                                    className="w-full text-left text-sm px-4 py-1.5 hover:bg-gray-100 rounded-full transition-colors"
+                                    onClick={() => handleAccionYRedirigir("nueva")}
+                                >
+                                    Nueva Calculadora
+                                </button>
+                                <button
+                                    className="w-full text-left text-sm px-4 py-1.5 hover:bg-gray-100 rounded-full transition-colors"
+                                    onClick={() => handleAccionYRedirigir("cargar")}
+                                >
+                                    Cargar Calculadora
+                                </button>
+                                <button
+                                    className="w-full text-left text-sm px-4 py-1.5 hover:bg-gray-100 rounded-full transition-colors"
+                                    onClick={() => handleAccionYRedirigir("salvar")}
+                                >
+                                    Salvar Calculadora
+                                </button>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Otros ítems */}
+                    <button
+                        className={`w-full flex items-center rounded-full px-3 py-2 text-sm font-medium transition-colors ${pathname === "/configuracion" ? "bg-green-500 text-white" : "text-gray-700 hover:bg-gray-100"}`}
+                        onClick={() => handleNavigation("/configuracion")}
+                    >
+                        <Settings className="h-5 w-5" />
+                        <span className="ml-3">Configuración</span>
+                    </button>
+
+                    <button
+                        className={`w-full flex items-center rounded-full px-3 py-2 text-sm font-medium transition-colors ${pathname === "/historico" ? "bg-green-500 text-white" : "text-gray-700 hover:bg-gray-100"}`}
+                        onClick={() => handleNavigation("/historico")}
+                    >
+                        <ClipboardList className="h-5 w-5" />
+                        <span className="ml-3">Histórico</span>
+                    </button>
 
                 </nav>
 
                 <div className="border-t border-gray-200 p-4">
-                    {/* <link href="/">
-                        <button className="w-full justify-start rounded-full">
+                    <div className="pt-2 pb-2 px-2">
+                        <button onClick={handleOnLogoutClick}
+                            className="w-full flex items-center text-left text-sm gap-2 px-4 py-2 rounded-full border border-gray-200 hover:bg-gray-100 transition-colors">
                             <LogOut className="mr-2 h-4 w-4" />
                             Cerrar Sesión
-                        </button>
-                        
-                    </link> */}
-                    {/* variant="outline" */}
-                    {/* <button
-                        onClick={() => {
-                            logout();
-                            props.onSidebarOpen(false);
-                        }}
-                        // flex items-center px-4 py-2 mt-auto text-red-600 hover:bg-red-100 dark:hover:bg-red-900 rounded gap-2
-                        className="w-full justify-start rounded-full">
-                        <LogOut className="mr-2 h-4 w-4" size={18} />
-                        Cerrar sesión
-                    </button> */}
-                    <div className="pt-2 pb-2  hover:bg-grey-400">
-                        <button onClick={handleOnLogoutClick} className="w-full flex justify-start border border-grey-200 rounded-full px-3 py-2 text-sm font-medium gap-2 hover:bg-grey-400">
-                            <LogOut className="mr-2 h-4 w-4  hover:bg-grey-400" />Cerrar Sesión
                         </button>
                     </div>
                 </div>
