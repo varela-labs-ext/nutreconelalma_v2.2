@@ -72,6 +72,10 @@ const ComputerForm = () => {
 
     }
 
+    const handleOnTabsChange = (index: number) => {
+        console.log('Cambió a tab:', index);
+    }
+
     return (
         <div>
             <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
@@ -80,7 +84,7 @@ const ComputerForm = () => {
                 </h1>
             </div>
 
-            <IconTabs defaultTabIndex={0}>
+            <IconTabs defaultTabIndex={0} onTabChange={handleOnTabsChange}>
                 <IconTab label="Central de Mezclas" icon={Home}>
                     <div>
                         <div>

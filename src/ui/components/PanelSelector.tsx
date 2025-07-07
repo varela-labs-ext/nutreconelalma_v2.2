@@ -1,36 +1,66 @@
-import React, { useState, useEffect } from "react";
+// src/components/ui/PanelSelector.tsx
+import { ReactElement, useState } from "react";
+import PanelTab, { PanelTabProps } from "./PanelTab";
 
-interface PanelSelectorProps {
-    titles: [string, string];
-    defaultSelected?: string;
-    onChange: (selected: string) => void;
-}
+type PanelSelectorProps = {
+    children: ReactElement<PanelTabProps> | ReactElement<PanelTabProps>[]; // ✅ uno o varios
+    onTabSelected?: (index: number) => void;
+};
 
-export const PanelSelector = ({
-    titles,
-    defaultSelected,
-    onChange,
-}: PanelSelectorProps) => {
-    const [selected, setSelected] = useState<string>(defaultSelected ?? titles[0]);
+const PanelSelector = (props: PanelSelectorProps) => {
+    const [activeIndex, setActiveIndex] = useState(0);
 
-    useEffect(() => {
-        onChange(selected);
-    }, [selected]);
+    const childrenArray = Array.isArray(props.children)
+        ? props.children
+        : [props.children]; // ✅ soporte para un solo hijo
+
+    const handleSelect = (index: number) => {
+        setActiveIndex(index);
+        if (props.onTabSelected) {
+            props.onTabSelected(index);
+        }
+    };
 
     return (
-        <div className="flex w-full space-x-4 border rounded-md p-1 bg-white shadow-sm">
-            {titles.map((title) => (
-                <button
-                    key={title}
-                    onClick={() => setSelected(title)}
-                    className={`flex-1 py-2 px-4 text-center rounded-md text-sm font-medium transition-colors ${selected === title
-                        ? "bg-purple-100 text-purple-700 border border-purple-400"
-                        : "bg-white text-gray-600 hover:bg-gray-100 border border-transparent"
-                        }`}
-                >
-                    {title}
-                </button>
-            ))}
+        <div className="space-y-4">
+            {/* Paneles tipo botón */}
+            <div className="flex flex-wrap gap-2">
+                {childrenArray.map((child, index) => {
+                    const isActive = index === activeIndex;
+                    return (
+                        <button
+                            key={index}
+                            onClick={() => handleSelect(index)}
+                            className={`flex items-center gap-2 rounded-xl border px-4 py-2 transition 
+                ${isActive
+                                    ? "border-purple-600 bg-purple-100 text-purple-700"
+                                    : "border-gray-300 bg-white hover:bg-gray-50"
+                                }`}
+                        >
+                            {child.props.icon && <span>{child.props.icon}</span>}
+                            <span>{child.props.label}</span>
+                        </button>
+                    );
+                })}
+            </div>
+
+            {/* Contenido visible del tab activo */}
+            <div className="mt-4 min-h-[4rem]">
+                {childrenArray.map((child, index) => {
+                    const isActive = index === activeIndex;
+                    return (
+                        <div
+                            key={index}
+                            className={`transition-opacity duration-300 ease-in-out ${isActive ? "opacity-100" : "opacity-0 h-0 overflow-hidden"
+                                }`}
+                        >
+                            {child.props.children}
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 };
+
+export default PanelSelector;

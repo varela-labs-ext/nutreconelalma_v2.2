@@ -23,3 +23,24 @@ const CentralContainer = () => {
         </div>
     );
 };
+
+
+-----
+
+
+import PanelSelector from "@/components/ui/PanelSelector";
+import PanelTab from "@/components/ui/PanelTab";
+import { Circle, Star } from "lucide-react";
+
+const Demo = () => {
+  return (
+    <PanelSelector onTabSelected={(i) => console.log("Tab activo:", i)}>
+      <PanelTab label="Primero" icon={<Circle />}>
+        <div>Contenido del primer tab</div>
+      </PanelTab>
+      <PanelTab label="Segundo" icon={<Star />}>
+        <div>Contenido del segundo tab</div>
+      </PanelTab>
+    </PanelSelector>
+  );
+};
