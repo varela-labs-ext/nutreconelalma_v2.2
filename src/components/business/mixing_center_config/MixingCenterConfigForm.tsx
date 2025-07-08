@@ -12,7 +12,7 @@ import MixingCenterLeftSide from "./MixingCenterLeftSide";
 import MixingCenterRightSide from "./MixingCenterRightSide";
 
 interface MixingCenterConfigFormProps {
-    inCentralType: CentralTypeIdEnum;
+    // inCentralType: CentralTypeIdEnum;
     onPopulationTypeChange: (newValue: PopulationTypeIdEnum) => void;
     onSetLoading: (inStatus: boolean) => void;
     //onChange: (inNewData: MixingCenterSettingsModel) => void;
@@ -36,10 +36,10 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
         loadDataFromDb();
     }, []);
 
-    useEffect(() => {
-        console.log("Running useEffect [props.inCentralType] - al cambiar el props");
-        setNewCentralType();
-    }, [props.inCentralType]);
+    // useEffect(() => {
+    //     console.log("Running useEffect [props.inCentralType] - al cambiar el props");
+    //     setNewCentralType();
+    // }, [props.inCentralType]);
 
     // Autosave cuando cambia
     useEffect(() => {
@@ -65,7 +65,7 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
 
             const updatedGatheredData = {
                 ...gatheredData,
-                centralType: props.inCentralType
+                // centralType: props.inCentralType
             };
 
             setInternalData(updatedGatheredData);
@@ -114,16 +114,16 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
         }, 100);
     }
 
-    const setNewCentralType = (): void => {
-        if (dataLoaded && internalData !== null && props.inCentralType !== internalData.centralType) {
-            console.log(`Central type changed: ${props.inCentralType}`);
-            const newData = {
-                ...internalData,
-                centralType: props.inCentralType
-            };
-            setInternalData(newData);
-        }
-    }
+    // const setNewCentralType = (): void => {
+    //     if (dataLoaded && internalData !== null && props.inCentralType !== internalData.centralType) {
+    //         console.log(`Central type changed: ${props.inCentralType}`);
+    //         const newData = {
+    //             ...internalData,
+    //             centralType: props.inCentralType
+    //         };
+    //         setInternalData(newData);
+    //     }
+    // }
 
     const validatePercentages = (field: "percentPerAdult" | "percentPerPediatric" | "percentPerNeonatal", inData: MixingCenterSettingsModel): void => {
         if (inData) {

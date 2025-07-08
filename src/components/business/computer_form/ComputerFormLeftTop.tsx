@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import MixingCenterConfigForm from "../mixing_center_config/MixingCenterConfigForm";
 import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
@@ -13,11 +14,17 @@ interface ComputerFormLeftTopProps {
 }
 
 const ComputerFormLeftTop = (props: ComputerFormLeftTopProps) => {
+    // const [selectedIndex, setSelectedIndex] = useState(0);
+
+    // useEffect(() => {
+    //     setSelectedIndex(props.inCentralType);
+    // }, [props.inCentralType]);
 
     const handleOnTabChange = (inIndex: number) => {
         const output: CentralTypeIdEnum = inIndex as CentralTypeIdEnum;
         console.log("Central type: " + output);
 
+        // setSelectedIndex(inIndex);
         props.onCentralTypeChange(output);
     }
 
@@ -25,7 +32,7 @@ const ComputerFormLeftTop = (props: ComputerFormLeftTopProps) => {
     return (
         <>
             <MixingCenterConfigForm
-                inCentralType={CentralTypeIdEnum.Manual} // TODO ARREGLAR
+                // inCentralType={CentralTypeIdEnum.Manual} // TODO ARREGLAR
                 onPopulationTypeChange={props.onPopulationTypeChange}
                 onSetLoading={props.onSetLoading}
             />

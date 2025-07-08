@@ -1,5 +1,5 @@
-import IconTab from "@/ui/common/IconTab";
-import IconTabs from "@/ui/common/IconTabs";
+import IconTab from "@/components/ui/tabs/icon_tabs/IconTab";
+import IconTabs from "@/components/ui/tabs/icon_tabs/IconTabs";
 import { LoadingContext } from "@/ui/context/LoadingContext";
 import { useMultiActionContext } from "@/ui/context/MultiActionContext";
 import { FileText, Home } from "lucide-react";
@@ -80,7 +80,8 @@ const ComputerForm = () => {
                     CALCULADORA NUTRICIÓN HOSPITALARIA
                 </h1>
             </div>
-            <IconTabs defaultTabIndex={activeTabIndex} setActiveTabIndex={setActiveTabIndex}>
+            {/* setActiveTabIndex={setActiveTabIndex} */}
+            <IconTabs defaultTabIndex={0} onTabChange={handleOnTabsChange}>
                 <IconTab label="Central de Mezclas" icon={Home}>
                     <ComputerFormLeft
                         setMixingCenterConfigLoad={setMixingCenterLoad}

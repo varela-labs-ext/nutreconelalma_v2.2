@@ -1,4 +1,5 @@
-import ComputerForm from "../components/ComputerForm";
+import ComputerForm from "@/components/business/computer_form/ComputerForm";
+
 
 const CalculadoraPage = () => {
     return (
