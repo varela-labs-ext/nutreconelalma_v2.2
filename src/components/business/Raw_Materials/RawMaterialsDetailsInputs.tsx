@@ -1,36 +1,44 @@
 import RawMaterialModel from "@/logic/models/RawMaterialModel";
 import ClinicaInputEditor from "../../../ui/common/ClinicaInputEditor";
 import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
+import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
 
 interface RawMaterialsDetailsInputsProps {
     inData: RawMaterialModel;
+    inCategory?: ClinicalInputCategoryEnumId;
     inShowPresentation: boolean;
     onClinicaInputChange: (inName: string, inNewItem: ClinicaInputModel) => void;
 }
 
 const RawMaterialsDetailsInputs = (props: RawMaterialsDetailsInputsProps) => {
-
-    const insumoEditorWrapperClass = ""; //"p-1";
+    const isClinicaInputValid = (
+        inValue: unknown,
+        inCategory?: ClinicalInputCategoryEnumId
+    ): inValue is ClinicaInputModel => {
+        return (
+            typeof inValue === "object" &&
+            inValue !== null &&
+            "excluirDelCalculo" in inValue &&
+            (inValue as ClinicaInputModel).excluirDelCalculo === false &&
+            (inCategory === undefined || (inValue as ClinicaInputModel).category === inCategory)
+        );
+    };
 
     const getClinicaInputsList = (): [string, ClinicaInputModel][] => {
-        const resultado: [string, ClinicaInputModel][] = [];
+        let resultado: [string, ClinicaInputModel][] = [];
 
         if (props.inData === undefined || props.inData === null) {
             return resultado;
         }
 
-        Object.entries(props.inData).map(([clave, valor]) => {
-            if (
-                typeof valor === "object" &&
-                valor !== null &&
-                valor.excluirDelCalculo === false
-            ) {
-                resultado.push([clave, valor as ClinicaInputModel]);
-            }
-        });
+        resultado = Object.entries(props.inData)
+            .filter(([_, inValue]) => isClinicaInputValid(inValue, props.inCategory))
+            .map(([inKey, inValue]) => [inKey, inValue as ClinicaInputModel]);
 
         return resultado;
     };
+
+    const insumoEditorWrapperClass = ""; //"p-1";
 
     return (
         <div>

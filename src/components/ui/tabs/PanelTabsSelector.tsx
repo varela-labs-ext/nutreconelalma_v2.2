@@ -71,8 +71,8 @@ const PanelTabsSelector = (props: PanelTabsSelectorProps) => {
                                     onClick={() => props.onSelect(index)}
                                     className={`relative flex items-center gap-2 px-4 py-2 h-full rounded-md border text-sm font-medium transition
                       ${isActive
-                                            ? "bg-purple-600 text-white border-purple-600"
-                                            : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"}`}
+                                            ? "bg-purple-500 text-white border-purple-600"
+                                            : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-100"}`}
                                 >
                                     {title.icon && (
                                         <span className="text-base">

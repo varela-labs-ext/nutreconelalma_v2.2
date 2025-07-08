@@ -157,7 +157,7 @@ const RawMaterialsForm = (props: RawMaterialsFormProps) => {
                 />
                 <AdditionalCostsForm
                     inData={new AdditionalCostsModel()}
-                    inShowDetails={showDetails}
+                    inShowDetails={true}
                 />
             </div>
         ) : (
