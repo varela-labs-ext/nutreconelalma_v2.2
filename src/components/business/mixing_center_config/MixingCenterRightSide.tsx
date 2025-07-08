@@ -1,4 +1,5 @@
-import PercentTypeInput from "../common/PercentTypeInput";
+import PercentTypeInput from "@/ui/common/PercentTypeInput";
+
 
 interface MixingCenterRightSideProps {
     inPercentPerAdult: number;

@@ -1,4 +1,4 @@
-import ReadOnlyNumberField from "./ReadOnlyNumberField";
+import ReadOnlyNumberField from "../../../ui/common/ReadOnlyNumberField";
 
 interface ResultItemFieldProps {
     inLabel: string;

@@ -1,8 +1,9 @@
 // PopulationTypeInput
 
-
 import { enumToKeyValueArray } from "@/logic/common/functions";
 import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
+import { Bot, Cpu, FlaskConical, GraduationCap, ToyBrick, User } from "lucide-react";
+import ComboboxSelector from "../selectors/ComboboxSelector";
 
 interface PopulationTypeInputProps {
     inPopulationType: PopulationTypeIdEnum;
@@ -25,12 +26,10 @@ export const PopulationTypeInput = (props: PopulationTypeInputProps) => {
 
         const updateValue = Number(value);
         const output: PopulationTypeIdEnum = updateValue as PopulationTypeIdEnum;
+
+        console.log('handleTipoPoblacionChange: ' + output);
         props.onChange(output);
     };
-
-    //const enumKeys = Object.keys(PopulationTypeIdEnum).filter(k => isNaN(Number(k)));
-
-    const poblacionArray = enumToKeyValueArray(PopulationTypeIdEnum);
 
     const getLabelClass = () => {
         const baseClass = "block md:hidden"; /* Esto hace que cuando sea mayor o igual a md (el size) se oculte */
@@ -40,15 +39,24 @@ export const PopulationTypeInput = (props: PopulationTypeInputProps) => {
 
         return `${labelAlways === true ? alwaysClass : baseClass} ${labelPosition === "left" ? leftClass : topClass}`;
     };
-    // "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
 
     const getSelectClass = () => {
         const baseClass = "rounded-xl px-3 py-2 w-full";
         const baseClassB = "shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-0 transition-colors";
-        const moreClass = "bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-white";
+        const moreClass = "bg-gray-50 text-gray-700 dark:bg-gray-800 dark:text-white";
         const borderClass = "border border-gray-200 focus:border-purple-500 focus:ring-purple-500";
 
         return `${baseClass} ${baseClassB} ${borderClass} ${moreClass}`;
+    }
+
+    const getPopulationArray = () => {
+        const output = [
+            { label: "Adulto", value: "0", icon: <User size={16} /> },
+            { label: "Neonatal", value: "1", icon: <ToyBrick size={16} /> },
+            { label: "Pediatrica", value: "2", icon: <GraduationCap size={16} /> },
+        ];
+
+        return output;
     }
 
     return (
@@ -56,7 +64,15 @@ export const PopulationTypeInput = (props: PopulationTypeInputProps) => {
             <label htmlFor="tipoPoblacion" className={getLabelClass()} >
                 Tipo de Población
             </label>
-            < select
+            <ComboboxSelector
+                value={props.inPopulationType.toString()}
+                onChange={(e) => handleTipoPoblacionChange(e)}
+                options={getPopulationArray()}
+                className={getSelectClass()}
+            />
+
+
+            {/* < select
                 name="tipoPoblacion"
                 value={props.inPopulationType}
                 onChange={(e) => handleTipoPoblacionChange(e.target.value)}
@@ -69,7 +85,7 @@ export const PopulationTypeInput = (props: PopulationTypeInputProps) => {
                         </option>
                     ))
                 }
-            </select>
+            </select> */}
         </div>
     );
 }

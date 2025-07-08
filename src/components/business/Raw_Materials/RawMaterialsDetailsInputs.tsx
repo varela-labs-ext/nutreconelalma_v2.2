@@ -1,5 +1,5 @@
 import RawMaterialModel from "@/logic/models/RawMaterialModel";
-import ClinicaInputEditor from "../common/ClinicaInputEditor";
+import ClinicaInputEditor from "../../../ui/common/ClinicaInputEditor";
 import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
 
 interface RawMaterialsDetailsInputsProps {

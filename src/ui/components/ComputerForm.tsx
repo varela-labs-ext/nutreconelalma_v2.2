@@ -2,27 +2,32 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import { useContext, useEffect, useState } from "react";
 import TabsBlock from "../common/TabsBlock";
-import MixingCenterConfigForm from "./MixingCenterConfigForm";
+
 import ComputerBasicSettingsModel from "@/logic/models/common/ComputerBasicSettingsModel";
 import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSettingsModel";
-import RawMaterialsForm from "./RawMaterialsForm";
+import RawMaterialsForm from "../../components/business/Raw_Materials/RawMaterialsForm";
 import { LoadingContext } from "../context/LoadingContext";
 import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
 import ComputeButton from "../common/ComputeButton";
-import ResultsForm from "./ResultsForm";
+import ResultsForm from "../../components/business/computer_results_form/ResultsForm";
 import ResultsModel from "@/logic/models/ResultsModel";
 import { useCalculadoraContext } from "../context/CalculadoraContext";
 import { useMultiActionContext } from "../context/MultiActionContext";
 import IconTabs from "../common/IconTabs";
 import IconTab from "../common/IconTab";
-import { FileText, Home, Settings } from "lucide-react";
+import { Bot, Cpu, FileText, FlaskConical, Home, Settings, TestTube } from "lucide-react";
+import PanelTabsView from "../shared/PanelTabsView";
+import PanelTabsSelector from "../../components/ui/tabs/PanelTabsSelector";
+import PopulationTypeInput from "../../components/ui/inputs/PopulationTypeInput";
+import ComboboxSelector from "@/components/ui/selectors/ComboboxSelector";
+import MixingCenterConfigForm from "@/components/business/mixing_center_config/MixingCenterConfigForm";
 
 
 const ComputerForm = () => {
     const loadingContext = useContext(LoadingContext);
     const [mixingCenterLoad, setMixingCenterLoad] = useState(false);
     const [rawMaterialsLoad, setRawMaterialsLoad] = useState(false);
-    const [cargandoB, setCargandoB] = useState(false);
+    // const [cargandoB, setCargandoB] = useState(false);
     const [computerSettings, setComputerSettings] = useState<ComputerBasicSettingsModel>(new ComputerBasicSettingsModel());
     // const [mixingCenterSettings, setMixingCenterSettings] = useState<MixingCenterSettingsModel | null>(null);
     // const { accionActual, setAccion } = useCalculadoraContext();
@@ -76,6 +81,7 @@ const ComputerForm = () => {
         console.log('Cambió a tab:', index);
     }
 
+
     return (
         <div>
             <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
@@ -83,7 +89,6 @@ const ComputerForm = () => {
                     CALCULADORA NUTRICIÓN HOSPITALARIA
                 </h1>
             </div>
-
             <IconTabs defaultTabIndex={0} onTabChange={handleOnTabsChange}>
                 <IconTab label="Central de Mezclas" icon={Home}>
                     <div>
@@ -94,6 +99,22 @@ const ComputerForm = () => {
                                 onSetLoading={setMixingCenterLoad}
                             />
                         </div>
+                        <div className="text-sm font-medium">
+                            <PanelTabsSelector
+                                titles={[
+                                    { label: "Central de Mezclas Manual", icon: <FlaskConical />, status: "ok" },
+                                    { label: "Central de Mezclas Automatizada", icon: <Bot />, status: "warning" },
+                                    // { label: "Apex", icon: <Cpu />, status: "error" },
+                                ]}
+                                selectedIndex={0}
+                                onSelect={(index) => console.log(index)}
+                            />
+                            <div> B</div>
+                        </div>
+
+
+
+
                         <div>
                             <TabsBlock
                                 inCentralType={computerSettings.centralType}

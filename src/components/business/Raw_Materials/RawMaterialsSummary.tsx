@@ -1,6 +1,6 @@
-import CustomToggle from "../common/CustomToggle";
-import InputNumberField from "../common/InputNumberField";
-import ReadOnlyNumberField from "../common/ReadOnlyNumberField";
+import CustomToggle from "../../../ui/common/CustomToggle";
+import InputNumberField from "../../../ui/common/InputNumberField";
+import ReadOnlyNumberField from "../../../ui/common/ReadOnlyNumberField";
 import { isValidNumber } from "@/utils/validators";
 
 interface RawMateriaSummaryProps {

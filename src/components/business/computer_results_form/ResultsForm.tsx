@@ -2,7 +2,7 @@
 
 import ResultItemModel from "@/logic/models/ResultItemModel";
 import ResultsModel from "@/logic/models/ResultsModel";
-import ResultItemField from "../common/ResultItemField";
+import ResultItemField from "./ResultItemField";
 
 
 interface ResultsFormProps {
