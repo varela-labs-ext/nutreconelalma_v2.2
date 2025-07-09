@@ -1,5 +1,5 @@
 import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
-import AmountItemModel from "../models/common/AmountItemModel";
+import AmountItemModel from "../models/common/UnitCostItemModel";
 import EstimatedCalcItemModel from "../models/common/EstimatedCalcItemModel";
 
 
