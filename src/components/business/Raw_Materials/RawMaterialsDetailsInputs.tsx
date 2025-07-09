@@ -1,5 +1,5 @@
 import RawMaterialModel from "@/logic/models/RawMaterialModel";
-import ClinicaInputEditor from "../../../ui/common/ClinicaInputEditor";
+import ClinicaInputEditor from "../editors/ClinicaInputEditor";
 import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
 import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
 
