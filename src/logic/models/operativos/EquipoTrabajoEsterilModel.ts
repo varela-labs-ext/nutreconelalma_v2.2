@@ -1,41 +1,41 @@
 import BasicModel from "../common/BasicModel";
-import AmountItemModel from "../common/UnitCostItemModel";
+import UnitCostItemModel from "../common/UnitCostItemModel";
 
 class EquipoTrabajoEsterilModel extends BasicModel {
-    public jeringas1ml: AmountItemModel;
-    public jeringas5ml: AmountItemModel;
-    public jeringas10ml: AmountItemModel;
-    public jeringas20ml: AmountItemModel;
-    public jeringas50ml: AmountItemModel;
-    public buretroles: AmountItemModel;
-    public compresasEsteriles: AmountItemModel;
-    public gasasEsteriles: AmountItemModel;
-    public etiquetasIdentificacionBolsas: AmountItemModel;
-    public toallasAbsorbentesDesechables: AmountItemModel;
-    public contenedoresCortopunzantes: AmountItemModel;
-    public agujasEsteriles: AmountItemModel;
-    public bolsaRojaBiologicos: AmountItemModel;
-    public bolsaNegraNoContaminados: AmountItemModel;
-    public boligrafosEtiquetado: AmountItemModel;
+    public jeringas1ml: UnitCostItemModel;
+    public jeringas5ml: UnitCostItemModel;
+    public jeringas10ml: UnitCostItemModel;
+    public jeringas20ml: UnitCostItemModel;
+    public jeringas50ml: UnitCostItemModel;
+    public buretroles: UnitCostItemModel;
+    public compresasEsteriles: UnitCostItemModel;
+    public gasasEsteriles: UnitCostItemModel;
+    public etiquetasIdentificacionBolsas: UnitCostItemModel;
+    public toallasAbsorbentesDesechables: UnitCostItemModel;
+    public contenedoresCortopunzantes: UnitCostItemModel;
+    public agujasEsteriles: UnitCostItemModel;
+    public bolsaRojaBiologicos: UnitCostItemModel;
+    public bolsaNegraNoContaminados: UnitCostItemModel;
+    public boligrafosEtiquetado: UnitCostItemModel;
 
     constructor() {
         super();
 
-        this.jeringas1ml = new AmountItemModel();
-        this.jeringas5ml = new AmountItemModel();
-        this.jeringas10ml = new AmountItemModel();
-        this.jeringas20ml = new AmountItemModel();
-        this.jeringas50ml = new AmountItemModel();
-        this.buretroles = new AmountItemModel();
-        this.compresasEsteriles = new AmountItemModel();
-        this.gasasEsteriles = new AmountItemModel();
-        this.etiquetasIdentificacionBolsas = new AmountItemModel();
-        this.toallasAbsorbentesDesechables = new AmountItemModel();
-        this.contenedoresCortopunzantes = new AmountItemModel();
-        this.agujasEsteriles = new AmountItemModel();
-        this.bolsaRojaBiologicos = new AmountItemModel();
-        this.bolsaNegraNoContaminados = new AmountItemModel();
-        this.boligrafosEtiquetado = new AmountItemModel();
+        this.jeringas1ml = new UnitCostItemModel();
+        this.jeringas5ml = new UnitCostItemModel();
+        this.jeringas10ml = new UnitCostItemModel();
+        this.jeringas20ml = new UnitCostItemModel();
+        this.jeringas50ml = new UnitCostItemModel();
+        this.buretroles = new UnitCostItemModel();
+        this.compresasEsteriles = new UnitCostItemModel();
+        this.gasasEsteriles = new UnitCostItemModel();
+        this.etiquetasIdentificacionBolsas = new UnitCostItemModel();
+        this.toallasAbsorbentesDesechables = new UnitCostItemModel();
+        this.contenedoresCortopunzantes = new UnitCostItemModel();
+        this.agujasEsteriles = new UnitCostItemModel();
+        this.bolsaRojaBiologicos = new UnitCostItemModel();
+        this.bolsaNegraNoContaminados = new UnitCostItemModel();
+        this.boligrafosEtiquetado = new UnitCostItemModel();
     }
 }
 

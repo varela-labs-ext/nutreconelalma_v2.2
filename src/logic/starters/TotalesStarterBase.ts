@@ -1,5 +1,5 @@
 import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
-import AmountItemModel from "../models/common/UnitCostItemModel";
+import UnitCostItemModel from "../models/common/UnitCostItemModel";
 import EstimatedCalcItemModel from "../models/common/EstimatedCalcItemModel";
 
 
@@ -24,7 +24,7 @@ abstract class TotalesStarterBase<T> {
     protected abstract iniciarCentralManual(inItem: T): void;
     protected abstract iniciarCentralAutomatica(inItem: T): void;
 
-    protected iniciarItem(item: AmountItemModel, inCantidadXUnidad: number, inCostoUnitario: number): void {
+    protected iniciarItem(item: UnitCostItemModel, inCantidadXUnidad: number, inCostoUnitario: number): void {
         item.cantidadUnidad = inCantidadXUnidad;
         item.costoUnitario = inCostoUnitario;
         item.costoTotal = 0;

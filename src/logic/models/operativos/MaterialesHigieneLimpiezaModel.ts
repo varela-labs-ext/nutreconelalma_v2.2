@@ -1,33 +1,33 @@
 import BasicModel from "../common/BasicModel";
-import AmountItemModel from "../common/UnitCostItemModel";
+import UnitCostItemModel from "../common/UnitCostItemModel";
 
 class MaterialesHigieneLimpiezaModel extends BasicModel {
-    public solucionAntisepticaManos: AmountItemModel;
-    public panosEsterilesSuperficies: AmountItemModel;
-    public alcohol70: AmountItemModel;
+    public solucionAntisepticaManos: UnitCostItemModel;
+    public panosEsterilesSuperficies: UnitCostItemModel;
+    public alcohol70: UnitCostItemModel;
 
     // CALC MANUAL
-    public detergentes: AmountItemModel;
-    public desinfectantes: AmountItemModel;
+    public detergentes: UnitCostItemModel;
+    public desinfectantes: UnitCostItemModel;
 
     // CALC AUTO
-    public peroxidoHidrogenoAcelerado: AmountItemModel;
-    public cloruroBenzalconio: AmountItemModel;
+    public peroxidoHidrogenoAcelerado: UnitCostItemModel;
+    public cloruroBenzalconio: UnitCostItemModel;
 
     constructor() {
         super();
 
-        this.solucionAntisepticaManos = new AmountItemModel();
-        this.panosEsterilesSuperficies = new AmountItemModel();
-        this.alcohol70 = new AmountItemModel();
+        this.solucionAntisepticaManos = new UnitCostItemModel();
+        this.panosEsterilesSuperficies = new UnitCostItemModel();
+        this.alcohol70 = new UnitCostItemModel();
 
         // CALC MANUAL
-        this.detergentes = new AmountItemModel();
-        this.desinfectantes = new AmountItemModel();
+        this.detergentes = new UnitCostItemModel();
+        this.desinfectantes = new UnitCostItemModel();
 
         // CALC AUTO
-        this.peroxidoHidrogenoAcelerado = new AmountItemModel();
-        this.cloruroBenzalconio = new AmountItemModel();
+        this.peroxidoHidrogenoAcelerado = new UnitCostItemModel();
+        this.cloruroBenzalconio = new UnitCostItemModel();
     }
 }
 
