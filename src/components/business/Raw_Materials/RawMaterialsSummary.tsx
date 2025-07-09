@@ -47,10 +47,10 @@ const RawMateriaSummary = (props: RawMateriaSummaryProps) => {
 
     return (
         <div className="w-full">
-            <div className="flex flex-col lg:flex-row gap-4 bg-sky-50 border border-sky-200 rounded-lg">
+            <div className="flex flex-col lg:flex-row gap-4 bg-gray-50 border border-gray-200 rounded-md">
                 <div className="w-full lg:w-1/2 space-y-2 p-2">
                     <div className="flex items-center">
-                        <div className="w-full px-4 py-2">
+                        <div className="w-full px-4 py-2 pt-4">
                             <CustomToggle
                                 label="Mostrar detalles"
                                 value={props.inShowDetails}

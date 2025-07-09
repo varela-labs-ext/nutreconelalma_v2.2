@@ -20,7 +20,7 @@ export const PopulationTypeInput = (props: PopulationTypeInputProps) => {
         const esClaveValida = Object.keys(PopulationTypeIdEnum).includes(value);
 
         if (!esClaveValida) {
-            console.warn(`Valor inválido: ${value}`);
+            console.log(`Valor inválido: ${value}`);
             return;
         }
 

@@ -10,17 +10,22 @@ import CalculadoraStarter from "@/logic/starters/CalculadoraStarter";
 import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSettingsModel";
 import MixingCenterLeftSide from "./MixingCenterLeftSide";
 import MixingCenterRightSide from "./MixingCenterRightSide";
+import ComputerActionIdEnum from "@/logic/enums/ComputerActionIdEnum";
 
 interface MixingCenterConfigFormProps {
-    // inCentralType: CentralTypeIdEnum;
-    onPopulationTypeChange: (newValue: PopulationTypeIdEnum) => void;
-    onSetLoading: (inStatus: boolean) => void;
-    //onChange: (inNewData: MixingCenterSettingsModel) => void;
+    inData: MixingCenterSettingsModel;
+    // onSetLoading: (inStatus: boolean) => void;
+    onChange: (inNewData: MixingCenterSettingsModel) => void;
+
+    // onPopulationTypeChange: (newValue: PopulationTypeIdEnum) => void;
     // onNotifyChange: () => void; // Callback para notificar cambios al padre // PENDIENTE DE IMPLEMENTAR
 }
 
 const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
-    const [internalData, setInternalData] = useState<MixingCenterSettingsModel | null>(null);
+    // const [props.inData, setInternalData] = useState<MixingCenterSettingsModel | null>(null);
+    // Esto es un truco por el momento.
+
+
     const [dataLoaded, setDataLoaded] = useState(false);
     // const loadingContext = useContext(LoadingContext);
     const debounceRef = useRef<number | null>(null); // Ref para manejar el debounce
@@ -30,28 +35,37 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
         percentPerNeonatal: false
     });
 
-    // Cargar al montar
     useEffect(() => {
-        console.log("Running useEffect [] - Cargar al montar...");
-        loadDataFromDb();
+        //
     }, []);
 
-    // useEffect(() => {
-    //     console.log("Running useEffect [props.inCentralType] - al cambiar el props");
-    //     setNewCentralType();
-    // }, [props.inCentralType]);
+    // ESTO ES OTRO TRUCO, SE DEBE ELIMINAR Y MODIFICAR UNA VEZ QUE LOS METODOS DE DB SE HAYAN REMOVIDO
+    const setInternalData = (inData: MixingCenterSettingsModel) => {
+        props.onChange(inData);
+    }
 
-    // Autosave cuando cambia
-    useEffect(() => {
-        console.log("Running useEffect [internalData] - cuando cambian los datos internos. ***");
-        requestSaveData();
-    }, [internalData]);
+    // // Cargar al montar
+    // useEffect(() => {
+    //     console.log("Running useEffect [] - Cargar al montar...");
+    //     loadDataFromDb();
+    // }, []);
+
+    // // useEffect(() => {
+    // //     console.log("Running useEffect [props.inCentralType] - al cambiar el props");
+    // //     setNewCentralType();
+    // // }, [props.inCentralType]);
+
+    // // Autosave cuando cambia
+    // useEffect(() => {
+    //     console.log("Running useEffect [props.inData] - cuando cambian los datos internos. ***");
+    //     requestSaveData();
+    // }, [props.inData]);
 
     const loadDataFromDb = async (): Promise<void> => {
         try {
             let gatheredData: MixingCenterSettingsModel | null = null;
 
-            props.onSetLoading(true);
+            // props.onSetLoading(true);
 
             const mainKey = buildKeyName("current", CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Adulto);
             console.log("Buscando central config con clave:", mainKey);
@@ -74,7 +88,7 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
         catch (error) {
             console.error("Error al cargar la materia prima desde la base de datos:", error);
         } finally {
-            props.onSetLoading(false);
+            // props.onSetLoading(false);
             console.log("***** MixingCenter data loaded... *****");
         }
     }
@@ -83,25 +97,26 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
         try {
             // loadingContext.setLoading(true); // activa el contexto de carga
 
-            if (internalData) {
+            if (props.inData) {
                 const mainKey = buildKeyName("current", CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Adulto);
                 await DataService.saveMixingCenterSettingsData(mainKey, inData);
             } else {
-                console.error("Error: internalData is null when trying to save data.");
+                console.error("Error: props.inData is null when trying to save data.");
             }
 
             // console.log("Materia prima guardada correctamente. Clave:", mainKey);
         } catch (error) {
             console.error("Error al guardar la materia prima en la base de datos:", error);
         } finally {
+            console.log("======= MixingCenterConfigForm Salvando datos =======");
             // loadingContext.setLoading(false); // desactiva el contexto de carga
         }
     }
 
     const requestSaveData = (): void => {
-        if (!dataLoaded || internalData === null) {
-            console.log("*** No hay datos cargados o internalData es null ***");
-            console.log(`"dataLoaded" flag: ${dataLoaded}, internalData: ${internalData}`);
+        if (!dataLoaded || props.inData === null) {
+            console.log("*** No hay datos cargados o props.inData es null ***");
+            console.log(`"dataLoaded" flag: ${dataLoaded}, props.inData: ${props.inData}`);
             return;
         }
 
@@ -110,15 +125,15 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
         }
 
         debounceRef.current = setTimeout(() => {
-            saveDataInDb(internalData);
+            saveDataInDb(props.inData);
         }, 100);
     }
 
     // const setNewCentralType = (): void => {
-    //     if (dataLoaded && internalData !== null && props.inCentralType !== internalData.centralType) {
+    //     if (dataLoaded && props.inData !== null && props.inCentralType !== props.inData.centralType) {
     //         console.log(`Central type changed: ${props.inCentralType}`);
     //         const newData = {
-    //             ...internalData,
+    //             ...props.inData,
     //             centralType: props.inCentralType
     //         };
     //         setInternalData(newData);
@@ -142,77 +157,77 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
                 setPercentageErrors(newErrors);
             }
         } else {
-            console.error("Error: internalData is null when trying to validate percentages.");
+            console.error("Error: props.inData is null when trying to validate percentages.");
         }
     }
 
     const onPopulationTypeChange = (newPopulationType: PopulationTypeIdEnum): void => {
-        if (internalData) {
+        if (props.inData) {
             const newData = {
-                ...internalData,
+                ...props.inData,
                 populationType: newPopulationType
             };
-            props.onPopulationTypeChange(newPopulationType);
+            // props.onPopulationTypeChange(newPopulationType);
             setInternalData(newData);
         } else {
-            console.error("Error: internalData is null when trying to change population type.");
+            console.error("Error: props.inData is null when trying to change population type.");
         }
     }
 
     const onProductionLinesChange = (newProductionLines: number): void => {
-        if (internalData && isValidNumber(newProductionLines)) {
+        if (props.inData && isValidNumber(newProductionLines)) {
             const newData = {
-                ...internalData,
+                ...props.inData,
                 productionLines: newProductionLines
             };
             setInternalData(newData);
         } else {
-            console.error("Error: internalData is null when trying to change production lines.");
+            console.error("Error: props.inData is null when trying to change production lines.");
         }
     }
 
     const onProductionPerDayChange = (newProductionPerDay: number): void => {
-        if (internalData && isValidNumber(newProductionPerDay)) {
+        if (props.inData && isValidNumber(newProductionPerDay)) {
             const newData = {
-                ...internalData,
+                ...props.inData,
                 productionPerDay: newProductionPerDay
             };
             setInternalData(newData);
         } else {
-            console.error("Error: internalData is null when trying to change production per day.");
+            console.error("Error: props.inData is null when trying to change production per day.");
         }
     }
 
     const onPercentPerAdultChange = (newPercentAdult: number): void => {
-        if (internalData && isValidNumber(newPercentAdult)) {
+        if (props.inData && isValidNumber(newPercentAdult)) {
             const newData = {
-                ...internalData,
+                ...props.inData,
                 percentPerAdult: newPercentAdult
             };
             validatePercentages("percentPerAdult", newData);
             setInternalData(newData);
         } else {
-            console.error("Error: internalData is null when trying to change percent per adult.");
+            console.error("Error: props.inData is null when trying to change percent per adult.");
         }
     }
 
     const onPercentPerPediatricChange = (newPercentPediatric: number): void => {
-        if (internalData && isValidNumber(newPercentPediatric)) {
+        if (props.inData && isValidNumber(newPercentPediatric)) {
             const newData = {
-                ...internalData,
+                ...props.inData,
                 percentPerPediatric: newPercentPediatric
             };
             validatePercentages("percentPerPediatric", newData);
             setInternalData(newData);
         } else {
-            console.error("Error: internalData is null when trying to change percent per pediatric.");
+            console.error("Error: props.inData is null when trying to change percent per pediatric.");
         }
     }
 
     const onPercentPerNeonatalChange = (newPercentNeonatal: number): void => {
-        if (internalData && isValidNumber(newPercentNeonatal)) {
+        if (props.inData && isValidNumber(newPercentNeonatal)) {
             const newData = {
-                ...internalData,
+                ...props.inData,
                 percentPerNeonatal: newPercentNeonatal
             };
 
@@ -220,7 +235,7 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
 
             setInternalData(newData);
         } else {
-            console.error("Error: internalData is null when trying to change percent per neonatal.");
+            console.error("Error: props.inData is null when trying to change percent per neonatal.");
         }
     }
 
@@ -230,9 +245,9 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Columna A */}
                 <MixingCenterLeftSide
-                    inPopulationType={internalData?.populationType || PopulationTypeIdEnum.Adulto}
-                    inProductionLines={internalData?.productionLines || 0}
-                    inProductionPerDay={internalData?.productionPerDay || 0}
+                    inPopulationType={props.inData?.populationType || PopulationTypeIdEnum.Adulto}
+                    inProductionLines={props.inData?.productionLines || 0}
+                    inProductionPerDay={props.inData?.productionPerDay || 0}
                     onPopulationTypeChange={onPopulationTypeChange}
                     onProductionLinesChange={onProductionLinesChange}
                     onProductionPerDayChange={onProductionPerDayChange}
@@ -240,9 +255,9 @@ const MixingCenterConfigForm = (props: MixingCenterConfigFormProps) => {
 
                 {/* Columna B */}
                 <MixingCenterRightSide
-                    inPercentPerAdult={internalData?.percentPerAdult || 0}
-                    inPercentPerPediatric={internalData?.percentPerPediatric || 0}
-                    inPercentPerNeonatal={internalData?.percentPerNeonatal || 0}
+                    inPercentPerAdult={props.inData?.percentPerAdult || 0}
+                    inPercentPerPediatric={props.inData?.percentPerPediatric || 0}
+                    inPercentPerNeonatal={props.inData?.percentPerNeonatal || 0}
                     errorOnPercentPerAdult={percentageErrors.percentPerAdult}
                     errorOnPercentPerPediatric={percentageErrors.percentPerPediatric}
                     errorOnPercentPerNeonatal={percentageErrors.percentPerNeonatal}

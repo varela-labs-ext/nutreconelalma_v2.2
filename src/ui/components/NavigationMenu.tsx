@@ -50,12 +50,12 @@ const NavigationMenu = (props: NavigationMenuProps) => {
                         icon={<Calculator className="h-5 w-5 mr-2" />}
                         isActive={pathname.startsWith("/calculadora")}
                         onCloseSidebar={() => props.onSidebarOpen(false)}
-                        setAccion={(actionName) => setAction("calculadora", actionName)}
+                        setAccion={(actionName) => setAction("computer", actionName)}
                         items={[
                             { label: "Nueva", actionName: "new", icon: <FilePlus className="h-4 w-4" /> },
                             { label: "Abrir", actionName: "open", icon: <FolderOpen className="h-4 w-4" /> },
                             { label: "Salvar", actionName: "save", icon: <Save className="h-4 w-4" /> },
-                            { label: "Salvar como", actionName: "saveAs", icon: <FileEdit className="h-4 w-4" /> },
+                            { label: "Salvar Como", actionName: "saveAs", icon: <FileEdit className="h-4 w-4" /> },
                         ]}
                     />
                     <button

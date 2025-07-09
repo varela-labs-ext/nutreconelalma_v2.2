@@ -20,33 +20,36 @@ class RawMaterialStarter {
 
 
     public buildRawMaterialModel(inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum): RawMaterialModel {
-        const inItem = new RawMaterialModel();
+        try {
+            const inItem = new RawMaterialModel();
 
-        inItem.cantidad = 1;
-        inItem.total = 0;
-        inItem.totalPorMl = 0;
+            inItem.cantidad = 1;
+            inItem.total = 0;
+            inItem.totalPorMl = 0;
 
+            switch (inPopulationType) {
+                case PopulationTypeIdEnum.Neonatal:
+                    this._neonatalStarter.iniciarInsumos(inItem, inCentralType);
+                    break
+                case PopulationTypeIdEnum.Pediatrica:
+                    this._pediatricStarter.iniciarInsumos(inItem, inCentralType);
+                    break
+                case PopulationTypeIdEnum.Adulto:
+                default:
+                    this._adultStarter.iniciarInsumos(inItem, inCentralType);
+                    break
+            }
 
+            console.log("-------");
+            console.log("-------");
+            console.log(`inCentralType: ${inCentralType}, inPopulationType: ${inPopulationType}`);
+            console.log(inItem);
 
-        switch (inPopulationType) {
-            case PopulationTypeIdEnum.Neonatal:
-                this._neonatalStarter.iniciarInsumos(inItem, inCentralType);
-                break
-            case PopulationTypeIdEnum.Pediatrica:
-                this._pediatricStarter.iniciarInsumos(inItem, inCentralType);
-                break
-            case PopulationTypeIdEnum.Adulto:
-            default:
-                this._adultStarter.iniciarInsumos(inItem, inCentralType);
-                break
+            return inItem;
+        } catch (ex) {
+            console.error(ex);
+            throw new Error("UNKNOW");
         }
-
-        console.log("-------");
-        console.log("-------");
-        console.log(`inCentralType: ${inCentralType}, inPopulationType: ${inPopulationType}`);
-        console.warn(inItem);
-
-        return inItem;
     }
 
     private static _instance: RawMaterialStarter

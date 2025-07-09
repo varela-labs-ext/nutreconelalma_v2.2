@@ -4,13 +4,17 @@ import MixingCenterConfigForm from "../mixing_center_config/MixingCenterConfigFo
 import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
 import PanelTabsSelector from "@/components/ui/tabs/PanelTabsSelector";
 import { Bot, FlaskConical } from "lucide-react";
+import ComputerActionIdEnum from "@/logic/enums/ComputerActionIdEnum";
+import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSettingsModel";
 
 
 interface ComputerFormLeftTopProps {
-    inCentralType: CentralTypeIdEnum;
-    onSetLoading: (inStatus: boolean) => void;
-    onPopulationTypeChange: (newValue: PopulationTypeIdEnum) => void;
-    onCentralTypeChange: (newValue: CentralTypeIdEnum) => void;
+    inData: MixingCenterSettingsModel;
+    onChange: (inNewData: MixingCenterSettingsModel) => void;
+    // inCentralType: CentralTypeIdEnum;
+    // onSetLoading: (inStatus: boolean) => void;
+    // onPopulationTypeChange: (newValue: PopulationTypeIdEnum) => void;
+    // onCentralTypeChange: (newValue: CentralTypeIdEnum) => void;
 }
 
 const ComputerFormLeftTop = (props: ComputerFormLeftTopProps) => {
@@ -21,20 +25,35 @@ const ComputerFormLeftTop = (props: ComputerFormLeftTopProps) => {
     // }, [props.inCentralType]);
 
     const handleOnTabChange = (inIndex: number) => {
-        const output: CentralTypeIdEnum = inIndex as CentralTypeIdEnum;
-        console.log("Central type: " + output);
+        const newCentralType: CentralTypeIdEnum = inIndex as CentralTypeIdEnum;
+        console.log("NEW Central type: " + newCentralType);
+
+        const output: MixingCenterSettingsModel = {
+            ...props.inData,
+            centralType: newCentralType
+        };
 
         // setSelectedIndex(inIndex);
-        props.onCentralTypeChange(output);
+        // props.onCentralTypeChange(output);
+        props.onChange(output);
     }
 
-    // TODO: por el momento es "Manual", hasta que se define si se necesita o no. Entonces siempre se va a salvar como manual esta parte.
+    const handleOnChange_MC_Config = (inNewData: MixingCenterSettingsModel): void => {
+        const output: MixingCenterSettingsModel = {
+            ...inNewData
+        };
+
+        props.onChange(output);
+    }
+
     return (
         <>
             <MixingCenterConfigForm
-                // inCentralType={CentralTypeIdEnum.Manual} // TODO ARREGLAR
-                onPopulationTypeChange={props.onPopulationTypeChange}
-                onSetLoading={props.onSetLoading}
+                inData={props.inData}
+                onChange={handleOnChange_MC_Config}
+            // inCentralType={CentralTypeIdEnum.Manual} // TODO ARREGLAR
+            // onPopulationTypeChange={props.onPopulationTypeChange}
+            // onSetLoading={props.onSetLoading}
             />
             <div className="text-sm font-medium">
                 <PanelTabsSelector
@@ -43,7 +62,7 @@ const ComputerFormLeftTop = (props: ComputerFormLeftTopProps) => {
                         { label: "Central de Mezclas Automatizada", icon: <Bot />, status: "ok" },
                         // { label: "Apex", icon: <Cpu />, status: "error" },
                     ]}
-                    selectedIndex={props.inCentralType}
+                    selectedIndex={props.inData.centralType}
                     onSelect={handleOnTabChange}
                 />
             </div>

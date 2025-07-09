@@ -54,7 +54,8 @@ const RawMaterialsDetails = (props: RawMaterialsDetailsProps) => {
                             onClinicaInputChange={handleClinicaInputChange}
                         />
                     </div> */}
-                    <AccordionGroup multiOpen={false} defaultOpenIds={['id_a']}>
+                    {/* defaultOpenIds={['id_a']} */}
+                    <AccordionGroup multiOpen={false} >
                         <AccordionItem id="id_a" title="Aminoácidos" icon={Dna}>
                             <RawMaterialsDetailGroup
                                 inData={internalData}
@@ -121,9 +122,7 @@ const RawMaterialsDetails = (props: RawMaterialsDetailsProps) => {
                             />
                         </AccordionItem>
                     </AccordionGroup>
-
                 </>
-
             )}
         </div>
     );
