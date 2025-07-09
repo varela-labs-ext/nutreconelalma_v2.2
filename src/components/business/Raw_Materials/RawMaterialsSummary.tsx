@@ -1,5 +1,5 @@
 import CustomToggle from "../../../ui/common/CustomToggle";
-import InputNumberField from "../../../ui/common/InputNumberField";
+import InputNumberField from "../../ui/inputs/InputNumberField";
 import ReadOnlyNumberField from "../../../ui/common/ReadOnlyNumberField";
 import { isValidNumber } from "@/utils/validators";
 

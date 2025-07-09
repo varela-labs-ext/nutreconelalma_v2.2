@@ -1,6 +1,6 @@
 import PopulationTypeInput from "@/components/ui/inputs/PopulationTypeInput";
 import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
-import InputNumberField from "@/ui/common/InputNumberField";
+import InputNumberField from "@/components/ui/inputs/InputNumberField";
 
 
 interface MixingCenterLeftSideProps {
