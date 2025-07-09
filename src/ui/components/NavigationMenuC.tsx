@@ -11,9 +11,9 @@ import { useAuth } from "@/hooks/useAuth";
 
 // import { useCalculadoraContext } from "@/ui/context/CalculadoraContext";
 
-import AccordionMenuItemWithLinks from "../common/AccordionMenuItemWithLinks";
+import AccordionMenuItemWithLinks from "../../components/ui/menu/AccordionMenuItemWithLinks";
 import { useMultiActionContext } from "../context/MultiActionContext";
-import AccordionMenuItemWithContextAction from "../common/AccordionMenuItemWithContextAction";
+import AccordionMenuItemWithContextAction from "../../components/ui/menu/AccordionMenuItemWithContextAction";
 
 interface NavigationMenuCProps {
     isSidebarOpen: boolean;

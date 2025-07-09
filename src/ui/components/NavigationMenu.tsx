@@ -6,7 +6,7 @@ import { Calculator, Settings, ClipboardList, LogOut, Menu, X, History, ChevronD
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useMultiActionContext } from "../context/MultiActionContext";
-import AccordionMenuItemWithContextAction from "../common/AccordionMenuItemWithContextAction";
+import AccordionMenuItemWithContextAction from "../../components/ui/menu/AccordionMenuItemWithContextAction";
 
 interface NavigationMenuProps {
     isSidebarOpen: boolean;
