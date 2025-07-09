@@ -53,8 +53,8 @@ const UnitCostInputEditor = (props: UnitCostInputEditorProps) => {
     return (
         <>
             <div className={getMainDivClassName()}>
-                <div className="pt-2 pb-2 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-5 gap-2 w-full">
-                    <div className="md:col-span-2 w-full text-left">
+                <div className="pt-2 pb-2 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 gap-2 w-full">
+                    <div className="md:col-span-1 w-full text-left">
                         <div className="pt-2 text-sm text-gray-500 dark:text-white">
                             {internalData.label}
                         </div>
