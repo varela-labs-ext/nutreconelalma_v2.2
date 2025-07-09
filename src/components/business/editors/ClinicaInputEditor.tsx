@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { isValidNumber } from "@/utils/validators";
 import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
-import InputNumberField from "../../components/ui/inputs/InputNumberField";
-import ReadOnlyNumberField from "./ReadOnlyNumberField";
+import InputNumberField from "../../ui/inputs/InputNumberField";
+import ReadOnlyNumberField from "../../../ui/common/ReadOnlyNumberField";
 import CalculationService from "@/logic/services/CalculationService";
 
 interface ClinicaInputEditorProps {
