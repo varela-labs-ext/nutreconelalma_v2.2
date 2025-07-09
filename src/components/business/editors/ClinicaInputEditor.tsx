@@ -50,11 +50,17 @@ const ClinicaInputEditor = (props: ClinicaInputEditorProps) => {
         }
     };
 
+    const getMainDivClassName = (): string => {
+        const base = "flex flex-col md:flex-row md:items-start gap-4 bg-white";
+        const over = "hover:bg-purple-50";
+        const focus = "focus-within:bg-purple-50";
+        const more = "transition-colors duration-300 p-2 border-b border-gray-200";
+
+        return `${base} ${over} ${focus} ${more}`;
+    }
+
     return (
-        <div className="flex flex-col md:flex-row md:items-start gap-4 bg-white 
-    hover:bg-sky-50 
-    focus-within:bg-sky-50 
-    transition-colors duration-300 p-2 border-b border-gray-200">
+        <div className={getMainDivClassName()}>
             <div className="pt-2 pb-2 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-5 gap-2 w-full">
                 {/* <input type="number" className="w-full sm:w-auto text-left border max-w-full sm:max-w-[110px]" /> */}
 
