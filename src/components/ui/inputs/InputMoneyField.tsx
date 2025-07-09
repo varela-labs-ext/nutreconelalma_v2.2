@@ -1,30 +1,29 @@
 import React, { useState, useEffect } from "react";
 
 interface InputMoneyFieldProps {
+    label: string;
+    name: string;
     value: number;
     onChange: (valor: number) => void;
     prefix?: string;
     suffix?: string;
     placeholder?: string;
+    readOnly?: boolean;
+    labelPosition?: "top" | "left";
+    labelAlways?: boolean;
 }
 
-const InputMoneyField = ({
-    value,
-    onChange,
-    prefix,
-    suffix,
-    placeholder,
-}: InputMoneyFieldProps) => {
-    const [tempValue, setTempValue] = useState<string>(value.toString());
+const InputMoneyField = (props: InputMoneyFieldProps) => {
+    const [tempValue, setTempValue] = useState<number>(props.value);
 
     useEffect(() => {
-        setTempValue(value.toString());
-    }, [value]);
+        setTempValue(props.value);
+    }, [props.value]);
 
     const handleConfirm = () => {
-        const parsed = parseFloat(tempValue);
-        if (!isNaN(parsed) && parsed !== value) {
-            onChange(parsed);
+        // const parsed = parseFloat(tempValue);
+        if (!isNaN(tempValue) && tempValue !== props.value) {
+            props.onChange(tempValue);
         }
     };
 
@@ -34,27 +33,39 @@ const InputMoneyField = ({
         }
     };
 
+    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const parsed: number = parseFloat(event.target.value);
+        const newValue: number = event.target.valueAsNumber;
+
+        if (!isNaN(parsed) && parsed !== props.value) {
+            // props.onChange(parsed);
+            setTempValue(parsed);
+        }
+    }
+
     return (
         <div className="flex rounded-md shadow-sm border border-gray-300 overflow-hidden w-full">
-            {prefix && (
+            {props.prefix && (
                 <span className="inline-flex items-center px-3 bg-gray-100 text-gray-600 text-sm">
-                    {prefix}
+                    {props.prefix}
                 </span>
             )}
             <input
                 type="text"
                 className="flex-1 border-none px-3 py-2 text-sm focus:outline-none focus:ring-0"
                 value={tempValue}
-                onChange={(e) => setTempValue(e.target.value)}
-                onBlur={handleConfirm}
-                onKeyDown={handleKeyDown}
-                placeholder={placeholder}
+                placeholder={props.placeholder}
                 inputMode="decimal"
                 pattern="[0-9]*"
+                readOnly={props.readOnly}
+
+                onChange={handleOnChange}
+                onBlur={handleConfirm}
+                onKeyDown={handleKeyDown}
             />
-            {suffix && (
+            {props.suffix && (
                 <span className="inline-flex items-center px-3 bg-gray-100 text-gray-600 text-sm">
-                    {suffix}
+                    {props.suffix}
                 </span>
             )}
         </div>

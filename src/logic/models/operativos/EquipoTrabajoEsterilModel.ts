@@ -1,7 +1,7 @@
-import BasicModel from "../common/BasicModel";
+import BasicOperationalModel from "../common/BasicOperationalModel";
 import UnitCostItemModel from "../common/UnitCostItemModel";
 
-class EquipoTrabajoEsterilModel extends BasicModel {
+class EquipoTrabajoEsterilModel extends BasicOperationalModel {
     public jeringas1ml: UnitCostItemModel;
     public jeringas5ml: UnitCostItemModel;
     public jeringas10ml: UnitCostItemModel;

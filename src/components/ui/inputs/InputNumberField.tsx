@@ -60,6 +60,7 @@ const InputNumberField = (props: InputNumberFieldProps) => {
     // };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        // SE PUEDE MEJORAR
         const newValue: number = event.target.valueAsNumber;
 
         // console.log(newValue);
@@ -83,7 +84,7 @@ const InputNumberField = (props: InputNumberFieldProps) => {
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
-            commitChange();
+            // commitChange();
             event.currentTarget.blur(); // opcional: para disparar también onBlur
         }
     };
@@ -105,8 +106,6 @@ const InputNumberField = (props: InputNumberFieldProps) => {
         return `${labelAlways === true ? alwaysClass : baseClass} ${labelPosition === "left" ? leftClass : topClass}`;
     };
 
-
-
     const getInputClass = () => {
         const paddingLeft = props.symbol ? "pl-7" : "pl-3";
         const baseClass = `rounded-xl ${paddingLeft} pr-3 py-2 w-full text-left`;
@@ -123,9 +122,6 @@ const InputNumberField = (props: InputNumberFieldProps) => {
     const symbolClass =
         "absolute left-2 top-1/2 transform -translate-y-1/2 text-purple-600 pointer-events-none";
 
-
-
-
     const inputWrapperClass = "relative w-full";
 
     return (
@@ -135,7 +131,9 @@ const InputNumberField = (props: InputNumberFieldProps) => {
             </label>
             <div className={inputWrapperClass}>
                 {props.symbol && (
-                    <span className={symbolClass}>{props.symbol}</span>
+                    <span className={symbolClass}>
+                        {props.symbol}
+                    </span>
                 )}
                 <input
                     type="number"

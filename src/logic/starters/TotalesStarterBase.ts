@@ -25,9 +25,9 @@ abstract class TotalesStarterBase<T> {
     protected abstract iniciarCentralAutomatica(inItem: T): void;
 
     protected iniciarItem(item: UnitCostItemModel, inCantidadXUnidad: number, inCostoUnitario: number): void {
-        item.cantidadUnidad = inCantidadXUnidad;
-        item.costoUnitario = inCostoUnitario;
-        item.costoTotal = 0;
+        item.quantity = inCantidadXUnidad;
+        item.unitCost = inCostoUnitario;
+        item.totalCost = 0;
     }
 
     protected iniciarEstimado(item: EstimatedCalcItemModel, inValorEstimado: number, inValorUnitario: number): void {

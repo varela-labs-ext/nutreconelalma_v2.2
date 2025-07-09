@@ -1,6 +1,4 @@
 import RawMaterialModel from "@/logic/models/RawMaterialModel";
-import RawMaterialsDetailsHeader from "./RawMaterialsDetailsHeader";
-import RawMaterialsDetailsInputs from "./RawMaterialsDetailsInputs";
 import { useEffect, useState } from "react";
 import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
 import CalculationService from "@/logic/services/CalculationService";

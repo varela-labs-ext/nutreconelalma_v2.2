@@ -2,6 +2,12 @@ import RawMaterialModel from "@/logic/models/RawMaterialModel";
 import ClinicaInputEditor from "../editors/ClinicaInputEditor";
 import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
 import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
+import { useEffect, useState } from "react";
+
+type ValidItemType = {
+    key: string;
+    value: ClinicaInputModel;
+};
 
 interface RawMaterialsDetailsInputsProps {
     inData: RawMaterialModel;
@@ -11,6 +17,18 @@ interface RawMaterialsDetailsInputsProps {
 }
 
 const RawMaterialsDetailsInputs = (props: RawMaterialsDetailsInputsProps) => {
+    // const [internalData, setInternalData] = useState<RawMaterialModel>(props.inData);
+    // const [inputList, setInputList] = useState<ValidItemType[]>([]);
+
+    // useEffect(() => {
+    //     setInternalData(props.inData);
+    // }, [props.inData]);
+
+    // useEffect(() => {
+    //     setInternalData(props.inData);
+    // }, [inputList]);
+
+
     const isClinicaInputValid = (
         inValue: unknown,
         inCategory?: ClinicalInputCategoryEnumId

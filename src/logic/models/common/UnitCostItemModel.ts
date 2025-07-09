@@ -1,16 +1,18 @@
 // Antigua Cantidad_UnidadTotalItemModel
 
 class UnitCostItemModel {
-    public cantidadUnidad: number;
-    public costoUnitario: number;
-    public costoTotal: number;
-    public excluirDelCalculo: boolean;
+    public quantity: number;
+    public unitCost: number;
+    public totalCost: number;
+    public exclude: boolean;
+    public label: string;
 
-    constructor() {
-        this.cantidadUnidad = 0;
-        this.costoUnitario = 0;
-        this.costoTotal = 0;
-        this.excluirDelCalculo = false;
+    constructor(inLabel: string = "TODO") {
+        this.quantity = 0;
+        this.unitCost = 0;
+        this.totalCost = 0;
+        this.exclude = false;
+        this.label = inLabel;
     }
 }
 

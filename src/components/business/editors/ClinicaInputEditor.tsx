@@ -46,7 +46,7 @@ const ClinicaInputEditor = (props: ClinicaInputEditorProps) => {
             debounceRef.current = setTimeout(() => {
                 console.log("ClinicaInputEditor.handleChange() - Debounced call to onChange");
                 props.onChange(props.inName, output);
-            }, 700);
+            }, 200);
         }
     };
 
