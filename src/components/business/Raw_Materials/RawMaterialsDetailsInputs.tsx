@@ -29,7 +29,7 @@ const RawMaterialsDetailsInputs = (props: RawMaterialsDetailsInputsProps) => {
     // }, [inputList]);
 
 
-    const isClinicaInputValid = (
+    const isInputValid = (
         inValue: unknown,
         inCategory?: ClinicalInputCategoryEnumId
     ): inValue is ClinicaInputModel => {
@@ -42,7 +42,7 @@ const RawMaterialsDetailsInputs = (props: RawMaterialsDetailsInputsProps) => {
         );
     };
 
-    const getClinicaInputsList = (): [string, ClinicaInputModel][] => {
+    const getInputsList = (): [string, ClinicaInputModel][] => {
         let resultado: [string, ClinicaInputModel][] = [];
 
         if (props.inData === undefined || props.inData === null) {
@@ -50,7 +50,7 @@ const RawMaterialsDetailsInputs = (props: RawMaterialsDetailsInputsProps) => {
         }
 
         resultado = Object.entries(props.inData)
-            .filter(([_, inValue]) => isClinicaInputValid(inValue, props.inCategory))
+            .filter(([_, inValue]) => isInputValid(inValue, props.inCategory))
             .map(([inKey, inValue]) => [inKey, inValue as ClinicaInputModel]);
 
         return resultado;
@@ -60,7 +60,7 @@ const RawMaterialsDetailsInputs = (props: RawMaterialsDetailsInputsProps) => {
 
     return (
         <div>
-            {getClinicaInputsList().map(([inKey, inValue]) => (
+            {getInputsList().map(([inKey, inValue]) => (
                 <div id={inKey} key={inKey} className={insumoEditorWrapperClass}>
                     <ClinicaInputEditor
                         inData={inValue}
