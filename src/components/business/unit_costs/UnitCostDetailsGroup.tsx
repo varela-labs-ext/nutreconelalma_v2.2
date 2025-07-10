@@ -7,7 +7,7 @@ import UnitCostDetailsHeaders from "./UnitCostDetailsHeaders";
 
 interface UnitCostDetailsGroupProps {
     inData: BasicOperationalModel;
-    onInputChange: (inName: string, inNewItem: UnitCostItemModel) => void;
+    onInputChange: (inPropertyName: string, inNewItem: UnitCostItemModel) => void;
 }
 
 const UnitCostDetailsGroup = (props: UnitCostDetailsGroupProps) => {

@@ -4,7 +4,7 @@ import UnitCostInputEditor from "../editors/UnitCostInputEditor";
 
 interface UnitCostDetailsInputsProps {
     inData: BasicOperationalModel;
-    onInputChange: (inName: string, inNewItem: UnitCostItemModel) => void;
+    onInputChange: (inPropertyName: string, inNewItem: UnitCostItemModel) => void;
 }
 
 const UnitCostDetailsInputs = (props: UnitCostDetailsInputsProps) => {

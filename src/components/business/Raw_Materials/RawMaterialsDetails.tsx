@@ -5,7 +5,7 @@ import CalculationService from "@/logic/services/CalculationService";
 import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
 import { AccordionGroup } from "@/components/ui/accordions/AccordionGroup";
 import AccordionItem from "@/components/ui/accordions/AccordionItem";
-import RawMaterialsDetailGroup from "./RawMaterialsDetailsGroup";
+import RawMaterialsDetailGroup from "../clinical_inputs/RawMaterialsDetailsGroup";
 import { Atom, Circle, Dna, Droplet, Flame, Folder, Package, Pill, Zap } from "lucide-react";
 
 interface RawMaterialsDetailsProps {

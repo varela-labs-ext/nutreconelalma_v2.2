@@ -29,3 +29,28 @@ NOTA: HAY QUE ELIMINAR LAS PAGINAS QUE NO SE VAN A USAR
 USAR COMO REFERENCIA "RawMaterialsDetails"
 
 */
+
+
+| Item Original              | Item en Inglés              | PascalCase                   | Acrónimo | Ícono         | Item en Español            |
+|---------------------------|-----------------------------|------------------------------|----------|---------------|----------------------------|
+| COSTOS OPERATIVOS      ** | Operating Costs             | OperatingCosts               | OperC    | Settings      | Costos Operativos          |
+
+| COSTOS DE MANTENIMIENTO   | Maintenance Costs           | MaintenanceCosts             | MaintC   | Wrench        | Costos de Mantenimiento    |
+| COSTOS DE PRODUCCION      | Production Costs            | ProductionCosts              | ProdC    | Factory       | Costos de Producción       |
+
+
+
+| STAFF/PERSONAL         ** | Staff / Personnel           | StaffPersonnel               | StaffP   | Users         | Staff / Personal           |
+
+| PARAFISCALES              | Parafiscal Contributions    | ParafiscalContributions      | ParaCo   | FileText      | Parafiscales               |
+| QUIMICO FARMACEUTICO      | Pharmaceutical Chemist      | PharmaceuticalChemist        | PharmC   | FlaskConical  | Químico Farmacéutico       |
+| AUXILIAR DE FARMACIA      | Pharmacy Assistant          | PharmacyAssistant            | PhAsst   | User          | Auxiliar de Farmacia       |
+
+
+
+| MATERIALES E INSUMOS   ** | Materials and Supplies      | MaterialsAndSupplies         | MatSup   | PackageOpen   | Materiales e Insumos       |
+
+| EQUIPO DE TRABAJO ESTERIL | Sterile Work Equipment      | SterileWorkEquipment         | SterEq   | Syringe       | Equipo de Trabajo Estéril  |
+| HIGIENE Y LIMPIEZA        | Hygiene and Cleaning        | HygieneAndCleaning           | HygCln   | Droplets      | Higiene y Limpieza         |
+| PROTECION PERSONAL        | Personal Protection         | PersonalProtection           | Prtctn   | Shield        | Protección Personal        |
+| EQUIPOS AUTOMATIZADOS     | Automated Equipment         | AutomatedEquipment           | AutoEq   | Cpu           | Equipos Automatizados      |
