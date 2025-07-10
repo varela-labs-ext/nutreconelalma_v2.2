@@ -5,8 +5,12 @@ interface MaterialsNSuppliesCostsFormProps {
     inCentralType: CentralTypeIdEnum;
 }
 
-const MaterialsNSuppliesCostsForm = (props: MaterialsNSuppliesCostsFormProps) => {
+//ESTE DEBE GESTIONAR POR CUENTA PROPIA LA CARGA DE LOS DATOS DESDE LA DB
 
+const MaterialsNSuppliesCostsForm = (props: MaterialsNSuppliesCostsFormProps) => {
+    return (
+        <></>
+    );
 }
 
 export default MaterialsNSuppliesCostsForm;

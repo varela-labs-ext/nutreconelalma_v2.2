@@ -13,6 +13,8 @@ interface OperatingCostsFormProps {
     inProductionLines: number;
 }
 
+//ESTE DEBE GESTIONAR POR CUENTA PROPIA LA CARGA DE LOS DATOS DESDE LA DB
+
 const OperatingCostsForm = (props: OperatingCostsFormProps) => {
     const [maintenanceCostsData, setMaintenanceCostsData] = useState<MaintenanceCostsModel>(new MaintenanceCostsModel());
     const [productionCostsData, setProductionCostsData] = useState<ProductionCostsModel>(new ProductionCostsModel());

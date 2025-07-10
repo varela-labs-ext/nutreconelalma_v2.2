@@ -10,6 +10,8 @@ import StaffPersonnelCostsModel from "@/logic/models/StaffPersonnelCostsModel";
 import MaterialsNSuppliesCostsDetails from "../operating_resources_details/MaterialsNSuppliesCostsDetails";
 import MaterialsNSuppliesCostsModel from "@/logic/models/MaterialsNSuppliesCostsModel";
 import OperatingCostsForm from "./OperatingCostsForm";
+import StaffPersonnelForm from "./StaffPersonnelCostsForm";
+import MaterialsNSuppliesCostsForm from "./MaterialsNSuppliesCostsForm";
 
 interface OperatingResourcesByMixingCentralProps {
     inCentralType: CentralTypeIdEnum;
@@ -55,15 +57,11 @@ const OperatingResourcesByMixingCentral = (props: OperatingResourcesByMixingCent
                     />
                 </PanelView>
                 <PanelView label="Staff / Personal" icon={<Users />} status="warning">
-                    <StaffCostsDetails
-                        inData={props.inData.staffPersonnelCosts}
-                        onChange={handleOnStaffCostsDetailsChange}
-                    />
+                    <StaffPersonnelForm inCentralType={props.inCentralType} />
                 </PanelView>
                 <PanelView label="Materiales e Insumos" icon={<PackageOpen />} status="warning">
-                    <MaterialsNSuppliesCostsDetails
-                        inData={props.inData.materialsNSuppliesCosts}
-                        onChange={handleOnMaterialsNSuppliesCostsDetailsChange}
+                    <MaterialsNSuppliesCostsForm
+                        inCentralType={props.inCentralType}
                     />
                 </PanelView>
             </PanelViewsSelector>
