@@ -12,6 +12,7 @@ import CalculadoraPage from "./ui/pages/CalculatorPage";
 import HistoryPage from "./ui/pages/HistoryPage";
 import { MultiActionProvider } from "./ui/context/MultiActionContext";
 import OperatingResourcesPage from "./ui/pages/OperatingResourcesPage";
+import NotFoundPage404 from "./ui/pages/NotFoundPage404";
 
 
 
@@ -45,6 +46,7 @@ function App() {
                                     </ProtectedRoute>
                                 }
                                 />
+                                <Route path="*" element={<NotFoundPage404 />} />
                             </Routes>
                         </MultiActionProvider>
                     </AuthProvider>

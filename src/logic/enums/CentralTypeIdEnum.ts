@@ -1,8 +1,9 @@
 enum CentralTypeIdEnum {
-    Manual = 0,
-    Automatico = 1,
-    // Apex = 2,
-    // Nutriflex = 3
+    None = 0,
+    Manual = 1,
+    Automatico = 2,
+    // Apex = 3,
+    // Nutriflex = 4
 }
 
 export default CentralTypeIdEnum;

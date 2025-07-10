@@ -1,3 +1,4 @@
+import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import BasicModel from "../common/BasicModel";
 import UnitCostItemModel from "../common/UnitCostItemModel";
 
@@ -22,12 +23,12 @@ class HygieneAndCleaningModel extends BasicModel {
         this.alcohol70 = new UnitCostItemModel("Alcohol al 70 %");
 
         // CALC MANUAL
-        this.detergentes = new UnitCostItemModel("Detergentes");
-        this.desinfectantes = new UnitCostItemModel("Desinfectantes");
+        this.detergentes = new UnitCostItemModel("Detergentes", CentralTypeIdEnum.Manual);
+        this.desinfectantes = new UnitCostItemModel("Desinfectantes", CentralTypeIdEnum.Manual);
 
         // CALC AUTO
-        this.peroxidoHidrogenoAcelerado = new UnitCostItemModel("Peróxido de hidrógeno acelerado");
-        this.cloruroBenzalconio = new UnitCostItemModel("Cloruro de benzalconio");
+        this.peroxidoHidrogenoAcelerado = new UnitCostItemModel("Peróxido de hidrógeno acelerado", CentralTypeIdEnum.Automatico);
+        this.cloruroBenzalconio = new UnitCostItemModel("Cloruro de benzalconio", CentralTypeIdEnum.Automatico);
     }
 }
 
