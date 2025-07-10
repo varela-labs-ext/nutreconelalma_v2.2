@@ -1,10 +1,10 @@
 
-import SalarioPersonalModel from "../models/empleados/StaffSalaryModel";
+import StaffSalaryModel from "../models/empleados/StaffSalaryModel";
 import ParaFiscalesStarter from "./ParaFiscalesStarter";
 
-class PersonalAuxiliarFarmaciaStarter extends ParaFiscalesStarter<SalarioPersonalModel> {
+class PersonalAuxiliarFarmaciaStarter extends ParaFiscalesStarter<StaffSalaryModel> {
 
-    protected iniciarComunes(inItem: SalarioPersonalModel): void {
+    protected iniciarComunes(inItem: StaffSalaryModel): void {
         inItem.costoEmpresa = 0;
         inItem.auxilioTransporte = 0;
         inItem.subsidioTransporte = 117000.00;
@@ -14,11 +14,11 @@ class PersonalAuxiliarFarmaciaStarter extends ParaFiscalesStarter<SalarioPersona
         this.iniciarParafiscal(inItem.arlRiesgo1, 2.40); // <- Este valor esta así en el Excel.
     }
 
-    protected iniciarCentralManual(inItem: SalarioPersonalModel): void {
+    protected iniciarCentralManual(inItem: StaffSalaryModel): void {
         inItem.salarioBasico = 1500000.00;
     }
 
-    protected iniciarCentralAutomatica(inItem: SalarioPersonalModel): void {
+    protected iniciarCentralAutomatica(inItem: StaffSalaryModel): void {
         inItem.salarioBasico = 1500000.00;
     }
 

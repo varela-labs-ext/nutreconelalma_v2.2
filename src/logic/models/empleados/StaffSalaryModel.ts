@@ -1,7 +1,7 @@
 import AmountItemModel from "../common/AmountItemModel";
-import SalarioFiscalesModel from "./StaffTaxesModel";
+import StaffTaxesModel from "./StaffTaxesModel";
 
-class SalarioPersonalModel extends SalarioFiscalesModel {
+class StaffSalaryModel extends StaffTaxesModel {
     public salarioBasico: AmountItemModel;
     public costoEmpresa: AmountItemModel;
     public auxilioTransporte: AmountItemModel;
@@ -19,8 +19,8 @@ class SalarioPersonalModel extends SalarioFiscalesModel {
         this.subsidioTransporte = new AmountItemModel("Subsidio de transporte");
         this.totalParafiscales = new AmountItemModel("Total aportes parafiscales");
         this.totalCompensacionSalarial = new AmountItemModel("Total compensación salarial");
-        this.totalValorHora = new AmountItemModel("Valor hora");
+        this.totalValorHora = new AmountItemModel("Valor total por hora");
     }
 }
 
-export default SalarioPersonalModel;
+export default StaffSalaryModel;

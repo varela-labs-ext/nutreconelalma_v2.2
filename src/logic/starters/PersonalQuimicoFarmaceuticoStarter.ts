@@ -1,9 +1,9 @@
-import SalarioPersonalModel from "../models/empleados/StaffSalaryModel";
+import StaffSalaryModel from "../models/empleados/StaffSalaryModel";
 import ParaFiscalesStarter from "./ParaFiscalesStarter";
 
-class PersonalQuimicoFarmaceuticoStarter extends ParaFiscalesStarter<SalarioPersonalModel> {
+class PersonalQuimicoFarmaceuticoStarter extends ParaFiscalesStarter<StaffSalaryModel> {
 
-    protected iniciarComunes(inItem: SalarioPersonalModel): void {
+    protected iniciarComunes(inItem: StaffSalaryModel): void {
         inItem.costoEmpresa = 0;
         inItem.auxilioTransporte = 0;
         inItem.subsidioTransporte = 0;
@@ -12,11 +12,11 @@ class PersonalQuimicoFarmaceuticoStarter extends ParaFiscalesStarter<SalarioPers
         inItem.totalValorHora = 0;
     }
 
-    protected iniciarCentralManual(inItem: SalarioPersonalModel): void {
+    protected iniciarCentralManual(inItem: StaffSalaryModel): void {
         inItem.salarioBasico = 3800000.00;
     }
 
-    protected iniciarCentralAutomatica(inItem: SalarioPersonalModel): void {
+    protected iniciarCentralAutomatica(inItem: StaffSalaryModel): void {
         inItem.salarioBasico = 4000000.00;
     }
 

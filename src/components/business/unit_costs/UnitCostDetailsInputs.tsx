@@ -31,6 +31,10 @@ const UnitCostDetailsInputs = (props: UnitCostDetailsInputsProps) => {
             .filter(([_, inValue]) => isInputValid(inValue))
             .map(([inKey, inValue]) => [inKey, inValue as UnitCostItemModel]);
 
+        resultado.sort(([, valueA], [, valueB]) =>
+            valueA.label.localeCompare(valueB.label, 'es', { sensitivity: 'base' })
+        );
+
         return resultado;
     };
 

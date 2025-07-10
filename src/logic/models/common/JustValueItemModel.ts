@@ -1,6 +1,6 @@
 import LabelBasicModel from "./LabelBasicModel";
 
-class AmountItemModel extends LabelBasicModel {
+class JustValueItemModel extends LabelBasicModel {
     public value: number;
 
     constructor(inLabel: string) {
@@ -9,4 +9,4 @@ class AmountItemModel extends LabelBasicModel {
     }
 }
 
-export default AmountItemModel;
+export default JustValueItemModel;

@@ -1,9 +1,9 @@
 import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
 import PorcentajeItemModel from "../models/common/PorcentajeItemModel";
-import SalarioFiscalesModel from "../models/empleados/StaffTaxesModel";
+import StaffTaxesModel from "../models/empleados/StaffTaxesModel";
 
 
-abstract class ParaFiscalesStarter<T extends SalarioFiscalesModel> {
+abstract class ParaFiscalesStarter<T extends StaffTaxesModel> {
 
     public iniciarValores(inItem: T, inTipoCentral: CentralTypeIdEnum): void {
         this.iniciarParafiscales(inItem);

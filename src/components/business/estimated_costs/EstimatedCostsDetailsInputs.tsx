@@ -34,6 +34,10 @@ const EstimatedCostsDetailsInputs = (props: EstimatedCostsDetailsInputsProps) =>
             .filter(([_, inValue]) => isInputValid(inValue))
             .map(([inKey, inValue]) => [inKey, inValue as EstimatedCostItemModel]);
 
+        resultado.sort(([, valueA], [, valueB]) =>
+            valueA.label.localeCompare(valueB.label, 'es', { sensitivity: 'base' })
+        );
+
         return resultado;
     };
 

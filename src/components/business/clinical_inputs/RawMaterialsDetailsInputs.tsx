@@ -53,6 +53,10 @@ const RawMaterialsDetailsInputs = (props: RawMaterialsDetailsInputsProps) => {
             .filter(([_, inValue]) => isInputValid(inValue, props.inCategory))
             .map(([inKey, inValue]) => [inKey, inValue as ClinicaInputModel]);
 
+        resultado.sort(([, valueA], [, valueB]) =>
+            valueA.label.localeCompare(valueB.label, 'es', { sensitivity: 'base' })
+        );
+
         return resultado;
     };
 

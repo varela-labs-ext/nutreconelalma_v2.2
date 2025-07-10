@@ -1,14 +1,15 @@
 // Antiguo Para_FiscalesItemModel
 
-class PorcentajeItemModel {
-    public porcentaje: number;
-    public valor: number;
-    public label: string;
+import LabelBasicModel from "./LabelBasicModel";
+
+class PorcentajeItemModel extends LabelBasicModel {
+    public percentage: number;
+    public value: number;
 
     constructor(inLabel: string) {
-        this.porcentaje = 0;
-        this.valor = 0;
-        this.label = `${inLabel}:`;
+        super(inLabel);
+        this.percentage = 0;
+        this.value = 0;
     }
 }
 

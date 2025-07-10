@@ -1,13 +1,15 @@
 // Antiguo Salario_PersonalBaseModel
 
-abstract class SalarioBaseModel {
-    public horasTrabajoMensual: number;
-    public personalPreparacion: number;
+import JustValueItemModel from "../common/JustValueItemModel";
+
+abstract class StaffBaseModel {
+    public horasTrabajoMensual: JustValueItemModel;
+    public personalPreparacion: JustValueItemModel;
 
     constructor() {
-        this.horasTrabajoMensual = 0;
-        this.personalPreparacion = 0;
+        this.horasTrabajoMensual = new JustValueItemModel("Horas de trabajo al mes");
+        this.personalPreparacion = new JustValueItemModel("Personal requerido para preparación");
     }
 }
 
-export default SalarioBaseModel;
+export default StaffBaseModel;

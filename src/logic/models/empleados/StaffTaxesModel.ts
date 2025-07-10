@@ -1,9 +1,9 @@
 // Antiguo Salario_PersonalFiscalesModel
 
 import PorcentajeItemModel from "../common/PorcentajeItemModel";
-import SalarioBaseModel from "./SalarioBaseModel";
+import StaffBaseModel from "./StaffBaseModel";
 
-abstract class SalarioFiscalesModel extends SalarioBaseModel {
+abstract class StaffTaxesModel extends StaffBaseModel {
     public cesantias: PorcentajeItemModel;
     public primas: PorcentajeItemModel;
     public vacaciones: PorcentajeItemModel;
@@ -31,4 +31,4 @@ abstract class SalarioFiscalesModel extends SalarioBaseModel {
     }
 }
 
-export default SalarioFiscalesModel;
+export default StaffTaxesModel;
