@@ -1,6 +1,6 @@
 import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
 import PorcentajeItemModel from "../models/common/PorcentajeItemModel";
-import SalarioFiscalesModel from "../models/empleados/SalarioFiscalesModel";
+import SalarioFiscalesModel from "../models/empleados/StaffTaxesModel";
 
 
 abstract class ParaFiscalesStarter<T extends SalarioFiscalesModel> {

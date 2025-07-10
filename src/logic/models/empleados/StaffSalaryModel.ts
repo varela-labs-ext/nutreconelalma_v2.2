@@ -1,5 +1,5 @@
 import AmountItemModel from "../common/AmountItemModel";
-import SalarioFiscalesModel from "./SalarioFiscalesModel";
+import SalarioFiscalesModel from "./StaffTaxesModel";
 
 class SalarioPersonalModel extends SalarioFiscalesModel {
     public salarioBasico: AmountItemModel;

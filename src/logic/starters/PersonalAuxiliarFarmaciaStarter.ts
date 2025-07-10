@@ -1,5 +1,5 @@
 
-import SalarioPersonalModel from "../models/empleados/SalarioPersonalModel";
+import SalarioPersonalModel from "../models/empleados/StaffSalaryModel";
 import ParaFiscalesStarter from "./ParaFiscalesStarter";
 
 class PersonalAuxiliarFarmaciaStarter extends ParaFiscalesStarter<SalarioPersonalModel> {
