@@ -10,68 +10,50 @@ import { AccordionGroup } from "@/components/ui/accordions/AccordionGroup";
 import AccordionItem from "@/components/ui/accordions/AccordionItem";
 import { Syringe, Droplets, Shield, Cpu } from "lucide-react";
 import UnitCostDetailsGroup from "../unit_costs/UnitCostDetailsGroup";
-import { useEffect, useState } from "react";
-import MaterialsNSuppliesCostsModel from "@/logic/models/MaterialsNSuppliesCostsModel";
 import UnitCostItemModel from "@/logic/models/common/UnitCostItemModel";
-
+import AutomatedEquipmentModel from "@/logic/models/operativos/AutomatedEquipmentModel";
+import SterileWorkEquipmentModel from "@/logic/models/operativos/SterileWorkEquipmentModel";
+import HygieneAndCleaningModel from "@/logic/models/operativos/HygieneAndCleaningModel";
+import PersonalProtectionModel from "@/logic/models/operativos/PersonalProtectionModel";
 
 interface MaterialsNSuppliesCostsDetailsProps {
-    inData: MaterialsNSuppliesCostsModel;
-    onChange: (inNewItem: MaterialsNSuppliesCostsModel) => void;
+    inAutomatedEquipmentData: AutomatedEquipmentModel;
+    inHygieneAndCleaningData: HygieneAndCleaningModel;
+    inPersonalProtectionData: PersonalProtectionModel;
+    inSterileWorkEquipmentData: SterileWorkEquipmentModel;
+    onAutomatedEquipmentChange: (inPropertyName: string, inNewItem: UnitCostItemModel) => void;
+    onHygieneAndCleaningChange: (inPropertyName: string, inNewItem: UnitCostItemModel) => void;
+    onPersonalProtectionChange: (inPropertyName: string, inNewItem: UnitCostItemModel) => void;
+    onSterileWorkEquipmentChange: (inPropertyName: string, inNewItem: UnitCostItemModel) => void;
 }
 
 const MaterialsNSuppliesCostsDetails = (props: MaterialsNSuppliesCostsDetailsProps) => {
-    const [internalData, setInternalData] = useState<MaterialsNSuppliesCostsModel>(new MaterialsNSuppliesCostsModel());
-
-    // useEffect(() => {
-    //     setInternalData(props.inData);
-    // }, []);
-
-    useEffect(() => {
-        setInternalData(props.inData);
-    }, [props.inData]);
-
-    const handleOnSterileWorkEquipmentChange = (inPropertyName: string, inNewItem: UnitCostItemModel) => {
-        //TODO
-    }
-
-    const handleOnHygieneAndCleaningChange = (inPropertyName: string, inNewItem: UnitCostItemModel) => {
-        //TODO
-    }
-
-    const handleOnPersonalProtectionChange = (inPropertyName: string, inNewItem: UnitCostItemModel) => {
-        //TODO
-    }
-
-    const handleOnAutomatedEquipmentChange = (inPropertyName: string, inNewItem: UnitCostItemModel) => {
-        //TODO
-    }
 
     return (
         <div>
             <AccordionGroup multiOpen={false} >
                 <AccordionItem id="id_SterEq" title="Equipo de Trabajo Estéril" icon={Syringe}>
                     <UnitCostDetailsGroup
-                        inData={internalData.sterileWorkEquipment}
-                        onInputChange={handleOnSterileWorkEquipmentChange}
+                        inData={props.inSterileWorkEquipmentData}
+                        onInputChange={props.onSterileWorkEquipmentChange}
                     />
                 </AccordionItem>
                 <AccordionItem id="id_HygCln" title="Higiene y Limpieza" icon={Droplets}>
                     <UnitCostDetailsGroup
-                        inData={internalData.hygieneAndCleaning}
-                        onInputChange={handleOnHygieneAndCleaningChange}
+                        inData={props.inHygieneAndCleaningData}
+                        onInputChange={props.onHygieneAndCleaningChange}
                     />
                 </AccordionItem>
                 <AccordionItem id="id_Prtctn" title="Protección Personal" icon={Shield}>
                     <UnitCostDetailsGroup
-                        inData={internalData.personalProtection}
-                        onInputChange={handleOnPersonalProtectionChange}
+                        inData={props.inPersonalProtectionData}
+                        onInputChange={props.onPersonalProtectionChange}
                     />
                 </AccordionItem>
                 <AccordionItem id="id_AutoEq" title="Equipos Automatizados" icon={Cpu}>
                     <UnitCostDetailsGroup
-                        inData={internalData.automatedEquipment}
-                        onInputChange={handleOnAutomatedEquipmentChange}
+                        inData={props.inAutomatedEquipmentData}
+                        onInputChange={props.onAutomatedEquipmentChange}
                     />
                 </AccordionItem>
             </AccordionGroup>

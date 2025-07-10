@@ -14,8 +14,8 @@ interface OperatingResourcesFormProps {
 const OperatingResourcesForm = (props: OperatingResourcesFormProps) => {
     const [activeComputerTabIndex, setActiveComputerTabIndex] = useState<number>(0);
 
-    const [resourcesMixingCentralManual, setResourcesMixingCentralManual] = useState<OperatingResourcesModels>(new OperatingResourcesModels());
-    const [resourcesMixingCentralAutomatic, setResourcesMixingCentralAutomatic] = useState<OperatingResourcesModels>(new OperatingResourcesModels());
+    // const [resourcesMixingCentralManual, setResourcesMixingCentralManual] = useState<OperatingResourcesModels>(new OperatingResourcesModels());
+    // const [resourcesMixingCentralAutomatic, setResourcesMixingCentralAutomatic] = useState<OperatingResourcesModels>(new OperatingResourcesModels());
 
     //OperatingResourcesModels
 
@@ -39,13 +39,15 @@ const OperatingResourcesForm = (props: OperatingResourcesFormProps) => {
                     <IconTab label="Central de Mezclas Manual" icon={FlaskConical}>
                         <OperatingResourcesByMixingCentral
                             inCentralType={CentralTypeIdEnum.Manual}
-                            inData={resourcesMixingCentralManual}
+                            inMonthlyProductionCapacity={0}
+                            inProductionLines={0}
                         />
                     </IconTab>
                     <IconTab label="Central de Mezclas Automatica" icon={Bot}>
                         <OperatingResourcesByMixingCentral
                             inCentralType={CentralTypeIdEnum.Automatico}
-                            inData={resourcesMixingCentralAutomatic}
+                            inMonthlyProductionCapacity={0}
+                            inProductionLines={0}
                         />
                     </IconTab>
                 </IconTabs>

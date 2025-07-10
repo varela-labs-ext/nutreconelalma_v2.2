@@ -6,13 +6,13 @@ import ReadOnlyNumberField from "@/ui/common/ReadOnlyNumberField";
 import { isValidNumber } from "@/utils/validators";
 import { useEffect, useRef, useState } from "react";
 
-interface UnitCostInputEditorProps {
+interface PorcentajeItemInputEditorProps {
     inData: PorcentajeItemModel;
     inName: string;
     onChange: (inName: string, newItem: PorcentajeItemModel) => void;
 }
 
-const UnitCostInputEditor = (props: UnitCostInputEditorProps) => {
+const PorcentajeItemInputEditor = (props: PorcentajeItemInputEditorProps) => {
     const [internalData, setInternalData] = useState<PorcentajeItemModel>(props.inData);
     const debounceRef = useRef<number | null>(null);
 
@@ -86,4 +86,4 @@ const UnitCostInputEditor = (props: UnitCostInputEditorProps) => {
     );
 }
 
-export default UnitCostInputEditor;
+export default PorcentajeItemInputEditor;

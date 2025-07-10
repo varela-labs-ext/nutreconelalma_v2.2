@@ -6,13 +6,14 @@ import ReadOnlyNumberField from "@/ui/common/ReadOnlyNumberField";
 import { isValidNumber } from "@/utils/validators";
 import { useEffect, useRef, useState } from "react";
 
-interface UnitCostInputEditorProps {
+interface AmountItemInputEditorProps {
     inData: AmountItemModel;
     inName: string;
+    inReadOnly: boolean;
     onChange: (inName: string, newItem: AmountItemModel) => void;
 }
 
-const UnitCostInputEditor = (props: UnitCostInputEditorProps) => {
+const AmountItemInputEditor = (props: AmountItemInputEditorProps) => {
     const [internalData, setInternalData] = useState<AmountItemModel>(props.inData);
     const debounceRef = useRef<number | null>(null);
 
@@ -62,14 +63,24 @@ const UnitCostInputEditor = (props: UnitCostInputEditorProps) => {
                     </div>
 
                     <div className="md:col-span-1 w-full">
-                        <InputNumberField
-                            label="value"
-                            name="value"
-                            value={internalData.value}
-                            readOnly={false}
-                            symbol="$"
-                            onChange={handleChange}
-                        />
+                        {props.inReadOnly && (
+                            <InputNumberField
+                                label="value"
+                                name="value"
+                                value={internalData.value}
+                                readOnly={false}
+                                symbol="$"
+                                onChange={handleChange}
+                            />
+                        )}
+                        {!props.inReadOnly && (
+                            <ReadOnlyNumberField
+                                label="value"
+                                name="value"
+                                symbol="$"
+                                value={internalData.value}
+                            />
+                        )}
                     </div>
                 </div>
             </div>
@@ -77,4 +88,4 @@ const UnitCostInputEditor = (props: UnitCostInputEditorProps) => {
     );
 }
 
-export default UnitCostInputEditor;
+export default AmountItemInputEditor;

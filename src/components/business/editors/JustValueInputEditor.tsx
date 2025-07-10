@@ -6,13 +6,13 @@ import ReadOnlyNumberField from "@/ui/common/ReadOnlyNumberField";
 import { isValidNumber } from "@/utils/validators";
 import { useEffect, useRef, useState } from "react";
 
-interface UnitCostInputEditorProps {
+interface JustValueInputEditorProps {
     inData: JustValueItemModel;
     inName: string;
     onChange: (inName: string, newItem: JustValueItemModel) => void;
 }
 
-const UnitCostInputEditor = (props: UnitCostInputEditorProps) => {
+const JustValueInputEditor = (props: JustValueInputEditorProps) => {
     const [internalData, setInternalData] = useState<JustValueItemModel>(props.inData);
     const debounceRef = useRef<number | null>(null);
 
@@ -77,4 +77,4 @@ const UnitCostInputEditor = (props: UnitCostInputEditorProps) => {
     );
 }
 
-export default UnitCostInputEditor;
+export default JustValueInputEditor;
