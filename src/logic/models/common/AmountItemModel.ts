@@ -1,15 +1,12 @@
-// Antiguo Para_FiscalesItemModel
 
-class PorcentajeItemModel {
-    public porcentaje: number;
+class AmountItemModel {
     public valor: number;
     public label: string;
 
     constructor(inLabel: string) {
-        this.porcentaje = 0;
         this.valor = 0;
         this.label = `${inLabel}:`;
     }
 }
 
-export default PorcentajeItemModel;
+export default AmountItemModel;

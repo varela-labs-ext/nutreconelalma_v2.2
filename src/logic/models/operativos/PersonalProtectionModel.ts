@@ -11,11 +11,11 @@ class MaterialesProteccionModel extends BasicModel {
     constructor() {
         super();
 
-        this.guantesEsterilesDesechables = new UnitCostItemModel();
-        this.bataEsterilUnUso = new UnitCostItemModel();
-        this.gorroDesechable = new UnitCostItemModel();
-        this.mascarillaQuirurgica = new UnitCostItemModel();
-        this.cubrezapatosDesechables = new UnitCostItemModel();
+        this.guantesEsterilesDesechables = new UnitCostItemModel("Guantes estériles desechables (par)");
+        this.bataEsterilUnUso = new UnitCostItemModel("Bata estéril de un solo uso");
+        this.gorroDesechable = new UnitCostItemModel("Gorro desechable");
+        this.mascarillaQuirurgica = new UnitCostItemModel("Mascarilla quirúrgica");
+        this.cubrezapatosDesechables = new UnitCostItemModel("Cubrezapatos desechables");
     }
 }
 

@@ -1,14 +1,14 @@
+import OperatingResourcesForm from "@/components/business/operating_resources/OperatingResourcesForm";
 
 
-
-const OperatingResourcesSettingsPage = () => {
+const OperatingResourcesPage = () => {
     return (
         <div>
             <div className="bg-white border rounded-xl shadow-md p-6 mb-6">
-                CONTENT HERE
+                <OperatingResourcesForm />
             </div>
         </div>
     );
 }
 
-export default OperatingResourcesSettingsPage;
+export default OperatingResourcesPage;

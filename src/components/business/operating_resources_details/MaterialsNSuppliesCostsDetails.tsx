@@ -17,6 +17,7 @@ import UnitCostItemModel from "@/logic/models/common/UnitCostItemModel";
 
 interface MaterialsNSuppliesCostsDetailsProps {
     inData: MaterialsNSuppliesCostsModel;
+    onChange: (inNewItem: MaterialsNSuppliesCostsModel) => void;
 }
 
 const MaterialsNSuppliesCostsDetails = (props: MaterialsNSuppliesCostsDetailsProps) => {

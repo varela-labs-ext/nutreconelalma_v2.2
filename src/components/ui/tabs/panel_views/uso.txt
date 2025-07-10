@@ -1,0 +1,8 @@
+<PanelViewsSelector defaultIndex={0}>
+    <PanelView label="General" icon={<Settings />} status="ok">
+        <p>Contenido del panel General</p>
+    </PanelView>
+    <PanelView label="Avanzado" icon={<Wrench />} status="warning">
+        <p>Contenido del panel Avanzado</p>
+    </PanelView>
+</PanelViewsSelector>

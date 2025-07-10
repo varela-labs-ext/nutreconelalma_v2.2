@@ -13,8 +13,8 @@
 
 
 
-class StaffPersonnelCostsModels {
+class StaffPersonnelCostsModel {
 
 }
 
-export default StaffPersonnelCostsModels;
+export default StaffPersonnelCostsModel;

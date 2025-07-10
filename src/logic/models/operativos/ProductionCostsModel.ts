@@ -17,11 +17,11 @@ class ProductionCostsModel extends BasicModel {
     constructor() {
         super();
 
-        this.aguaM3 = new EstimatedCostItemModel();
-        this.luzKw = new EstimatedCostItemModel();
-        this.manoObraIndirecta = new EstimatedCostItemModel();
-        this.telefoniaInternetAdmin = new EstimatedCostItemModel();
-        this.depreciacionCabinaFlujoLaminar = new EstimatedCostItemModel();
+        this.aguaM3 = new EstimatedCostItemModel("Agua (m³)");
+        this.luzKw = new EstimatedCostItemModel("Luz (kw)");
+        this.manoObraIndirecta = new EstimatedCostItemModel("Mano de obra indirecta");
+        this.telefoniaInternetAdmin = new EstimatedCostItemModel("Teléfono / Internet / Sistema administrativo");
+        this.depreciacionCabinaFlujoLaminar = new EstimatedCostItemModel("Depreciación mensual: cabina de flujo laminar");
     }
 }
 

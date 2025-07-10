@@ -1,7 +1,7 @@
 import BasicOperationalModel from "../common/BasicOperationalModel";
 import UnitCostItemModel from "../common/UnitCostItemModel";
 
-class EquipoTrabajoEsterilModel extends BasicOperationalModel {
+class SterileWorkEquipmentModel extends BasicOperationalModel {
     public jeringas1ml: UnitCostItemModel;
     public jeringas5ml: UnitCostItemModel;
     public jeringas10ml: UnitCostItemModel;
@@ -21,22 +21,22 @@ class EquipoTrabajoEsterilModel extends BasicOperationalModel {
     constructor() {
         super();
 
-        this.jeringas1ml = new UnitCostItemModel();
-        this.jeringas5ml = new UnitCostItemModel();
-        this.jeringas10ml = new UnitCostItemModel();
-        this.jeringas20ml = new UnitCostItemModel();
-        this.jeringas50ml = new UnitCostItemModel();
-        this.buretroles = new UnitCostItemModel();
-        this.compresasEsteriles = new UnitCostItemModel();
-        this.gasasEsteriles = new UnitCostItemModel();
-        this.etiquetasIdentificacionBolsas = new UnitCostItemModel();
-        this.toallasAbsorbentesDesechables = new UnitCostItemModel();
-        this.contenedoresCortopunzantes = new UnitCostItemModel();
-        this.agujasEsteriles = new UnitCostItemModel();
-        this.bolsaRojaBiologicos = new UnitCostItemModel();
-        this.bolsaNegraNoContaminados = new UnitCostItemModel();
-        this.boligrafosEtiquetado = new UnitCostItemModel();
+        this.jeringas1ml = new UnitCostItemModel("Jeringas estériles de 1 mL");
+        this.jeringas5ml = new UnitCostItemModel("Jeringas estériles de 5 mL");
+        this.jeringas10ml = new UnitCostItemModel("Jeringas estériles de 10 mL");
+        this.jeringas20ml = new UnitCostItemModel("Jeringas estériles de 20 mL");
+        this.jeringas50ml = new UnitCostItemModel("Jeringas estériles de 50 mL");
+        this.buretroles = new UnitCostItemModel("Buretroles");
+        this.compresasEsteriles = new UnitCostItemModel("Compresas estériles");
+        this.gasasEsteriles = new UnitCostItemModel("Gasas estériles");
+        this.etiquetasIdentificacionBolsas = new UnitCostItemModel("Etiquetas estériles para identificar cada bolsa");
+        this.toallasAbsorbentesDesechables = new UnitCostItemModel("Toallas absorbentes desechables");
+        this.contenedoresCortopunzantes = new UnitCostItemModel("Contenedores para residuos cortopunzantes");
+        this.agujasEsteriles = new UnitCostItemModel("Agujas estériles 16G - 18G");
+        this.bolsaRojaBiologicos = new UnitCostItemModel("Bolsa roja para residuos biológicos");
+        this.bolsaNegraNoContaminados = new UnitCostItemModel("Bolsa negra para residuos no contaminados");
+        this.boligrafosEtiquetado = new UnitCostItemModel("Bolígrafos para etiquetado de soluciones");
     }
 }
 
-export default EquipoTrabajoEsterilModel;
+export default SterileWorkEquipmentModel;

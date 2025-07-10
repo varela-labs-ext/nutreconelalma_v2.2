@@ -1,7 +1,7 @@
 import BasicModel from "../common/BasicModel";
 import UnitCostItemModel from "../common/UnitCostItemModel";
 
-class MaterialesHigieneLimpiezaModel extends BasicModel {
+class HygieneAndCleaningModel extends BasicModel {
     public solucionAntisepticaManos: UnitCostItemModel;
     public panosEsterilesSuperficies: UnitCostItemModel;
     public alcohol70: UnitCostItemModel;
@@ -17,18 +17,18 @@ class MaterialesHigieneLimpiezaModel extends BasicModel {
     constructor() {
         super();
 
-        this.solucionAntisepticaManos = new UnitCostItemModel();
-        this.panosEsterilesSuperficies = new UnitCostItemModel();
-        this.alcohol70 = new UnitCostItemModel();
+        this.solucionAntisepticaManos = new UnitCostItemModel("Solución antiséptica para lavado de manos (clorhexidina o alcohol al 70 %)");
+        this.panosEsterilesSuperficies = new UnitCostItemModel("Paños estériles para limpieza de superficies");
+        this.alcohol70 = new UnitCostItemModel("Alcohol al 70 %");
 
         // CALC MANUAL
-        this.detergentes = new UnitCostItemModel();
-        this.desinfectantes = new UnitCostItemModel();
+        this.detergentes = new UnitCostItemModel("Detergentes");
+        this.desinfectantes = new UnitCostItemModel("Desinfectantes");
 
         // CALC AUTO
-        this.peroxidoHidrogenoAcelerado = new UnitCostItemModel();
-        this.cloruroBenzalconio = new UnitCostItemModel();
+        this.peroxidoHidrogenoAcelerado = new UnitCostItemModel("Peróxido de hidrógeno acelerado");
+        this.cloruroBenzalconio = new UnitCostItemModel("Cloruro de benzalconio");
     }
 }
 
-export default MaterialesHigieneLimpiezaModel;
+export default HygieneAndCleaningModel;

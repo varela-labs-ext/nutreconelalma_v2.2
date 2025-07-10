@@ -1,5 +1,6 @@
 import { AccordionGroup } from "@/components/ui/accordions/AccordionGroup";
 import AccordionItem from "@/components/ui/accordions/AccordionItem";
+import StaffPersonnelCostsModel from "@/logic/models/StaffPersonnelCostsModel";
 import { FlaskConical, User, FileText } from "lucide-react";
 
 /*
@@ -10,7 +11,8 @@ import { FlaskConical, User, FileText } from "lucide-react";
 
 */
 interface StaffCostsDetailsProps {
-
+    inData: StaffPersonnelCostsModel;
+    onChange: (inNewItem: StaffPersonnelCostsModel) => void;
 }
 
 const StaffCostsDetails = (props: StaffCostsDetailsProps) => {

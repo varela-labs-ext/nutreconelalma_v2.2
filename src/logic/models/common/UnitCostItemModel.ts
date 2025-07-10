@@ -12,7 +12,7 @@ class UnitCostItemModel {
         this.unitCost = 0;
         this.totalCost = 0;
         this.exclude = false;
-        this.label = inLabel;
+        this.label = `${inLabel}:`;
     }
 }
 

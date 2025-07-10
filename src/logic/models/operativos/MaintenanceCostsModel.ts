@@ -19,17 +19,17 @@ class MaintenanceCostsModel extends BasicOperationalModel {
     constructor() {
         super();
 
-        this.validacionSistemaAire = new UnitCostItemModel();
-        this.pruebasMicrobiologia = new UnitCostItemModel();
-        this.llenadosAsepticosQuimicos = new UnitCostItemModel();
-        this.desafioDesinfectantes = new UnitCostItemModel();
-        this.mantenimientoCabinas = new UnitCostItemModel();
-        this.calificacionCabinas = new UnitCostItemModel();
-        this.calibracionManometros = new UnitCostItemModel();
-        this.cambiosFiltrosUMA = new UnitCostItemModel();
-        this.mantenimientoUMA = new UnitCostItemModel();
-        this.calibracionTermohigrometros = new UnitCostItemModel();
-        this.mantenimientosLocativosPintura = new UnitCostItemModel();
+        this.validacionSistemaAire = new UnitCostItemModel("Validación del sistema de aire");
+        this.pruebasMicrobiologia = new UnitCostItemModel("Pruebas de microbiología");
+        this.llenadosAsepticosQuimicos = new UnitCostItemModel("Llenados asépticos químicos");
+        this.desafioDesinfectantes = new UnitCostItemModel("Desafío de desinfectantes");
+        this.mantenimientoCabinas = new UnitCostItemModel("Mantenimiento de cabinas");
+        this.calificacionCabinas = new UnitCostItemModel("Calificación de cabinas");
+        this.calibracionManometros = new UnitCostItemModel("Calibración de manómetros de diferenciación de presión");
+        this.cambiosFiltrosUMA = new UnitCostItemModel("Cambios de filtros UMA");
+        this.mantenimientoUMA = new UnitCostItemModel("Mantenimientos UMA");
+        this.calibracionTermohigrometros = new UnitCostItemModel("Calibración de termohigrómetros");
+        this.mantenimientosLocativosPintura = new UnitCostItemModel("Mantenimientos locativos: pintura");
     }
 }
 

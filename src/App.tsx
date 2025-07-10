@@ -11,6 +11,7 @@ import ResumenImprimible from "./ui/pdf/ResumenImprimible";
 import CalculadoraPage from "./ui/pages/CalculatorPage";
 import HistoryPage from "./ui/pages/HistoryPage";
 import { MultiActionProvider } from "./ui/context/MultiActionContext";
+import OperatingResourcesPage from "./ui/pages/OperatingResourcesPage";
 
 
 
@@ -23,11 +24,11 @@ function App() {
                         <MultiActionProvider>
                             <Routes>
                                 <Route path="/" element={<LoginPage />} />
-                                <Route path="/resumen" element={
+                                {/* <Route path="/resumen" element={
                                     <ProtectedRoute>
                                         <AppLayout><ResumenImprimible /></AppLayout>
                                     </ProtectedRoute>
-                                } />
+                                } /> */}
                                 <Route path="/calculadora" element={
                                     <ProtectedRoute>
                                         <AppLayout><CalculadoraPage /></AppLayout>
@@ -38,6 +39,12 @@ function App() {
                                         <AppLayout><HistoryPage /></AppLayout>
                                     </ProtectedRoute>
                                 } />
+                                <Route path="/operativos" element={
+                                    <ProtectedRoute>
+                                        <AppLayout><OperatingResourcesPage /></AppLayout>
+                                    </ProtectedRoute>
+                                }
+                                />
                             </Routes>
                         </MultiActionProvider>
                     </AuthProvider>

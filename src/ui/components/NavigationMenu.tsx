@@ -68,11 +68,11 @@ const NavigationMenu = (props: NavigationMenuProps) => {
 
                     {/* Otros ítems */}
                     <button
-                        className={`w-full flex items-center rounded-full px-3 py-2 text-sm font-medium transition-colors ${pathname === "/configuracion" ? "bg-green-500 text-white" : "text-gray-700 hover:bg-gray-100"}`}
-                        onClick={() => handleNavigation("/configuracion")}
+                        className={`w-full flex items-center rounded-full px-3 py-2 text-sm font-medium transition-colors ${pathname === "/operativos" ? "bg-green-500 text-white" : "text-gray-700 hover:bg-gray-100"}`}
+                        onClick={() => handleNavigation("/operativos")}
                     >
                         <Settings className="h-5 w-5" />
-                        <span className="ml-3">Configuración</span>
+                        <span className="ml-3">Recursos Operativos</span>
                     </button>
                 </nav>
 

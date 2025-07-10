@@ -18,16 +18,16 @@ abstract class SalarioFiscalesModel extends SalarioBaseModel {
     constructor() {
         super();
 
-        this.cesantias = new PorcentajeItemModel();
-        this.primas = new PorcentajeItemModel();
-        this.vacaciones = new PorcentajeItemModel();
-        this.interesesCesantias = new PorcentajeItemModel();
-        this.salud = new PorcentajeItemModel();
-        this.pension = new PorcentajeItemModel();
-        this.arlRiesgo1 = new PorcentajeItemModel();
-        this.cajaCompensacion = new PorcentajeItemModel();
-        this.sena = new PorcentajeItemModel();
-        this.icbf = new PorcentajeItemModel();
+        this.cesantias = new PorcentajeItemModel("Cesantías");
+        this.primas = new PorcentajeItemModel("Primas");
+        this.vacaciones = new PorcentajeItemModel("Vacaciones");
+        this.interesesCesantias = new PorcentajeItemModel("Intereses de cesantías");
+        this.salud = new PorcentajeItemModel("Salud");
+        this.pension = new PorcentajeItemModel("Pensión");
+        this.arlRiesgo1 = new PorcentajeItemModel("ARL (riesgo I)");
+        this.cajaCompensacion = new PorcentajeItemModel("Caja de compensación");
+        this.sena = new PorcentajeItemModel("SENA");
+        this.icbf = new PorcentajeItemModel("ICBF");
     }
 }
 
