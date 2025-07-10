@@ -1,13 +1,15 @@
-class EstimatedCalcItemModel {
+class EstimatedCostItemModel {
     public valorEstimado: number; // Editable
     public valorUnitario: number; // Calculado
-    public excluirDelCalculo: boolean;
+    public exclude: boolean;
+    public label: string;
 
-    constructor() {
+    constructor(inLabel: string = "TODO") {
         this.valorEstimado = 0;
         this.valorUnitario = 0;
-        this.excluirDelCalculo = false;
+        this.exclude = false;
+        this.label = inLabel;
     }
 }
 
-export default EstimatedCalcItemModel;
+export default EstimatedCostItemModel;

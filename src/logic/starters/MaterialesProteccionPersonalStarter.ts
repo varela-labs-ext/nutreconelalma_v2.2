@@ -1,5 +1,5 @@
 
-import MaterialesProteccionModel from "../models/operativos/MaterialesProteccionModel";
+import MaterialesProteccionModel from "../models/operativos/PersonalProtectionModel";
 import TotalesStarterBase from "./TotalesStarterBase";
 
 

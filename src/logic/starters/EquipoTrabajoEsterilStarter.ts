@@ -1,5 +1,5 @@
 
-import EquipoTrabajoEsterilModel from "../models/operativos/EquipoTrabajoEsterilModel";
+import EquipoTrabajoEsterilModel from "../models/operativos/SterileWorkEquipmentModel";
 import TotalesStarterBase from "./TotalesStarterBase";
 
 

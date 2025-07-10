@@ -43,3 +43,5 @@ export const AccordionGroup = ({
         </AccordionGroupContext.Provider>
     );
 };
+
+export default AccordionGroup;

@@ -1,7 +1,8 @@
 import BasicModel from "../common/BasicModel";
+import BasicOperationalModel from "../common/BasicOperationalModel";
 import UnitCostItemModel from "../common/UnitCostItemModel";
 
-class MantenimientoModel extends BasicModel {
+class MaintenanceCostsModel extends BasicOperationalModel {
 
     public validacionSistemaAire: UnitCostItemModel; // Validación del sistema de Aire
     public pruebasMicrobiologia: UnitCostItemModel; // Pruebas de Microbiologia
@@ -32,4 +33,4 @@ class MantenimientoModel extends BasicModel {
     }
 }
 
-export default MantenimientoModel;
+export default MaintenanceCostsModel;

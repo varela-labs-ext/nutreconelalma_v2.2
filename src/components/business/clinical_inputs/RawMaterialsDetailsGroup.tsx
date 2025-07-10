@@ -1,8 +1,8 @@
 import RawMaterialModel from "@/logic/models/RawMaterialModel";
-import RawMaterialsDetailsHeader from "../Raw_Materials/RawMaterialsDetailsHeader";
-import RawMaterialsDetailsInputs from "../Raw_Materials/RawMaterialsDetailsInputs";
 import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
 import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
+import RawMaterialsDetailsHeader from "./RawMaterialsDetailsHeader";
+import RawMaterialsDetailsInputs from "./RawMaterialsDetailsInputs";
 
 interface RawMaterialsDetailGroupProps {
     inData: RawMaterialModel;

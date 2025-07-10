@@ -1,5 +1,5 @@
 
-import EquiposAutomatizadaModel from "../models/operativos/EquiposAutomatizadaModel";
+import EquiposAutomatizadaModel from "../models/operativos/AutomatedEquipmentModel";
 import TotalesStarterBase from "./TotalesStarterBase";
 
 class EquiposAutomatizadoStarter extends TotalesStarterBase<EquiposAutomatizadaModel> {

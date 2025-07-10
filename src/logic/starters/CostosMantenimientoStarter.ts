@@ -1,17 +1,17 @@
 
-import MantenimientoModel from "../models/operativos/MantenimientoModel";
+import MaintenanceCostsModel from "../models/operativos/MaintenanceCostsModel";
 import TotalesStarterBase from "./TotalesStarterBase";
 
-class CostosMantenimientoStarter extends TotalesStarterBase<MantenimientoModel> {
+class CostosMantenimientoStarter extends TotalesStarterBase<MaintenanceCostsModel> {
 
-    protected iniciarComunes(inItem: MantenimientoModel): void {
+    protected iniciarComunes(inItem: MaintenanceCostsModel): void {
         inItem.costoTotal = 0;
         // inItem.costoMensual = 0
         // inItem.costoPorLineaProduccion = 0;
         // inItem.costosPorNPT = 0;
     }
 
-    protected iniciarCentralManual(inItem: MantenimientoModel): void {
+    protected iniciarCentralManual(inItem: MaintenanceCostsModel): void {
         this.iniciarItem(inItem.calibracionManometros, 10.00, 400000.00);
         this.iniciarItem(inItem.calibracionTermohigrometros, 5.0, 400000.00);
         this.iniciarItem(inItem.calificacionCabinas, 3, 2500000.00);
@@ -25,7 +25,7 @@ class CostosMantenimientoStarter extends TotalesStarterBase<MantenimientoModel> 
         this.iniciarItem(inItem.validacionSistemaAire, 1.00, 10000000.00);
     }
 
-    protected iniciarCentralAutomatica(inItem: MantenimientoModel): void {
+    protected iniciarCentralAutomatica(inItem: MaintenanceCostsModel): void {
         this.iniciarCentralManual(inItem);
     }
 

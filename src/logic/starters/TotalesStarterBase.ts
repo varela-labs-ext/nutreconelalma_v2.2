@@ -1,6 +1,6 @@
 import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
 import UnitCostItemModel from "../models/common/UnitCostItemModel";
-import EstimatedCalcItemModel from "../models/common/EstimatedCalcItemModel";
+import EstimatedCostItemModel from "../models/common/EstimatedCostItemModel";
 
 
 abstract class TotalesStarterBase<T> {
@@ -30,7 +30,7 @@ abstract class TotalesStarterBase<T> {
         item.totalCost = 0;
     }
 
-    protected iniciarEstimado(item: EstimatedCalcItemModel, inValorEstimado: number, inValorUnitario: number): void {
+    protected iniciarEstimado(item: EstimatedCostItemModel, inValorEstimado: number, inValorUnitario: number): void {
         item.valorEstimado = inValorEstimado;
         item.valorUnitario = inValorUnitario;
     }

@@ -1,5 +1,5 @@
 
-import MaterialesHigieneLimpiezaModel from "../models/operativos/MaterialesHigieneLimpiezaModel";
+import MaterialesHigieneLimpiezaModel from "../models/operativos/HygieneAndCleaningModel";
 import TotalesStarterBase from "./TotalesStarterBase";
 
 

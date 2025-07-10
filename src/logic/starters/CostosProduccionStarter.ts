@@ -1,15 +1,15 @@
 
-import ProduccionModel from "../models/operativos/ProduccionModel";
+import ProductionCostsModel from "../models/operativos/ProductionCostsModel";
 import TotalesStarterBase from "./TotalesStarterBase";
 
 
-class CostosProduccionStarter extends TotalesStarterBase<ProduccionModel> {
+class CostosProduccionStarter extends TotalesStarterBase<ProductionCostsModel> {
 
-    protected iniciarComunes(inItem: ProduccionModel): void {
+    protected iniciarComunes(inItem: ProductionCostsModel): void {
         inItem.costoTotal = 0;
     }
 
-    protected iniciarCentralManual(inItem: ProduccionModel): void {
+    protected iniciarCentralManual(inItem: ProductionCostsModel): void {
         this.iniciarEstimado(inItem.aguaM3, 2388262.00, 0);
         this.iniciarEstimado(inItem.depreciacionCabinaFlujoLaminar, 63000.00, 0);
         this.iniciarEstimado(inItem.luzKw, 6775276.50, 0);
@@ -17,7 +17,7 @@ class CostosProduccionStarter extends TotalesStarterBase<ProduccionModel> {
         this.iniciarEstimado(inItem.telefoniaInternetAdmin, 6688000.00, 0);
     }
 
-    protected iniciarCentralAutomatica(inItem: ProduccionModel): void {
+    protected iniciarCentralAutomatica(inItem: ProductionCostsModel): void {
         this.iniciarCentralManual(inItem);
     }
 
