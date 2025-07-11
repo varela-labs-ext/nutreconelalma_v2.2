@@ -1,9 +1,9 @@
 import MaintenanceCostsCalc from "../calcs/MaintenanceCostsCalc";
-import ClinicaInputModel from "../models/common/ClinicaInputModel";
-import EstimatedCostItemModel from "../models/base/EstimatedCostItemModel";
-import UnitCostItemModel from "../models/base/UnitCostItemModel";
-import StaffSalaryModel from "../models/empleados/StaffSalaryGroupModel";
-import MaintenanceCostsModel from "../models/operating_resources/MaintenanceCostsGroupModel";
+import ClinicaInputModel from "../models/row_item/ClinicaInputModel";
+import EstimatedCostItemModel from "../models/row_item/EstimatedCostItemRowModel";
+import UnitCostItemModel from "../models/row_item/UnitCostItemRowModel";
+import StaffSalaryGroupModel from "../models/operating_resources/StaffSalaryGroupModel";
+import MaintenanceCostsGroupModel from "../models/operating_resources/MaintenanceCostsGroupModel";
 import RawMaterialModel from "../models/RawMaterialModel";
 import ChemistAssistantSalaryCalc from "./ChemistAssistantSalaryCalc";
 import ChemistSalaryCalc from "./ChemistSalaryCalc";
@@ -35,17 +35,17 @@ class CalculationService {
         calc.computeByParams(inItem, inMonthlyProductionCapacity, inProductionLines);
     }
 
-    public static ComputeChemistSalary(inItem: StaffSalaryModel): void {
+    public static ComputeChemistSalary(inItem: StaffSalaryGroupModel): void {
         const calc = new ChemistSalaryCalc();
         calc.compute(inItem);
     }
 
-    public static ChemistAssistantSalary(inItem: StaffSalaryModel): void {
+    public static ChemistAssistantSalary(inItem: StaffSalaryGroupModel): void {
         const calc = new ChemistAssistantSalaryCalc();
         calc.compute(inItem);
     }
 
-    public static ComputeMaintenanceCosts(inItem: MaintenanceCostsModel): void {
+    public static ComputeMaintenanceCosts(inItem: MaintenanceCostsGroupModel): void {
         const calc = new MaintenanceCostsCalc();
         calc.compute(inItem);
     }

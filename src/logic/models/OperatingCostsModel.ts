@@ -10,17 +10,17 @@
 
  */
 
-import MaintenanceCostsModel from "./operating_resources/MaintenanceCostsGroupModel";
-import ProductionCostsModel from "./operating_resources/ProductionCostsGroupModel";
+import MaintenanceCostsGroupModel from "./operating_resources/MaintenanceCostsGroupModel";
+import ProductionCostsGroupModel from "./operating_resources/ProductionCostsGroupModel";
 
 
 class OperatingCostsModel {
-    public maintenanceCosts: MaintenanceCostsModel;
-    public productionCosts: ProductionCostsModel;
+    public maintenanceCosts: MaintenanceCostsGroupModel;
+    public productionCosts: ProductionCostsGroupModel;
 
     constructor() {
-        this.maintenanceCosts = new MaintenanceCostsModel();
-        this.productionCosts = new ProductionCostsModel();
+        this.maintenanceCosts = new MaintenanceCostsGroupModel();
+        this.productionCosts = new ProductionCostsGroupModel();
     }
 }
 

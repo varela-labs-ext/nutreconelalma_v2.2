@@ -1,6 +1,6 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import StaffCostsDetails from "../operating_resources_details/StaffCostsDetails";
-import StaffSalaryModel from "@/logic/models/empleados/StaffSalaryGroupModel";
+import StaffSalaryGroupModel from "@/logic/models/operating_resources/StaffSalaryGroupModel";
 import { useEffect, useState } from "react";
 import ChemistSalaryStarter from "@/logic/starters/ChemistSalaryStarter";
 import ChemistAssistantSalaryStarter from "@/logic/starters/ChemistAssistantSalaryStarter";
@@ -14,8 +14,8 @@ interface StaffPersonnelFormProps {
 //ESTE DEBE GESTIONAR POR CUENTA PROPIA LA CARGA DE LOS DATOS DESDE LA DB
 
 const StaffPersonnelForm = (props: StaffPersonnelFormProps) => {
-    const [chemistSalaryData, setMaintenanceCostsData] = useState<StaffSalaryModel>(new StaffSalaryModel());
-    const [assistantSalaryData, setProductionCostsData] = useState<StaffSalaryModel>(new StaffSalaryModel());
+    const [chemistSalaryData, setMaintenanceCostsData] = useState<StaffSalaryGroupModel>(new StaffSalaryGroupModel());
+    const [assistantSalaryData, setProductionCostsData] = useState<StaffSalaryGroupModel>(new StaffSalaryGroupModel());
 
     useEffect(() => {
         ChemistSalaryStarter.getInstance().iniciarValores(chemistSalaryData, props.inCentralType);
@@ -33,11 +33,11 @@ const StaffPersonnelForm = (props: StaffPersonnelFormProps) => {
 
     }, [assistantSalaryData]);
 
-    const handleOnChemistSalaryChange = (inNewItem: StaffSalaryModel) => {
+    const handleOnChemistSalaryChange = (inNewItem: StaffSalaryGroupModel) => {
         //TODO
     }
 
-    const handleOnAssistantSalaryChange = (inNewItem: StaffSalaryModel) => {
+    const handleOnAssistantSalaryChange = (inNewItem: StaffSalaryGroupModel) => {
         //TODO
     }
 

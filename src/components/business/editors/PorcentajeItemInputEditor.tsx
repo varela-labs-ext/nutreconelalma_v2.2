@@ -1,6 +1,6 @@
 import InputNumberField from "@/components/ui/inputs/InputNumberField";
-import PorcentajeItemModel from "@/logic/models/base/PorcentajeItemModel";
-import UnitCostItemModel from "@/logic/models/base/UnitCostItemModel";
+import PorcentajeItemModel from "@/logic/models/row_item/PorcentajeItemRowModel";
+import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
 import CalculationService from "@/logic/services/CalculationService";
 import ReadOnlyNumberField from "@/ui/common/ReadOnlyNumberField";
 import { isValidNumber } from "@/utils/validators";

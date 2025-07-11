@@ -3,7 +3,7 @@ import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import BaseModel from "../base/BaseModel";
 import AmountItemModel from "../row_item/AmountItemRowModel";
 
-class MaintenanceCostsModel extends BaseModel {
+class MaintenanceCostsGroupModel extends BaseModel {
 
     public validacionSistemaAire: UnitCostItemModel;
     public pruebasMicrobiologia: UnitCostItemModel;
@@ -42,4 +42,4 @@ class MaintenanceCostsModel extends BaseModel {
     }
 }
 
-export default MaintenanceCostsModel;
+export default MaintenanceCostsGroupModel;

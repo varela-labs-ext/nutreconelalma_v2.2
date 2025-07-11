@@ -3,10 +3,10 @@ import AccordionItem from "@/components/ui/accordions/AccordionItem";
 import StaffPersonnelCostsModel from "@/logic/models/StaffPersonnelCostsModel";
 import { FlaskConical, User, FileText } from "lucide-react";
 import StaffSalaryDetailsGroup from "../staff_only/StaffSalaryDetailsGroup";
-import StaffSalaryModel from "@/logic/models/empleados/StaffSalaryGroupModel";
-import AmountItemModel from "@/logic/models/base/AmountItemModel";
-import PorcentajeItemModel from "@/logic/models/base/PorcentajeItemModel";
-import JustValueItemModel from "@/logic/models/base/JustValueItemModel";
+import StaffSalaryGroupModel from "@/logic/models/operating_resources/StaffSalaryGroupModel";
+import AmountItemModel from "@/logic/models/row_item/AmountItemRowModel";
+import PorcentajeItemModel from "@/logic/models/row_item/PorcentajeItemRowModel";
+import JustValueItemModel from "@/logic/models/row_item/OneValueItemRowModel";
 
 /*
 - STAFF/PERSONAL
@@ -19,23 +19,23 @@ import JustValueItemModel from "@/logic/models/base/JustValueItemModel";
 type UserRole = 'Chemist' | 'Assistant';
 
 interface StaffCostsDetailsProps {
-    inChemistSalaryData: StaffSalaryModel;
-    inAssistantSalaryData: StaffSalaryModel;
-    onChemistSalaryChange: (inNewItem: StaffSalaryModel) => void;
-    onAssistantSalaryChange: (inNewItem: StaffSalaryModel) => void;
+    inChemistSalaryData: StaffSalaryGroupModel;
+    inAssistantSalaryData: StaffSalaryGroupModel;
+    onChemistSalaryChange: (inNewItem: StaffSalaryGroupModel) => void;
+    onAssistantSalaryChange: (inNewItem: StaffSalaryGroupModel) => void;
 }
 
 const StaffCostsDetails = (props: StaffCostsDetailsProps) => {
 
     const handleOnAmountItemModelInputChange = (inModel: UserRole, inPropertyName: string, inNewItem: AmountItemModel) => {
         if (inModel === "Chemist") {
-            const chemistOutput: StaffSalaryModel = {
+            const chemistOutput: StaffSalaryGroupModel = {
                 ...props.inChemistSalaryData,
                 [inPropertyName]: inNewItem
             };
             props.onChemistSalaryChange(chemistOutput);
         } else {
-            const chemistOutput: StaffSalaryModel = {
+            const chemistOutput: StaffSalaryGroupModel = {
                 ...props.inAssistantSalaryData,
                 [inPropertyName]: inNewItem
             };
@@ -45,13 +45,13 @@ const StaffCostsDetails = (props: StaffCostsDetailsProps) => {
 
     const handleOnPorcentajeInputChange = (inModel: UserRole, inPropertyName: string, inNewItem: PorcentajeItemModel) => {
         if (inModel === "Chemist") {
-            const chemistOutput: StaffSalaryModel = {
+            const chemistOutput: StaffSalaryGroupModel = {
                 ...props.inChemistSalaryData,
                 [inPropertyName]: inNewItem
             };
             props.onChemistSalaryChange(chemistOutput);
         } else {
-            const chemistOutput: StaffSalaryModel = {
+            const chemistOutput: StaffSalaryGroupModel = {
                 ...props.inAssistantSalaryData,
                 [inPropertyName]: inNewItem
             };
@@ -61,13 +61,13 @@ const StaffCostsDetails = (props: StaffCostsDetailsProps) => {
 
     const handleOnJustValueInputChange = (inModel: UserRole, inPropertyName: string, inNewItem: JustValueItemModel) => {
         if (inModel === "Chemist") {
-            const chemistOutput: StaffSalaryModel = {
+            const chemistOutput: StaffSalaryGroupModel = {
                 ...props.inChemistSalaryData,
                 [inPropertyName]: inNewItem
             };
             props.onChemistSalaryChange(chemistOutput);
         } else {
-            const chemistOutput: StaffSalaryModel = {
+            const chemistOutput: StaffSalaryGroupModel = {
                 ...props.inAssistantSalaryData,
                 [inPropertyName]: inNewItem
             };

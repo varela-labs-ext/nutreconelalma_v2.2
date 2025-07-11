@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { isValidNumber } from "@/utils/validators";
-import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
+import ClinicaInputModel from "@/logic/models/row_item/ClinicaInputModel";
 import InputNumberField from "../../ui/inputs/InputNumberField";
 import ReadOnlyNumberField from "../../../ui/common/ReadOnlyNumberField";
 import CalculationService from "@/logic/services/CalculationService";

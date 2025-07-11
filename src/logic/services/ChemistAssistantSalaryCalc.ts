@@ -1,11 +1,11 @@
-import StaffSalaryModel from "../models/empleados/StaffSalaryGroupModel";
+import StaffSalaryGroupModel from "../models/operating_resources/StaffSalaryGroupModel";
 import BaseCalc from "./BaseCalc";
 import StaffSalaryTaxesCalc from "./StaffSalaryTaxesCalc";
 
 
-class ChemistAssistantSalaryCalc extends BaseCalc<StaffSalaryModel> {
+class ChemistAssistantSalaryCalc extends BaseCalc<StaffSalaryGroupModel> {
 
-    public compute(inItem: StaffSalaryModel): void {
+    public compute(inItem: StaffSalaryGroupModel): void {
         if (!this.isValidObj(inItem)) {
             return;
         }

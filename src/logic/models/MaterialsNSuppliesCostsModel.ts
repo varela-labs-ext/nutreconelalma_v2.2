@@ -14,20 +14,20 @@
 */
 
 import AutomatedEquipmentGroupModel from "./operating_resources/AutomatedEquipmentGroupModel";
-import HygieneAndCleaningModel from "./operating_resources/HygieneAndCleaningGroupModel";
+import HygieneAndCleaningGroupModel from "./operating_resources/HygieneAndCleaningGroupModel";
 import PersonalProtectionModel from "./operating_resources/PersonalProtectionGroupModel";
-import SterileWorkEquipmentModel from "./operating_resources/SterileWorkEquipmentGroupModel";
+import SterileWorkEquipmentGroupModel from "./operating_resources/SterileWorkEquipmentGroupModel";
 
 
 class MaterialsNSuppliesCostsModel {
-    public sterileWorkEquipment: SterileWorkEquipmentModel;
-    public hygieneAndCleaning: HygieneAndCleaningModel;
+    public sterileWorkEquipment: SterileWorkEquipmentGroupModel;
+    public hygieneAndCleaning: HygieneAndCleaningGroupModel;
     public personalProtection: PersonalProtectionModel;
     public automatedEquipment: AutomatedEquipmentGroupModel;
 
     constructor() {
-        this.sterileWorkEquipment = new SterileWorkEquipmentModel();
-        this.hygieneAndCleaning = new HygieneAndCleaningModel();
+        this.sterileWorkEquipment = new SterileWorkEquipmentGroupModel();
+        this.hygieneAndCleaning = new HygieneAndCleaningGroupModel();
         this.personalProtection = new PersonalProtectionModel();
         this.automatedEquipment = new AutomatedEquipmentGroupModel();
     }

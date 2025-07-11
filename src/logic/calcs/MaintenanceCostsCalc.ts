@@ -1,9 +1,9 @@
-import MaintenanceCostsModel from "../models/operating_resources/MaintenanceCostsGroupModel";
+import MaintenanceCostsGroupModel from "../models/operating_resources/MaintenanceCostsGroupModel";
 import BaseCalc from "../services/BaseCalc";
 
 
-class MaintenanceCostsCalc extends BaseCalc<MaintenanceCostsModel> {
-    public compute(inItem: MaintenanceCostsModel): void {
+class MaintenanceCostsCalc extends BaseCalc<MaintenanceCostsGroupModel> {
+    public compute(inItem: MaintenanceCostsGroupModel): void {
         if (!this.isValidObj(inItem)) {
             return;
         }

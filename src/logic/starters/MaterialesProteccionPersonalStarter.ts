@@ -1,15 +1,15 @@
 
-import MaterialesProteccionModel from "../models/operating_resources/PersonalProtectionGroupModel";
+import PersonalProtectionGroupModel from "../models/operating_resources/PersonalProtectionGroupModel";
 import TotalesStarterBase from "./TotalesStarterBase";
 
 
-class MaterialesProteccionPersonalStarter extends TotalesStarterBase<MaterialesProteccionModel> {
+class MaterialesProteccionPersonalStarter extends TotalesStarterBase<PersonalProtectionGroupModel> {
 
-    protected iniciarComunes(inItem: MaterialesProteccionModel): void {
+    protected iniciarComunes(inItem: PersonalProtectionGroupModel): void {
         inItem.totalCost = 0;
     }
 
-    protected iniciarCentralManual(inItem: MaterialesProteccionModel): void {
+    protected iniciarCentralManual(inItem: PersonalProtectionGroupModel): void {
         this.iniciarItem(inItem.bataEsterilUnUso, 2.00, 4000.00);
         this.iniciarItem(inItem.cubrezapatosDesechables, 2.00, 300.00);
         this.iniciarItem(inItem.gorroDesechable, 2.00, 300.00);
@@ -17,7 +17,7 @@ class MaterialesProteccionPersonalStarter extends TotalesStarterBase<MaterialesP
         this.iniciarItem(inItem.mascarillaQuirurgica, 2.00, 100.00);
     }
 
-    protected iniciarCentralAutomatica(inItem: MaterialesProteccionModel): void {
+    protected iniciarCentralAutomatica(inItem: PersonalProtectionGroupModel): void {
         this.iniciarItem(inItem.bataEsterilUnUso, 2.00, 4000.00);
         this.iniciarItem(inItem.cubrezapatosDesechables, 2.00, 300.00);
         this.iniciarItem(inItem.gorroDesechable, 2.00, 300.00);

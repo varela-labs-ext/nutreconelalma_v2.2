@@ -3,7 +3,7 @@ import UnitCostItemModel from "../row_item/UnitCostItemRowModel";
 import AmountItemModel from "../row_item/AmountItemRowModel";
 import BaseModel from "../base/BaseModel";
 
-class HygieneAndCleaningModel extends BaseModel {
+class HygieneAndCleaningGroupModel extends BaseModel {
     public solucionAntisepticaManos: UnitCostItemModel;
     public panosEsterilesSuperficies: UnitCostItemModel;
     public alcohol70: UnitCostItemModel;
@@ -37,4 +37,4 @@ class HygieneAndCleaningModel extends BaseModel {
     }
 }
 
-export default HygieneAndCleaningModel;
+export default HygieneAndCleaningGroupModel;

@@ -1,7 +1,7 @@
 import AmountItemModel from "../row_item/AmountItemRowModel";
 import StaffTaxesModel from "../base/StaffTaxesModel";
 
-class StaffSalaryModel extends StaffTaxesModel {
+class StaffSalaryGroupModel extends StaffTaxesModel {
     public salarioBasico: AmountItemModel;
     public costoEmpresa: AmountItemModel;
     public auxilioTransporte: AmountItemModel;
@@ -24,4 +24,4 @@ class StaffSalaryModel extends StaffTaxesModel {
     }
 }
 
-export default StaffSalaryModel;
+export default StaffSalaryGroupModel;

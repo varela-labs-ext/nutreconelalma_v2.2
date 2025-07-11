@@ -3,10 +3,10 @@ import AccordionItem from "@/components/ui/accordions/AccordionItem";
 import { Wrench, Factory } from "lucide-react";
 import UnitCostDetailsGroup from "../unit_costs/UnitCostDetailsGroup";
 import EstimatedCostsDetailsGroup from "../estimated_costs/EstimatedCostsDetailsGroup";
-import EstimatedCostItemModel from "@/logic/models/base/EstimatedCostItemModel";
-import UnitCostItemModel from "@/logic/models/base/UnitCostItemModel";
-import ProductionCostsModel from "@/logic/models/operating_resources/ProductionCostsGroupModel";
-import MaintenanceCostsModel from "@/logic/models/operating_resources/MaintenanceCostsGroupModel";
+import EstimatedCostItemModel from "@/logic/models/row_item/EstimatedCostItemRowModel";
+import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
+import ProductionCostsGroupModel from "@/logic/models/operating_resources/ProductionCostsGroupModel";
+import MaintenanceCostsGroupModel from "@/logic/models/operating_resources/MaintenanceCostsGroupModel";
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 
 /*
@@ -18,18 +18,18 @@ nota: COSTOS DE PRODUCCION ES UN ESTIMADO, NO CUMPLE CON LA ESTRUCTURA DE LOS OT
 */
 interface OperatingCostsDetailsProps {
     inCentralType: CentralTypeIdEnum;
-    inMaintenanceCostsData: MaintenanceCostsModel;
-    inProductionCostsData: ProductionCostsModel;
+    inMaintenanceCostsData: MaintenanceCostsGroupModel;
+    inProductionCostsData: ProductionCostsGroupModel;
     inMonthlyProductionCapacity: number;
     inProductionLines: number;
-    onMaintenanceCostsChange: (inNewItem: MaintenanceCostsModel) => void;
-    onProductionCostsChange: (inNewItem: ProductionCostsModel) => void;
+    onMaintenanceCostsChange: (inNewItem: MaintenanceCostsGroupModel) => void;
+    onProductionCostsChange: (inNewItem: ProductionCostsGroupModel) => void;
 }
 
 const OperatingCostsDetails = (props: OperatingCostsDetailsProps) => {
 
     const handleOnMaintenanceCostsChange = (inName: string, inNewItem: UnitCostItemModel) => {
-        const output: MaintenanceCostsModel = {
+        const output: MaintenanceCostsGroupModel = {
             ...props.inMaintenanceCostsData,
             [inName]: inNewItem
         };
@@ -37,7 +37,7 @@ const OperatingCostsDetails = (props: OperatingCostsDetailsProps) => {
     }
 
     const handleOnProductionCostsChange = (inName: string, inNewItem: EstimatedCostItemModel) => {
-        const output: ProductionCostsModel = {
+        const output: ProductionCostsGroupModel = {
             ...props.inProductionCostsData,
             [inName]: inNewItem
         };

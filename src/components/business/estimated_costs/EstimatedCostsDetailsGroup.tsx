@@ -1,10 +1,10 @@
-import EstimatedCostItemModel from "@/logic/models/base/EstimatedCostItemModel";
-import ProductionCostsModel from "@/logic/models/operating_resources/ProductionCostsGroupModel";
+import EstimatedCostItemModel from "@/logic/models/row_item/EstimatedCostItemRowModel";
+import ProductionCostsGroupModel from "@/logic/models/operating_resources/ProductionCostsGroupModel";
 import EstimatedCostsDetailsHeaders from "./EstimatedCostsDetailsHeaders";
 import EstimatedCostsDetailsInputs from "./EstimatedCostsDetailsInputs";
 
 interface EstimatedCostsDetailsGroupProps {
-    inData: ProductionCostsModel;
+    inData: ProductionCostsGroupModel;
     inMonthlyProductionCapacity: number;
     inProductionLines: number;
     onInputChange: (inPropertyName: string, inNewItem: EstimatedCostItemModel) => void;

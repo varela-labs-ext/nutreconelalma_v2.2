@@ -1,14 +1,14 @@
 
-import HygieneAndCleaningModel from "../models/operating_resources/HygieneAndCleaningGroupModel";
+import HygieneAndCleaningGroupModel from "../models/operating_resources/HygieneAndCleaningGroupModel";
 import TotalesStarterBase from "./TotalesStarterBase";
 
 
-class MaterialesHigieneLimpiezaStarter extends TotalesStarterBase<HygieneAndCleaningModel> {
-    protected iniciarComunes(inItem: HygieneAndCleaningModel): void {
+class MaterialesHigieneLimpiezaStarter extends TotalesStarterBase<HygieneAndCleaningGroupModel> {
+    protected iniciarComunes(inItem: HygieneAndCleaningGroupModel): void {
         inItem.totalCost = 0;
     }
 
-    protected iniciarCentralManual(inItem: HygieneAndCleaningModel): void {
+    protected iniciarCentralManual(inItem: HygieneAndCleaningGroupModel): void {
         this.iniciarItem(inItem.solucionAntisepticaManos, 0.08, 9000.00);
         this.iniciarItem(inItem.panosEsterilesSuperficies, 0.10, 1000.00);
         this.iniciarItem(inItem.alcohol70, 0.15, 1200.00);
@@ -16,7 +16,7 @@ class MaterialesHigieneLimpiezaStarter extends TotalesStarterBase<HygieneAndClea
         this.iniciarItem(inItem.desinfectantes, (1 / 200), 55000.00);
     }
 
-    protected iniciarCentralAutomatica(inItem: HygieneAndCleaningModel): void {
+    protected iniciarCentralAutomatica(inItem: HygieneAndCleaningGroupModel): void {
         this.iniciarItem(inItem.solucionAntisepticaManos, 0, 9000.00);
         this.iniciarItem(inItem.panosEsterilesSuperficies, 1.00, 1000.00);
         this.iniciarItem(inItem.alcohol70, 0, 1200.00);

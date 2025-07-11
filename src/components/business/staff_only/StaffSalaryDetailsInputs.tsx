@@ -1,8 +1,7 @@
-import StaffSalaryModel from "@/logic/models/empleados/StaffSalaryGroupModel";
-import AmountItemModel from "@/logic/models/base/AmountItemModel";
-import JustValueItemModel from "@/logic/models/base/JustValueItemModel";
-import PorcentajeItemModel from "@/logic/models/base/PorcentajeItemModel";
-import LabelBasicModel from "@/logic/models/common/LabelBasicModel";
+import StaffSalaryGroupModel from "@/logic/models/operating_resources/StaffSalaryGroupModel";
+import AmountItemModel from "@/logic/models/row_item/AmountItemRowModel";
+import JustValueItemModel from "@/logic/models/row_item/OneValueItemRowModel";
+import PorcentajeItemModel from "@/logic/models/row_item/PorcentajeItemRowModel";
 import JustValueInputEditor from "../editors/JustValueInputEditor";
 import AmountItemInputEditor from "../editors/AmountItemInputEditor";
 import PorcentajeItemInputEditor from "../editors/PorcentajeItemInputEditor";
@@ -10,7 +9,7 @@ import StaffSalaryDetailsHeaders from "./StaffSalaryDetailsHeaders";
 
 interface StaffSalaryDetailsInputsProps {
     title?: string;
-    inData: StaffSalaryModel;
+    inData: StaffSalaryGroupModel;
     onAmountItemModelInputChange: (inPropertyName: string, inNewItem: AmountItemModel) => void;
     onPorcentajeInputChange: (inPropertyName: string, inNewItem: PorcentajeItemModel) => void;
     onJustValueInputChange: (inPropertyName: string, inNewItem: JustValueItemModel) => void;

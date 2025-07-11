@@ -1,15 +1,15 @@
 
-import SterileWorkEquipmentModel from "../models/operating_resources/SterileWorkEquipmentGroupModel";
+import SterileWorkEquipmentGroupModel from "../models/operating_resources/SterileWorkEquipmentGroupModel";
 import TotalesStarterBase from "./TotalesStarterBase";
 
 
-class EquipoTrabajoEsterilStarter extends TotalesStarterBase<SterileWorkEquipmentModel> {
+class EquipoTrabajoEsterilStarter extends TotalesStarterBase<SterileWorkEquipmentGroupModel> {
 
-    protected iniciarComunes(inItem: SterileWorkEquipmentModel): void {
+    protected iniciarComunes(inItem: SterileWorkEquipmentGroupModel): void {
         inItem.totalCost = 0;
     }
 
-    protected iniciarCentralManual(inItem: SterileWorkEquipmentModel): void {
+    protected iniciarCentralManual(inItem: SterileWorkEquipmentGroupModel): void {
         this.iniciarItem(inItem.agujasEsteriles, 10.00, 400.00);
         this.iniciarItem(inItem.boligrafosEtiquetado, (1.00 / 60.00), 1500.00);
         this.iniciarItem(inItem.bolsaNegraNoContaminados, 0.50, 500.00);
@@ -27,7 +27,7 @@ class EquipoTrabajoEsterilStarter extends TotalesStarterBase<SterileWorkEquipmen
         this.iniciarItem(inItem.toallasAbsorbentesDesechables, 1.00, 1000.00);
     }
 
-    protected iniciarCentralAutomatica(inItem: SterileWorkEquipmentModel): void {
+    protected iniciarCentralAutomatica(inItem: SterileWorkEquipmentGroupModel): void {
         this.iniciarItem(inItem.agujasEsteriles, 2.00, 400.00);
         this.iniciarItem(inItem.boligrafosEtiquetado, (1.00 / 60.00), 1500.00);
         this.iniciarItem(inItem.bolsaNegraNoContaminados, 0.50, 500.00);

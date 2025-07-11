@@ -2,9 +2,9 @@ import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import MaterialsNSuppliesCostsDetails from "../operating_resources_details/MaterialsNSuppliesCostsDetails";
 import { useState } from "react";
 import AutomatedEquipmentGroupModel from "@/logic/models/operating_resources/AutomatedEquipmentGroupModel";
-import HygieneAndCleaningModel from "@/logic/models/operating_resources/HygieneAndCleaningGroupModel";
+import HygieneAndCleaningGroupModel from "@/logic/models/operating_resources/HygieneAndCleaningGroupModel";
 import PersonalProtectionModel from "@/logic/models/operating_resources/PersonalProtectionGroupModel";
-import SterileWorkEquipmentModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
+import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
 
 
 interface MaterialsNSuppliesCostsFormProps {
@@ -15,16 +15,16 @@ interface MaterialsNSuppliesCostsFormProps {
 
 const MaterialsNSuppliesCostsForm = (props: MaterialsNSuppliesCostsFormProps) => {
     const [automatedEquipmentData, setAutomatedEquipmentData] = useState<AutomatedEquipmentGroupModel>(new AutomatedEquipmentGroupModel());
-    const [hygieneAndCleaningData, setHygieneAndCleaningData] = useState<HygieneAndCleaningModel>(new HygieneAndCleaningModel());
+    const [hygieneAndCleaningData, setHygieneAndCleaningData] = useState<HygieneAndCleaningGroupModel>(new HygieneAndCleaningGroupModel());
     const [personalProtectionData, setPersonalProtectionData] = useState<PersonalProtectionModel>(new PersonalProtectionModel());
-    const [sterileWorkEquipmentData, setSterileWorkEquipmentData] = useState<SterileWorkEquipmentModel>(new SterileWorkEquipmentModel());
+    const [sterileWorkEquipmentData, setSterileWorkEquipmentData] = useState<SterileWorkEquipmentGroupModel>(new SterileWorkEquipmentGroupModel());
 
 
     const handleOnAutomatedEquipmentChange = (inNewItem: AutomatedEquipmentGroupModel) => {
 
     }
 
-    const handleOnHygieneAndCleaningChange = (inNewItem: HygieneAndCleaningModel) => {
+    const handleOnHygieneAndCleaningChange = (inNewItem: HygieneAndCleaningGroupModel) => {
 
     }
 
@@ -32,7 +32,7 @@ const MaterialsNSuppliesCostsForm = (props: MaterialsNSuppliesCostsFormProps) =>
 
     }
 
-    const handleOnSterileWorkEquipmentChange = (inNewItem: SterileWorkEquipmentModel) => {
+    const handleOnSterileWorkEquipmentChange = (inNewItem: SterileWorkEquipmentGroupModel) => {
 
     }
 

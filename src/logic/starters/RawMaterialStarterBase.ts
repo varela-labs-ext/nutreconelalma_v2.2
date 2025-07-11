@@ -1,5 +1,5 @@
 import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
-import ClinicaInputModel from "../models/common/ClinicaInputModel";
+import ClinicaInputModel from "../models/row_item/ClinicaInputModel";
 import RawMaterialModel from "../models/RawMaterialModel";
 
 

@@ -3,7 +3,7 @@ import BaseModel from "../base/BaseModel";
 import AmountItemModel from "../row_item/AmountItemRowModel";
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 
-class SterileWorkEquipmentModel extends BaseModel {
+class SterileWorkEquipmentGroupModel extends BaseModel {
     public jeringas1ml: UnitCostItemModel;
     public jeringas5ml: UnitCostItemModel;
     public jeringas10ml: UnitCostItemModel;
@@ -45,4 +45,4 @@ class SterileWorkEquipmentModel extends BaseModel {
     }
 }
 
-export default SterileWorkEquipmentModel;
+export default SterileWorkEquipmentGroupModel;

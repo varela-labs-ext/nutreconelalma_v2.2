@@ -1,9 +1,9 @@
-import StaffSalaryModel from "../models/empleados/StaffSalaryGroupModel";
+import StaffSalaryGroupModel from "../models/operating_resources/StaffSalaryGroupModel";
 import SalaryTaxesStarter from "./SalaryTaxesStarter";
 
-class ChemistSalaryStarter extends SalaryTaxesStarter<StaffSalaryModel> {
+class ChemistSalaryStarter extends SalaryTaxesStarter<StaffSalaryGroupModel> {
 
-    protected iniciarComunes(inItem: StaffSalaryModel): void {
+    protected iniciarComunes(inItem: StaffSalaryGroupModel): void {
         inItem.costoEmpresa.value = 0;
         inItem.auxilioTransporte.value = 0;
         inItem.subsidioTransporte.value = 0;
@@ -15,11 +15,11 @@ class ChemistSalaryStarter extends SalaryTaxesStarter<StaffSalaryModel> {
         inItem.personalPreparacion.value = 1;
     }
 
-    protected iniciarCentralManual(inItem: StaffSalaryModel): void {
+    protected iniciarCentralManual(inItem: StaffSalaryGroupModel): void {
         inItem.salarioBasico.value = 3800000.00;
     }
 
-    protected iniciarCentralAutomatica(inItem: StaffSalaryModel): void {
+    protected iniciarCentralAutomatica(inItem: StaffSalaryGroupModel): void {
         inItem.salarioBasico.value = 4000000.00;
     }
 

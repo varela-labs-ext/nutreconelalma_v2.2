@@ -3,7 +3,7 @@ import UnitCostItemModel from "../row_item/UnitCostItemRowModel";
 import BaseModel from "../base/BaseModel";
 import AmountItemModel from "../row_item/AmountItemRowModel";
 
-class MaterialesProteccionModel extends BaseModel {
+class PersonalProtectionGroupModel extends BaseModel {
     public guantesEsterilesDesechables: UnitCostItemModel;
     public bataEsterilUnUso: UnitCostItemModel;
     public gorroDesechable: UnitCostItemModel;
@@ -25,4 +25,4 @@ class MaterialesProteccionModel extends BaseModel {
     }
 }
 
-export default MaterialesProteccionModel;
+export default PersonalProtectionGroupModel;

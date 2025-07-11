@@ -1,6 +1,6 @@
 import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
-import PorcentajeItemModel from "../models/base/PorcentajeItemModel";
-import StaffTaxesModel from "../models/empleados/StaffTaxesModel";
+import PorcentajeItemModel from "../models/row_item/PorcentajeItemRowModel";
+import StaffTaxesModel from "../models/base/StaffTaxesModel";
 
 
 abstract class SalaryTaxesStarter<T extends StaffTaxesModel> {

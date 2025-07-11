@@ -1,14 +1,14 @@
-import JustValueItemModel from "@/logic/models/base/JustValueItemModel";
+import JustValueItemModel from "@/logic/models/row_item/OneValueItemRowModel";
 import JustValueInputEditor from "../editors/JustValueInputEditor";
 import MaintenanceCostsDetailsHeaders from "./MaintenanceCostsDetailsHeaders";
 import UnitCostInputEditor from "../editors/UnitCostInputEditor";
-import UnitCostItemModel from "@/logic/models/base/UnitCostItemModel";
-import MaintenanceCostsModel from "@/logic/models/operating_resources/MaintenanceCostsGroupModel";
+import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
+import MaintenanceCostsGroupModel from "@/logic/models/operating_resources/MaintenanceCostsGroupModel";
 import AmountItemInputEditor from "../editors/AmountItemInputEditor";
 
 interface MaintenanceCostsDetailsInputsProps {
     inProductionLines: number;
-    inData: MaintenanceCostsModel;
+    inData: MaintenanceCostsGroupModel;
     onInputChange: (inPropertyName: string, inNewItem: UnitCostItemModel) => void;
 }
 

@@ -1,5 +1,5 @@
 import BasicOperationalModel from "@/logic/models/common/BasicOperationalModel";
-import UnitCostItemModel from "@/logic/models/base/UnitCostItemModel";
+import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
 
 import UnitCostDetailsInputs from "./UnitCostDetailsInputs";
 import UnitCostDetailsHeaders from "./UnitCostDetailsHeaders";

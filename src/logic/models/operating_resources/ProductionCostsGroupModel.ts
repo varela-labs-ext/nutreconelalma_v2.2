@@ -4,7 +4,7 @@ import BaseModel from "../base/BaseModel";
 import AmountItemModel from "../row_item/AmountItemRowModel";
 
 //Costos de producción 
-class ProductionCostsModel extends BaseModel {
+class ProductionCostsGroupModel extends BaseModel {
 
     public aguaM3: EstimatedCostItemModel; // Agua (m³)
     public luzKw: EstimatedCostItemModel; // Luz (Kw)
@@ -27,4 +27,4 @@ class ProductionCostsModel extends BaseModel {
     }
 }
 
-export default ProductionCostsModel;
+export default ProductionCostsGroupModel;

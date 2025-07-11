@@ -1,6 +1,6 @@
 import InputNumberField from "@/components/ui/inputs/InputNumberField";
-import JustValueItemModel from "@/logic/models/base/JustValueItemModel";
-import UnitCostItemModel from "@/logic/models/base/UnitCostItemModel";
+import JustValueItemModel from "@/logic/models/row_item/OneValueItemRowModel";
+import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
 import CalculationService from "@/logic/services/CalculationService";
 import ReadOnlyNumberField from "@/ui/common/ReadOnlyNumberField";
 import { isValidNumber } from "@/utils/validators";
