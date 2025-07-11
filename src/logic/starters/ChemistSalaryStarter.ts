@@ -1,5 +1,5 @@
 import StaffSalaryModel from "../models/empleados/StaffSalaryModel";
-import ParaFiscalesStarter from "./ParaFiscalesStarter";
+import ParaFiscalesStarter from "./SalaryTaxesStarter";
 
 class PersonalQuimicoFarmaceuticoStarter extends ParaFiscalesStarter<StaffSalaryModel> {
 
