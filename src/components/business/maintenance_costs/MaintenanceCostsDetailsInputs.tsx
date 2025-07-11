@@ -12,6 +12,7 @@ interface MaintenanceCostsDetailsInputsProps {
     onInputChange: (inPropertyName: string, inNewItem: UnitCostItemModel) => void;
 }
 
+/* Costos de Mantenimiento */
 const MaintenanceCostsDetailsInputs = (props: MaintenanceCostsDetailsInputsProps) => {
 
     const getProductionLines = (): JustValueItemModel => {
@@ -90,26 +91,26 @@ const MaintenanceCostsDetailsInputs = (props: MaintenanceCostsDetailsInputsProps
             </div>
             <div>
                 <AmountItemInputEditor
-                    inData={props.inData.totalCost}
-                    inName="totalValorHora"
+                    inData={props.inData.total}
+                    inName="total"
                     isReadOnly={true}
                     onChange={(x, y) => (console.log("nothing"))}
                 />
                 <AmountItemInputEditor
-                    inData={props.inData.totalValorHora}
-                    inName="totalValorHora"
+                    inData={props.inData.costoMensual}
+                    inName="costoMensual"
                     isReadOnly={true}
                     onChange={(x, y) => (console.log("nothing"))}
                 />
                 <AmountItemInputEditor
-                    inData={props.inData.totalValorHora}
-                    inName="totalValorHora"
+                    inData={props.inData.costoLineaProduccion}
+                    inName="costoLineaProduccion"
                     isReadOnly={true}
                     onChange={(x, y) => (console.log("nothing"))}
                 />
                 <AmountItemInputEditor
-                    inData={props.inData.totalValorHora}
-                    inName="totalValorHora"
+                    inData={props.inData.costoNpt}
+                    inName="costoNpt"
                     isReadOnly={true}
                     onChange={(x, y) => (console.log("nothing"))}
                 />

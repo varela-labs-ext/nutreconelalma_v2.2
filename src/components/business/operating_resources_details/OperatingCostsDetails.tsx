@@ -48,7 +48,7 @@ const OperatingCostsDetails = (props: OperatingCostsDetailsProps) => {
         <div>
             <AccordionGroup multiOpen={false} >
                 <AccordionItem id="id_MaintC" title="Costos de Mantenimiento" icon={Wrench}>
-                    <UnitCostDetailsGroup
+                    <UnitCostDetailsGroupX
                         inCentralType={props.inCentralType}
                         inData={props.inMaintenanceCostsData}
                         onInputChange={handleOnMaintenanceCostsChange}

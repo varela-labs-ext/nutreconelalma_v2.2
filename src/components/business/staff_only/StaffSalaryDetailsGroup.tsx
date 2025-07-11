@@ -16,17 +16,15 @@ interface StaffSalaryDetailsGroupProps {
 const StaffSalaryDetailsGroup = (props: StaffSalaryDetailsGroupProps) => {
 
     return (
-        <>
-            <div className="flex flex-col gap-2">
-                <StaffSalaryDetailsInputs
-                    title={props.title}
-                    inData={props.inData}
-                    onAmountItemModelInputChange={props.onAmountItemModelInputChange}
-                    onPorcentajeInputChange={props.onPorcentajeInputChange}
-                    onJustValueInputChange={props.onJustValueInputChange}
-                />
-            </div>
-        </>
+        <div className="flex flex-col gap-2">
+            <StaffSalaryDetailsInputs
+                title={props.title}
+                inData={props.inData}
+                onAmountItemModelInputChange={props.onAmountItemModelInputChange}
+                onPorcentajeInputChange={props.onPorcentajeInputChange}
+                onJustValueInputChange={props.onJustValueInputChange}
+            />
+        </div>
     );
 }
 
