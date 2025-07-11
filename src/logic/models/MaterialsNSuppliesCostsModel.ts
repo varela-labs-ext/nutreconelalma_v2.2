@@ -13,10 +13,10 @@
 | EQUIPOS AUTOMATIZADOS     | Automated Equipment         | AutomatedEquipment           | AutoEq   | Cpu           | Equipos Automatizados      |
 */
 
-import AutomatedEquipmentModel from "./operativos/AutomatedEquipmentModel";
-import HygieneAndCleaningModel from "./operativos/HygieneAndCleaningModel";
-import PersonalProtectionModel from "./operativos/PersonalProtectionModel";
-import SterileWorkEquipmentModel from "./operativos/SterileWorkEquipmentModel";
+import AutomatedEquipmentModel from "./operating_resources/AutomatedEquipmentGroupModel";
+import HygieneAndCleaningModel from "./operating_resources/HygieneAndCleaningGroupModel";
+import PersonalProtectionModel from "./operating_resources/PersonalProtectionGroupModel";
+import SterileWorkEquipmentModel from "./operating_resources/SterileWorkEquipmentGroupModel";
 
 
 class MaterialsNSuppliesCostsModel {

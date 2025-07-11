@@ -1,23 +1,21 @@
 // Antigua Cantidad_UnidadTotalItemModel
 
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
-import BasicModel from "../common/BasicModel";
+import BaseModel from "../common/BaseModel";
 
-class UnitCostItemModel extends BasicModel {
+class UnitCostItemModel extends BaseModel {
     public quantity: number;
     public unitCost: number;
     public totalCost: number;
     public exclude: boolean;
-    public label: string;
 
     constructor(inLabel: string, inCentralType: CentralTypeIdEnum = CentralTypeIdEnum.None) {
-        super(inCentralType);
+        super(inLabel, inCentralType);
 
         this.quantity = 0;
         this.unitCost = 0;
         this.totalCost = 0;
         this.exclude = false;
-        this.label = `${inLabel}:`;
     }
 }
 

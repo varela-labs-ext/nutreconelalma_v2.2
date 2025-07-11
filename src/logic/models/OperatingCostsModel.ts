@@ -10,8 +10,8 @@
 
  */
 
-import MaintenanceCostsModel from "./operativos/MaintenanceCostsModel";
-import ProductionCostsModel from "./operativos/ProductionCostsModel";
+import MaintenanceCostsModel from "./operating_resources/MaintenanceCostsGroupModel";
+import ProductionCostsModel from "./operating_resources/ProductionCostsGroupModel";
 
 
 class OperatingCostsModel {

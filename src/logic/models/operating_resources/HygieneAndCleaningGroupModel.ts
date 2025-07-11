@@ -1,6 +1,6 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import BasicModel from "../common/BasicModel";
-import UnitCostItemModel from "../operating_resources/UnitCostItemModel";
+import UnitCostItemModel from "./UnitCostItemModel";
 
 class HygieneAndCleaningModel extends BasicModel {
     public solucionAntisepticaManos: UnitCostItemModel;
