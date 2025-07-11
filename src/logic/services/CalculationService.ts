@@ -1,7 +1,9 @@
 import ClinicaInputModel from "../models/common/ClinicaInputModel";
 import EstimatedCostItemModel from "../models/common/EstimatedCostItemModel";
 import UnitCostItemModel from "../models/common/UnitCostItemModel";
+import StaffSalaryModel from "../models/empleados/StaffSalaryModel";
 import RawMaterialModel from "../models/RawMaterialModel";
+import ChemistSalaryCalc from "./ChemistSalaryCalc";
 import ClinicalInputCalc from "./ClinicalInputCalc";
 import EstimatedCostInputCalc from "./EstimatedCostInputCalc";
 import RawMaterialsCalc from "./RawMaterialsCalc";
@@ -28,6 +30,11 @@ class CalculationService {
     public static ComputeEstimatedCostsInput(inItem: EstimatedCostItemModel, inMonthlyProductionCapacity: number, inProductionLines: number): void {
         const calc = new EstimatedCostInputCalc();
         calc.computeByParams(inItem, inMonthlyProductionCapacity, inProductionLines);
+    }
+
+    public static ComputeChemistSalary(inItem: StaffSalaryModel): void {
+        const calc = new ChemistSalaryCalc();
+        calc.compute(inItem);
     }
 }
 

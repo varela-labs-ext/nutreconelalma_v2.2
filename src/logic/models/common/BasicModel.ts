@@ -4,9 +4,9 @@ abstract class BasicModel {
     public totalCost: number;
     public centralType: CentralTypeIdEnum;
 
-    protected constructor(inCentralType: CentralTypeIdEnum = CentralTypeIdEnum.None) {
-        this.totalCost = inCentralType;
-        this.centralType = CentralTypeIdEnum.None;
+    protected constructor(inCentralType: CentralTypeIdEnum) {
+        this.totalCost = 0;
+        this.centralType = inCentralType;
     }
 }
 

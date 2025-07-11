@@ -78,7 +78,7 @@ export const ReadOnlyNumberField: React.FC<ReadOnlyNumberFieldProps> = (props) =
                     id={props.name}
                     name={props.name}
                     type="number"
-                    value={cleanUp(props.value).toFixed(3)}
+                    value={cleanUp(props.value).toFixed(2)}
                     readOnly
                     className={getInputClass()}
                 />

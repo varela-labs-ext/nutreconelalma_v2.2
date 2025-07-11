@@ -11,6 +11,10 @@ class ChemistAssistantSalaryStarter extends SalaryTaxesStarter<StaffSalaryModel>
         inItem.totalParafiscales.value = 0;
         inItem.totalCompensacionSalarial.value = 0;
         inItem.totalValorHora.value = 0;
+
+        inItem.horasTrabajoMensual.value = 230;
+        inItem.personalPreparacion.value = 1;
+
         this.iniciarParafiscal(inItem.arlRiesgo1, 2.40); // <- Este valor esta así en el Excel.
     }
 

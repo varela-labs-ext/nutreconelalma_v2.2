@@ -1,3 +1,4 @@
+import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import BasicModel from "../common/BasicModel";
 import UnitCostItemModel from "../common/UnitCostItemModel";
 
@@ -7,7 +8,7 @@ class AutomatedEquipmentModel extends BasicModel {
     public setsTransferenciaX9: UnitCostItemModel;
 
     constructor() {
-        super();
+        super(CentralTypeIdEnum.None);
 
         this.tamperResistantClamps = new UnitCostItemModel("Tamper-Resistant Clamps");
         this.setsTransferenciaX6 = new UnitCostItemModel("Sets de transferencia universales (x6)");

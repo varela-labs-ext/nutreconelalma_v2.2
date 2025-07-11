@@ -7,6 +7,7 @@ import EstimatedCostItemModel from "@/logic/models/common/EstimatedCostItemModel
 import UnitCostItemModel from "@/logic/models/common/UnitCostItemModel";
 import ProductionCostsModel from "@/logic/models/operativos/ProductionCostsModel";
 import MaintenanceCostsModel from "@/logic/models/operativos/MaintenanceCostsModel";
+import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 
 /*
 - COSTOS OPERATIVOS
@@ -16,6 +17,7 @@ import MaintenanceCostsModel from "@/logic/models/operativos/MaintenanceCostsMod
 nota: COSTOS DE PRODUCCION ES UN ESTIMADO, NO CUMPLE CON LA ESTRUCTURA DE LOS OTROS
 */
 interface OperatingCostsDetailsProps {
+    inCentralType: CentralTypeIdEnum;
     inMaintenanceCostsData: MaintenanceCostsModel;
     inProductionCostsData: ProductionCostsModel;
     inMonthlyProductionCapacity: number;
@@ -47,6 +49,7 @@ const OperatingCostsDetails = (props: OperatingCostsDetailsProps) => {
             <AccordionGroup multiOpen={false} >
                 <AccordionItem id="id_MaintC" title="Costos de Mantenimiento" icon={Wrench}>
                     <UnitCostDetailsGroup
+                        inCentralType={props.inCentralType}
                         inData={props.inMaintenanceCostsData}
                         onInputChange={handleOnMaintenanceCostsChange}
                     />

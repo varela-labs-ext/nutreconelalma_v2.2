@@ -69,18 +69,21 @@ const MaterialsNSuppliesCostsDetails = (props: MaterialsNSuppliesCostsDetailsPro
             <AccordionGroup multiOpen={false} >
                 <AccordionItem id="id_SterEq" title="Equipo de Trabajo Estéril" icon={Syringe}>
                     <UnitCostDetailsGroup
+                        inCentralType={props.inCentralType}
                         inData={props.inSterileWorkEquipmentData}
                         onInputChange={handleOnSterileWorkEquipmentChange}
                     />
                 </AccordionItem>
                 <AccordionItem id="id_HygCln" title="Higiene y Limpieza" icon={Droplets}>
                     <UnitCostDetailsGroup
+                        inCentralType={props.inCentralType}
                         inData={props.inHygieneAndCleaningData}
                         onInputChange={handleOnHygieneAndCleaningChange}
                     />
                 </AccordionItem>
                 <AccordionItem id="id_Prtctn" title="Protección Personal" icon={Shield}>
                     <UnitCostDetailsGroup
+                        inCentralType={props.inCentralType}
                         inData={props.inPersonalProtectionData}
                         onInputChange={handleOnPersonalProtectionChange}
                     />
@@ -88,6 +91,7 @@ const MaterialsNSuppliesCostsDetails = (props: MaterialsNSuppliesCostsDetailsPro
                 {props.inCentralType === CentralTypeIdEnum.Automatico && (
                     <AccordionItem id="id_AutoEq" title="Equipos Automatizados" icon={Cpu}>
                         <UnitCostDetailsGroup
+                            inCentralType={props.inCentralType}
                             inData={props.inAutomatedEquipmentData}
                             onInputChange={handleOnAutomatedEquipmentChange}
                         />

@@ -1,3 +1,4 @@
+import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import BasicModel from "../common/BasicModel";
 import UnitCostItemModel from "../common/UnitCostItemModel";
 
@@ -9,7 +10,7 @@ class MaterialesProteccionModel extends BasicModel {
     public cubrezapatosDesechables: UnitCostItemModel;
 
     constructor() {
-        super();
+        super(CentralTypeIdEnum.None);
 
         this.guantesEsterilesDesechables = new UnitCostItemModel("Guantes estériles desechables (par)");
         this.bataEsterilUnUso = new UnitCostItemModel("Bata estéril de un solo uso");

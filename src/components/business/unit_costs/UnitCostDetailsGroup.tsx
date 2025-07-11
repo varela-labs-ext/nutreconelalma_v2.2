@@ -3,9 +3,11 @@ import UnitCostItemModel from "@/logic/models/common/UnitCostItemModel";
 
 import UnitCostDetailsInputs from "./UnitCostDetailsInputs";
 import UnitCostDetailsHeaders from "./UnitCostDetailsHeaders";
+import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 
 
 interface UnitCostDetailsGroupProps {
+    inCentralType: CentralTypeIdEnum;
     inData: BasicOperationalModel;
     onInputChange: (inPropertyName: string, inNewItem: UnitCostItemModel) => void;
 }
@@ -17,6 +19,7 @@ const UnitCostDetailsGroup = (props: UnitCostDetailsGroupProps) => {
             <div className="flex flex-col gap-2">
                 <UnitCostDetailsHeaders />
                 <UnitCostDetailsInputs
+                    inCentralType={props.inCentralType}
                     inData={props.inData}
                     onInputChange={props.onInputChange}
                 />

@@ -10,6 +10,9 @@ class ChemistSalaryStarter extends SalaryTaxesStarter<StaffSalaryModel> {
         inItem.totalParafiscales.value = 0;
         inItem.totalCompensacionSalarial.value = 0;
         inItem.totalValorHora.value = 0;
+
+        inItem.horasTrabajoMensual.value = 230;
+        inItem.personalPreparacion.value = 1;
     }
 
     protected iniciarCentralManual(inItem: StaffSalaryModel): void {

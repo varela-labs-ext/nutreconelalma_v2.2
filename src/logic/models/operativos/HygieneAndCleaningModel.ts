@@ -16,7 +16,7 @@ class HygieneAndCleaningModel extends BasicModel {
     public cloruroBenzalconio: UnitCostItemModel;
 
     constructor() {
-        super();
+        super(CentralTypeIdEnum.None);
 
         this.solucionAntisepticaManos = new UnitCostItemModel("Solución antiséptica para lavado de manos (clorhexidina o alcohol al 70 %)");
         this.panosEsterilesSuperficies = new UnitCostItemModel("Paños estériles para limpieza de superficies");

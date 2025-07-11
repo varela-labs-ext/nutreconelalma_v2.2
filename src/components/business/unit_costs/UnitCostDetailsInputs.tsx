@@ -1,8 +1,10 @@
 import BasicOperationalModel from "@/logic/models/common/BasicOperationalModel";
 import UnitCostItemModel from "@/logic/models/common/UnitCostItemModel";
 import UnitCostInputEditor from "../editors/UnitCostInputEditor";
+import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 
 interface UnitCostDetailsInputsProps {
+    inCentralType: CentralTypeIdEnum;
     inData: BasicOperationalModel;
     onInputChange: (inPropertyName: string, inNewItem: UnitCostItemModel) => void;
 }
@@ -27,13 +29,20 @@ const UnitCostDetailsInputs = (props: UnitCostDetailsInputsProps) => {
             return resultado;
         }
 
-        resultado = Object.entries(props.inData)
-            .filter(([_, inValue]) => isInputValid(inValue))
-            .map(([inKey, inValue]) => [inKey, inValue as UnitCostItemModel]);
+        for (const [key, value] of Object.entries(props.inData)) {
+            if (!isInputValid(value)) {
+                continue;
+            }
 
-        resultado.sort(([, valueA], [, valueB]) =>
-            valueA.label.localeCompare(valueB.label, 'es', { sensitivity: 'base' })
-        );
+            const item = value as UnitCostItemModel;
+
+            if (item.centralType === CentralTypeIdEnum.None || item.centralType === props.inCentralType) {
+                console.log(`Item Valido: ${key}, ${item.centralType}`);
+                resultado.push([key, item]);
+            } else {
+                console.log(`Item INVALIDO: ${key}`);
+            }
+        }
 
         return resultado;
     };

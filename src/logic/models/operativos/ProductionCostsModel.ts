@@ -1,3 +1,4 @@
+import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import BasicModel from "../common/BasicModel";
 import EstimatedCostItemModel from "../common/EstimatedCostItemModel";
 
@@ -15,7 +16,7 @@ class ProductionCostsModel extends BasicModel {
     public depreciacionCabinaFlujoLaminar: EstimatedCostItemModel; // Depreciación mensual cabina flujo laminar
 
     constructor() {
-        super();
+        super(CentralTypeIdEnum.None);
 
         this.aguaM3 = new EstimatedCostItemModel("Agua (m³)");
         this.luzKw = new EstimatedCostItemModel("Luz (kw)");

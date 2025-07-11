@@ -31,6 +31,7 @@ const OperatingCostsForm = (props: OperatingCostsFormProps) => {
     return (
         <>
             <OperatingCostsDetails
+                inCentralType={props.inCentralType}
                 inMaintenanceCostsData={maintenanceCostsData}
                 inProductionCostsData={productionCostsData}
                 inMonthlyProductionCapacity={props.inMonthlyProductionCapacity}
