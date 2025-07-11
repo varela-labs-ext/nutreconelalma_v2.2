@@ -1,6 +1,6 @@
 // Antiguo Salario_PersonalFiscalesModel
 
-import PorcentajeItemModel from "./PorcentajeItemModel";
+import PorcentajeItemModel from "../row_item/PorcentajeItemModel";
 import StaffBaseModel from "./StaffBaseModel";
 
 abstract class StaffTaxesModel extends StaffBaseModel {

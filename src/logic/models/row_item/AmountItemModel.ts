@@ -1,4 +1,4 @@
-import BaseLabelModel from "./BaseLabelModel";
+import BaseLabelModel from "../base/BaseLabelModel";
 
 class AmountItemModel extends BaseLabelModel {
     public value: number;

@@ -1,6 +1,6 @@
-import UnitCostItemModel from "../base/UnitCostItemModel";
+import UnitCostItemModel from "../row_item/UnitCostItemModel";
 import BaseModel from "../base/BaseModel";
-import AmountItemModel from "../base/AmountItemModel";
+import AmountItemModel from "../row_item/AmountItemModel";
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 
 class SterileWorkEquipmentModel extends BaseModel {

@@ -1,4 +1,4 @@
-import AmountItemModel from "../base/AmountItemModel";
+import AmountItemModel from "../row_item/AmountItemModel";
 import StaffTaxesModel from "../base/StaffTaxesModel";
 
 class StaffSalaryModel extends StaffTaxesModel {

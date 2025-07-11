@@ -1,6 +1,6 @@
 // Antiguo Salario_PersonalBaseModel
 
-import JustValueItemModel from "./JustValueItemModel";
+import JustValueItemModel from "../row_item/JustValueItemModel";
 
 abstract class StaffBaseModel {
     public horasTrabajoMensual: JustValueItemModel;

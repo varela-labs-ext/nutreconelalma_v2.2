@@ -1,4 +1,4 @@
-import BaseLabelModel from "./BaseLabelModel";
+import BaseLabelModel from "../base/BaseLabelModel";
 
 class PorcentajeItemModel extends BaseLabelModel {
     public percentage: number;

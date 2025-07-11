@@ -1,4 +1,4 @@
-import BaseLabelModel from "./BaseLabelModel";
+import BaseLabelModel from "../base/BaseLabelModel";
 
 class JustValueItemModel extends BaseLabelModel {
     public value: number;
