@@ -5,8 +5,8 @@ import { FlaskConical, User, FileText } from "lucide-react";
 import StaffSalaryDetailsGroup from "../staff_only/StaffSalaryDetailsGroup";
 import StaffSalaryModel from "@/logic/models/empleados/StaffSalaryModel";
 import AmountItemModel from "@/logic/models/base/AmountItemModel";
-import PorcentajeItemModel from "@/logic/models/common/PorcentajeItemModel";
-import JustValueItemModel from "@/logic/models/common/JustValueItemModel";
+import PorcentajeItemModel from "@/logic/models/base/PorcentajeItemModel";
+import JustValueItemModel from "@/logic/models/base/JustValueItemModel";
 
 /*
 - STAFF/PERSONAL

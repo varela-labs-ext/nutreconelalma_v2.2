@@ -1,6 +1,6 @@
 //StaffTaxesModel
 
-import PorcentajeItemModel from "../models/common/PorcentajeItemModel";
+import PorcentajeItemModel from "../models/base/PorcentajeItemModel";
 import StaffTaxesModel from "../models/empleados/StaffTaxesModel";
 
 class StaffSalaryTaxesCalc {

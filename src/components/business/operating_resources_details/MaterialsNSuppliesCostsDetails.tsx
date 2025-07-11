@@ -10,7 +10,7 @@ import { AccordionGroup } from "@/components/ui/accordions/AccordionGroup";
 import AccordionItem from "@/components/ui/accordions/AccordionItem";
 import { Syringe, Droplets, Shield, Cpu } from "lucide-react";
 import UnitCostDetailsGroup from "../unit_costs/UnitCostDetailsGroup";
-import UnitCostItemModel from "@/logic/models/operating_resources/UnitCostItemModel";
+import UnitCostItemModel from "@/logic/models/base/UnitCostItemModel";
 import AutomatedEquipmentGroupModel from "@/logic/models/operating_resources/AutomatedEquipmentGroupModel";
 import SterileWorkEquipmentModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
 import HygieneAndCleaningModel from "@/logic/models/operating_resources/HygieneAndCleaningGroupModel";

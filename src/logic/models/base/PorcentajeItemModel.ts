@@ -1,8 +1,6 @@
-// Antiguo Para_FiscalesItemModel
+import BaseLabelModel from "./BaseLabelModel";
 
-import LabelBasicModel from "../common/LabelBasicModel";
-
-class PorcentajeItemModel extends LabelBasicModel {
+class PorcentajeItemModel extends BaseLabelModel {
     public percentage: number;
     public value: number;
 

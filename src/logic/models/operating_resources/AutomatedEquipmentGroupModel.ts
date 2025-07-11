@@ -1,5 +1,5 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
-import UnitCostItemModel from "./UnitCostItemModel";
+import UnitCostItemModel from "../base/UnitCostItemModel";
 import BaseModel from "../base/BaseModel";
 import AmountItemModel from "../base/AmountItemModel";
 

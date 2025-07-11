@@ -1,6 +1,6 @@
 import BasicModel from "../common/BasicModel";
 import BasicOperationalModel from "../common/BasicOperationalModel";
-import UnitCostItemModel from "./UnitCostItemModel";
+import UnitCostItemModel from "../base/UnitCostItemModel";
 
 class MaintenanceCostsModel extends BasicOperationalModel {
 

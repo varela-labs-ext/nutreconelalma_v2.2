@@ -1,5 +1,5 @@
 import numberValidator from "@/utils/numberValidator";
-import UnitCostItemModel from "../models/operating_resources/UnitCostItemModel";
+import UnitCostItemModel from "../models/base/UnitCostItemModel";
 import BaseCalc from "./BaseCalc";
 
 

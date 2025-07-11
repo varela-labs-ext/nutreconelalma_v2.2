@@ -4,7 +4,7 @@ import OperatingCostsModel from "@/logic/models/OperatingCostsModel";
 import { useEffect, useState } from "react";
 import MaintenanceCostsModel from "@/logic/models/operating_resources/MaintenanceCostsGroupModel";
 import ProductionCostsModel from "@/logic/models/operating_resources/ProductionCostsGroupModel";
-import UnitCostItemModel from "@/logic/models/operating_resources/UnitCostItemModel";
+import UnitCostItemModel from "@/logic/models/base/UnitCostItemModel";
 import EstimatedCostItemModel from "@/logic/models/base/EstimatedCostItemModel";
 import CalculationService from "@/logic/services/CalculationService";
 

@@ -1,5 +1,5 @@
 import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
-import PorcentajeItemModel from "../models/common/PorcentajeItemModel";
+import PorcentajeItemModel from "../models/base/PorcentajeItemModel";
 import StaffTaxesModel from "../models/empleados/StaffTaxesModel";
 
 

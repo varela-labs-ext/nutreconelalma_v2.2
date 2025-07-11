@@ -1,5 +1,5 @@
 import BasicOperationalModel from "../common/BasicOperationalModel";
-import UnitCostItemModel from "./UnitCostItemModel";
+import UnitCostItemModel from "../base/UnitCostItemModel";
 
 class SterileWorkEquipmentModel extends BasicOperationalModel {
     public jeringas1ml: UnitCostItemModel;
