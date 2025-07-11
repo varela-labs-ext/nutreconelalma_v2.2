@@ -1,4 +1,4 @@
-import StaffSalaryModel from "@/logic/models/empleados/StaffSalaryModel";
+import StaffSalaryModel from "@/logic/models/empleados/StaffSalaryGroupModel";
 import StaffSalaryDetailsHeaders from "./StaffSalaryDetailsHeaders";
 import StaffSalaryDetailsInputs from "./StaffSalaryDetailsInputs";
 import AmountItemModel from "@/logic/models/base/AmountItemModel";

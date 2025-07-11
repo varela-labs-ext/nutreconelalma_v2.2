@@ -1,5 +1,5 @@
 
-import StaffSalaryModel from "../models/empleados/StaffSalaryModel";
+import StaffSalaryModel from "../models/empleados/StaffSalaryGroupModel";
 import SalaryTaxesStarter from "./SalaryTaxesStarter";
 
 class ChemistAssistantSalaryStarter extends SalaryTaxesStarter<StaffSalaryModel> {

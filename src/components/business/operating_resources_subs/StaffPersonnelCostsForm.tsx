@@ -1,6 +1,6 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import StaffCostsDetails from "../operating_resources_details/StaffCostsDetails";
-import StaffSalaryModel from "@/logic/models/empleados/StaffSalaryModel";
+import StaffSalaryModel from "@/logic/models/empleados/StaffSalaryGroupModel";
 import { useEffect, useState } from "react";
 import ChemistSalaryStarter from "@/logic/starters/ChemistSalaryStarter";
 import ChemistAssistantSalaryStarter from "@/logic/starters/ChemistAssistantSalaryStarter";

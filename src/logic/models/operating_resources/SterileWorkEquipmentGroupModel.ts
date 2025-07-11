@@ -1,7 +1,9 @@
-import BasicOperationalModel from "../common/BasicOperationalModel";
 import UnitCostItemModel from "../base/UnitCostItemModel";
+import BaseModel from "../base/BaseModel";
+import AmountItemModel from "../base/AmountItemModel";
+import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 
-class SterileWorkEquipmentModel extends BasicOperationalModel {
+class SterileWorkEquipmentModel extends BaseModel {
     public jeringas1ml: UnitCostItemModel;
     public jeringas5ml: UnitCostItemModel;
     public jeringas10ml: UnitCostItemModel;
@@ -18,8 +20,10 @@ class SterileWorkEquipmentModel extends BasicOperationalModel {
     public bolsaNegraNoContaminados: UnitCostItemModel;
     public boligrafosEtiquetado: UnitCostItemModel;
 
+    public total: AmountItemModel;
+
     constructor() {
-        super();
+        super("", CentralTypeIdEnum.None);
 
         this.jeringas1ml = new UnitCostItemModel("Jeringas estériles de 1 mL");
         this.jeringas5ml = new UnitCostItemModel("Jeringas estériles de 5 mL");
@@ -36,6 +40,8 @@ class SterileWorkEquipmentModel extends BasicOperationalModel {
         this.bolsaRojaBiologicos = new UnitCostItemModel("Bolsa roja para residuos biológicos");
         this.bolsaNegraNoContaminados = new UnitCostItemModel("Bolsa negra para residuos no contaminados");
         this.boligrafosEtiquetado = new UnitCostItemModel("Bolígrafos para etiquetado de soluciones");
+
+        this.total = new AmountItemModel("Total");
     }
 }
 

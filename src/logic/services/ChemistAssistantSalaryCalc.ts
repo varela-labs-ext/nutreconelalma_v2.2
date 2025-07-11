@@ -1,4 +1,4 @@
-import StaffSalaryModel from "../models/empleados/StaffSalaryModel";
+import StaffSalaryModel from "../models/empleados/StaffSalaryGroupModel";
 import BaseCalc from "./BaseCalc";
 import StaffSalaryTaxesCalc from "./StaffSalaryTaxesCalc";
 

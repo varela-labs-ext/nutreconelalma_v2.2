@@ -1,23 +1,28 @@
-import BasicModel from "../common/BasicModel";
-import BasicOperationalModel from "../common/BasicOperationalModel";
 import UnitCostItemModel from "../base/UnitCostItemModel";
+import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
+import BaseModel from "../base/BaseModel";
+import AmountItemModel from "../base/AmountItemModel";
 
-class MaintenanceCostsModel extends BasicOperationalModel {
+class MaintenanceCostsModel extends BaseModel {
 
-    public validacionSistemaAire: UnitCostItemModel; // Validación del sistema de Aire
-    public pruebasMicrobiologia: UnitCostItemModel; // Pruebas de Microbiologia
-    public llenadosAsepticosQuimicos: UnitCostItemModel; //Llenados asepticos Quimicos
-    public desafioDesinfectantes: UnitCostItemModel; // Desafio de Desinfectantes
-    public mantenimientoCabinas: UnitCostItemModel; // Mantenimiento de Cabinas
-    public calificacionCabinas: UnitCostItemModel; // Calificación de Cabinas
-    public calibracionManometros: UnitCostItemModel; // Calibración de manometros de diferenciacion de presion
-    public cambiosFiltrosUMA: UnitCostItemModel; // Cambios de Filtros UMA
-    public mantenimientoUMA: UnitCostItemModel; // Mantenimientos UMA
-    public calibracionTermohigrometros: UnitCostItemModel; // Calibración Termohigrometros
-    public mantenimientosLocativosPintura: UnitCostItemModel; // Mantenimientos Locativos Pintura
+    public validacionSistemaAire: UnitCostItemModel;
+    public pruebasMicrobiologia: UnitCostItemModel;
+    public llenadosAsepticosQuimicos: UnitCostItemModel;
+    public desafioDesinfectantes: UnitCostItemModel;
+    public mantenimientoCabinas: UnitCostItemModel;
+    public calificacionCabinas: UnitCostItemModel;
+    public calibracionManometros: UnitCostItemModel;
+    public cambiosFiltrosUMA: UnitCostItemModel;
+    public mantenimientoUMA: UnitCostItemModel;
+    public calibracionTermohigrometros: UnitCostItemModel;
+    public mantenimientosLocativosPintura: UnitCostItemModel;
+    public total: AmountItemModel;
+    public costoMensual: AmountItemModel;
+    public costoLineaProduccion: AmountItemModel;
+    public costoNpt: AmountItemModel;
 
     constructor() {
-        super();
+        super("", CentralTypeIdEnum.None);
 
         this.validacionSistemaAire = new UnitCostItemModel("Validación del sistema de aire");
         this.pruebasMicrobiologia = new UnitCostItemModel("Pruebas de microbiología");
@@ -30,6 +35,10 @@ class MaintenanceCostsModel extends BasicOperationalModel {
         this.mantenimientoUMA = new UnitCostItemModel("Mantenimientos UMA");
         this.calibracionTermohigrometros = new UnitCostItemModel("Calibración de termohigrómetros");
         this.mantenimientosLocativosPintura = new UnitCostItemModel("Mantenimientos locativos: pintura");
+        this.total = new AmountItemModel("Total");
+        this.costoMensual = new AmountItemModel("Costo Mensual");
+        this.costoLineaProduccion = new AmountItemModel("Costo por linea de producción");
+        this.costoNpt = new AmountItemModel("Costos por NPT");
     }
 }
 

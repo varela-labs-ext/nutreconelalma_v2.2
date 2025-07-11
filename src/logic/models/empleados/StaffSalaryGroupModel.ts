@@ -6,6 +6,7 @@ class StaffSalaryModel extends StaffTaxesModel {
     public costoEmpresa: AmountItemModel;
     public auxilioTransporte: AmountItemModel;
     public subsidioTransporte: AmountItemModel;
+
     public totalParafiscales: AmountItemModel;
     public totalCompensacionSalarial: AmountItemModel;
     public totalValorHora: AmountItemModel;

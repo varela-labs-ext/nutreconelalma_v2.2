@@ -2,7 +2,7 @@ import MaintenanceCostsCalc from "../calcs/MaintenanceCostsCalc";
 import ClinicaInputModel from "../models/common/ClinicaInputModel";
 import EstimatedCostItemModel from "../models/base/EstimatedCostItemModel";
 import UnitCostItemModel from "../models/base/UnitCostItemModel";
-import StaffSalaryModel from "../models/empleados/StaffSalaryModel";
+import StaffSalaryModel from "../models/empleados/StaffSalaryGroupModel";
 import MaintenanceCostsModel from "../models/operating_resources/MaintenanceCostsGroupModel";
 import RawMaterialModel from "../models/RawMaterialModel";
 import ChemistAssistantSalaryCalc from "./ChemistAssistantSalaryCalc";

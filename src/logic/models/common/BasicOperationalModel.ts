@@ -1,11 +1,11 @@
-import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
-import BasicModel from "./BasicModel";
+// import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
+// import BasicModel from "./BasicModel";
 
 
-class BasicOperationalModel extends BasicModel {
-    constructor(inCentralType: CentralTypeIdEnum = CentralTypeIdEnum.None) {
-        super(inCentralType);
-    }
-}
+// class BasicOperationalModel extends BasicModel {
+//     constructor(inCentralType: CentralTypeIdEnum = CentralTypeIdEnum.None) {
+//         super(inCentralType);
+//     }
+// }
 
-export default BasicOperationalModel;
+// export default BasicOperationalModel;
