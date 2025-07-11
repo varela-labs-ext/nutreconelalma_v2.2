@@ -1,5 +1,5 @@
 import InputNumberField from "@/components/ui/inputs/InputNumberField";
-import EstimatedCostItemModel from "@/logic/models/operating_resources/EstimatedCostItemModel";
+import EstimatedCostItemModel from "@/logic/models/base/EstimatedCostItemModel";
 import UnitCostItemModel from "@/logic/models/operating_resources/UnitCostItemModel";
 import CalculationService from "@/logic/services/CalculationService";
 import ReadOnlyNumberField from "@/ui/common/ReadOnlyNumberField";

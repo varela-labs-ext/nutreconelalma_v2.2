@@ -3,10 +3,10 @@ import AccordionItem from "@/components/ui/accordions/AccordionItem";
 import { Wrench, Factory } from "lucide-react";
 import UnitCostDetailsGroup from "../unit_costs/UnitCostDetailsGroup";
 import EstimatedCostsDetailsGroup from "../estimated_costs/EstimatedCostsDetailsGroup";
-import EstimatedCostItemModel from "@/logic/models/operating_resources/EstimatedCostItemModel";
+import EstimatedCostItemModel from "@/logic/models/base/EstimatedCostItemModel";
 import UnitCostItemModel from "@/logic/models/operating_resources/UnitCostItemModel";
-import ProductionCostsModel from "@/logic/models/operativos/ProductionCostsModel";
-import MaintenanceCostsModel from "@/logic/models/operativos/MaintenanceCostsModel";
+import ProductionCostsModel from "@/logic/models/operating_resources/ProductionCostsGroupModel";
+import MaintenanceCostsModel from "@/logic/models/operating_resources/MaintenanceCostsGroupModel";
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 
 /*

@@ -13,7 +13,7 @@
 | EQUIPOS AUTOMATIZADOS     | Automated Equipment         | AutomatedEquipment           | AutoEq   | Cpu           | Equipos Automatizados      |
 */
 
-import AutomatedEquipmentModel from "./operating_resources/AutomatedEquipmentGroupModel";
+import AutomatedEquipmentGroupModel from "./operating_resources/AutomatedEquipmentGroupModel";
 import HygieneAndCleaningModel from "./operating_resources/HygieneAndCleaningGroupModel";
 import PersonalProtectionModel from "./operating_resources/PersonalProtectionGroupModel";
 import SterileWorkEquipmentModel from "./operating_resources/SterileWorkEquipmentGroupModel";
@@ -23,13 +23,13 @@ class MaterialsNSuppliesCostsModel {
     public sterileWorkEquipment: SterileWorkEquipmentModel;
     public hygieneAndCleaning: HygieneAndCleaningModel;
     public personalProtection: PersonalProtectionModel;
-    public automatedEquipment: AutomatedEquipmentModel;
+    public automatedEquipment: AutomatedEquipmentGroupModel;
 
     constructor() {
         this.sterileWorkEquipment = new SterileWorkEquipmentModel();
         this.hygieneAndCleaning = new HygieneAndCleaningModel();
         this.personalProtection = new PersonalProtectionModel();
-        this.automatedEquipment = new AutomatedEquipmentModel();
+        this.automatedEquipment = new AutomatedEquipmentGroupModel();
     }
 }
 

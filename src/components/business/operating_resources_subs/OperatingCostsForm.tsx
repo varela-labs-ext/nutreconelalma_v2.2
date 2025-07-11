@@ -2,10 +2,10 @@ import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import OperatingCostsDetails from "../operating_resources_details/OperatingCostsDetails";
 import OperatingCostsModel from "@/logic/models/OperatingCostsModel";
 import { useEffect, useState } from "react";
-import MaintenanceCostsModel from "@/logic/models/operativos/MaintenanceCostsModel";
-import ProductionCostsModel from "@/logic/models/operativos/ProductionCostsModel";
+import MaintenanceCostsModel from "@/logic/models/operating_resources/MaintenanceCostsGroupModel";
+import ProductionCostsModel from "@/logic/models/operating_resources/ProductionCostsGroupModel";
 import UnitCostItemModel from "@/logic/models/operating_resources/UnitCostItemModel";
-import EstimatedCostItemModel from "@/logic/models/operating_resources/EstimatedCostItemModel";
+import EstimatedCostItemModel from "@/logic/models/base/EstimatedCostItemModel";
 import CalculationService from "@/logic/services/CalculationService";
 
 interface OperatingCostsFormProps {

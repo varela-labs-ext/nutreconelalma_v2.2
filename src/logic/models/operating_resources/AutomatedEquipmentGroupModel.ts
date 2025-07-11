@@ -1,19 +1,22 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
-import BasicModel from "../common/BasicModel";
 import UnitCostItemModel from "./UnitCostItemModel";
+import BaseModel from "../common/BaseModel";
+import AmountItemModel from "../common/AmountItemModel";
 
-class AutomatedEquipmentModel extends BasicModel {
+class AutomatedEquipmentGroupModel extends BaseModel {
     public tamperResistantClamps: UnitCostItemModel;
     public setsTransferenciaX6: UnitCostItemModel;
     public setsTransferenciaX9: UnitCostItemModel;
+    public total: AmountItemModel;
 
     constructor() {
-        super(CentralTypeIdEnum.None);
+        super("", CentralTypeIdEnum.None);
 
         this.tamperResistantClamps = new UnitCostItemModel("Tamper-Resistant Clamps");
         this.setsTransferenciaX6 = new UnitCostItemModel("Sets de transferencia universales (x6)");
         this.setsTransferenciaX9 = new UnitCostItemModel("Sets de transferencia universales (x9)");
+        this.total = new AmountItemModel("Total");
     }
 }
 
-export default AutomatedEquipmentModel;
+export default AutomatedEquipmentGroupModel;

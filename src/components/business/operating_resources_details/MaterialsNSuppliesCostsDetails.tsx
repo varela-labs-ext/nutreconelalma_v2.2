@@ -11,20 +11,20 @@ import AccordionItem from "@/components/ui/accordions/AccordionItem";
 import { Syringe, Droplets, Shield, Cpu } from "lucide-react";
 import UnitCostDetailsGroup from "../unit_costs/UnitCostDetailsGroup";
 import UnitCostItemModel from "@/logic/models/operating_resources/UnitCostItemModel";
-import AutomatedEquipmentModel from "@/logic/models/operativos/AutomatedEquipmentModel";
-import SterileWorkEquipmentModel from "@/logic/models/operativos/SterileWorkEquipmentModel";
-import HygieneAndCleaningModel from "@/logic/models/operativos/HygieneAndCleaningModel";
-import PersonalProtectionModel from "@/logic/models/operativos/PersonalProtectionModel";
+import AutomatedEquipmentGroupModel from "@/logic/models/operating_resources/AutomatedEquipmentGroupModel";
+import SterileWorkEquipmentModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
+import HygieneAndCleaningModel from "@/logic/models/operating_resources/HygieneAndCleaningGroupModel";
+import PersonalProtectionModel from "@/logic/models/operating_resources/PersonalProtectionGroupModel";
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 
 interface MaterialsNSuppliesCostsDetailsProps {
     inCentralType: CentralTypeIdEnum;
-    inAutomatedEquipmentData: AutomatedEquipmentModel;
+    inAutomatedEquipmentData: AutomatedEquipmentGroupModel;
     inHygieneAndCleaningData: HygieneAndCleaningModel;
     inPersonalProtectionData: PersonalProtectionModel;
     inSterileWorkEquipmentData: SterileWorkEquipmentModel;
 
-    onAutomatedEquipmentChange: (inNewItem: AutomatedEquipmentModel) => void;
+    onAutomatedEquipmentChange: (inNewItem: AutomatedEquipmentGroupModel) => void;
     onHygieneAndCleaningChange: (inNewItem: HygieneAndCleaningModel) => void;
     onPersonalProtectionChange: (inNewItem: PersonalProtectionModel) => void;
     onSterileWorkEquipmentChange: (inNewItem: SterileWorkEquipmentModel) => void;
@@ -33,7 +33,7 @@ interface MaterialsNSuppliesCostsDetailsProps {
 const MaterialsNSuppliesCostsDetails = (props: MaterialsNSuppliesCostsDetailsProps) => {
 
     const handleOnAutomatedEquipmentChange = (inName: string, inNewItem: UnitCostItemModel) => {
-        const output: AutomatedEquipmentModel = {
+        const output: AutomatedEquipmentGroupModel = {
             ...props.inAutomatedEquipmentData,
             [inName]: inNewItem
         };

@@ -1,5 +1,5 @@
 
-import SterileWorkEquipmentModel from "../models/operativos/SterileWorkEquipmentModel";
+import SterileWorkEquipmentModel from "../models/operating_resources/SterileWorkEquipmentGroupModel";
 import TotalesStarterBase from "./TotalesStarterBase";
 
 

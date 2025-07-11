@@ -1,7 +1,7 @@
 
-import EstimatedCostItemModel from "@/logic/models/operating_resources/EstimatedCostItemModel";
+import EstimatedCostItemModel from "@/logic/models/base/EstimatedCostItemModel";
 import EstimatedCostsInputEditor from "../editors/EstimatedCostsInputEditor";
-import ProductionCostsModel from "@/logic/models/operativos/ProductionCostsModel";
+import ProductionCostsModel from "@/logic/models/operating_resources/ProductionCostsGroupModel";
 
 interface EstimatedCostsDetailsInputsProps {
     inData: ProductionCostsModel;

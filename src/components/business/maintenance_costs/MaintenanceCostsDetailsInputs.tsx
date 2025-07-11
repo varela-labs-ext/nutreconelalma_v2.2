@@ -3,7 +3,7 @@ import JustValueInputEditor from "../editors/JustValueInputEditor";
 import MaintenanceCostsDetailsHeaders from "./MaintenanceCostsDetailsHeaders";
 import UnitCostInputEditor from "../editors/UnitCostInputEditor";
 import UnitCostItemModel from "@/logic/models/operating_resources/UnitCostItemModel";
-import MaintenanceCostsModel from "@/logic/models/operativos/MaintenanceCostsModel";
+import MaintenanceCostsModel from "@/logic/models/operating_resources/MaintenanceCostsGroupModel";
 import AmountItemInputEditor from "../editors/AmountItemInputEditor";
 
 interface MaintenanceCostsDetailsInputsProps {

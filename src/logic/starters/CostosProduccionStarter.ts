@@ -1,5 +1,5 @@
 
-import ProductionCostsModel from "../models/operativos/ProductionCostsModel";
+import ProductionCostsModel from "../models/operating_resources/ProductionCostsGroupModel";
 import TotalesStarterBase from "./TotalesStarterBase";
 
 

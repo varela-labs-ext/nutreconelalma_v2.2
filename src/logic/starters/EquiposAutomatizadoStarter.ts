@@ -1,18 +1,18 @@
 
-import AutomatedEquipmentModel from "../models/operativos/AutomatedEquipmentModel";
+import AutomatedEquipmentGroupModel from "../models/operating_resources/AutomatedEquipmentGroupModel";
 import TotalesStarterBase from "./TotalesStarterBase";
 
-class EquiposAutomatizadoStarter extends TotalesStarterBase<AutomatedEquipmentModel> {
+class EquiposAutomatizadoStarter extends TotalesStarterBase<AutomatedEquipmentGroupModel> {
 
-    protected iniciarComunes(inItem: AutomatedEquipmentModel): void {
+    protected iniciarComunes(inItem: AutomatedEquipmentGroupModel): void {
         inItem.totalCost = 0;
     }
 
-    protected iniciarCentralManual(inItem: AutomatedEquipmentModel): void {
+    protected iniciarCentralManual(inItem: AutomatedEquipmentGroupModel): void {
         return;
     }
 
-    protected iniciarCentralAutomatica(inItem: AutomatedEquipmentModel): void {
+    protected iniciarCentralAutomatica(inItem: AutomatedEquipmentGroupModel): void {
         this.iniciarItem(inItem.tamperResistantClamps, 1.00, 1000.00);
         this.iniciarItem(inItem.setsTransferenciaX6, 0, 290000.00);
         this.iniciarItem(inItem.setsTransferenciaX9, 0, 343000.00);

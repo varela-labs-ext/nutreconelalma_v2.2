@@ -1,4 +1,4 @@
-import MaintenanceCostsModel from "../models/operativos/MaintenanceCostsModel";
+import MaintenanceCostsModel from "../models/operating_resources/MaintenanceCostsGroupModel";
 import BaseCalc from "../services/BaseCalc";
 
 

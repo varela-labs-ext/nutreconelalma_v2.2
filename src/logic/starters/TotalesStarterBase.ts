@@ -1,6 +1,6 @@
 import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
 import UnitCostItemModel from "../models/operating_resources/UnitCostItemModel";
-import EstimatedCostItemModel from "../models/operating_resources/EstimatedCostItemModel";
+import EstimatedCostItemModel from "../models/base/EstimatedCostItemModel";
 
 
 abstract class TotalesStarterBase<T> {

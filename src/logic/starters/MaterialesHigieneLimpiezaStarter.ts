@@ -1,5 +1,5 @@
 
-import HygieneAndCleaningModel from "../models/operativos/HygieneAndCleaningModel";
+import HygieneAndCleaningModel from "../models/operating_resources/HygieneAndCleaningGroupModel";
 import TotalesStarterBase from "./TotalesStarterBase";
 
 

@@ -1,6 +1,6 @@
-import LabelBasicModel from "./LabelBasicModel";
+import BaseLabelModel from "./BaseLabelModel";
 
-class AmountItemModel extends LabelBasicModel {
+class AmountItemModel extends BaseLabelModel {
     public value: number;
 
     constructor(inLabel: string) {

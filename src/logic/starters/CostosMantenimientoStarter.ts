@@ -1,5 +1,5 @@
 
-import MaintenanceCostsModel from "../models/operativos/MaintenanceCostsModel";
+import MaintenanceCostsModel from "../models/operating_resources/MaintenanceCostsGroupModel";
 import TotalesStarterBase from "./TotalesStarterBase";
 
 class CostosMantenimientoStarter extends TotalesStarterBase<MaintenanceCostsModel> {
