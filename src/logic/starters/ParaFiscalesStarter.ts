@@ -28,8 +28,8 @@ abstract class ParaFiscalesStarter<T extends StaffTaxesModel> {
     protected abstract iniciarCentralAutomatica(inItem: T): void;
 
     protected iniciarParafiscal(inItem: PorcentajeItemModel, inPorcentaje: number): void {
-        inItem.porcentaje = inPorcentaje;
-        inItem.valor = 0; // , inValor: number
+        inItem.percentage = inPorcentaje;
+        inItem.value = 0; // , inValor: number
     }
 
     protected iniciarParafiscales(inItem: T): void {
