@@ -1,5 +1,5 @@
 import AmountItemModel from "../base/AmountItemModel";
-import StaffTaxesModel from "./StaffTaxesModel";
+import StaffTaxesModel from "../base/StaffTaxesModel";
 
 class StaffSalaryModel extends StaffTaxesModel {
     public salarioBasico: AmountItemModel;
