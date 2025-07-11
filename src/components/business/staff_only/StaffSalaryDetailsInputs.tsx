@@ -1,5 +1,5 @@
 import StaffSalaryModel from "@/logic/models/empleados/StaffSalaryModel";
-import AmountItemModel from "@/logic/models/common/AmountItemModel";
+import AmountItemModel from "@/logic/models/base/AmountItemModel";
 import JustValueItemModel from "@/logic/models/common/JustValueItemModel";
 import PorcentajeItemModel from "@/logic/models/common/PorcentajeItemModel";
 import LabelBasicModel from "@/logic/models/common/LabelBasicModel";

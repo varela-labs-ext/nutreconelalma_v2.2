@@ -1,7 +1,7 @@
 // Antigua Cantidad_UnidadTotalItemModel
 
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
-import BaseModel from "../common/BaseModel";
+import BaseModel from "../base/BaseModel";
 
 class UnitCostItemModel extends BaseModel {
     public quantity: number;

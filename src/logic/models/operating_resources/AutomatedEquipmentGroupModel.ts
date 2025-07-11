@@ -1,7 +1,7 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import UnitCostItemModel from "./UnitCostItemModel";
-import BaseModel from "../common/BaseModel";
-import AmountItemModel from "../common/AmountItemModel";
+import BaseModel from "../base/BaseModel";
+import AmountItemModel from "../base/AmountItemModel";
 
 class AutomatedEquipmentGroupModel extends BaseModel {
     public tamperResistantClamps: UnitCostItemModel;

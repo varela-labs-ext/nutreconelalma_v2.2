@@ -1,6 +1,6 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
-import BaseLabelModel from "../common/BaseLabelModel";
-import BaseModel from "../common/BaseModel";
+import BaseLabelModel from "./BaseLabelModel";
+import BaseModel from "./BaseModel";
 
 class EstimatedCostItemModel extends BaseModel {
     public valorEstimado: number; // Editable

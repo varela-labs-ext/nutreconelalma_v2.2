@@ -1,7 +1,7 @@
 import StaffSalaryModel from "@/logic/models/empleados/StaffSalaryModel";
 import StaffSalaryDetailsHeaders from "./StaffSalaryDetailsHeaders";
 import StaffSalaryDetailsInputs from "./StaffSalaryDetailsInputs";
-import AmountItemModel from "@/logic/models/common/AmountItemModel";
+import AmountItemModel from "@/logic/models/base/AmountItemModel";
 import JustValueItemModel from "@/logic/models/common/JustValueItemModel";
 import PorcentajeItemModel from "@/logic/models/common/PorcentajeItemModel";
 

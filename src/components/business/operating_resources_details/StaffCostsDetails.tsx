@@ -4,7 +4,7 @@ import StaffPersonnelCostsModel from "@/logic/models/StaffPersonnelCostsModel";
 import { FlaskConical, User, FileText } from "lucide-react";
 import StaffSalaryDetailsGroup from "../staff_only/StaffSalaryDetailsGroup";
 import StaffSalaryModel from "@/logic/models/empleados/StaffSalaryModel";
-import AmountItemModel from "@/logic/models/common/AmountItemModel";
+import AmountItemModel from "@/logic/models/base/AmountItemModel";
 import PorcentajeItemModel from "@/logic/models/common/PorcentajeItemModel";
 import JustValueItemModel from "@/logic/models/common/JustValueItemModel";
 
