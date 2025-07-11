@@ -9,9 +9,9 @@ import StaffCostsDetails from "../operating_resources_details/StaffCostsDetails"
 import StaffPersonnelCostsModel from "@/logic/models/StaffPersonnelCostsModel";
 import MaterialsNSuppliesCostsDetails from "../operating_resources_details/MaterialsNSuppliesCostsDetails";
 import MaterialsNSuppliesCostsModel from "@/logic/models/MaterialsNSuppliesCostsModel";
-import OperatingCostsForm from "./OperatingCostsForm";
-import StaffPersonnelForm from "./StaffPersonnelCostsForm";
-import MaterialsNSuppliesCostsForm from "./MaterialsNSuppliesCostsForm";
+import OperatingCostsForm from "../operating_resources_subs/OperatingCostsForm";
+import StaffPersonnelForm from "../operating_resources_subs/StaffPersonnelCostsForm";
+import MaterialsNSuppliesCostsForm from "../operating_resources_subs/MaterialsNSuppliesCostsForm";
 
 interface OperatingResourcesByMixingCentralProps {
     inCentralType: CentralTypeIdEnum;
