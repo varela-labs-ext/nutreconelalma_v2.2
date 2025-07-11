@@ -1,5 +1,5 @@
 import MaintenanceCostsCalc from "../calcs/MaintenanceCostsCalc";
-import ClinicaInputModel from "../models/row_item/ClinicaInputRowModel";
+import ClinicaInputRowModel from "../models/row_item/ClinicaInputRowModel";
 import EstimatedCostItemModel from "../models/row_item/EstimatedCostItemRowModel";
 import UnitCostItemModel from "../models/row_item/UnitCostItemRowModel";
 import StaffSalaryGroupModel from "../models/operating_resources/StaffSalaryGroupModel";
@@ -15,7 +15,7 @@ import UnitCostInputCalc from "./UnitCostInputCalc";
 /* Distriye las solicutedes de Calculos a la clase adecuada */
 class CalculationService {
 
-    public static ComputeClinicalInput(inItem: ClinicaInputModel): void {
+    public static ComputeClinicalInput(inItem: ClinicaInputRowModel): void {
         const calc = new ClinicalInputCalc();
         calc.compute(inItem);
     }

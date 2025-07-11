@@ -1,19 +1,19 @@
 import RawMaterialModel from "@/logic/models/RawMaterialModel";
 import ClinicaInputEditor from "../editors/ClinicaInputEditor";
-import ClinicaInputModel from "@/logic/models/row_item/ClinicaInputRowModel";
+import ClinicaInputRowModel from "@/logic/models/row_item/ClinicaInputRowModel";
 import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
 import { useEffect, useState } from "react";
 
 type ValidItemType = {
     key: string;
-    value: ClinicaInputModel;
+    value: ClinicaInputRowModel;
 };
 
 interface RawMaterialsDetailsInputsProps {
     inData: RawMaterialModel;
     inCategory?: ClinicalInputCategoryEnumId;
     inShowPresentation: boolean;
-    onClinicaInputChange: (inName: string, inNewItem: ClinicaInputModel) => void;
+    onClinicaInputChange: (inName: string, inNewItem: ClinicaInputRowModel) => void;
 }
 
 const RawMaterialsDetailsInputs = (props: RawMaterialsDetailsInputsProps) => {
@@ -32,18 +32,18 @@ const RawMaterialsDetailsInputs = (props: RawMaterialsDetailsInputsProps) => {
     const isInputValid = (
         inValue: unknown,
         inCategory?: ClinicalInputCategoryEnumId
-    ): inValue is ClinicaInputModel => {
+    ): inValue is ClinicaInputRowModel => {
         return (
             typeof inValue === "object" &&
             inValue !== null &&
             "excluirDelCalculo" in inValue &&
-            (inValue as ClinicaInputModel).excluirDelCalculo === false &&
-            (inCategory === undefined || (inValue as ClinicaInputModel).category === inCategory)
+            (inValue as ClinicaInputRowModel).excluirDelCalculo === false &&
+            (inCategory === undefined || (inValue as ClinicaInputRowModel).category === inCategory)
         );
     };
 
-    const getInputsList = (): [string, ClinicaInputModel][] => {
-        let resultado: [string, ClinicaInputModel][] = [];
+    const getInputsList = (): [string, ClinicaInputRowModel][] => {
+        let resultado: [string, ClinicaInputRowModel][] = [];
 
         if (props.inData === undefined || props.inData === null) {
             return resultado;
@@ -51,7 +51,7 @@ const RawMaterialsDetailsInputs = (props: RawMaterialsDetailsInputsProps) => {
 
         resultado = Object.entries(props.inData)
             .filter(([_, inValue]) => isInputValid(inValue, props.inCategory))
-            .map(([inKey, inValue]) => [inKey, inValue as ClinicaInputModel]);
+            .map(([inKey, inValue]) => [inKey, inValue as ClinicaInputRowModel]);
 
         resultado.sort(([, valueA], [, valueB]) =>
             valueA.label.localeCompare(valueB.label, 'es', { sensitivity: 'base' })

@@ -1,6 +1,6 @@
 import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
 
-class ClinicaInputModel {
+class ClinicaInputRowModel {
     public presentacionMl: number; // Editable
     public cantidadMl: number; // Editable
     public cantidadUnidad: number; // Editable
@@ -24,4 +24,4 @@ class ClinicaInputModel {
     }
 }
 
-export default ClinicaInputModel;
+export default ClinicaInputRowModel;

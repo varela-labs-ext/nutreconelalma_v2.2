@@ -1,4 +1,4 @@
-// import ClinicaInputModel from "../models/common/ClinicaInputModel";
+// import ClinicaInputRowModel from "../models/common/ClinicaInputRowModel";
 // import RawMaterialModel from "../models/materiaPrima/RawMaterialModel";
 // import InsumoItemCalc from "./InsumoItemCalc";
 // import BaseCalc from "./BaseCalc";
@@ -19,8 +19,8 @@
 //         Object.keys(inItem).forEach((clave) => {
 //             const subItem = (inItem as Record<string, any>)[clave];
 
-//             if (subItem instanceof ClinicaInputModel) {
-//                 const insumo = subItem as ClinicaInputModel;
+//             if (subItem instanceof ClinicaInputRowModel) {
+//                 const insumo = subItem as ClinicaInputRowModel;
 
 //                 if (insumo && insumo.excluirDelCalculo === false) {
 //                     calc.calcular(insumo);

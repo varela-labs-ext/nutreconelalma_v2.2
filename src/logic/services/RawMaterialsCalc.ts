@@ -1,4 +1,4 @@
-import ClinicaInputModel from "../models/row_item/ClinicaInputRowModel";
+import ClinicaInputRowModel from "../models/row_item/ClinicaInputRowModel";
 
 import BaseCalc from "./BaseCalc";
 import RawMaterialModel from "../models/RawMaterialModel";
@@ -21,8 +21,8 @@ class RawMaterialsCalc extends BaseCalc<RawMaterialModel> {
         Object.keys(inItem).forEach((clave) => {
             const subItem = (inItem as Record<string, any>)[clave];
 
-            if (subItem instanceof ClinicaInputModel) {
-                const insumo = subItem as ClinicaInputModel;
+            if (subItem instanceof ClinicaInputRowModel) {
+                const insumo = subItem as ClinicaInputRowModel;
 
                 if (insumo && insumo.excluirDelCalculo === false) {
                     calc.compute(insumo);

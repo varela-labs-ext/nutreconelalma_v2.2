@@ -1,5 +1,5 @@
 import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
-import ClinicaInputModel from "../models/row_item/ClinicaInputRowModel";
+import ClinicaInputRowModel from "../models/row_item/ClinicaInputRowModel";
 import RawMaterialModel from "../models/RawMaterialModel";
 
 
@@ -29,7 +29,7 @@ abstract class RawMaterialStarterBase {
     }
 
     protected iniciarInsumo(
-        item: ClinicaInputModel,
+        item: ClinicaInputRowModel,
         inPresentacionMl: number,
         inCantidadMl: number,
         inCantidadUnidad: number,

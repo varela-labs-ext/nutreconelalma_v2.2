@@ -1,12 +1,12 @@
 //ClinicalInputCalc
 
 import numberValidator from "@/utils/numberValidator";
-import ClinicaInputModel from "../models/row_item/ClinicaInputRowModel";
+import ClinicaInputRowModel from "../models/row_item/ClinicaInputRowModel";
 import BaseCalc from "./BaseCalc";
 
-class ClinicalInputCalc extends BaseCalc<ClinicaInputModel> {
+class ClinicalInputCalc extends BaseCalc<ClinicaInputRowModel> {
 
-    public compute(inItem: ClinicaInputModel): void {
+    public compute(inItem: ClinicaInputRowModel): void {
         if (inItem === null || inItem == undefined) {
             console.log("Objecto insumo no existe.")
             return;

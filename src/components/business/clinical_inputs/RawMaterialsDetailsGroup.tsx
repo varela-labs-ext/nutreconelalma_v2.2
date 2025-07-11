@@ -1,6 +1,6 @@
 import RawMaterialModel from "@/logic/models/RawMaterialModel";
 import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
-import ClinicaInputModel from "@/logic/models/row_item/ClinicaInputRowModel";
+import ClinicaInputRowModel from "@/logic/models/row_item/ClinicaInputRowModel";
 import RawMaterialsDetailsHeader from "./RawMaterialsDetailsHeader";
 import RawMaterialsDetailsInputs from "./RawMaterialsDetailsInputs";
 
@@ -8,7 +8,7 @@ interface RawMaterialsDetailGroupProps {
     inData: RawMaterialModel;
     inShowPresentation: boolean;
     inCategory: ClinicalInputCategoryEnumId;
-    onClinicaInputChange: (inName: string, inNewItem: ClinicaInputModel) => void;
+    onClinicaInputChange: (inName: string, inNewItem: ClinicaInputRowModel) => void;
 }
 
 const RawMaterialsDetailGroup = (props: RawMaterialsDetailGroupProps) => {

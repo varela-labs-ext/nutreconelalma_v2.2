@@ -1,6 +1,6 @@
 import RawMaterialModel from "@/logic/models/RawMaterialModel";
 import { useEffect, useState } from "react";
-import ClinicaInputModel from "@/logic/models/row_item/ClinicaInputRowModel";
+import ClinicaInputRowModel from "@/logic/models/row_item/ClinicaInputRowModel";
 import CalculationService from "@/logic/services/CalculationService";
 import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
 import { AccordionGroup } from "@/components/ui/accordions/AccordionGroup";
@@ -24,7 +24,7 @@ const RawMaterialsDetails = (props: RawMaterialsDetailsProps) => {
 
     // REGLA DE ORO, NUNCA LLAMAR AL EVENTO DEL PROPS DESDE DENTRO DEL USEFFECT, ya que esto puede generar un bucle infinito de actualizaciones.
 
-    const handleClinicaInputChange = (inName: string, inNewItem: ClinicaInputModel) => {
+    const handleClinicaInputChange = (inName: string, inNewItem: ClinicaInputRowModel) => {
 
         // Actualizar el estado interno con el nuevo item
         const updatedData: RawMaterialModel = {

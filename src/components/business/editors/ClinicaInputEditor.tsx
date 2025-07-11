@@ -1,19 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { isValidNumber } from "@/utils/validators";
-import ClinicaInputModel from "@/logic/models/row_item/ClinicaInputRowModel";
+import ClinicaInputRowModel from "@/logic/models/row_item/ClinicaInputRowModel";
 import InputNumberField from "../../ui/inputs/InputNumberField";
 import ReadOnlyNumberField from "../../../ui/common/ReadOnlyNumberField";
 import CalculationService from "@/logic/services/CalculationService";
 
 interface ClinicaInputEditorProps {
-    inData: ClinicaInputModel;
+    inData: ClinicaInputRowModel;
     inName: string;
     inShowPresentation: boolean;
-    onChange: (inName: string, newItem: ClinicaInputModel) => void;
+    onChange: (inName: string, newItem: ClinicaInputRowModel) => void;
 }
 
 const ClinicaInputEditor = (props: ClinicaInputEditorProps) => {
-    const [internalData, setInternalData] = useState<ClinicaInputModel>(props.inData);
+    const [internalData, setInternalData] = useState<ClinicaInputRowModel>(props.inData);
     const debounceRef = useRef<number | null>(null); // Ref para manejar el debounce
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const ClinicaInputEditor = (props: ClinicaInputEditorProps) => {
         if (isValidNumber(inValue)) {
             console.debug(`InsomoEditor. Value: ${inValue}, Name: ${inName}`);
 
-            const output: ClinicaInputModel = {
+            const output: ClinicaInputRowModel = {
                 ...internalData,
                 [inName]: inValue,
             };

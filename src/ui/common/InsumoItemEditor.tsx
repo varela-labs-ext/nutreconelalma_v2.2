@@ -1,4 +1,4 @@
-// import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
+// import ClinicaInputRowModel from "@/logic/models/common/ClinicaInputRowModel";
 // import { isValidNumber } from "@/utils/validators";
 // import InputNumberField from "./InputNumberField";
 // import ReadOnlyNumberField from "./ReadOnlyNumberField";
@@ -6,13 +6,13 @@
 // import { useEffect, useRef, useState } from "react";
 
 // interface InsumoItemEditorProps {
-//     inData: ClinicaInputModel;
+//     inData: ClinicaInputRowModel;
 //     mostrarDetalles: boolean;
-//     onChange: (itemUpdated: ClinicaInputModel) => void;
+//     onChange: (itemUpdated: ClinicaInputRowModel) => void;
 // }
 
 // const InsumoItemEditor = (props: InsumoItemEditorProps) => {
-//     const [internalData, setInternalData] = useState<ClinicaInputModel>(props.inData);
+//     const [internalData, setInternalData] = useState<ClinicaInputRowModel>(props.inData);
 //     const debounceRef = useRef<number | null>(null); // Ref para manejar el debounce
 
 //     useEffect(() => {
@@ -22,7 +22,7 @@
 //     const handleChange = (inName: string, inValue: number) => {
 //         if (isValidNumber(inValue)) {
 //             console.debug(`InsomoEditor. Value: ${inValue}, Name: ${inName}`);
-//             const updatedItem: ClinicaInputModel = {
+//             const updatedItem: ClinicaInputRowModel = {
 //                 ...internalData,
 //                 [inName]: inValue,
 //             };

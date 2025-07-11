@@ -1,4 +1,4 @@
-// class ClinicaInputModel {
+// class ClinicaInputRowModel {
 //     public presentacionMl: number; // Editable
 //     public cantidadMl: number; // Editable
 //     public cantidadUnidad: number; // Editable
@@ -20,4 +20,4 @@
 //     }
 // }
 
-// export default ClinicaInputModel;
+// export default ClinicaInputRowModel;

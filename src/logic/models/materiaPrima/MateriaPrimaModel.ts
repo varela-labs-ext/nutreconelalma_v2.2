@@ -1,19 +1,19 @@
 // import InsumoClinicoEnum from "@/logic/enums/InsumoClinicoNamesEnum";
-// import ClinicaInputModel from "../common/ClinicaInputModel";
+// import ClinicaInputRowModel from "../common/ClinicaInputRowModel";
 // import MateriaPrimaBaseModel from "./MateriaPrimaBaseModel";
 
 
 // class MateriaPrimaInsumosModel extends MateriaPrimaBaseModel {
-//     public AguaEsteril_500ml: ClinicaInputModel;
-//     public Complejo_B: ClinicaInputModel;
-//     public Vitamina_C: ClinicaInputModel;
+//     public AguaEsteril_500ml: ClinicaInputRowModel;
+//     public Complejo_B: ClinicaInputRowModel;
+//     public Vitamina_C: ClinicaInputRowModel;
 
 //     constructor() {
 //         super();
 
-//         this.AguaEsteril_500ml = new ClinicaInputModel(InsumoClinicoEnum.AguaEsteril_500ml);
-//         this.Complejo_B = new ClinicaInputModel(InsumoClinicoEnum.Complejo_B);
-//         this.Vitamina_C = new ClinicaInputModel(InsumoClinicoEnum.Vitamina_C);
+//         this.AguaEsteril_500ml = new ClinicaInputRowModel(InsumoClinicoEnum.AguaEsteril_500ml);
+//         this.Complejo_B = new ClinicaInputRowModel(InsumoClinicoEnum.Complejo_B);
+//         this.Vitamina_C = new ClinicaInputRowModel(InsumoClinicoEnum.Vitamina_C);
 //     }
 // }
 

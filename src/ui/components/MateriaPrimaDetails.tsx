@@ -1,4 +1,4 @@
-// import ClinicaInputModel from "@/logic/models/common/ClinicaInputModel";
+// import ClinicaInputRowModel from "@/logic/models/common/ClinicaInputRowModel";
 // import RawMaterialModel from "@/logic/models/materiaPrima/RawMaterialModel";
 // import ClinicaInputEditor from "../common/ClinicaInputEditor";
 // import { useEffect, useState } from "react";
@@ -20,7 +20,7 @@
 
 //     // REGLA DE ORO, NUNCA LLAMAR AL EVENTO DEL PROPS DESDE DENTRO DEL USEFFECT, ya que esto puede generar un bucle infinito de actualizaciones.
 
-//     const handleInsumoChange = (inKey: string, inItem: ClinicaInputModel) => {
+//     const handleInsumoChange = (inKey: string, inItem: ClinicaInputRowModel) => {
 //         console.log("Insumo cambiado: " + inKey);
 //         console.log(inItem);
 
@@ -77,13 +77,13 @@
 //                 if (
 //                     typeof valor === "object" &&
 //                     valor !== null &&
-//                     // valor instanceof ClinicaInputModel &&
+//                     // valor instanceof ClinicaInputRowModel &&
 //                     !valor.excluirDelCalculo &&
 //                     1 == 1
 //                 ) {
 //                     return (
 //                         <div id={clave} key={clave} className={insumoEditorWrapperClass} >
-//                             {/* Fila editable por cada ClinicaInputModel */}
+//                             {/* Fila editable por cada ClinicaInputRowModel */}
 //                             <ClinicaInputEditor
 //                                 inData={valor}
 //                                 mostrarDetalles={props.mostrarDetalles}
