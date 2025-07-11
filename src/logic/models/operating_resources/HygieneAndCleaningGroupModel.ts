@@ -1,6 +1,6 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
-import UnitCostItemModel from "../row_item/UnitCostItemModel";
-import AmountItemModel from "../row_item/AmountItemModel";
+import UnitCostItemModel from "../row_item/UnitCostItemRowModel";
+import AmountItemModel from "../row_item/AmountItemRowModel";
 import BaseModel from "../base/BaseModel";
 
 class HygieneAndCleaningModel extends BaseModel {

@@ -1,7 +1,7 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
-import EstimatedCostItemModel from "../row_item/EstimatedCostItemModel";
+import EstimatedCostItemModel from "../row_item/EstimatedCostItemRowModel";
 import BaseModel from "../base/BaseModel";
-import AmountItemModel from "../row_item/AmountItemModel";
+import AmountItemModel from "../row_item/AmountItemRowModel";
 
 //Costos de producción 
 class ProductionCostsModel extends BaseModel {
