@@ -22,19 +22,6 @@ interface OperatingResourcesByMixingCentralProps {
 
 const OperatingResourcesByMixingCentral = (props: OperatingResourcesByMixingCentralProps) => {
 
-
-    const handleOnOperatingCostsDetailsChange = (inNewItem: OperatingCostsModel) => {
-        //TODO
-    }
-
-    const handleOnStaffCostsDetailsChange = (inNewItem: StaffPersonnelCostsModel) => {
-        //TODO
-    }
-
-    const handleOnMaterialsNSuppliesCostsDetailsChange = (inNewItem: MaterialsNSuppliesCostsModel) => {
-        //TODO
-    }
-
     const getMixingCentralName = (): string => {
         let name = "Central de Mezclas Manual";
 
@@ -57,7 +44,9 @@ const OperatingResourcesByMixingCentral = (props: OperatingResourcesByMixingCent
                     />
                 </PanelView>
                 <PanelView label="Staff / Personal" icon={<Users />} status="warning">
-                    <StaffPersonnelForm inCentralType={props.inCentralType} />
+                    <StaffPersonnelForm
+                        inCentralType={props.inCentralType}
+                    />
                 </PanelView>
                 <PanelView label="Materiales e Insumos" icon={<PackageOpen />} status="warning">
                     <MaterialsNSuppliesCostsForm

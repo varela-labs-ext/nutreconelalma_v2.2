@@ -20,11 +20,11 @@ const OperatingCostsForm = (props: OperatingCostsFormProps) => {
     const [productionCostsData, setProductionCostsData] = useState<ProductionCostsModel>(new ProductionCostsModel());
 
 
-    const handleOnMaintenanceCostsChange = (inPropertyName: string, inNewItem: UnitCostItemModel) => {
+    const handleOnMaintenanceCostsChange = (inNewItem: MaintenanceCostsModel) => {
         //TODO
     }
 
-    const handleOnProductionCostsChange = (inPropertyName: string, inNewItem: EstimatedCostItemModel) => {
+    const handleOnProductionCostsChange = (inNewItem: ProductionCostsModel) => {
         //TODO
     }
 

@@ -20,18 +20,35 @@ interface OperatingCostsDetailsProps {
     inProductionCostsData: ProductionCostsModel;
     inMonthlyProductionCapacity: number;
     inProductionLines: number;
-    onMaintenanceCostsChange: (inPropertyName: string, inNewItem: UnitCostItemModel) => void;
-    onProductionCostsChange: (inPropertyName: string, inNewItem: EstimatedCostItemModel) => void;
+    onMaintenanceCostsChange: (inNewItem: MaintenanceCostsModel) => void;
+    onProductionCostsChange: (inNewItem: ProductionCostsModel) => void;
 }
 
 const OperatingCostsDetails = (props: OperatingCostsDetailsProps) => {
+
+    const handleOnMaintenanceCostsChange = (inName: string, inNewItem: UnitCostItemModel) => {
+        const output: MaintenanceCostsModel = {
+            ...props.inMaintenanceCostsData,
+            [inName]: inNewItem
+        };
+        props.onMaintenanceCostsChange(output);
+    }
+
+    const handleOnProductionCostsChange = (inName: string, inNewItem: EstimatedCostItemModel) => {
+        const output: ProductionCostsModel = {
+            ...props.inProductionCostsData,
+            [inName]: inNewItem
+        };
+        props.onProductionCostsChange(output);
+    }
+
     return (
         <div>
             <AccordionGroup multiOpen={false} >
                 <AccordionItem id="id_MaintC" title="Costos de Mantenimiento" icon={Wrench}>
                     <UnitCostDetailsGroup
                         inData={props.inMaintenanceCostsData}
-                        onInputChange={props.onMaintenanceCostsChange}
+                        onInputChange={handleOnMaintenanceCostsChange}
                     />
                 </AccordionItem>
                 <AccordionItem id="id_ProdC" title="Costos de Producción" icon={Factory}>
@@ -39,7 +56,7 @@ const OperatingCostsDetails = (props: OperatingCostsDetailsProps) => {
                         inData={props.inProductionCostsData}
                         inMonthlyProductionCapacity={props.inMonthlyProductionCapacity}
                         inProductionLines={props.inProductionLines}
-                        onInputChange={props.onProductionCostsChange}
+                        onInputChange={handleOnProductionCostsChange}
                     />
                 </AccordionItem>
             </AccordionGroup>
