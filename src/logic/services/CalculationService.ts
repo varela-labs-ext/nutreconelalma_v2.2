@@ -3,6 +3,7 @@ import EstimatedCostItemModel from "../models/common/EstimatedCostItemModel";
 import UnitCostItemModel from "../models/common/UnitCostItemModel";
 import StaffSalaryModel from "../models/empleados/StaffSalaryModel";
 import RawMaterialModel from "../models/RawMaterialModel";
+import ChemistAssistantSalaryCalc from "./ChemistAssistantSalaryCalc";
 import ChemistSalaryCalc from "./ChemistSalaryCalc";
 import ClinicalInputCalc from "./ClinicalInputCalc";
 import EstimatedCostInputCalc from "./EstimatedCostInputCalc";
@@ -36,6 +37,13 @@ class CalculationService {
         const calc = new ChemistSalaryCalc();
         calc.compute(inItem);
     }
+
+    public static ChemistAssistantSalary(inItem: StaffSalaryModel): void {
+        const calc = new ChemistAssistantSalaryCalc();
+        calc.compute(inItem);
+    }
+
+
 }
 
 export default CalculationService;

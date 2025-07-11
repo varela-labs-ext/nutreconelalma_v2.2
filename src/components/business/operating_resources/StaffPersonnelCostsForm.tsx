@@ -21,6 +21,7 @@ const StaffPersonnelForm = (props: StaffPersonnelFormProps) => {
         ChemistSalaryStarter.getInstance().iniciarValores(chemistSalaryData, props.inCentralType);
         CalculationService.ComputeChemistSalary(chemistSalaryData);
         ChemistAssistantSalaryStarter.getInstance().iniciarValores(assistantSalaryData, props.inCentralType);
+        CalculationService.ChemistAssistantSalary(assistantSalaryData);
     }, []);
 
     //
