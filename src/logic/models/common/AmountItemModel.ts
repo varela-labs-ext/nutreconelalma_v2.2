@@ -4,7 +4,7 @@ class AmountItemModel extends LabelBasicModel {
     public value: number;
 
     constructor(inLabel: string) {
-        super(inLabel, "AmountItem");
+        super(inLabel);
         this.value = 0;
     }
 }

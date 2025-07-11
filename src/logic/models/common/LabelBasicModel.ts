@@ -1,10 +1,8 @@
 class LabelBasicModel {
     public label: string;
-    public internalType: string;
 
-    constructor(inLabel: string, inType: string) {
+    constructor(inLabel: string) {
         this.label = `${inLabel}:`;
-        this.internalType = inType;
     }
 }
 

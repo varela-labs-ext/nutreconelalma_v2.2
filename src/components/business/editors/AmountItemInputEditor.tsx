@@ -63,7 +63,7 @@ const AmountItemInputEditor = (props: AmountItemInputEditorProps) => {
                     </div>
 
                     <div className="md:col-span-1 w-full">
-                        {props.inReadOnly && (
+                        {!props.inReadOnly && (
                             <InputNumberField
                                 label="value"
                                 name="value"
@@ -73,7 +73,7 @@ const AmountItemInputEditor = (props: AmountItemInputEditorProps) => {
                                 onChange={handleChange}
                             />
                         )}
-                        {!props.inReadOnly && (
+                        {props.inReadOnly && (
                             <ReadOnlyNumberField
                                 label="value"
                                 name="value"

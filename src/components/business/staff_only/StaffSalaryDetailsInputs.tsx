@@ -6,8 +6,10 @@ import LabelBasicModel from "@/logic/models/common/LabelBasicModel";
 import JustValueInputEditor from "../editors/JustValueInputEditor";
 import AmountItemInputEditor from "../editors/AmountItemInputEditor";
 import PorcentajeItemInputEditor from "../editors/PorcentajeItemInputEditor";
+import StaffSalaryDetailsHeaders from "./StaffSalaryDetailsHeaders";
 
 interface StaffSalaryDetailsInputsProps {
+    title?: string;
     inData: StaffSalaryModel;
     onAmountItemModelInputChange: (inPropertyName: string, inNewItem: AmountItemModel) => void;
     onPorcentajeInputChange: (inPropertyName: string, inNewItem: PorcentajeItemModel) => void;
@@ -15,87 +17,6 @@ interface StaffSalaryDetailsInputsProps {
 }
 
 const StaffSalaryDetailsInputs = (props: StaffSalaryDetailsInputsProps) => {
-
-    const isJustValueItemModelModel = (
-        inValue: unknown
-    ): inValue is JustValueItemModel => {
-        return (
-            typeof inValue === "object" &&
-            inValue !== null &&
-            ((inValue as LabelBasicModel).internalType === "JustValue")
-        );
-    };
-
-    const isAmountItemModel = (
-        inValue: unknown
-    ): inValue is AmountItemModel => {
-        return (
-            typeof inValue === "object" &&
-            inValue !== null &&
-            ((inValue as LabelBasicModel).internalType === "AmountItem")
-        );
-    };
-
-    const isPorcentajeItemModel = (
-        inValue: unknown
-    ): inValue is PorcentajeItemModel => {
-        return (
-            typeof inValue === "object" &&
-            inValue !== null &&
-            "label" in inValue &&
-            typeof (inValue as PorcentajeItemModel).label === "string"
-        );
-    };
-
-    const getInputsList = <TModel extends LabelBasicModel>(
-        isValid: (value: unknown) => value is TModel,
-        inFilter: string | null,
-        inInclude: boolean
-    ): [string, TModel][] => {
-        let resultado: [string, TModel][] = [];
-
-        if (props.inData === undefined || props.inData === null) {
-            return resultado;
-        }
-
-        const filtroNormalizado = inFilter?.trim().toLocaleLowerCase() ?? "";
-
-        for (const [key, value] of Object.entries(props.inData)) {
-            if (!isValid(value)) {
-                continue;
-            }
-
-            const item = value as TModel;
-
-            // Si no hay filtro, incluimos el elemento sin evaluar nada más
-            if (!filtroNormalizado) {
-                resultado.push([key, item]);
-                continue;
-            }
-
-            const label = item.label?.toLocaleLowerCase() ?? "";
-
-            if (label === "") {
-                continue;
-            }
-
-            const contieneFiltro = label.includes(filtroNormalizado);
-            const debeIncluir = inInclude ? contieneFiltro : !contieneFiltro;
-
-            if (debeIncluir) {
-                resultado.push([key, item]);
-            }
-        }
-
-        resultado.sort(([, valueA], [, valueB]) =>
-            valueA.label.localeCompare(valueB.label, "es", { sensitivity: "base" })
-        );
-
-        return resultado;
-    };
-
-
-    const insumoEditorWrapperClass = ""; //"p-1";
 
     return (
         <div>
@@ -111,48 +32,106 @@ const StaffSalaryDetailsInputs = (props: StaffSalaryDetailsInputsProps) => {
                     inName="personalPreparacion"
                     onChange={props.onJustValueInputChange}
                 />
-                {/* {getInputsList<JustValueItemModel>(isJustValueItemModelModel, null, false).map(([inKey, inValue]) => (
-                    <div id={inKey} key={inKey} className={insumoEditorWrapperClass}>
-                        <JustValueInputEditor
-                            inData={inValue}
-                            inName={inKey}
-                            onChange={props.onJustValueInputChange}
-                        />
-                    </div>
-                ))} */}
             </div>
-
-            {getInputsList<AmountItemModel>(isAmountItemModel, null, false).map(([inKey, inValue]) => (
-                <div id={inKey} key={inKey} className={insumoEditorWrapperClass}>
-                    <AmountItemInputEditor
-                        inData={inValue}
-                        inName={inKey}
-                        inReadOnly={false}
-                        onChange={props.onAmountItemModelInputChange}
-                    />
-                </div>
-            ))}
-
-            {/* {getInputsList<PorcentajeItemModel>(isPorcentajeItemModel, null, false).map(([inKey, inValue]) => (
-                <div id={inKey} key={inKey} className={insumoEditorWrapperClass}>
-                    <PorcentajeItemInputEditor
-                        inData={inValue}
-                        inName={inKey}
-                        onChange={props.onPorcentajeInputChange}
-                    />
-                </div>
-            ))}
-
-            {getInputsList<AmountItemModel>(isAmountItemModel, "total", true).map(([inKey, inValue]) => (
-                <div id={inKey} key={inKey} className={insumoEditorWrapperClass}>
-                    <AmountItemInputEditor
-                        inData={inValue}
-                        inName={inKey}
-                        inReadOnly={false}
-                        onChange={(x, y) => (console.log("nothing"))}
-                    />
-                </div>
-            ))} */}
+            <StaffSalaryDetailsHeaders title={props.title} />
+            <div>
+                <AmountItemInputEditor
+                    inData={props.inData.salarioBasico}
+                    inName="salarioBasico"
+                    inReadOnly={false}
+                    onChange={props.onAmountItemModelInputChange}
+                />
+                <AmountItemInputEditor
+                    inData={props.inData.costoEmpresa}
+                    inName="costoEmpresa"
+                    inReadOnly={false}
+                    onChange={props.onAmountItemModelInputChange}
+                />
+                <AmountItemInputEditor
+                    inData={props.inData.auxilioTransporte}
+                    inName="auxilioTransporte"
+                    inReadOnly={false}
+                    onChange={props.onAmountItemModelInputChange}
+                />
+            </div>
+            <div>
+                <PorcentajeItemInputEditor
+                    inData={props.inData.cesantias}
+                    inName="cesantias"
+                    onChange={props.onPorcentajeInputChange}
+                />
+                <PorcentajeItemInputEditor
+                    inData={props.inData.primas}
+                    inName="primas"
+                    onChange={props.onPorcentajeInputChange}
+                />
+                <PorcentajeItemInputEditor
+                    inData={props.inData.vacaciones}
+                    inName="vacaciones"
+                    onChange={props.onPorcentajeInputChange}
+                />
+                <PorcentajeItemInputEditor
+                    inData={props.inData.interesesCesantias}
+                    inName="interesesCesantias"
+                    onChange={props.onPorcentajeInputChange}
+                />
+                <PorcentajeItemInputEditor
+                    inData={props.inData.salud}
+                    inName="salud"
+                    onChange={props.onPorcentajeInputChange}
+                />
+                <PorcentajeItemInputEditor
+                    inData={props.inData.pension}
+                    inName="pension"
+                    onChange={props.onPorcentajeInputChange}
+                />
+                <PorcentajeItemInputEditor
+                    inData={props.inData.arlRiesgo1}
+                    inName="arlRiesgo1"
+                    onChange={props.onPorcentajeInputChange}
+                />
+                <PorcentajeItemInputEditor
+                    inData={props.inData.cajaCompensacion}
+                    inName="cajaCompensacion"
+                    onChange={props.onPorcentajeInputChange}
+                />
+                <PorcentajeItemInputEditor
+                    inData={props.inData.sena}
+                    inName="sena"
+                    onChange={props.onPorcentajeInputChange}
+                />
+                <PorcentajeItemInputEditor
+                    inData={props.inData.icbf}
+                    inName="icbf"
+                    onChange={props.onPorcentajeInputChange}
+                />
+            </div>
+            <div>
+                <AmountItemInputEditor
+                    inData={props.inData.subsidioTransporte}
+                    inName="subsidioTransporte"
+                    inReadOnly={false}
+                    onChange={props.onAmountItemModelInputChange}
+                />
+                <AmountItemInputEditor
+                    inData={props.inData.totalParafiscales}
+                    inName="totalParafiscales"
+                    inReadOnly={true}
+                    onChange={(x, y) => (console.log("nothing"))}
+                />
+                <AmountItemInputEditor
+                    inData={props.inData.totalCompensacionSalarial}
+                    inName="totalCompensacionSalarial"
+                    inReadOnly={true}
+                    onChange={(x, y) => (console.log("nothing"))}
+                />
+                <AmountItemInputEditor
+                    inData={props.inData.totalValorHora}
+                    inName="totalValorHora"
+                    inReadOnly={true}
+                    onChange={(x, y) => (console.log("nothing"))}
+                />
+            </div>
         </div>
     );
 }

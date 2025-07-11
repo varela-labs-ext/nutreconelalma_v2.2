@@ -4,7 +4,7 @@ class JustValueItemModel extends LabelBasicModel {
     public value: number;
 
     constructor(inLabel: string) {
-        super(inLabel, "JustValue");
+        super(inLabel);
         this.value = 0;
     }
 }

@@ -6,6 +6,7 @@ import JustValueItemModel from "@/logic/models/common/JustValueItemModel";
 import PorcentajeItemModel from "@/logic/models/common/PorcentajeItemModel";
 
 interface StaffSalaryDetailsGroupProps {
+    title?: string;
     inData: StaffSalaryModel;
     onAmountItemModelInputChange: (inPropertyName: string, inNewItem: AmountItemModel) => void;
     onPorcentajeInputChange: (inPropertyName: string, inNewItem: PorcentajeItemModel) => void;
@@ -17,8 +18,8 @@ const StaffSalaryDetailsGroup = (props: StaffSalaryDetailsGroupProps) => {
     return (
         <>
             <div className="flex flex-col gap-2">
-                {/* <StaffSalaryDetailsHeaders /> */}
                 <StaffSalaryDetailsInputs
+                    title={props.title}
                     inData={props.inData}
                     onAmountItemModelInputChange={props.onAmountItemModelInputChange}
                     onPorcentajeInputChange={props.onPorcentajeInputChange}

@@ -80,6 +80,7 @@ const StaffCostsDetails = (props: StaffCostsDetailsProps) => {
             <AccordionGroup multiOpen={false} >
                 <AccordionItem id="id_PharmC" title="Químico Farmacéutico" icon={FlaskConical}>
                     <StaffSalaryDetailsGroup
+                        title="Salario de Químico Farmacéutico"
                         inData={props.inChemistSalaryData}
                         onAmountItemModelInputChange={(A, B) => handleOnAmountItemModelInputChange("Chemist", A, B)}
                         onPorcentajeInputChange={(A, B) => handleOnPorcentajeInputChange("Chemist", A, B)}
@@ -94,10 +95,6 @@ const StaffCostsDetails = (props: StaffCostsDetailsProps) => {
                         onJustValueInputChange={(A, B) => handleOnJustValueInputChange("Assistant", A, B)}
                     />
                 </AccordionItem>
-                {/* <AccordionItem id="id_ParaCo" title="Parafiscales" icon={FileText}>
-                    <>
-                    </>
-                </AccordionItem> */}
             </AccordionGroup>
         </div>
     );
