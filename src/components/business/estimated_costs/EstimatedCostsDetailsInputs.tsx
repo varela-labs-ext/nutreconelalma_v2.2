@@ -1,5 +1,5 @@
 
-import EstimatedCostItemModel from "@/logic/models/common/EstimatedCostItemModel";
+import EstimatedCostItemModel from "@/logic/models/operating_resources/EstimatedCostItemModel";
 import EstimatedCostsInputEditor from "../editors/EstimatedCostsInputEditor";
 import ProductionCostsModel from "@/logic/models/operativos/ProductionCostsModel";
 

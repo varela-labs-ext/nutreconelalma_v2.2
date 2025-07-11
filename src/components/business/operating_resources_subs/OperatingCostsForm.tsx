@@ -4,8 +4,8 @@ import OperatingCostsModel from "@/logic/models/OperatingCostsModel";
 import { useEffect, useState } from "react";
 import MaintenanceCostsModel from "@/logic/models/operativos/MaintenanceCostsModel";
 import ProductionCostsModel from "@/logic/models/operativos/ProductionCostsModel";
-import UnitCostItemModel from "@/logic/models/common/UnitCostItemModel";
-import EstimatedCostItemModel from "@/logic/models/common/EstimatedCostItemModel";
+import UnitCostItemModel from "@/logic/models/operating_resources/UnitCostItemModel";
+import EstimatedCostItemModel from "@/logic/models/operating_resources/EstimatedCostItemModel";
 import CalculationService from "@/logic/services/CalculationService";
 
 interface OperatingCostsFormProps {
