@@ -4,7 +4,7 @@ class EstimatedCostItemModel {
     public exclude: boolean;
     public label: string;
 
-    constructor(inLabel: string = "TODO") {
+    constructor(inLabel: string) {
         this.valorEstimado = 0;
         this.valorUnitario = 0;
         this.exclude = false;
