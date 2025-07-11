@@ -22,8 +22,7 @@ const StaffSalaryDetailsInputs = (props: StaffSalaryDetailsInputsProps) => {
         return (
             typeof inValue === "object" &&
             inValue !== null &&
-            "label" in inValue &&
-            typeof (inValue as JustValueItemModel).label === "string"
+            ((inValue as LabelBasicModel).internalType === "JustValue")
         );
     };
 
@@ -33,8 +32,7 @@ const StaffSalaryDetailsInputs = (props: StaffSalaryDetailsInputsProps) => {
         return (
             typeof inValue === "object" &&
             inValue !== null &&
-            "label" in inValue &&
-            typeof (inValue as AmountItemModel).label === "string"
+            ((inValue as LabelBasicModel).internalType === "AmountItem")
         );
     };
 
@@ -101,17 +99,30 @@ const StaffSalaryDetailsInputs = (props: StaffSalaryDetailsInputsProps) => {
 
     return (
         <div>
-            {getInputsList<JustValueItemModel>(isJustValueItemModelModel, null, false).map(([inKey, inValue]) => (
-                <div id={inKey} key={inKey} className={insumoEditorWrapperClass}>
-                    <JustValueInputEditor
-                        inData={inValue}
-                        inName={inKey}
-                        onChange={props.onJustValueInputChange}
-                    />
-                </div>
-            ))}
+            <div><h2>Costos de horas / persona</h2></div>
+            <div>
+                <JustValueInputEditor
+                    inData={props.inData.horasTrabajoMensual}
+                    inName="horasTrabajoMensual"
+                    onChange={props.onJustValueInputChange}
+                />
+                <JustValueInputEditor
+                    inData={props.inData.personalPreparacion}
+                    inName="personalPreparacion"
+                    onChange={props.onJustValueInputChange}
+                />
+                {/* {getInputsList<JustValueItemModel>(isJustValueItemModelModel, null, false).map(([inKey, inValue]) => (
+                    <div id={inKey} key={inKey} className={insumoEditorWrapperClass}>
+                        <JustValueInputEditor
+                            inData={inValue}
+                            inName={inKey}
+                            onChange={props.onJustValueInputChange}
+                        />
+                    </div>
+                ))} */}
+            </div>
 
-            {getInputsList<AmountItemModel>(isAmountItemModel, "total", false).map(([inKey, inValue]) => (
+            {getInputsList<AmountItemModel>(isAmountItemModel, null, false).map(([inKey, inValue]) => (
                 <div id={inKey} key={inKey} className={insumoEditorWrapperClass}>
                     <AmountItemInputEditor
                         inData={inValue}
@@ -122,7 +133,7 @@ const StaffSalaryDetailsInputs = (props: StaffSalaryDetailsInputsProps) => {
                 </div>
             ))}
 
-            {getInputsList<PorcentajeItemModel>(isPorcentajeItemModel, null, false).map(([inKey, inValue]) => (
+            {/* {getInputsList<PorcentajeItemModel>(isPorcentajeItemModel, null, false).map(([inKey, inValue]) => (
                 <div id={inKey} key={inKey} className={insumoEditorWrapperClass}>
                     <PorcentajeItemInputEditor
                         inData={inValue}
@@ -141,7 +152,7 @@ const StaffSalaryDetailsInputs = (props: StaffSalaryDetailsInputsProps) => {
                         onChange={(x, y) => (console.log("nothing"))}
                     />
                 </div>
-            ))}
+            ))} */}
         </div>
     );
 }
