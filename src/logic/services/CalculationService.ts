@@ -1,5 +1,5 @@
 import MaintenanceCostsCalc from "../calcs/MaintenanceCostsCalc";
-import ClinicaInputModel from "../models/row_item/ClinicaInputModel";
+import ClinicaInputModel from "../models/row_item/ClinicaInputRowModel";
 import EstimatedCostItemModel from "../models/row_item/EstimatedCostItemRowModel";
 import UnitCostItemModel from "../models/row_item/UnitCostItemRowModel";
 import StaffSalaryGroupModel from "../models/operating_resources/StaffSalaryGroupModel";

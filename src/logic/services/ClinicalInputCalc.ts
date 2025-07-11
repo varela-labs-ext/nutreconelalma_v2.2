@@ -1,7 +1,7 @@
 //ClinicalInputCalc
 
 import numberValidator from "@/utils/numberValidator";
-import ClinicaInputModel from "../models/row_item/ClinicaInputModel";
+import ClinicaInputModel from "../models/row_item/ClinicaInputRowModel";
 import BaseCalc from "./BaseCalc";
 
 class ClinicalInputCalc extends BaseCalc<ClinicaInputModel> {

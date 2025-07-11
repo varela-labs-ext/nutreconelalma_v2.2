@@ -1,6 +1,6 @@
 import RawMaterialModel from "@/logic/models/RawMaterialModel";
 import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
-import ClinicaInputModel from "@/logic/models/row_item/ClinicaInputModel";
+import ClinicaInputModel from "@/logic/models/row_item/ClinicaInputRowModel";
 import RawMaterialsDetailsHeader from "./RawMaterialsDetailsHeader";
 import RawMaterialsDetailsInputs from "./RawMaterialsDetailsInputs";
 

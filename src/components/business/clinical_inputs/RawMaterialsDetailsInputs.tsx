@@ -1,6 +1,6 @@
 import RawMaterialModel from "@/logic/models/RawMaterialModel";
 import ClinicaInputEditor from "../editors/ClinicaInputEditor";
-import ClinicaInputModel from "@/logic/models/row_item/ClinicaInputModel";
+import ClinicaInputModel from "@/logic/models/row_item/ClinicaInputRowModel";
 import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
 import { useEffect, useState } from "react";
 

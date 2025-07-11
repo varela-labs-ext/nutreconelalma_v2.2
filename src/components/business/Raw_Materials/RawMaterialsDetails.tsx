@@ -1,6 +1,6 @@
 import RawMaterialModel from "@/logic/models/RawMaterialModel";
 import { useEffect, useState } from "react";
-import ClinicaInputModel from "@/logic/models/row_item/ClinicaInputModel";
+import ClinicaInputModel from "@/logic/models/row_item/ClinicaInputRowModel";
 import CalculationService from "@/logic/services/CalculationService";
 import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
 import { AccordionGroup } from "@/components/ui/accordions/AccordionGroup";

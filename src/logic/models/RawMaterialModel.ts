@@ -1,5 +1,5 @@
 import InsumoClinicoEnum from "@/logic/enums/InsumoClinicoNamesEnum";
-import ClinicaInputModel from "./row_item/ClinicaInputModel";
+import ClinicaInputModel from "./row_item/ClinicaInputRowModel";
 import RawMaterialBaseModel from "./RawMaterialBaseModel";
 import ClinicalInputCategoryEnumId from "../enums/ClinicalInputCategoryEnumId";
 

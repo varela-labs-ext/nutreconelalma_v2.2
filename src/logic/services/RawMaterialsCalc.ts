@@ -1,4 +1,4 @@
-import ClinicaInputModel from "../models/row_item/ClinicaInputModel";
+import ClinicaInputModel from "../models/row_item/ClinicaInputRowModel";
 
 import BaseCalc from "./BaseCalc";
 import RawMaterialModel from "../models/RawMaterialModel";
