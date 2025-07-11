@@ -3,7 +3,7 @@ import PorcentajeItemModel from "../models/common/PorcentajeItemModel";
 import StaffTaxesModel from "../models/empleados/StaffTaxesModel";
 
 
-abstract class ParaFiscalesStarter<T extends StaffTaxesModel> {
+abstract class SalaryTaxesStarter<T extends StaffTaxesModel> {
 
     public iniciarValores(inItem: T, inTipoCentral: CentralTypeIdEnum): void {
         this.iniciarParafiscales(inItem);
@@ -46,4 +46,4 @@ abstract class ParaFiscalesStarter<T extends StaffTaxesModel> {
     }
 }
 
-export default ParaFiscalesStarter;
+export default SalaryTaxesStarter;

@@ -6,8 +6,8 @@
 // import EquipoTrabajoEsterilStarter from "./EquipoTrabajoEsterilStarter";
 // import MaterialesHigieneLimpiezaStarter from "./MaterialesHigieneLimpiezaStarter";
 // import MaterialesProteccionPersonalStarter from "./MaterialesProteccionPersonalStarter";
-// import PersonalAuxiliarFarmaciaStarter from "./PersonalAuxiliarFarmaciaStarter";
-// import PersonalQuimicoFarmaceuticoStarter from "./PersonalQuimicoFarmaceuticoStarter";
+// import ChemistAssistantSalaryStarter from "./ChemistAssistantSalaryStarter";
+// import ChemistSalaryStarter from "./ChemistSalaryStarter";
 // import ProduccionNutricionModel from "@/models/ProduccionNutricionModel";
 // import CentralMezclasNPTStarter from "./CentralMezclasNPTStarter";
 // import PopulationTypeIdEnum from "@/enums/PopulationTypeIdEnum";
@@ -45,8 +45,8 @@
 //         EquipoTrabajoEsterilStarter.getInstance().iniciarValores(inItem.costosEquipoTrabajoEsteril, inTipoCentral);
 //         MaterialesHigieneLimpiezaStarter.getInstance().iniciarValores(inItem.costosMaterialesHigieneLimpieza, inTipoCentral);
 //         MaterialesProteccionPersonalStarter.getInstance().iniciarValores(inItem.costosMaterialesProteccionPersonal, inTipoCentral);
-//         PersonalQuimicoFarmaceuticoStarter.getInstance().iniciarValores(inItem.quimicoFarmaceutico, inTipoCentral);
-//         PersonalAuxiliarFarmaciaStarter.getInstance().iniciarValores(inItem.auxiliarxFarmacia, inTipoCentral);
+//         ChemistSalaryStarter.getInstance().iniciarValores(inItem.quimicoFarmaceutico, inTipoCentral);
+//         ChemistAssistantSalaryStarter.getInstance().iniciarValores(inItem.auxiliarxFarmacia, inTipoCentral);
 //     }
 
 //     private iniciarCentralAutomaticaConfiguracion(inItem: T, inTipoCentral: CentralTypeIdEnum): void {

@@ -1,8 +1,8 @@
 
 import StaffSalaryModel from "../models/empleados/StaffSalaryModel";
-import ParaFiscalesStarter from "./SalaryTaxesStarter";
+import SalaryTaxesStarter from "./SalaryTaxesStarter";
 
-class PersonalAuxiliarFarmaciaStarter extends ParaFiscalesStarter<StaffSalaryModel> {
+class ChemistAssistantSalaryStarter extends SalaryTaxesStarter<StaffSalaryModel> {
 
     protected iniciarComunes(inItem: StaffSalaryModel): void {
         inItem.costoEmpresa.value = 0;
@@ -22,15 +22,15 @@ class PersonalAuxiliarFarmaciaStarter extends ParaFiscalesStarter<StaffSalaryMod
         inItem.salarioBasico.value = 1500000.00;
     }
 
-    private static _instance: PersonalAuxiliarFarmaciaStarter
+    private static _instance: ChemistAssistantSalaryStarter
 
     /* SINGLETON FOR THIS CLASS */
-    public static getInstance(): PersonalAuxiliarFarmaciaStarter {
-        if (!PersonalAuxiliarFarmaciaStarter._instance) {
-            PersonalAuxiliarFarmaciaStarter._instance = new PersonalAuxiliarFarmaciaStarter();
+    public static getInstance(): ChemistAssistantSalaryStarter {
+        if (!ChemistAssistantSalaryStarter._instance) {
+            ChemistAssistantSalaryStarter._instance = new ChemistAssistantSalaryStarter();
         }
-        return PersonalAuxiliarFarmaciaStarter._instance;
+        return ChemistAssistantSalaryStarter._instance;
     }
 }
 
-export default PersonalAuxiliarFarmaciaStarter;
+export default ChemistAssistantSalaryStarter;
