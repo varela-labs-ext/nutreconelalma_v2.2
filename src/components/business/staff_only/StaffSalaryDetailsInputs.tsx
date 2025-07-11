@@ -38,19 +38,16 @@ const StaffSalaryDetailsInputs = (props: StaffSalaryDetailsInputsProps) => {
                 <AmountItemInputEditor
                     inData={props.inData.salarioBasico}
                     inName="salarioBasico"
-                    inReadOnly={false}
                     onChange={props.onAmountItemModelInputChange}
                 />
                 <AmountItemInputEditor
                     inData={props.inData.costoEmpresa}
                     inName="costoEmpresa"
-                    inReadOnly={false}
                     onChange={props.onAmountItemModelInputChange}
                 />
                 <AmountItemInputEditor
                     inData={props.inData.auxilioTransporte}
                     inName="auxilioTransporte"
-                    inReadOnly={false}
                     onChange={props.onAmountItemModelInputChange}
                 />
             </div>
@@ -110,25 +107,24 @@ const StaffSalaryDetailsInputs = (props: StaffSalaryDetailsInputsProps) => {
                 <AmountItemInputEditor
                     inData={props.inData.subsidioTransporte}
                     inName="subsidioTransporte"
-                    inReadOnly={false}
                     onChange={props.onAmountItemModelInputChange}
                 />
                 <AmountItemInputEditor
                     inData={props.inData.totalParafiscales}
                     inName="totalParafiscales"
-                    inReadOnly={true}
+                    isReadOnly={true}
                     onChange={(x, y) => (console.log("nothing"))}
                 />
                 <AmountItemInputEditor
                     inData={props.inData.totalCompensacionSalarial}
                     inName="totalCompensacionSalarial"
-                    inReadOnly={true}
+                    isReadOnly={true}
                     onChange={(x, y) => (console.log("nothing"))}
                 />
                 <AmountItemInputEditor
                     inData={props.inData.totalValorHora}
                     inName="totalValorHora"
-                    inReadOnly={true}
+                    isReadOnly={true}
                     onChange={(x, y) => (console.log("nothing"))}
                 />
             </div>

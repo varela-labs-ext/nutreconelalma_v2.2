@@ -1,7 +1,9 @@
+import MaintenanceCostsCalc from "../calcs/MaintenanceCostsCalc";
 import ClinicaInputModel from "../models/common/ClinicaInputModel";
 import EstimatedCostItemModel from "../models/common/EstimatedCostItemModel";
 import UnitCostItemModel from "../models/common/UnitCostItemModel";
 import StaffSalaryModel from "../models/empleados/StaffSalaryModel";
+import MaintenanceCostsModel from "../models/operativos/MaintenanceCostsModel";
 import RawMaterialModel from "../models/RawMaterialModel";
 import ChemistAssistantSalaryCalc from "./ChemistAssistantSalaryCalc";
 import ChemistSalaryCalc from "./ChemistSalaryCalc";
@@ -40,6 +42,11 @@ class CalculationService {
 
     public static ChemistAssistantSalary(inItem: StaffSalaryModel): void {
         const calc = new ChemistAssistantSalaryCalc();
+        calc.compute(inItem);
+    }
+
+    public static ComputeMaintenanceCosts(inItem: MaintenanceCostsModel): void {
+        const calc = new MaintenanceCostsCalc();
         calc.compute(inItem);
     }
 

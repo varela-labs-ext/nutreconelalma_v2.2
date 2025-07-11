@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 interface JustValueInputEditorProps {
     inData: JustValueItemModel;
     inName: string;
+    isReadOnly?: boolean;
     onChange: (inName: string, newItem: JustValueItemModel) => void;
 }
 
@@ -66,7 +67,7 @@ const JustValueInputEditor = (props: JustValueInputEditorProps) => {
                             label="value"
                             name="value"
                             value={internalData.value}
-                            readOnly={false}
+                            readOnly={props.isReadOnly}
                             // symbol="H"
                             onChange={handleChange}
                         />

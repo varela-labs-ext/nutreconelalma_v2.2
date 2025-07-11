@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 interface AmountItemInputEditorProps {
     inData: AmountItemModel;
     inName: string;
-    inReadOnly: boolean;
+    isReadOnly?: boolean;
     onChange: (inName: string, newItem: AmountItemModel) => void;
 }
 
@@ -52,6 +52,14 @@ const AmountItemInputEditor = (props: AmountItemInputEditorProps) => {
         return `${base} ${over} ${focus} ${more}`;
     }
 
+    const isReadOnly = (): boolean => {
+        if (props.isReadOnly === undefined || props.isReadOnly === null) {
+            return false;
+        }
+
+        return props.isReadOnly;
+    }
+
     return (
         <>
             <div className={getMainDivClassName()}>
@@ -63,7 +71,7 @@ const AmountItemInputEditor = (props: AmountItemInputEditorProps) => {
                     </div>
 
                     <div className="md:col-span-1 w-full">
-                        {!props.inReadOnly && (
+                        {!isReadOnly() && (
                             <InputNumberField
                                 label="value"
                                 name="value"
@@ -73,7 +81,7 @@ const AmountItemInputEditor = (props: AmountItemInputEditorProps) => {
                                 onChange={handleChange}
                             />
                         )}
-                        {props.inReadOnly && (
+                        {isReadOnly() && (
                             <ReadOnlyNumberField
                                 label="value"
                                 name="value"
