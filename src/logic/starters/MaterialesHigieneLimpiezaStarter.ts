@@ -5,7 +5,7 @@ import TotalesStarterBase from "./TotalesStarterBase";
 
 class MaterialesHigieneLimpiezaStarter extends TotalesStarterBase<HygieneAndCleaningGroupModel> {
     protected iniciarComunes(inItem: HygieneAndCleaningGroupModel): void {
-        inItem.totalCost = 0;
+        inItem.total.value = 0;
     }
 
     protected iniciarCentralManual(inItem: HygieneAndCleaningGroupModel): void {

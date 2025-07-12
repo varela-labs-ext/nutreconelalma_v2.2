@@ -5,7 +5,7 @@ import TotalesStarterBase from "./TotalesStarterBase";
 class CostosMantenimientoStarter extends TotalesStarterBase<MaintenanceCostsGroupModel> {
 
     protected iniciarComunes(inItem: MaintenanceCostsGroupModel): void {
-        inItem.totalCost = 0;
+        inItem.total.value = 0;
 
         // inItem.costoMensual = 0
         // inItem.costoPorLineaProduccion = 0;

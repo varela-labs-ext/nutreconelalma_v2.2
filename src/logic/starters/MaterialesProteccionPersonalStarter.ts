@@ -6,7 +6,7 @@ import TotalesStarterBase from "./TotalesStarterBase";
 class MaterialesProteccionPersonalStarter extends TotalesStarterBase<PersonalProtectionGroupModel> {
 
     protected iniciarComunes(inItem: PersonalProtectionGroupModel): void {
-        inItem.totalCost = 0;
+        inItem.total.value = 0;
     }
 
     protected iniciarCentralManual(inItem: PersonalProtectionGroupModel): void {

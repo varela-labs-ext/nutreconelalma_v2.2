@@ -5,7 +5,7 @@ import TotalesStarterBase from "./TotalesStarterBase";
 class EquiposAutomatizadoStarter extends TotalesStarterBase<AutomatedEquipmentGroupModel> {
 
     protected iniciarComunes(inItem: AutomatedEquipmentGroupModel): void {
-        inItem.totalCost = 0;
+        inItem.total.value = 0;
     }
 
     protected iniciarCentralManual(inItem: AutomatedEquipmentGroupModel): void {

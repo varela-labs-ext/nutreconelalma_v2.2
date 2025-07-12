@@ -1,12 +1,11 @@
 import { AccordionGroup } from "@/components/ui/accordions/AccordionGroup";
 import AccordionItem from "@/components/ui/accordions/AccordionItem";
-import StaffPersonnelCostsModel from "@/logic/models/StaffPersonnelCostsModel";
-import { FlaskConical, User, FileText } from "lucide-react";
-import StaffSalaryDetailsGroup from "../staff_only/StaffSalaryDetailsGroup";
+import { FlaskConical, User } from "lucide-react";
 import StaffSalaryGroupModel from "@/logic/models/operating_resources/StaffSalaryGroupModel";
 import AmountItemModel from "@/logic/models/row_item/AmountItemRowModel";
 import PorcentajeItemModel from "@/logic/models/row_item/PorcentajeItemRowModel";
 import JustValueItemModel from "@/logic/models/row_item/OneValueItemRowModel";
+import StaffSalarySet from "./staff_salary/StaffSalarySet";
 
 /*
 - STAFF/PERSONAL
@@ -79,7 +78,7 @@ const StaffPersonnelCostsAccourd = (props: StaffPersonnelCostsAccourdProps) => {
         <div>
             <AccordionGroup multiOpen={false} >
                 <AccordionItem id="id_PharmC" title="Químico Farmacéutico" icon={FlaskConical}>
-                    <StaffSalaryDetailsGroup
+                    <StaffSalarySet
                         title="Salario de Químico Farmacéutico"
                         inData={props.inChemistSalaryData}
                         onAmountItemModelInputChange={(A, B) => handleOnAmountItemModelInputChange("Chemist", A, B)}
@@ -88,7 +87,7 @@ const StaffPersonnelCostsAccourd = (props: StaffPersonnelCostsAccourdProps) => {
                     />
                 </AccordionItem>
                 <AccordionItem id="id_PhAsst" title="Auxiliar de Farmacia" icon={User}>
-                    <StaffSalaryDetailsGroup
+                    <StaffSalarySet
                         inData={props.inAssistantSalaryData}
                         onAmountItemModelInputChange={(A, B) => handleOnAmountItemModelInputChange("Assistant", A, B)}
                         onPorcentajeInputChange={(A, B) => handleOnPorcentajeInputChange("Assistant", A, B)}
