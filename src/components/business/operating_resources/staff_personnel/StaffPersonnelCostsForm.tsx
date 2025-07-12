@@ -2,10 +2,9 @@ import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 
 import StaffSalaryGroupModel from "@/logic/models/operating_resources/StaffSalaryGroupModel";
 import { useEffect, useState } from "react";
-import ChemistSalaryStarter from "@/logic/starters/ChemistSalaryStarter";
-import ChemistAssistantSalaryStarter from "@/logic/starters/ChemistAssistantSalaryStarter";
 import CalculationService from "@/logic/services/CalculationService";
 import StaffPersonnelCostsAccourd from "./StaffPersonnelCostsAccourd";
+import DefaultsProvider from "@/logic/Providers/DefaultsProvider";
 
 
 interface StaffPersonnelCostsFormProps {
@@ -19,9 +18,10 @@ const StaffPersonnelCostsForm = (props: StaffPersonnelCostsFormProps) => {
     const [assistantSalaryData, setProductionCostsData] = useState<StaffSalaryGroupModel>(new StaffSalaryGroupModel());
 
     useEffect(() => {
-        ChemistSalaryStarter.getInstance().iniciarValores(chemistSalaryData, props.inCentralType);
+        DefaultsProvider.chemistSalaryDefaults(chemistSalaryData, props.inCentralType);
         CalculationService.ComputeChemistSalary(chemistSalaryData);
-        ChemistAssistantSalaryStarter.getInstance().iniciarValores(assistantSalaryData, props.inCentralType);
+
+        DefaultsProvider.chemistAssistantSalaryDefaults(assistantSalaryData, props.inCentralType);
         CalculationService.ChemistAssistantSalary(assistantSalaryData);
     }, []);
 
