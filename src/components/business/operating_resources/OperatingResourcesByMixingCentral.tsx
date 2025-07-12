@@ -1,21 +1,14 @@
 import PanelView from "@/components/ui/tabs/panel_views/PanelView";
 import PanelViewsSelector from "@/components/ui/tabs/panel_views/PanelViewsSelector";
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
-import OperatingResourcesModels from "@/logic/models/OperatingResourcesModels";
-import { PackageOpen, Settings, Users, Wrench } from "lucide-react";
-import OperatingCostsDetails from "../operating_resources_details/OperatingCostsDetails";
-import OperatingCostsModel from "@/logic/models/OperatingCostsModel";
-import StaffCostsDetails from "../operating_resources_details/StaffCostsDetails";
-import StaffPersonnelCostsModel from "@/logic/models/StaffPersonnelCostsModel";
-import MaterialsNSuppliesCostsDetails from "../operating_resources_details/MaterialsNSuppliesCostsDetails";
-import MaterialsNSuppliesCostsModel from "@/logic/models/MaterialsNSuppliesCostsModel";
-import OperatingCostsForm from "../operating_resources_subs/OperatingCostsForm";
-import StaffPersonnelForm from "../operating_resources_subs/StaffPersonnelCostsForm";
-import MaterialsNSuppliesCostsForm from "../operating_resources_subs/MaterialsNSuppliesCostsForm";
+import { Settings, Users, PackageOpen } from "lucide-react";
+import OperatingCostsForm from "./operating_costs/OperatingCostsForm";
+import StaffPersonnelCostsForm from "./staff_personnel/StaffPersonnelCostsForm";
+import MaterialsAndSuppliesCostsForm from "./materials_and_supplies/MaterialsAndSuppliesCostsForm";
+
 
 interface OperatingResourcesByMixingCentralProps {
     inCentralType: CentralTypeIdEnum;
-    // inData: OperatingResourcesModels;
     inMonthlyProductionCapacity: number;
     inProductionLines: number;
 }
@@ -44,12 +37,12 @@ const OperatingResourcesByMixingCentral = (props: OperatingResourcesByMixingCent
                     />
                 </PanelView>
                 <PanelView label="Staff / Personal" icon={<Users />} status="warning">
-                    <StaffPersonnelForm
+                    <StaffPersonnelCostsForm
                         inCentralType={props.inCentralType}
                     />
                 </PanelView>
                 <PanelView label="Materiales e Insumos" icon={<PackageOpen />} status="warning">
-                    <MaterialsNSuppliesCostsForm
+                    <MaterialsAndSuppliesCostsForm
                         inCentralType={props.inCentralType}
                     />
                 </PanelView>

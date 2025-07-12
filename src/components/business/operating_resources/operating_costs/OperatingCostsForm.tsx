@@ -1,5 +1,4 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
-import OperatingCostsDetails from "../operating_resources_details/OperatingCostsDetails";
 import OperatingCostsModel from "@/logic/models/OperatingCostsModel";
 import { useEffect, useState } from "react";
 import MaintenanceCostsGroupModel from "@/logic/models/operating_resources/MaintenanceCostsGroupModel";
@@ -7,6 +6,7 @@ import ProductionCostsGroupModel from "@/logic/models/operating_resources/Produc
 import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
 import EstimatedCostItemModel from "@/logic/models/row_item/EstimatedCostItemRowModel";
 import CalculationService from "@/logic/services/CalculationService";
+import OperatingCostsAccourd from "./OperatingCostsAccourd";
 
 interface OperatingCostsFormProps {
     inCentralType: CentralTypeIdEnum;
@@ -46,17 +46,15 @@ const OperatingCostsForm = (props: OperatingCostsFormProps) => {
     }
 
     return (
-        <>
-            <OperatingCostsDetails
-                inCentralType={props.inCentralType}
-                inMaintenanceCostsData={maintenanceCostsData}
-                inProductionCostsData={productionCostsData}
-                inMonthlyProductionCapacity={props.inMonthlyProductionCapacity}
-                inProductionLines={props.inProductionLines}
-                onMaintenanceCostsChange={handleOnMaintenanceCostsChange}
-                onProductionCostsChange={handleOnProductionCostsChange}
-            />
-        </>
+        <OperatingCostsAccourd
+            inCentralType={props.inCentralType}
+            inMaintenanceCostsData={maintenanceCostsData}
+            inProductionCostsData={productionCostsData}
+            inMonthlyProductionCapacity={props.inMonthlyProductionCapacity}
+            inProductionLines={props.inProductionLines}
+            onMaintenanceCostsChange={handleOnMaintenanceCostsChange}
+            onProductionCostsChange={handleOnProductionCostsChange}
+        />
     );
 }
 
