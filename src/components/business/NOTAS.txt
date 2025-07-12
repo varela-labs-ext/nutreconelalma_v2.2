@@ -97,10 +97,18 @@ ENTONCES LA LOGICA QUE VA EN "GROUP" LA PUEDE MANEJAR DETAILS, PORQUE DETAILS ES
 
 
 
--operating_resources
-    -materials_supplies
-    -operating_costs - semi done        
-    -staff_personnel - semi done
+- COSTOS OPERATIVOS
+    - COSTOS DE MANTENIMIENTO           done
+    - COSTOS DE PRODUCCION              done
+- STAFF/PERSONAL
+    - PARAFISCALES *                            done
+    - QUIMICO FARMACEUTICO              done
+    - AUXILIAR DE FARMACIA              done
+- MATERIALES E INSUMOS
+    - EQUIPO DE TRABAJO ESTERIL         done
+    - HIGIENE Y LIMPIEZA                done
+    - PROTECION PERSONAL                done
+    - EQUIPOS AUTOMATIZADOS             done
 
 
 
