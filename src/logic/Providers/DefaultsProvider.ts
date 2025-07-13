@@ -3,6 +3,7 @@ import ChemistAssistantSalaryDefaults from "../defaults/ChemistAssistantSalaryDe
 import ChemistSalaryDefaults from "../defaults/ChemistSalaryDefaults";
 import HygieneAndCleaningDefaults from "../defaults/HygieneAndCleaningDefaults";
 import MaintenanceCostsDefaults from "../defaults/MaintenanceCostsDefaults";
+import MixingCenterSettingsDefaults from "../defaults/MixingCenterSettingsDefaults";
 import PersonalProtectionDefaults from "../defaults/PersonalProtectionDefaults";
 import ProductionCostsDefaults from "../defaults/ProductionCostsDefaults";
 import RawMaterialAdultDefaults from "../defaults/RawMaterialAdultDefaults";
@@ -11,6 +12,7 @@ import RawMaterialPediatricDefaults from "../defaults/RawMaterialPediatricDefaul
 import SterileWorkEquipmentDefaults from "../defaults/SterileWorkEquipmentDefaults";
 import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
 import PopulationTypeIdEnum from "../enums/PopulationTypeIdEnum";
+import MixingCenterSettingsModel from "../models/common/MixingCenterSettingsModel";
 import AutomatedEquipmentGroupModel from "../models/operating_resources/AutomatedEquipmentGroupModel";
 import HygieneAndCleaningGroupModel from "../models/operating_resources/HygieneAndCleaningGroupModel";
 import MaintenanceCostsGroupModel from "../models/operating_resources/MaintenanceCostsGroupModel";
@@ -80,6 +82,13 @@ class DefaultsProvider {
                 throw new Error("No implementado...");
         }
     }
+
+    //MixingCenterSettingsDefaults
+    public static mixingCenterSettingsDefaults(inItem: MixingCenterSettingsModel): void {
+        const defaults = new MixingCenterSettingsDefaults();
+        defaults.setDefaultValues(inItem, CentralTypeIdEnum.None);
+    }
+
 
     // /* SINGLETON FOR THIS CLASS */
     // private static _instance: DefaultsProvider
