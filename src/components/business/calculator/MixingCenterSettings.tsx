@@ -1,86 +1,70 @@
 import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSettingsModel";
 import MixingCenterSet from "./mixing_center/MixingCenterSet";
 import { useEffect, useRef, useState } from "react";
-import DataService from "@/logic/services/DataService";
-import DefaultsProvider from "@/logic/Providers/DefaultsProvider";
+import { useComputerContext } from "@/context/ComputerContext";
+import { deepClone, deepEqual } from "@/utils/objectUtils";
+
 
 interface MixingCenterSettingsProps {
-    inFilename: string; // ESTE VALOR DEBE SER CURRENT POR DEFECTO
-    onChange: (newItem: MixingCenterSettingsModel) => void;
     onSetLoading: (value: boolean) => void;
 }
 
 const MixingCenterSettings = (props: MixingCenterSettingsProps) => {
-    const [internalData, setInternalData] = useState<MixingCenterSettingsModel>(new MixingCenterSettingsModel());
+    const { mixingCenterSettingsData, setMixingCenterSettingsData } = useComputerContext();
+
+    const [internalData, setInternalData] = useState<MixingCenterSettingsModel | null>(null);
 
     const debounceRef = useRef<number | null>(null);
 
+    // Montaje inicial
     useEffect(() => {
-        loadDataFromDb();
+        setInternalData((prev) => {
+            if (!deepEqual(prev, mixingCenterSettingsData)) {
+                return deepClone(mixingCenterSettingsData); // copia profunda para evitar referencias compartidas
+            }
+            return prev;
+        });
     }, []);
 
+    // Cambio en el contexto externo → actualizar interno
     useEffect(() => {
-        console.log("ESTA LINEA NO DEBERIA APARECER AL INICIO DEL COMPONENTE, SOLAMENTE CUANDO SE VAYA A CAMBIAR EL FILENAME..");
-    }, [props.inFilename]);
+        setInternalData((prev) => {
+            if (!deepEqual(prev, mixingCenterSettingsData)) {
+                return deepClone(mixingCenterSettingsData); // evita re-renders innecesarios
+            }
+            return prev;
+        });
+    }, [mixingCenterSettingsData]);
 
-    const getComponentKey = (): string => {
-        return props.inFilename;
-    }
+    // Cambio en interno → actualizar contexto (con debounce)
+    useEffect(() => {
+        if (internalData === null) return;
 
-    const requestSaveData = (inData: MixingCenterSettingsModel): void => {
-        setInternalData(inData);
-
-        if (debounceRef.current !== null) {
+        if (debounceRef.current) {
             clearTimeout(debounceRef.current);
         }
 
-        debounceRef.current = setTimeout(() => {
-            saveDataInDb(inData);
-        }, 100);
-    }
-
-    const loadDataFromDb = async (): Promise<void> => {
-        try {
-            props.onSetLoading(true);
-            let gatheredData: MixingCenterSettingsModel | null = null;
-            gatheredData = await DataService.getMixingCenterSettingsData(getComponentKey());
-
-            if (!gatheredData) {
-                console.log("No se encontró 'Mixing Center Settings' en la base de datos, inicializando con valores por defecto.");
-                gatheredData = new MixingCenterSettingsModel();
-                DefaultsProvider.mixingCenterSettingsDefaults(gatheredData);
+        debounceRef.current = window.setTimeout(() => {
+            if (!deepEqual(internalData, mixingCenterSettingsData)) {
+                setMixingCenterSettingsData(deepClone(internalData)); // copia profunda antes de propagar
             }
+        }, 300);
 
-            setInternalData(gatheredData);
-            // setDataLoaded(true);
-
-        } catch (error) {
-            console.error("Error al cargar la materia prima desde la base de datos:", error);
-        } finally {
-            props.onSetLoading(false);
-            console.log("***** MixingCenter data loaded... *****");
-        }
-    }
-
-    const saveDataInDb = async (inData: MixingCenterSettingsModel): Promise<void> => {
-        try {
-            await DataService.saveMixingCenterSettingsData(getComponentKey(), inData);
-        } catch (error) {
-            console.error("Error al guardar la materia prima en la base de datos:", error);
-        } finally {
-            console.log("======= MixingCenterConfigForm Salvando datos =======");
-            // loadingContext.setLoading(false); // desactiva el contexto de carga
-        }
-    }
+        return () => {
+            if (debounceRef.current) {
+                clearTimeout(debounceRef.current);
+            }
+        };
+    }, [internalData]);
 
     const handleOnMixingCenterSetChange = (inNewData: MixingCenterSettingsModel): void => {
-        requestSaveData(inNewData);
+        setInternalData({ ...inNewData });
     }
 
     return (
         <>
             <MixingCenterSet
-                inData={internalData}
+                inData={internalData ?? new MixingCenterSettingsModel()}
                 onChange={handleOnMixingCenterSetChange} />
         </>
     );

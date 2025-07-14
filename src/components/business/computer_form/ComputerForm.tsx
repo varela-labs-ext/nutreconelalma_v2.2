@@ -1,6 +1,6 @@
 import IconTab from "@/components/ui/tabs/icon_tabs/IconTab";
 import IconTabs from "@/components/ui/tabs/icon_tabs/IconTabs";
-import { LoadingContext } from "@/ui/context/LoadingContext";
+import { LoadingContext } from "@/context/LoadingContext";
 import { useMultiActionContext } from "@/ui/context/MultiActionContext";
 import { FileText, Home } from "lucide-react";
 import { useContext, useEffect, useState } from "react";

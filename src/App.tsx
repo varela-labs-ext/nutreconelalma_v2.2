@@ -2,18 +2,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import AppLayout from "./layouts/AppLayout";
-import { AuthProvider } from "./context/AuthContext";
 import { ErrorBoundary } from "./ui/components/ErrorBoundary";
-import ProtectedRoute from "./ui/components/ProtectedRoute";
 import LoginPage from "./ui/pages/auth/LoginPage";
 
-import ResumenImprimible from "./ui/pdf/ResumenImprimible";
+// import ResumenImprimible from "./ui/pdf/ResumenImprimible";
 import CalculadoraPage from "./ui/pages/CalculatorPage";
 import HistoryPage from "./ui/pages/HistoryPage";
-import { MultiActionProvider } from "./ui/context/MultiActionContext";
 import OperatingResourcesPage from "./ui/pages/OperatingResourcesPage";
 import NotFoundPage404 from "./ui/pages/NotFoundPage404";
-import { ComputerProvider } from "./context/ComputerContext";
+import AppInitializer from "./app/AppInitializer";
 
 
 
@@ -22,35 +19,27 @@ function App() {
         <div>
             <ErrorBoundary>
                 <Router>
-                    <AuthProvider>
-                        <ComputerProvider>
-                            <Routes>
-                                <Route path="/" element={<LoginPage />} />
-                                {/* <Route path="/resumen" element={
+                    <AppInitializer>
+                        <Routes>
+                            <Route path="/" element={<LoginPage />} />
+                            {/* <Route path="/resumen" element={
                                     <ProtectedRoute>
                                         <AppLayout><ResumenImprimible /></AppLayout>
                                     </ProtectedRoute>
                                 } /> */}
-                                <Route path="/calculadora" element={
-                                    <ProtectedRoute>
-                                        <AppLayout><CalculadoraPage /></AppLayout>
-                                    </ProtectedRoute>
-                                } />
-                                <Route path="/historico" element={
-                                    <ProtectedRoute>
-                                        <AppLayout><HistoryPage /></AppLayout>
-                                    </ProtectedRoute>
-                                } />
-                                <Route path="/operativos" element={
-                                    <ProtectedRoute>
-                                        <AppLayout><OperatingResourcesPage /></AppLayout>
-                                    </ProtectedRoute>
-                                }
-                                />
-                                <Route path="*" element={<NotFoundPage404 />} />
-                            </Routes>
-                        </ComputerProvider>
-                    </AuthProvider>
+                            <Route path="/calculadora" element={
+                                <AppLayout><CalculadoraPage /></AppLayout>
+                            } />
+                            <Route path="/historico" element={
+                                <AppLayout><HistoryPage /></AppLayout>
+                            } />
+                            <Route path="/operativos" element={
+                                <AppLayout><OperatingResourcesPage /></AppLayout>
+                            }
+                            />
+                            <Route path="*" element={<NotFoundPage404 />} />
+                        </Routes>
+                    </AppInitializer>
                 </Router>
                 {/* <ToastContainer position="top-right" /> */}
                 <ToastContainer

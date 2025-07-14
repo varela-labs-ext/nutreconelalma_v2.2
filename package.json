@@ -17,6 +17,7 @@
     "decimal.js": "^10.5.0",
     "firebase": "^10.0.0",
     "localforage": "^1.10.0",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.291.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -29,6 +30,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
+    "@types/lodash": "^4.17.20",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^4.0.0",

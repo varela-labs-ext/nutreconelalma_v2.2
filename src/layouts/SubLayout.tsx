@@ -1,6 +1,14 @@
+import { useComputerContext } from "@/context/ComputerContext";
 import MainHeaderBlock from "@/ui/components/MainHeaderBlock";
+import { useEffect } from "react";
 
 const SubLayout = ({ children }: { children: React.ReactNode }) => {
+    const { executingSomething } = useComputerContext();
+
+    useEffect(() => {
+
+    }, [executingSomething]);
+
     return (
         <div className="w-full px-4 py-8">
             <div id="sub-layout-content" className="max-w-[1100px] mx-auto min-h-screen bg-gray-50">

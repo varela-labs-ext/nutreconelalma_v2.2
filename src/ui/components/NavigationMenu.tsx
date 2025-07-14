@@ -1,7 +1,7 @@
 import { Calculator, Settings, ClipboardList, LogOut, FilePlus, Save, FolderOpen, FileEdit, FileText } from "lucide-react"
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { useMultiActionContext } from "../context/MultiActionContext";
+// import { useMultiActionContext } from "../context/MultiActionContext";
 import ComputerMenu from "@/components/business/computer_menu/ComputerMenu";
 
 interface NavigationMenuProps {
@@ -13,7 +13,7 @@ const NavigationMenu = (props: NavigationMenuProps) => {
     const { pathname } = useLocation();
     const { logout, isAuthenticated } = useAuth();
     const navigate = useNavigate();
-    const { setAction } = useMultiActionContext();
+    // const { setAction } = useMultiActionContext();
 
     if (!isAuthenticated || pathname === "/") return null;
 

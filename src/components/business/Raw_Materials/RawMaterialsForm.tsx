@@ -9,7 +9,7 @@ import { buildKeyName } from "@/logic/common/functions";
 import DataService from "@/logic/services/DataService";
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
-import { LoadingContext } from "../../../ui/context/LoadingContext";
+import { LoadingContext } from "../../../context/LoadingContext";
 import CalculadoraStarter from "@/logic/starters/CalculadoraStarter";
 import CalculationService from "@/logic/services/CalculationService";
 import AdditionalCostsForm from "../../../ui/components/AdditionalCostsForm";

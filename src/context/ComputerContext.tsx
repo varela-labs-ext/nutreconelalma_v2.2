@@ -12,6 +12,7 @@ import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/S
 import RawMaterialModel from "@/logic/models/RawMaterialModel";
 import DefaultValuesProvider from "@/providers/DefaultValuesProvider";
 import StorageProvider from "@/providers/StorageProvider";
+import { deepClone } from "@/utils/objectUtils";
 import { createContext, useContext, useEffect, useState } from "react";
 
 // ------------------- Tipos auxiliares -------------------
@@ -44,7 +45,7 @@ export type ActionComputer = "nueva" | "cargar" | "salvar" | null;
 export interface ComputerContextProps {
     // CurrentAction: ActionComputer;
     // setAction: (Action: ActionComputer) => void;
-
+    executingSomething: boolean;
     userDefaultValuesExists: boolean;
     currentFilename: string | null;
     currentCentralType: CentralTypeIdEnum;
@@ -60,6 +61,7 @@ export interface ComputerContextProps {
     chemistSalaryData: StaffSalaryGroupModel;
     assistantSalaryData: StaffSalaryGroupModel;
 
+    setExecutingSomething: (inValue: boolean) => void;
     setUserDefaultValuesExists: (inValue: boolean) => void;
     setCurrentFilename: (inFileName: string | null) => void;
     setCurrentCentralType: (inValue: CentralTypeIdEnum) => void;
@@ -232,101 +234,98 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     const gatherComputerData = (): ComputerBigGroupModel => {
         const output: ComputerBigGroupModel = new ComputerBigGroupModel();
 
-        output.mixingCenterSettings = { ...mixingCenterSettingsData };
-        output.automatedEquipment = { ...automatedEquipmentData };
-        output.hygieneAndCleaning = { ...hygieneAndCleaningData };
-        output.personalProtection = { ...personalProtectionData };
-        output.sterileWorkEquipment = { ...sterileWorkEquipmentData };
-        output.maintenanceCosts = { ...maintenanceCostsData };
-        output.productionCosts = { ...productionCostsData };
-        output.chemistSalary = { ...chemistSalaryData };
-        output.assistantSalary = { ...assistantSalaryData };
-        output.mixingCenterManualAdultoRawMaterial = { ...mixingCenterManualAdultoRawMaterialData };
-        output.mixingCenterManualNeonatalRawMaterial = { ...mixingCenterManualNeonatalRawMaterialData };
-        output.mixingCenterManualPediatricaRawMaterial = { ...mixingCenterManualPediatricaRawMaterialData };
-        output.mixingCenterAutomaticAdultoRawMaterial = { ...mixingCenterAutomaticAdultoRawMaterialData };
-        output.mixingCenterAutomaticNeonatalRawMaterial = { ...mixingCenterAutomaticNeonatalRawMaterialData };
-        output.mixingCenterAutomaticPediatricaRawMaterial = { ...mixingCenterAutomaticPediatricaRawMaterialData };
+        output.mixingCenterSettings = deepClone(mixingCenterSettingsData);
+        output.automatedEquipment = deepClone(automatedEquipmentData);
+        output.hygieneAndCleaning = deepClone(hygieneAndCleaningData);
+        output.personalProtection = deepClone(personalProtectionData);
+        output.sterileWorkEquipment = deepClone(sterileWorkEquipmentData);
+        output.maintenanceCosts = deepClone(maintenanceCostsData);
+        output.productionCosts = deepClone(productionCostsData);
+        output.chemistSalary = deepClone(chemistSalaryData);
+        output.assistantSalary = deepClone(assistantSalaryData);
+        output.mixingCenterManualAdultoRawMaterial = deepClone(mixingCenterManualAdultoRawMaterialData);
+        output.mixingCenterManualNeonatalRawMaterial = deepClone(mixingCenterManualNeonatalRawMaterialData);
+        output.mixingCenterManualPediatricaRawMaterial = deepClone(mixingCenterManualPediatricaRawMaterialData);
+        output.mixingCenterAutomaticAdultoRawMaterial = deepClone(mixingCenterAutomaticAdultoRawMaterialData);
+        output.mixingCenterAutomaticNeonatalRawMaterial = deepClone(mixingCenterAutomaticNeonatalRawMaterialData);
+        output.mixingCenterAutomaticPediatricaRawMaterial = deepClone(mixingCenterAutomaticPediatricaRawMaterialData);
 
         return output;
     }
 
     const applyComputerData = (inData: ComputerBigGroupModel): void => {
         if (inData.mixingCenterSettings) {
-            const tempData = {
-                ...inData.mixingCenterSettings,
-                populationType: PopulationTypeIdEnum.Adulto,
-                centralType: CentralTypeIdEnum.Manual
-            };
+            const tempData = deepClone(inData.mixingCenterSettings);
+            tempData.populationType = PopulationTypeIdEnum.Adulto;
+            tempData.centralType = CentralTypeIdEnum.Manual;
 
             setMixingCenterSettingsData(tempData);
         }
 
         if (inData.automatedEquipment) {
-            setAutomatedEquipmentData({ ...inData.automatedEquipment });
+            setAutomatedEquipmentData(deepClone(inData.automatedEquipment));
         }
 
         if (inData.hygieneAndCleaning) {
-            setHygieneAndCleaningData({ ...inData.hygieneAndCleaning });
+            setHygieneAndCleaningData(deepClone(inData.hygieneAndCleaning));
         }
 
         if (inData.personalProtection) {
-            setPersonalProtectionData({ ...inData.personalProtection });
+            setPersonalProtectionData(deepClone(inData.personalProtection));
         }
 
         if (inData.sterileWorkEquipment) {
-            setSterileWorkEquipmentData({ ...inData.sterileWorkEquipment });
+            setSterileWorkEquipmentData(deepClone(inData.sterileWorkEquipment));
         }
 
         if (inData.maintenanceCosts) {
-            setMaintenanceCostsData({ ...inData.maintenanceCosts });
+            setMaintenanceCostsData(deepClone(inData.maintenanceCosts));
         }
 
         if (inData.productionCosts) {
-            setProductionCostsData({ ...inData.productionCosts });
+            setProductionCostsData(deepClone(inData.productionCosts));
         }
 
         if (inData.chemistSalary) {
-            setChemistSalaryData({ ...inData.chemistSalary });
+            setChemistSalaryData(deepClone(inData.chemistSalary));
         }
 
         if (inData.assistantSalary) {
-            setAssistantSalaryData({ ...inData.assistantSalary });
+            setAssistantSalaryData(deepClone(inData.assistantSalary));
         }
 
         if (inData.mixingCenterManualAdultoRawMaterial) {
-            setMixingCenterManualAdultoRawMaterialData({ ...inData.mixingCenterManualAdultoRawMaterial });
+            setMixingCenterManualAdultoRawMaterialData(deepClone(inData.mixingCenterManualAdultoRawMaterial));
         }
 
         if (inData.mixingCenterManualNeonatalRawMaterial) {
-            setMixingCenterManualNeonatalRawMaterialData({ ...inData.mixingCenterManualNeonatalRawMaterial });
+            setMixingCenterManualNeonatalRawMaterialData(deepClone(inData.mixingCenterManualNeonatalRawMaterial));
         }
 
         if (inData.mixingCenterManualPediatricaRawMaterial) {
-            setMixingCenterManualPediatricaRawMaterialData({ ...inData.mixingCenterManualPediatricaRawMaterial });
+            setMixingCenterManualPediatricaRawMaterialData(deepClone(inData.mixingCenterManualPediatricaRawMaterial));
         }
 
         if (inData.mixingCenterAutomaticAdultoRawMaterial) {
-            setMixingCenterAutomaticAdultoRawMaterialData({ ...inData.mixingCenterAutomaticAdultoRawMaterial });
+            setMixingCenterAutomaticAdultoRawMaterialData(deepClone(inData.mixingCenterAutomaticAdultoRawMaterial));
         }
 
         if (inData.mixingCenterAutomaticNeonatalRawMaterial) {
-            setMixingCenterAutomaticNeonatalRawMaterialData({ ...inData.mixingCenterAutomaticNeonatalRawMaterial });
+            setMixingCenterAutomaticNeonatalRawMaterialData(deepClone(inData.mixingCenterAutomaticNeonatalRawMaterial));
         }
 
         if (inData.mixingCenterAutomaticPediatricaRawMaterial) {
-            setMixingCenterAutomaticPediatricaRawMaterialData({ ...inData.mixingCenterAutomaticPediatricaRawMaterial });
+            setMixingCenterAutomaticPediatricaRawMaterialData(deepClone(inData.mixingCenterAutomaticPediatricaRawMaterial));
         }
 
         if (inData.mixingCenterManualAdultoRawMaterial) {
-            setCurrentRawMaterialData({ ...inData.mixingCenterManualAdultoRawMaterial });
+            setCurrentRawMaterialData(deepClone(inData.mixingCenterManualAdultoRawMaterial));
         }
     }
 
+    // Se encarga de copiar los datos de 'CurrentRawMaterialData' al modelo que le corresponde según el tipo de central y el tipo de poblacion
     const backupCurrentRawMaterialInToRightOne = (): void => {
-        const newData: RawMaterialModel = {
-            ...currentRawMaterialData
-        };
+        const newData: RawMaterialModel = deepClone(currentRawMaterialData);
 
         switch (currentPopulationType) {
             case PopulationTypeIdEnum.Adulto:
@@ -362,6 +361,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         }
     }
 
+    // Obtiene los datos segun el tipo de central y el tipo de poblacion (recordar que estan almancenados independientemente)
     const getCurrentRawMaterial = (): RawMaterialModel | null => {
         let tempData: RawMaterialModel | null = null;
 
@@ -401,6 +401,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         return tempData;
     }
 
+    // Obtiene los datos de 'getCurrentRawMaterial' para asignarselo al punto central que es 'CurrentRawMaterialData'
     const populateCurrentRawMaterial = (): void => {
         try {
             setExecutingSomething(true);
@@ -411,9 +412,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 throw new Error("Error. Los datos recoletados de memoria no pueden estar null.");
             }
 
-            const newData: RawMaterialModel = {
-                ...results
-            };
+            const newData: RawMaterialModel = deepClone(results);
 
             setCurrentRawMaterialData(newData);
         } catch (error) {
@@ -423,10 +422,6 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
             setExecutingSomething(false);
         }
     }
-
-
-    // useEffect(() => {
-    // }, []);
 
     useEffect(() => {
         if (executingSomething === false) {
@@ -447,6 +442,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     return (
         <ComputerContext.Provider
             value={{
+                executingSomething,
                 userDefaultValuesExists,
                 currentFilename,
                 currentCentralType,
@@ -461,6 +457,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 productionCostsData,
                 chemistSalaryData,
                 assistantSalaryData,
+                setExecutingSomething,
                 setUserDefaultValuesExists,
                 setCurrentFilename,
                 setCurrentCentralType,
