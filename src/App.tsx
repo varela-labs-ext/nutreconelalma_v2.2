@@ -13,6 +13,7 @@ import HistoryPage from "./ui/pages/HistoryPage";
 import { MultiActionProvider } from "./ui/context/MultiActionContext";
 import OperatingResourcesPage from "./ui/pages/OperatingResourcesPage";
 import NotFoundPage404 from "./ui/pages/NotFoundPage404";
+import { ComputerProvider } from "./context/ComputerContext";
 
 
 
@@ -22,7 +23,7 @@ function App() {
             <ErrorBoundary>
                 <Router>
                     <AuthProvider>
-                        <MultiActionProvider>
+                        <ComputerProvider>
                             <Routes>
                                 <Route path="/" element={<LoginPage />} />
                                 {/* <Route path="/resumen" element={
@@ -48,10 +49,22 @@ function App() {
                                 />
                                 <Route path="*" element={<NotFoundPage404 />} />
                             </Routes>
-                        </MultiActionProvider>
+                        </ComputerProvider>
                     </AuthProvider>
                 </Router>
-                <ToastContainer position="top-right" />
+                {/* <ToastContainer position="top-right" /> */}
+                <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    closeOnClick
+                    pauseOnHover
+                    // draggable
+                    theme="colored"
+                    toastClassName="bg-purple-500 text-white rounded shadow-md"
+                    className="text-sm font-medium"
+                    progressClassName="bg-purple-300"
+                />
             </ErrorBoundary>
         </div>
     );

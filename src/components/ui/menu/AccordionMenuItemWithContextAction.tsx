@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
-interface SubItem {
+export interface MenuSubItem {
     label: string;
     actionName: string;
     icon?: React.ReactNode;
@@ -14,9 +14,9 @@ interface AccordionMenuItemWithContextActionProps {
     icon: React.ReactNode;
     isActive: boolean;
     to: string;
+    items: MenuSubItem[];
     onCloseSidebar?: () => void;
-    setAccion: (accion: string) => void;
-    items: SubItem[];
+    onItemClick: (actionName: string) => void;
 }
 
 const AccordionMenuItemWithContextAction = (props: AccordionMenuItemWithContextActionProps) => {
@@ -25,8 +25,8 @@ const AccordionMenuItemWithContextAction = (props: AccordionMenuItemWithContextA
 
     const toggleOpen = () => setIsOpen(!isOpen);
 
-    const handleItemClick = (accion: string) => {
-        props.setAccion(accion);
+    const handleItemClick = (actionName: string) => {
+        props.onItemClick(actionName);
         navigate(props.to);
         props.onCloseSidebar?.();
         setIsOpen(false);

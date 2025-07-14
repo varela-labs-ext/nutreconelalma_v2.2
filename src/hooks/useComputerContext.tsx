@@ -1,13 +1,13 @@
 import { ComputerContext, ComputerContextProps } from "@/context/ComputerContext";
 import { useContext } from "react";
 
-export const useComputerContext = (): ComputerContextProps => {
-    const context = useContext(ComputerContext);
-    if (!context) {
-        throw new Error("useComputerContext debe usarse dentro de un ComputerProvider");
-    }
-    return context;
-};
+// export const useComputerContext = (): ComputerContextProps => {
+//     const context = useContext(ComputerContext);
+//     if (!context) {
+//         throw new Error("useComputerContext debe usarse dentro de un ComputerProvider");
+//     }
+//     return context;
+// };
 
 
 /*

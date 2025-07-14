@@ -1,12 +1,8 @@
-import { useState } from "react";
-
-import { Calculator, Settings, ClipboardList, LogOut, Menu, X, History, ChevronDown, ChevronUp, FilePlus, UploadCloud, Save, FolderOpen, FileEdit } from "lucide-react"
-
-
+import { Calculator, Settings, ClipboardList, LogOut, FilePlus, Save, FolderOpen, FileEdit, FileText } from "lucide-react"
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useMultiActionContext } from "../context/MultiActionContext";
-import AccordionMenuItemWithContextAction from "../../components/ui/menu/AccordionMenuItemWithContextAction";
+import ComputerMenu from "@/components/business/computer_menu/ComputerMenu";
 
 interface NavigationMenuProps {
     isSidebarOpen: boolean;
@@ -44,14 +40,15 @@ const NavigationMenu = (props: NavigationMenuProps) => {
 
                 <nav className="flex-1 space-y-1 px-2 py-4">
                     {/* Menú Calculadora con subitems */}
-                    <AccordionMenuItemWithContextAction
+                    <ComputerMenu
                         label="Calculadora"
                         to="/calculadora"
                         icon={<Calculator className="h-5 w-5 mr-2" />}
                         isActive={pathname.startsWith("/calculadora")}
                         onCloseSidebar={() => props.onSidebarOpen(false)}
-                        setAccion={(actionName) => setAction("computer", actionName)}
+                        // setAccion={(actionName) => setAction("computer", actionName)}
                         items={[
+                            { label: "Archivo", actionName: "file", icon: <FileText className="h-4 w-4" /> },
                             { label: "Nueva", actionName: "new", icon: <FilePlus className="h-4 w-4" /> },
                             { label: "Abrir", actionName: "open", icon: <FolderOpen className="h-4 w-4" /> },
                             { label: "Salvar", actionName: "save", icon: <Save className="h-4 w-4" /> },

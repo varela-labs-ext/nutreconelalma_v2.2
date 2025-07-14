@@ -486,3 +486,10 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     );
 };
 
+export const useComputerContext = (): ComputerContextProps => {
+    const context = useContext(ComputerContext);
+    if (!context) {
+        throw new Error("useComputerContext debe usarse dentro de un ComputerProvider");
+    }
+    return context;
+};
