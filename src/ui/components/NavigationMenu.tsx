@@ -1,8 +1,9 @@
 import { Calculator, Settings, ClipboardList, LogOut, FilePlus, Save, FolderOpen, FileEdit, FileText } from "lucide-react"
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
+// import { useAuth } from "@/hooks/useAuth";
 // import { useMultiActionContext } from "../context/MultiActionContext";
 import ComputerMenu from "@/components/business/computer_menu/ComputerMenu";
+import { useAuth } from "@/context/AuthContext";
 
 interface NavigationMenuProps {
     isSidebarOpen: boolean;

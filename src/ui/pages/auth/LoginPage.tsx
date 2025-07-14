@@ -1,45 +1,54 @@
-import { useAuth } from "@/hooks/useAuth";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 // import { useAuth } from "../../context/AuthContext";
 
-const LoginPage = () => {
-    const { login } = useAuth();
-    const navigate = useNavigate();
-    const [usuario, setUsuario] = useState("admin");
-    const [password, setPassword] = useState("admin");
+import LoginForm from "./LoginForm";
+import logoBbraun from "@/assets/imgs/logo.png";
+import medicalLab from "@/assets/imgs/medicalLab.jpg";
 
-    const handleLogin = async (e: React.FormEvent) => {
-        e.preventDefault();
-        const success = await login(usuario, password);
-        if (success) navigate("/calculadora");
-    };
+const LoginPage = () => {
+
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-            <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md w-80">
-                <h2 className="text-xl font-semibold mb-4">Iniciar Sesión</h2>
-                <input
-                    type="text"
-                    placeholder="Usuario"
-                    value={usuario}
-                    onChange={(e) => setUsuario(e.target.value)}
-                    className="input mb-3 w-full p-2 border border-gray-300 rounded"
+        // <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+
+        // </div>
+
+        <div className="min-h-screen flex">
+            {/* Left side - Image */}
+            <div className="hidden lg:block lg:w-1/2 relative">
+                <img
+                    src={medicalLab}
+                    alt="Laboratorio médico"
+                    className="absolute inset-0 w-full h-full object-cover"
                 />
-                <input
-                    type="password"
-                    placeholder="Contraseña"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="input mb-3 w-full p-2 border border-gray-300 rounded"
-                />
-                <button type="submit" className="btn w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
-                    Iniciar sesión
-                </button>
-                <button type="button" className="mt-2 text-sm text-blue-600 underline w-full">
-                    ¿Olvidaste tu contraseña?
-                </button>
-            </form>
+                <div className="absolute inset-0 bg-black bg-opacity-20" />
+            </div>
+
+            {/* Right side - Login Form */}
+            <div className="w-full lg:w-1/2 bg-[#4CAF50] flex items-center justify-center p-8">
+                <div className="w-full max-w-md space-y-8">
+                    <div className="text-right">
+                        <img
+                            src={logoBbraun}
+                            alt="B Braun Logo"
+                            className="inline-block h-16"
+                        />
+                    </div>
+
+                    <div className="text-center">
+                        <h1 className="text-4xl font-bold text-white mb-2">CALCULADORA</h1>
+                        <h2 className="text-4xl font-bold text-white mb-8">NUTRICIÓN HOSPITALARIA</h2>
+                    </div>
+
+                    <LoginForm />
+
+                    <div className="text-center mt-8">
+                        <p className="text-white text-xl font-medium">PROTEGEMOS Y MEJORAMOS LA</p>
+                        <p className="text-white text-xl font-medium">SALUD DE LAS PERSONAS</p>
+                        <p className="text-white text-xl font-medium">EN TODO EL MUNDO</p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

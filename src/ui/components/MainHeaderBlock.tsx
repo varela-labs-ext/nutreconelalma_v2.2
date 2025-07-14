@@ -1,4 +1,5 @@
-import { imagePaths } from "../config/imagePaths";
+import mixer from "@/assets/imgs/mixer.jpg";
+import logoBbraun from "@/assets/imgs/logo.png";
 
 const MainHeaderBlock = () => {
     return (
@@ -6,7 +7,7 @@ const MainHeaderBlock = () => {
             <div className="flex flex-col md:flex-row">
                 <div id="logoLaboratioMedico" className="w-full md:w-1/2 relative">
                     <img
-                        src={imagePaths.headerMedico}
+                        src={mixer}
                         alt="Equipo de nutrición parenteral automatizado"
                         className="w-full h-48 md:h-64 object-cover rounded-xl "
                     />
@@ -14,7 +15,7 @@ const MainHeaderBlock = () => {
                 <div id="logoBraunLogo" className="w-full md:w-1/2 p-6 flex flex-col justify-center">
                     <div className="text-right">
                         <img
-                            src={imagePaths.braunLogo}
+                            src={logoBbraun}
                             alt="B Braun Logo"
                             className="inline-block h-20 transform scale-150"
                         /* Aumentado 1.5 veces */
