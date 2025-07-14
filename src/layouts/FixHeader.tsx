@@ -28,11 +28,11 @@ const FixHeader = (props: FixHeaderProps) => {
                         )}
                     </button>
 
-                    {/* Logo centrado */}
+                    {/* Logo centrado visualmente en desktop */}
                     <img
-                        src={logoBbraun} // o import logo from '@/assets/imgs/logo.png'
+                        src={logoBbraun}
                         alt="B Braun Logo"
-                        className="absolute left-1/2 transform -translate-x-1/2 h-8"
+                        className="hidden sm:block fixed left-1/2 top-7 transform -translate-x-1/2 -translate-y-1/2 h-8 z-40 "
                     />
 
                     {/* Texto a la derecha en desktop */}
