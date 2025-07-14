@@ -1,5 +1,6 @@
-import SaveStatus from "@/ui/common/SaveStatus";
-import { Calculator, Settings, ClipboardList, LogOut, Menu, X, History } from "lucide-react"
+import { useComputerContext } from "@/context/ComputerContext";
+import { Menu, X, FileText } from "lucide-react"
+import logoBbraun from "@assets/imgs/logo.png";
 
 interface FixHeaderProps {
     isSidebarOpen: boolean;
@@ -7,21 +8,56 @@ interface FixHeaderProps {
 }
 
 const FixHeader = (props: FixHeaderProps) => {
+    const { currentFilename } = useComputerContext();
+
     return (
-        /* Header fijo para todos los dispositivos */
         <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
-            <div className="flex items-center justify-between px-4 py-2">
-                <button onClick={() => props.onClick(!props.isSidebarOpen)} className="z-50 p-2 rounded-md hover:bg-gray-100">
-                    {props.isSidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-                </button>
-                <img
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-f5nDdo9a88OwB8ZX5sUkbCt01JSPaf.png"
-                    alt="B Braun Logo"
-                    className="h-8"
-                />
-                {/* <SaveStatus lastSaved={null} isSaving={false} hasChanges={false} className="hidden md:flex" /> */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 py-2">
+
+                {/* Fila superior */}
+                <div className="relative flex items-center justify-between h-10">
+                    {/* Botón Izquierdo */}
+                    <button
+                        onClick={() => props.onClick(!props.isSidebarOpen)}
+                        className="z-50 p-2 rounded-md hover:bg-gray-100"
+                    >
+                        {props.isSidebarOpen ? (
+                            <X className="h-6 w-6" />
+                        ) : (
+                            <Menu className="h-6 w-6" />
+                        )}
+                    </button>
+
+                    {/* Logo centrado */}
+                    <img
+                        src={logoBbraun} // o import logo from '@/assets/imgs/logo.png'
+                        alt="B Braun Logo"
+                        className="absolute left-1/2 transform -translate-x-1/2 h-8"
+                    />
+
+                    {/* Texto a la derecha en desktop */}
+                    {currentFilename && (
+                        <div
+                            className="hidden sm:flex items-center justify-end gap-1 max-w-[40vw] text-sm text-gray-700 font-medium truncate hover:underline hover:text-blue-600 transition-colors duration-200"
+                            title={currentFilename}
+                        >
+                            <span className="truncate">{currentFilename}</span>
+                            <FileText className="h-4 w-4 text-gray-500" />
+                        </div>
+                    )}
+                </div>
+
+                {/* Segunda línea visible solo en móviles */}
+                {currentFilename && (
+                    <div
+                        className="flex sm:hidden items-center justify-center gap-1 text-sm text-gray-700 font-medium mt-2"
+                    >
+                        <FileText className="h-4 w-4 text-gray-500" />
+                        <span className="truncate">{currentFilename}</span>
+                    </div>
+                )}
             </div>
-        </div >
+        </div>
     );
 }
 

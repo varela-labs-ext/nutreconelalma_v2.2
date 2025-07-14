@@ -3,7 +3,6 @@ import SubLayout from "./SubLayout";
 import { LoadingProvider } from "@/ui/context/LoadingContext";
 import LoadingOverlay from "@/ui/common/LoadingOverlay";
 import { useState } from "react";
-import NavigationMenuC from "@/ui/components/NavigationMenuC";
 import FixHeader from "./FixHeader";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
@@ -16,7 +15,6 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
             <div className="min-h-screen bg-gray-50">
 
                 <FixHeader isSidebarOpen={sidebarOpen} onClick={setSidebarOpen} />
-
 
                 {/* <NavigationMenu /> */}
                 <NavigationMenu isSidebarOpen={sidebarOpen} onSidebarOpen={setSidebarOpen} />
