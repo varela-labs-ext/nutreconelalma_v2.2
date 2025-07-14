@@ -1,12 +1,14 @@
 import { useComputerContext } from "@/context/ComputerContext";
+import { useLoadingContext } from "@/context/LoadingContext";
 import MainHeaderBlock from "@/ui/components/MainHeaderBlock";
 import { useEffect } from "react";
 
 const SubLayout = ({ children }: { children: React.ReactNode }) => {
     const { executingSomething } = useComputerContext();
+    const { setLoading } = useLoadingContext();
 
     useEffect(() => {
-
+        setLoading(executingSomething);
     }, [executingSomething]);
 
     return (

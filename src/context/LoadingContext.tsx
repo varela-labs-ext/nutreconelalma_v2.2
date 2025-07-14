@@ -1,16 +1,16 @@
-import React, { createContext, useRef, useState } from 'react';
+import React, { createContext, useContext, useRef, useState } from 'react';
 
-type LoadingContextType = {
+type LoadingContextProps = {
     isLoading: boolean;
     setLoading: (value: boolean) => void;
 };
 
-export const LoadingContext = createContext<LoadingContextType>({
+export const LoadingContext = createContext<LoadingContextProps>({
     isLoading: false,
     setLoading: () => { },
 });
 
-type LoadingProviderProps = {
+export type LoadingProviderProps = {
     children: React.ReactNode;
     minDurationMs?: number; // nuevo parámetro opcional
 };
@@ -42,4 +42,13 @@ export const LoadingProvider = ({ children, minDurationMs = 400 }: LoadingProvid
             {children}
         </LoadingContext.Provider>
     );
+};
+
+
+export const useLoadingContext = (): LoadingContextProps => {
+    const context = useContext(LoadingContext);
+    if (!context) {
+        throw new Error("useLoadingContext debe usarse dentro de un LoadingProvider");
+    }
+    return context;
 };
