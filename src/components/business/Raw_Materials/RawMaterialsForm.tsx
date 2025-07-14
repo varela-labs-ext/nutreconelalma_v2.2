@@ -1,185 +1,185 @@
-// RawMaterialsForm
+// // RawMaterialsForm
 
-import RawMaterialModel from "@/logic/models/RawMaterialModel";
-import { useContext, useEffect, useRef, useState } from "react";
-import RawMaterialsDetails from "./RawMaterialsDetails";
-import LoadingCard from "../../../ui/common/LoadingCard";
-import RawMateriaSummary from "./RawMaterialsSummary";
-import { buildKeyName } from "@/logic/common/functions";
-import DataService from "@/logic/services/DataService";
-import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
-import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
-import { LoadingContext } from "../../../context/LoadingContext";
-import CalculadoraStarter from "@/logic/starters/CalculadoraStarter";
-import CalculationService from "@/logic/services/CalculationService";
-import AdditionalCostsForm from "../../../ui/components/AdditionalCostsForm";
-import AdditionalCostsModel from "@/logic/models/AdditionalCostsModel";
+// import RawMaterialModel from "@/logic/models/RawMaterialModel";
+// import { useContext, useEffect, useRef, useState } from "react";
+// import RawMaterialsDetails from "./RawMaterialsDetails";
+// import LoadingCard from "../../../ui/common/LoadingCard";
+// import RawMateriaSummary from "./RawMaterialsSummary";
+// import { buildKeyName } from "@/logic/common/functions";
+// import DataService from "@/logic/services/DataService";
+// import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
+// import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
+// import { LoadingContext } from "../../../context/LoadingContext";
+// import CalculadoraStarter from "@/logic/starters/CalculadoraStarter";
+// import CalculationService from "@/logic/services/CalculationService";
+// import AdditionalCostsForm from "../../../ui/components/AdditionalCostsForm";
+// import AdditionalCostsModel from "@/logic/models/AdditionalCostsModel";
 
-interface RawMaterialsFormProps {
-    inData: RawMaterialModel;
-    onChange: (inNewData: RawMaterialModel) => void;
+// interface RawMaterialsFormProps {
+//     inData: RawMaterialModel;
+//     onChange: (inNewData: RawMaterialModel) => void;
 
-    // inCentralType: CentralTypeIdEnum;
-    // inPopulationType: PopulationTypeIdEnum;
-    // onSetLoading: (inStatus: boolean) => void;
-}
+//     // inCentralType: CentralTypeIdEnum;
+//     // inPopulationType: PopulationTypeIdEnum;
+//     // onSetLoading: (inStatus: boolean) => void;
+// }
 
-const RawMaterialsForm = (props: RawMaterialsFormProps) => {
-    // const [internalData, setInternalData] = useState<RawMaterialModel | null>(null);
-    // const [dataLoaded, setDataLoaded] = useState(false);
+// const RawMaterialsForm = (props: RawMaterialsFormProps) => {
+//     // const [internalData, setInternalData] = useState<RawMaterialModel | null>(null);
+//     // const [dataLoaded, setDataLoaded] = useState(false);
 
-    const [showDetails, setShowDetails] = useState(false);
-    const [showPresentation, setShowPresentation] = useState(false);
+//     const [showDetails, setShowDetails] = useState(false);
+//     const [showPresentation, setShowPresentation] = useState(false);
 
-    // const debounceRef = useRef<number | null>(null);
-    // // // const loadingContext = useContext(LoadingContext);
+//     // const debounceRef = useRef<number | null>(null);
+//     // // // const loadingContext = useContext(LoadingContext);
 
-    // // Cargar al montar
-    // useEffect(() => {
-    //     loadDataFromDb();
-    // }, []);
+//     // // Cargar al montar
+//     // useEffect(() => {
+//     //     loadDataFromDb();
+//     // }, []);
 
-    // useEffect(() => {
-    //     handlePropsChange();
-    // }, [props.inCentralType, props.inPopulationType]);
+//     // useEffect(() => {
+//     //     handlePropsChange();
+//     // }, [props.inCentralType, props.inPopulationType]);
 
-    // // Autosave cuando cambia
-    // useEffect(() => {
-    //     requestSaveData();
-    // }, [internalData]);
+//     // // Autosave cuando cambia
+//     // useEffect(() => {
+//     //     requestSaveData();
+//     // }, [internalData]);
 
-    // const handlePropsChange = (): void => {
-    //     console.log("handlePropsChange.......");
-    //     if (internalData) {
-    //         console.log("RawMaterialsForm: Cambiando props inCentralType y inPopulationType");
-    //         loadDataFromDb();
-    //     }
-    // }
+//     // const handlePropsChange = (): void => {
+//     //     console.log("handlePropsChange.......");
+//     //     if (internalData) {
+//     //         console.log("RawMaterialsForm: Cambiando props inCentralType y inPopulationType");
+//     //         loadDataFromDb();
+//     //     }
+//     // }
 
-    // const requestSaveData = (): void => {
-    //     if (!dataLoaded || internalData === null) {
-    //         console.log("RawMaterialsForm: No se puede guardar, datos no cargados o internalData es null.");
-    //         return;
-    //     }
+//     // const requestSaveData = (): void => {
+//     //     if (!dataLoaded || internalData === null) {
+//     //         console.log("RawMaterialsForm: No se puede guardar, datos no cargados o internalData es null.");
+//     //         return;
+//     //     }
 
-    //     if (debounceRef.current !== null) {
-    //         clearTimeout(debounceRef.current);
-    //     }
+//     //     if (debounceRef.current !== null) {
+//     //         clearTimeout(debounceRef.current);
+//     //     }
 
-    //     debounceRef.current = setTimeout(() => {
-    //         saveDataInDb(internalData);
-    //     }, 100);
-    // }
+//     //     debounceRef.current = setTimeout(() => {
+//     //         saveDataInDb(internalData);
+//     //     }, 100);
+//     // }
 
-    // const loadDataFromDb = async (): Promise<void> => {
-    //     try {
-    //         console.log("RawMaterialsForm: Cargando materia prima...");
-    //         let gatheredData: RawMaterialModel | null = null;
-    //         props.onSetLoading(true);
+//     // const loadDataFromDb = async (): Promise<void> => {
+//     //     try {
+//     //         console.log("RawMaterialsForm: Cargando materia prima...");
+//     //         let gatheredData: RawMaterialModel | null = null;
+//     //         props.onSetLoading(true);
 
-    //         const mainKey = buildKeyName("current", props.inCentralType, props.inPopulationType);
-    //         console.log("Buscando materia prima con clave:", mainKey);
+//     //         const mainKey = buildKeyName("current", props.inCentralType, props.inPopulationType);
+//     //         console.log("Buscando materia prima con clave:", mainKey);
 
-    //         gatheredData = await DataService.getRawMaterialData(mainKey);
+//     //         gatheredData = await DataService.getRawMaterialData(mainKey);
 
-    //         if (!gatheredData) {
-    //             gatheredData = RawMaterialStarter.getInstance().buildRawMaterialModel(props.inCentralType, props.inPopulationType);
-    //             CalculationService.ComputeRawMaterial(gatheredData);
-    //             console.log("No se encontró materia prima en la base de datos, inicializando con valores por defecto.");
-    //         }
+//     //         if (!gatheredData) {
+//     //             gatheredData = RawMaterialStarter.getInstance().buildRawMaterialModel(props.inCentralType, props.inPopulationType);
+//     //             CalculationService.ComputeRawMaterial(gatheredData);
+//     //             console.log("No se encontró materia prima en la base de datos, inicializando con valores por defecto.");
+//     //         }
 
-    //         setInternalData(gatheredData);
-    //         setDataLoaded(true);
-    //     }
-    //     catch (error) {
-    //         console.error("Error al cargar la materia prima desde la base de datos:", error);
-    //     } finally {
-    //         props.onSetLoading(false);
-    //         console.log("RawMaterialsForm: Materia prima cargada correctamente.");
-    //     }
-    // }
+//     //         setInternalData(gatheredData);
+//     //         setDataLoaded(true);
+//     //     }
+//     //     catch (error) {
+//     //         console.error("Error al cargar la materia prima desde la base de datos:", error);
+//     //     } finally {
+//     //         props.onSetLoading(false);
+//     //         console.log("RawMaterialsForm: Materia prima cargada correctamente.");
+//     //     }
+//     // }
 
-    // const saveDataInDb = async (inData: RawMaterialModel): Promise<void> => {
-    //     try {
-    //         if (internalData) {
-    //             const mainKey = buildKeyName("current", props.inCentralType, props.inPopulationType);
-    //             await DataService.saveRawMaterialData(mainKey, inData);
-    //         } else {
-    //             console.error("Error: internalData is null when trying to save data.");
-    //         }
-    //     } catch (error) {
-    //         console.error("Error al guardar la materia prima en la base de datos:", error);
-    //     } finally {
-    //         // TODO
-    //     }
-    // }
+//     // const saveDataInDb = async (inData: RawMaterialModel): Promise<void> => {
+//     //     try {
+//     //         if (internalData) {
+//     //             const mainKey = buildKeyName("current", props.inCentralType, props.inPopulationType);
+//     //             await DataService.saveRawMaterialData(mainKey, inData);
+//     //         } else {
+//     //             console.error("Error: internalData is null when trying to save data.");
+//     //         }
+//     //     } catch (error) {
+//     //         console.error("Error al guardar la materia prima en la base de datos:", error);
+//     //     } finally {
+//     //         // TODO
+//     //     }
+//     // }
 
-    const handleQuantityChange = (newValue: number): void => {
+//     const handleQuantityChange = (newValue: number): void => {
 
-    }
+//     }
 
-    const handleShowDetailsChange = (newValue: boolean): void => {
-        setShowDetails(newValue);
-    }
+//     const handleShowDetailsChange = (newValue: boolean): void => {
+//         setShowDetails(newValue);
+//     }
 
-    const handleShowPresentationChange = (newValue: boolean): void => {
-        setShowPresentation(newValue);
-    }
+//     const handleShowPresentationChange = (newValue: boolean): void => {
+//         setShowPresentation(newValue);
+//     }
 
-    const handleRawMaterialsDetailsChange = (newData: RawMaterialModel): void => {
-        // if (!internalData) return;
+//     const handleRawMaterialsDetailsChange = (newData: RawMaterialModel): void => {
+//         // if (!internalData) return;
 
-        // try {
-        //     const outputData: RawMaterialModel = {
-        //         ...newData
-        //     };
+//         // try {
+//         //     const outputData: RawMaterialModel = {
+//         //         ...newData
+//         //     };
 
-        //     setInternalData(outputData);
-        // } catch (error) {
-        //     console.error("Error al manejar el cambio de materia prima:", error);
-        // } finally {
-        //     // TODO
-        // }
+//         //     setInternalData(outputData);
+//         // } catch (error) {
+//         //     console.error("Error al manejar el cambio de materia prima:", error);
+//         // } finally {
+//         //     // TODO
+//         // }
 
-        const output: RawMaterialModel = {
-            ...newData
-        };
+//         const output: RawMaterialModel = {
+//             ...newData
+//         };
 
-        props.onChange(output);
-    };
+//         props.onChange(output);
+//     };
 
-    return (
-        <div className="flex flex-col gap-6">
-            <RawMateriaSummary
-                inQuantity={0}
-                inTotalPerNpt={0}
-                inTotalPerMl={0}
-                inShowDetails={showDetails}
-                inShowPresentation={showPresentation}
-                onQuantityChange={handleQuantityChange}
-                onShowDetailsChange={handleShowDetailsChange}
-                onShowPresentation={handleShowPresentationChange}
-            />
-            <RawMaterialsDetails
-                inData={props.inData}
-                inShowDetails={showDetails}
-                inShowPresentation={showPresentation}
-                onChange={handleRawMaterialsDetailsChange}
-            />
-            <AdditionalCostsForm
-                inData={new AdditionalCostsModel()}
-                inShowDetails={true}
-            />
-        </div>
-    );
+//     return (
+//         <div className="flex flex-col gap-6">
+//             <RawMateriaSummary
+//                 inQuantity={0}
+//                 inTotalPerNpt={0}
+//                 inTotalPerMl={0}
+//                 inShowDetails={showDetails}
+//                 inShowPresentation={showPresentation}
+//                 onQuantityChange={handleQuantityChange}
+//                 onShowDetailsChange={handleShowDetailsChange}
+//                 onShowPresentation={handleShowPresentationChange}
+//             />
+//             <RawMaterialsDetails
+//                 inData={props.inData}
+//                 inShowDetails={showDetails}
+//                 inShowPresentation={showPresentation}
+//                 onChange={handleRawMaterialsDetailsChange}
+//             />
+//             <AdditionalCostsForm
+//                 inData={new AdditionalCostsModel()}
+//                 inShowDetails={true}
+//             />
+//         </div>
+//     );
 
-    // return (
-    //     props.inData ? (
+//     // return (
+//     //     props.inData ? (
 
-    //     ) : (
-    //         <LoadingCard mensaje="Cargando materia prima..." />
-    //     )
-    // );
-}
+//     //     ) : (
+//     //         <LoadingCard mensaje="Cargando materia prima..." />
+//     //     )
+//     // );
+// }
 
-export default RawMaterialsForm;
+// export default RawMaterialsForm;

@@ -1,6 +1,6 @@
 import { useComputerContext } from "@/context/ComputerContext";
 import { Menu, X, FileText } from "lucide-react"
-import logoBbraun from "@assets/imgs/logo.png";
+import logoBbraun from "@/assets/imgs/logo.png";
 
 interface FixHeaderProps {
     isSidebarOpen: boolean;

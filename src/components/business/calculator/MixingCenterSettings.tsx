@@ -6,7 +6,7 @@ import { deepClone, deepEqual } from "@/utils/objectUtils";
 
 
 interface MixingCenterSettingsProps {
-    onSetLoading: (value: boolean) => void;
+    // onSetLoading: (value: boolean) => void;
 }
 
 const MixingCenterSettings = (props: MixingCenterSettingsProps) => {
