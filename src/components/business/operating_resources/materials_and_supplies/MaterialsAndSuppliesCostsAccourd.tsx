@@ -12,23 +12,23 @@ import { Syringe, Droplets, Shield, Cpu } from "lucide-react";
 import AutomatedEquipmentGroupModel from "@/logic/models/operating_resources/AutomatedEquipmentGroupModel";
 import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
 import HygieneAndCleaningGroupModel from "@/logic/models/operating_resources/HygieneAndCleaningGroupModel";
-import PersonalProtectionModel from "@/logic/models/operating_resources/PersonalProtectionGroupModel";
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import AutomatedEquipmentSet from "./automated_equipment/AutomatedEquipmentSet";
 import PersonalProtectionSet from "./personal_protection/PersonalProtectionSet";
 import HygieneAndCleaningSet from "./hygiene_and_cleaning/HygieneAndCleaningSet";
 import SterileWorkEquipmentSet from "./sterile_work_equipment/SterileWorkEquipmentSet";
+import PersonalProtectionGroupModel from "@/logic/models/operating_resources/PersonalProtectionGroupModel";
 
 interface MaterialsAndSuppliesCostsAccourdProps {
     inCentralType: CentralTypeIdEnum;
     inAutomatedEquipmentData: AutomatedEquipmentGroupModel;
     inHygieneAndCleaningData: HygieneAndCleaningGroupModel;
-    inPersonalProtectionData: PersonalProtectionModel;
+    inPersonalProtectionData: PersonalProtectionGroupModel;
     inSterileWorkEquipmentData: SterileWorkEquipmentGroupModel;
 
     onAutomatedEquipmentChange: (inNewItem: AutomatedEquipmentGroupModel) => void;
     onHygieneAndCleaningChange: (inNewItem: HygieneAndCleaningGroupModel) => void;
-    onPersonalProtectionChange: (inNewItem: PersonalProtectionModel) => void;
+    onPersonalProtectionChange: (inNewItem: PersonalProtectionGroupModel) => void;
     onSterileWorkEquipmentChange: (inNewItem: SterileWorkEquipmentGroupModel) => void;
 }
 
