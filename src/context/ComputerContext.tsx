@@ -11,6 +11,7 @@ import StaffSalaryGroupModel from "@/logic/models/operating_resources/StaffSalar
 import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
 import RawMaterialModel from "@/logic/models/RawMaterialModel";
 import DefaultValuesProvider from "@/providers/DefaultValuesProvider";
+import StorageProvider from "@/providers/StorageProvider";
 import { createContext, useContext, useEffect, useState } from "react";
 
 // ------------------- Tipos auxiliares -------------------
@@ -74,10 +75,10 @@ export interface ComputerContextProps {
     setChemistSalaryData: (inValue: StaffSalaryGroupModel) => void;
     setAssistantSalaryData: (inValue: StaffSalaryGroupModel) => void;
 
-    setNewFile: () => void;
-    openFile: (inFileName: string) => void;
-    saveFile: () => Promise<void>;
-    saveFileAs: (inFileName: string) => Promise<void>;
+    createNewFileAsync: () => Promise<void>;
+    openFileAsync: (inFileName: string) => Promise<void>;
+    saveFileAsync: () => Promise<void>;
+    saveFileAsAsync: (inFileName: string) => Promise<void>;
 }
 
 // ------------------- Contexto -------------------
@@ -88,7 +89,7 @@ export const ComputerContext = createContext<ComputerContextProps | undefined>(u
 export const ComputerProvider = ({ children }: { children: React.ReactNode }) => {
     // const [CurrentAction, setCurrentAction] = useState<ActionComputer>(null);
 
-    const [loadingDefaultValues, setLoadingDefaultValues] = useState<boolean>(false);
+    const [executingSomething, setExecutingSomething] = useState<boolean>(false);
 
     const [userDefaultValuesExists, setUserDefaultValuesExists] = useState<boolean>(false);
     const [currentFilename, setCurrentFilename] = useState<string | null>(null);
@@ -114,55 +115,85 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     const [mixingCenterAutomaticPediatricaRawMaterialData, setMixingCenterAutomaticPediatricaRawMaterialData] = useState<RawMaterialModel>(new RawMaterialModel());
 
 
-    const setNewFile = (): void => {
+    const createNewFileAsync = async (): Promise<void> => {
         try {
-            setLoadingDefaultValues(true);
+            setExecutingSomething(true);
 
             setCurrentCentralType(CentralTypeIdEnum.Manual);
             setCurrentPopulationType(PopulationTypeIdEnum.Adulto);
 
             if (userDefaultValuesExists) {
-                createNewFileWithUserCustomDefaultValues();
+                const result = await createNewFileWithUserCustomDefaultValuesAsync();
+
+                if (result) {
+                    createNewFileWithStandarDefaultValues();
+                }
             } else {
                 createNewFileWithStandarDefaultValues();
             }
 
-            setCurrentFilename(null); // OJO!
+            setCurrentFilename(null);
         } catch (error) {
-
+            console.error(error);
+            throw error;
         } finally {
-            setLoadingDefaultValues(false);
+            setExecutingSomething(false);
         }
     }
 
-    const openFile = (inFileName: string): void => {
-        // TODO: implementar carga real desde almacenamiento
-        console.log(`Abrir archivo ${inFileName} (simulado por ahora)`);
+    const openFileAsync = async (inFileName: string): Promise<void> => {
+        try {
+            setExecutingSomething(true);
 
-        setCurrentFilename(inFileName);
+            if (inFileName) {
+                const results = await StorageProvider.loadFileDataAsync(inFileName);
+
+                if (results) {
+                    applyComputerData(results);
+                    setCurrentFilename(inFileName);
+                }
+            }
+        } catch (error) {
+            console.error(error);
+            throw error;
+        } finally {
+            setExecutingSomething(false);
+        }
     }
 
-    const saveFile = async (): Promise<void> => {
+    const saveFileAsync = async (): Promise<void> => {
         if (!currentFilename) {
-            console.warn("No hay archivo activo. Usa guardarComo(nombre) en su lugar.");
+            console.log("No hay archivo activo. Usa guardarComo(nombre) en su lugar.");
             return;
         }
 
-        // await storage.guardarDatos({
-        //     tipoA, tipoB, tipoC, tipoD, tipoE, tipoF, tipoG, tipoH,
-        // });
+        try {
+            setExecutingSomething(true);
 
-        // setCurrentAction("salvar");
+            const output = gatherComputerData();
+            await StorageProvider.saveFileDataAsync(currentFilename, output);
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        } finally {
+            setExecutingSomething(false);
+        }
     }
 
-    const saveFileAs = async (inFileName: string): Promise<void> => {
-        // await storage.guardarDatos({
-        //     tipoA, tipoB, tipoC, tipoD, tipoE, tipoF, tipoG, tipoH,
-        // });
+    const saveFileAsAsync = async (inFileName: string): Promise<void> => {
+        try {
+            setExecutingSomething(true);
 
-        // setCurrentAction("salvar");
-
-        setCurrentFilename(inFileName);
+            const output = gatherComputerData();
+            await StorageProvider.saveFileDataAsync(inFileName, output);
+        } catch (error) {
+            console.error(error);
+            throw error;
+        } finally {
+            setCurrentFilename(inFileName);
+            setExecutingSomething(false);
+        }
     }
 
     const createNewFileWithStandarDefaultValues = (): void => {
@@ -187,22 +218,114 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         setCurrentRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Adulto));
     }
 
-    const createNewFileWithUserCustomDefaultValues = (): void => {
+    const createNewFileWithUserCustomDefaultValuesAsync = async (): Promise<boolean> => {
+        const results = await StorageProvider.getUserDefaultValuesAsync();
 
+        if (results) {
+            applyComputerData(results);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    // useEffect(() => {
-    // }, []);
+    const gatherComputerData = (): ComputerBigGroupModel => {
+        const output: ComputerBigGroupModel = new ComputerBigGroupModel();
 
-    useEffect(() => {
-        if (loadingDefaultValues === false) {
-            handleOnCurrentRawMaterialChange(currentRawMaterialData);
+        output.mixingCenterSettings = { ...mixingCenterSettingsData };
+        output.automatedEquipment = { ...automatedEquipmentData };
+        output.hygieneAndCleaning = { ...hygieneAndCleaningData };
+        output.personalProtection = { ...personalProtectionData };
+        output.sterileWorkEquipment = { ...sterileWorkEquipmentData };
+        output.maintenanceCosts = { ...maintenanceCostsData };
+        output.productionCosts = { ...productionCostsData };
+        output.chemistSalary = { ...chemistSalaryData };
+        output.assistantSalary = { ...assistantSalaryData };
+        output.mixingCenterManualAdultoRawMaterial = { ...mixingCenterManualAdultoRawMaterialData };
+        output.mixingCenterManualNeonatalRawMaterial = { ...mixingCenterManualNeonatalRawMaterialData };
+        output.mixingCenterManualPediatricaRawMaterial = { ...mixingCenterManualPediatricaRawMaterialData };
+        output.mixingCenterAutomaticAdultoRawMaterial = { ...mixingCenterAutomaticAdultoRawMaterialData };
+        output.mixingCenterAutomaticNeonatalRawMaterial = { ...mixingCenterAutomaticNeonatalRawMaterialData };
+        output.mixingCenterAutomaticPediatricaRawMaterial = { ...mixingCenterAutomaticPediatricaRawMaterialData };
+
+        return output;
+    }
+
+    const applyComputerData = (inData: ComputerBigGroupModel): void => {
+        if (inData.mixingCenterSettings) {
+            const tempData = {
+                ...inData.mixingCenterSettings,
+                populationType: PopulationTypeIdEnum.Adulto,
+                centralType: CentralTypeIdEnum.Manual
+            };
+
+            setMixingCenterSettingsData(tempData);
         }
-    }, [currentRawMaterialData]);
 
-    const handleOnCurrentRawMaterialChange = (inData: RawMaterialModel): void => {
+        if (inData.automatedEquipment) {
+            setAutomatedEquipmentData({ ...inData.automatedEquipment });
+        }
+
+        if (inData.hygieneAndCleaning) {
+            setHygieneAndCleaningData({ ...inData.hygieneAndCleaning });
+        }
+
+        if (inData.personalProtection) {
+            setPersonalProtectionData({ ...inData.personalProtection });
+        }
+
+        if (inData.sterileWorkEquipment) {
+            setSterileWorkEquipmentData({ ...inData.sterileWorkEquipment });
+        }
+
+        if (inData.maintenanceCosts) {
+            setMaintenanceCostsData({ ...inData.maintenanceCosts });
+        }
+
+        if (inData.productionCosts) {
+            setProductionCostsData({ ...inData.productionCosts });
+        }
+
+        if (inData.chemistSalary) {
+            setChemistSalaryData({ ...inData.chemistSalary });
+        }
+
+        if (inData.assistantSalary) {
+            setAssistantSalaryData({ ...inData.assistantSalary });
+        }
+
+        if (inData.mixingCenterManualAdultoRawMaterial) {
+            setMixingCenterManualAdultoRawMaterialData({ ...inData.mixingCenterManualAdultoRawMaterial });
+        }
+
+        if (inData.mixingCenterManualNeonatalRawMaterial) {
+            setMixingCenterManualNeonatalRawMaterialData({ ...inData.mixingCenterManualNeonatalRawMaterial });
+        }
+
+        if (inData.mixingCenterManualPediatricaRawMaterial) {
+            setMixingCenterManualPediatricaRawMaterialData({ ...inData.mixingCenterManualPediatricaRawMaterial });
+        }
+
+        if (inData.mixingCenterAutomaticAdultoRawMaterial) {
+            setMixingCenterAutomaticAdultoRawMaterialData({ ...inData.mixingCenterAutomaticAdultoRawMaterial });
+        }
+
+        if (inData.mixingCenterAutomaticNeonatalRawMaterial) {
+            setMixingCenterAutomaticNeonatalRawMaterialData({ ...inData.mixingCenterAutomaticNeonatalRawMaterial });
+        }
+
+        if (inData.mixingCenterAutomaticPediatricaRawMaterial) {
+            setMixingCenterAutomaticPediatricaRawMaterialData({ ...inData.mixingCenterAutomaticPediatricaRawMaterial });
+        }
+
+        if (inData.mixingCenterManualAdultoRawMaterial) {
+            setCurrentRawMaterialData({ ...inData.mixingCenterManualAdultoRawMaterial });
+        }
+    }
+
+    const backupCurrentRawMaterialInToRightOne = (): void => {
         const newData: RawMaterialModel = {
-            ...inData
+            ...currentRawMaterialData
         };
 
         switch (currentPopulationType) {
@@ -239,27 +362,87 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         }
     }
 
-    const gatherComputerData = (): ComputerBigGroupModel => {
-        const output: ComputerBigGroupModel = new ComputerBigGroupModel();
+    const getCurrentRawMaterial = (): RawMaterialModel | null => {
+        let tempData: RawMaterialModel | null = null;
 
-        output.mixingCenterSettings = { ...mixingCenterSettingsData };
-        output.automatedEquipment = { ...automatedEquipmentData };
-        output.hygieneAndCleaning = { ...hygieneAndCleaningData };
-        output.personalProtection = { ...personalProtectionData };
-        output.sterileWorkEquipment = { ...sterileWorkEquipmentData };
-        output.maintenanceCosts = { ...maintenanceCostsData };
-        output.productionCosts = { ...productionCostsData };
-        output.chemistSalary = { ...chemistSalaryData };
-        output.assistantSalary = { ...assistantSalaryData };
-        output.mixingCenterManualAdultoRawMaterial = { ...mixingCenterManualAdultoRawMaterialData };
-        output.mixingCenterManualNeonatalRawMaterial = { ...mixingCenterManualNeonatalRawMaterialData };
-        output.mixingCenterManualPediatricaRawMaterial = { ...mixingCenterManualPediatricaRawMaterialData };
-        output.mixingCenterAutomaticAdultoRawMaterial = { ...mixingCenterAutomaticAdultoRawMaterialData };
-        output.mixingCenterAutomaticNeonatalRawMaterial = { ...mixingCenterAutomaticNeonatalRawMaterialData };
-        output.mixingCenterAutomaticPediatricaRawMaterial = { ...mixingCenterAutomaticPediatricaRawMaterialData };
+        switch (currentPopulationType) {
+            case PopulationTypeIdEnum.Adulto:
+                switch (currentCentralType) {
+                    case CentralTypeIdEnum.Manual:
+                        tempData = mixingCenterManualAdultoRawMaterialData;
+                        break;
+                    case CentralTypeIdEnum.Automatico:
+                        tempData = mixingCenterAutomaticAdultoRawMaterialData;
+                        break;
+                }
+                break;
+            case PopulationTypeIdEnum.Neonatal:
+                switch (currentCentralType) {
+                    case CentralTypeIdEnum.Manual:
+                        tempData = mixingCenterManualNeonatalRawMaterialData;
+                        break;
+                    case CentralTypeIdEnum.Automatico:
+                        tempData = mixingCenterAutomaticNeonatalRawMaterialData;
+                        break;
+                }
+                break;
+            case PopulationTypeIdEnum.Pediatrica:
+                switch (currentCentralType) {
+                    case CentralTypeIdEnum.Manual:
+                        tempData = mixingCenterManualPediatricaRawMaterialData;
+                        break;
+                    case CentralTypeIdEnum.Automatico:
+                        tempData = mixingCenterAutomaticPediatricaRawMaterialData;
+                        break;
+                }
+                break;
+        }
 
-        return output;
+        return tempData;
     }
+
+    const populateCurrentRawMaterial = (): void => {
+        try {
+            setExecutingSomething(true);
+
+            const results: RawMaterialModel | null = getCurrentRawMaterial();
+
+            if (results === null) {
+                throw new Error("Error. Los datos recoletados de memoria no pueden estar null.");
+            }
+
+            const newData: RawMaterialModel = {
+                ...results
+            };
+
+            setCurrentRawMaterialData(newData);
+        } catch (error) {
+            console.error(error);
+            throw error;
+        } finally {
+            setExecutingSomething(false);
+        }
+    }
+
+
+    // useEffect(() => {
+    // }, []);
+
+    useEffect(() => {
+        if (executingSomething === false) {
+            backupCurrentRawMaterialInToRightOne();
+        } else {
+            console.log("HUBO UN CAMBIO EN 'CURRENT RAW MATERIAL' PERO OTRO PROCESO ESTABA EN EJECUCION.");
+        }
+    }, [currentRawMaterialData]);
+
+    useEffect(() => {
+        if (executingSomething === false) {
+            populateCurrentRawMaterial();
+        } else {
+            console.log("HUBO UN CAMBIO EN 'CENTRALTYPE O POPULATION TYPE' PERO OTRO PROCESO ESTABA EN EJECUCION.");
+        }
+    }, [currentCentralType, currentPopulationType]);
 
     return (
         <ComputerContext.Provider
@@ -292,10 +475,10 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 setProductionCostsData,
                 setChemistSalaryData,
                 setAssistantSalaryData,
-                setNewFile,
-                openFile,
-                saveFile,
-                saveFileAs,
+                createNewFileAsync,
+                openFileAsync,
+                saveFileAsync,
+                saveFileAsAsync,
             }}
         >
             {children}
