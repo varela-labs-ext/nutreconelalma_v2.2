@@ -55,7 +55,6 @@ export const ComputerActionsProvider = ({ children }: { children: React.ReactNod
         });
     }
 
-
     const callCreateNewFile = () => {
         createNewFileAsync().then(() => {
             toastService.showOk("Nueva calculadora creada...");
