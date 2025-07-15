@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import KeyLineField from "../common/KeyLineField";
 import DataDisplayModal from "../common/DataDisplayModal";
 import DeleteAllKeysModal from "../../components/ui/dialogs/DeleteAllKeysModal";
-import DeleteKeyModal from "../common/DeleteKeyModal";
+import DeleteKeyModal from "../../components/ui/dialogs/DeleteKeyModal";
 
 
 const HistoryForm = () => {
