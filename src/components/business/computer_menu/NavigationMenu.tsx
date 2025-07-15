@@ -49,7 +49,7 @@ const NavigationMenu = (props: NavigationMenuProps) => {
                         onCloseSidebar={() => props.onSidebarOpen(false)}
                         // setAccion={(actionName) => setAction("computer", actionName)}
                         items={[
-                            { label: "Archivo", actionName: "file", icon: <FileText className="h-4 w-4" /> },
+                            { label: "Editar", actionName: "file", icon: <FileText className="h-4 w-4" /> },
                             { label: "Nueva", actionName: "new", icon: <FilePlus className="h-4 w-4" /> },
                             { label: "Abrir", actionName: "open", icon: <FolderOpen className="h-4 w-4" /> },
                             { label: "Salvar", actionName: "save", icon: <Save className="h-4 w-4" /> },

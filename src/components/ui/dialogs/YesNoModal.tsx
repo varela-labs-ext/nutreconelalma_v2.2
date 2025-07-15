@@ -1,6 +1,7 @@
 interface YesNoModalProps {
     mainTitle: string;
-    onResult: (inResult: boolean) => void;
+    onConfirm: () => void;
+    onCancel: () => void;
 }
 
 const YesNoModal = (props: YesNoModalProps) => {
@@ -13,13 +14,13 @@ const YesNoModal = (props: YesNoModalProps) => {
                 <div className="flex justify-center gap-4">
                     <button
                         className="bg-purple-400 text-white px-4 py-2 rounded hover:bg-purple-700"
-                        onClick={() => props.onResult(true)}
+                        onClick={() => props.onConfirm()}
                     >
                         Sí
                     </button>
                     <button
                         className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
-                        onClick={() => props.onResult(false)}
+                        onClick={() => props.onCancel()}
                     >
                         Cancelar
                     </button>
