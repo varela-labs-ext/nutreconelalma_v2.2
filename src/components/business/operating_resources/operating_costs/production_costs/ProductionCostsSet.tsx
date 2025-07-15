@@ -25,7 +25,6 @@ const ProductionCostsSet = (props: ProductionCostsSetProps) => {
 
     return (
         <div className="flex flex-col gap-2">
-            <ProductionCostsHeaders />
             <ProductionCostsInputs
                 inData={props.inData}
                 inProductionLines={props.inProductionLines}

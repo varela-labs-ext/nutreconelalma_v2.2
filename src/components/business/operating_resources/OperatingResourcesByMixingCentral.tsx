@@ -29,12 +29,12 @@ const OperatingResourcesByMixingCentral = (props: OperatingResourcesByMixingCent
             <PanelViewsSelector defaultIndex={0}>
                 <PanelView label="Costos Operativos" icon={<Settings />} status="ok">
                     <OperatingCostsForm
-                        inCentralType={props.inCentralType}
+                    // inCentralType={props.inCentralType}
                     />
                 </PanelView>
                 <PanelView label="Staff / Personal" icon={<Users />} status="warning">
                     <StaffPersonnelCostsForm
-                        inCentralType={props.inCentralType}
+                    // inCentralType={props.inCentralType}
                     />
                 </PanelView>
                 <PanelView label="Materiales e Insumos" icon={<PackageOpen />} status="warning">

@@ -12,7 +12,7 @@ import { deepClone, deepEqual } from "@/utils/objectUtils";
 import { getProductionPerMonth, handleOnInternalModelChange, safeSetState } from "@/context/ComputerContextExt";
 
 interface OperatingCostsFormProps {
-    inCentralType: CentralTypeIdEnum;
+    // inCentralType: CentralTypeIdEnum;
     // inProductionLines: number;
     // inProductionPerMonth: number;
 }
@@ -66,16 +66,16 @@ const OperatingCostsForm = (props: OperatingCostsFormProps) => {
         };
     }, [internalProductionCosts]);
 
-    useEffect(() => {
-        if (loaded) {
-            if (internalMaintenanceCosts) {
-                handleOnMaintenanceCostsChange(deepClone(internalMaintenanceCosts));
-            }
-            if (internalProductionCosts) {
-                setInternalProductionCosts(deepClone(internalProductionCosts));
-            }
-        }
-    }, [currentMixingCenterSettings]);
+    // useEffect(() => {
+    //     if (loaded) {
+    //         if (internalMaintenanceCosts) {
+    //             handleOnMaintenanceCostsChange(deepClone(internalMaintenanceCosts));
+    //         }
+    //         if (internalProductionCosts) {
+    //             handleOnProductionCostsChange(deepClone(internalProductionCosts));
+    //         }
+    //     }
+    // }, [currentMixingCenterSettings]);
 
     const handleOnMaintenanceCostsChange = (inNewItem: MaintenanceCostsGroupModel) => {
         CalculationService.computeMaintenanceCosts(inNewItem, currentMixingCenterSettings.productionLines, getProductionPerMonth(currentMixingCenterSettings));
@@ -93,7 +93,7 @@ const OperatingCostsForm = (props: OperatingCostsFormProps) => {
 
     return (
         <OperatingCostsAccourd
-            inCentralType={props.inCentralType}
+            inCentralType={currentMixingCenterSettings.centralType}
             inMaintenanceCostsData={internalMaintenanceCosts ?? new MaintenanceCostsGroupModel()}
             inProductionCostsData={internalProductionCosts ?? new ProductionCostsGroupModel()}
             inProductionLines={currentMixingCenterSettings.productionLines}
