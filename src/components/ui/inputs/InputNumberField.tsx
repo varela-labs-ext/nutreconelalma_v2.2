@@ -15,14 +15,14 @@ interface InputNumberFieldProps {
 }
 
 const InputNumberField = (props: InputNumberFieldProps) => {
-    const [localValue, setLocalValue] = useState<number>(props.value);
+    const [localValue, setLocalValue] = useState<string>(props.value.toString());
     const [error, setError] = useState<string | null>(null);
     const labelPosition = props.labelPosition || "top";
     const labelAlways = props.labelAlways || false;
 
     // Si cambia el valor desde el padre, actualizamos el local
     useEffect(() => {
-        setLocalValue(props.value);
+        setLocalValue(props.value.toString());
     }, [props.value]);
 
     const cleanUp = (value: number): number => {
@@ -43,7 +43,7 @@ const InputNumberField = (props: InputNumberFieldProps) => {
             _isValid = false;
         }
 
-        return _isValid;
+        return true;
     }
 
     // const handleInternalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,26 +59,51 @@ const InputNumberField = (props: InputNumberFieldProps) => {
     //     props.onChange(props.name, value);
     // };
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        // SE PUEDE MEJORAR
-        const newValue: number = event.target.valueAsNumber;
-
-        // console.log(newValue);
-
-        if (isValid(newValue)) {
-            setError(null);
-        } else {
-            return;
-        }
-        // console.log("handleChange:" + newValue);
-        setLocalValue(isNaN(newValue) ? 0 : newValue);
+    const isValidString = (inValue: string | null | undefined): boolean => {
+        return inValue !== undefined && inValue !== null && inValue.trim() !== '';
     };
 
-    const commitChange = () => {
-        let value: number = localValue;
+    const isRealNumber = (inValue: string | undefined | null): boolean => {
+        if (inValue !== undefined && inValue !== null && inValue.trim() !== '') {
+            if (!isNaN(Number(inValue.replace(",", ".")))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        let newValue: string = event.target.value;
+        console.log(`handleChange: ${event.target.value}`);
+
+        if (isRealNumber(newValue)) {
+            setError(null);
+            newValue = newValue.replace(",", ".");
+        } else {
+            setError("error");
+            newValue = "";
+        }
+
+        setLocalValue(newValue);
+    };
+
+    const callOnChange = () => {
+        let value: number = Number(localValue);
         if (value !== props.value) {
             console.log(`Input: ${props.name} changed to ${value}`);
             props.onChange(props.name, value);
+        }
+    }
+
+    const commitChange = () => {
+        if (isRealNumber(localValue)) {
+            callOnChange();
+        } else {
+            setLocalValue("0");
+            setError(null);
+            callOnChange();
         }
     };
 
@@ -125,6 +150,11 @@ const InputNumberField = (props: InputNumberFieldProps) => {
 
     const inputWrapperClass = "relative w-full";
 
+    const getValue = (): string => {
+        //cleanUp(localValue)
+        return localValue;
+    }
+
     return (
         <div className={getContainerClass()}>
             <label htmlFor={props.name} className={getLabelClass()} >
@@ -141,7 +171,7 @@ const InputNumberField = (props: InputNumberFieldProps) => {
                     name={props.name}
                     // value={props.value}
                     // onChange={handleInternalChange}
-                    value={cleanUp(localValue)}
+                    value={getValue()}
                     onChange={handleChange}
                     onBlur={commitChange}
                     onKeyDown={handleKeyDown}
@@ -150,9 +180,9 @@ const InputNumberField = (props: InputNumberFieldProps) => {
                     readOnly={props.readOnly}
                     className={getInputClass()}
                 />
-                {error && (
+                {/* {error && (
                     <p className="mt-1 text-sm text-red-600 text-right w-full block">{error}</p>
-                )}
+                )} */}
             </div>
         </div >
     );

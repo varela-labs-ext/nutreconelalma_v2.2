@@ -9,18 +9,18 @@ import CalculationService from "@/logic/services/CalculationService";
 import OperatingCostsAccourd from "./OperatingCostsAccourd";
 import { useComputerContext } from "@/context/ComputerContext";
 import { deepClone, deepEqual } from "@/utils/objectUtils";
-import { handleOnInternalModelChange, safeSetState } from "@/context/ComputerContextExt";
+import { getProductionPerMonth, handleOnInternalModelChange, safeSetState } from "@/context/ComputerContextExt";
 
 interface OperatingCostsFormProps {
     inCentralType: CentralTypeIdEnum;
-    inProductionLines: number;
-    inProductionPerMonth: number;
+    // inProductionLines: number;
+    // inProductionPerMonth: number;
 }
 
 //ESTE DEBE GESTIONAR POR CUENTA PROPIA LA CARGA DE LOS DATOS DESDE LA DB
 
 const OperatingCostsForm = (props: OperatingCostsFormProps) => {
-    const { currentMaintenanceCosts, currentProductionCosts, setCurrentMaintenanceCosts, setCurrentProductionCosts } = useComputerContext();
+    const { currentMixingCenterSettings, currentMaintenanceCosts, currentProductionCosts, setCurrentMaintenanceCosts, setCurrentProductionCosts } = useComputerContext();
 
     const [loaded, setLoaded] = useState<boolean>(false);
     const [internalMaintenanceCosts, setInternalMaintenanceCosts] = useState<MaintenanceCostsGroupModel | null>(null);
@@ -75,15 +75,19 @@ const OperatingCostsForm = (props: OperatingCostsFormProps) => {
                 setInternalProductionCosts(deepClone(internalProductionCosts));
             }
         }
-    }, [props.inProductionLines, props.inProductionPerMonth]);
+    }, [currentMixingCenterSettings]);
 
     const handleOnMaintenanceCostsChange = (inNewItem: MaintenanceCostsGroupModel) => {
-        CalculationService.computeMaintenanceCosts(inNewItem, props.inProductionLines, props.inProductionPerMonth);
+        CalculationService.computeMaintenanceCosts(inNewItem, currentMixingCenterSettings.productionLines, getProductionPerMonth(currentMixingCenterSettings));
+        console.log("handleOnMaintenanceCostsChange....... CALCULADO....");
+        console.log(inNewItem);
         setInternalMaintenanceCosts(inNewItem);
     }
 
     const handleOnProductionCostsChange = (inNewItem: ProductionCostsGroupModel) => {
-        CalculationService.computeProductionCosts(inNewItem, props.inProductionLines, props.inProductionPerMonth);
+        CalculationService.computeProductionCosts(inNewItem, currentMixingCenterSettings.productionLines, getProductionPerMonth(currentMixingCenterSettings));
+        console.log("handleOnProductionCostsChange....... CALCULADO....");
+        console.log(inNewItem);
         setInternalProductionCosts(inNewItem);
     }
 
@@ -92,8 +96,8 @@ const OperatingCostsForm = (props: OperatingCostsFormProps) => {
             inCentralType={props.inCentralType}
             inMaintenanceCostsData={internalMaintenanceCosts ?? new MaintenanceCostsGroupModel()}
             inProductionCostsData={internalProductionCosts ?? new ProductionCostsGroupModel()}
-            inProductionLines={props.inProductionLines}
-            inProductionPerMonth={props.inProductionPerMonth}
+            inProductionLines={currentMixingCenterSettings.productionLines}
+            inProductionPerMonth={getProductionPerMonth(currentMixingCenterSettings)}
             onMaintenanceCostsChange={handleOnMaintenanceCostsChange}
             onProductionCostsChange={handleOnProductionCostsChange}
         />

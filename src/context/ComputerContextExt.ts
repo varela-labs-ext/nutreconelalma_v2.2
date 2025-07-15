@@ -1,5 +1,6 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
+import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSettingsModel";
 import { deepClone, deepEqual } from "@/utils/objectUtils";
 
 export const callByCentralType = <TModel>(
@@ -100,3 +101,7 @@ export const safeSetState = <T>(
         return prev;
     });
 };
+
+export const getProductionPerMonth = (inItem: MixingCenterSettingsModel): number => {
+    return (inItem.productionPerDay * 30);
+}

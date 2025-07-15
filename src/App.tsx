@@ -17,44 +17,44 @@ import AppInitializer from "./app/AppInitializer";
 function App() {
     return (
         <div>
-            <ErrorBoundary>
-                <Router>
-                    <AppInitializer>
-                        <Routes>
-                            <Route path="/" element={<LoginPage />} />
-                            {/* <Route path="/resumen" element={
+            {/* <ErrorBoundary> */}
+            <Router>
+                <AppInitializer>
+                    <Routes>
+                        <Route path="/" element={<LoginPage />} />
+                        {/* <Route path="/resumen" element={
                                     <ProtectedRoute>
                                         <AppLayout><ResumenImprimible /></AppLayout>
                                     </ProtectedRoute>
                                 } /> */}
-                            <Route path="/calculadora" element={
-                                <AppLayout><CalculadoraPage /></AppLayout>
-                            } />
-                            <Route path="/historico" element={
-                                <AppLayout><HistoryPage /></AppLayout>
-                            } />
-                            <Route path="/operativos" element={
-                                <AppLayout><OperatingResourcesPage /></AppLayout>
-                            }
-                            />
-                            <Route path="*" element={<NotFoundPage404 />} />
-                        </Routes>
-                    </AppInitializer>
-                </Router>
-                {/* <ToastContainer position="top-right" /> */}
-                <ToastContainer
-                    position="top-right"
-                    autoClose={3000}
-                    hideProgressBar={false}
-                    closeOnClick
-                    pauseOnHover
-                    // draggable
-                    theme="colored"
-                    toastClassName="bg-purple-500 text-white rounded shadow-md"
-                    className="text-sm font-medium"
-                    progressClassName="bg-purple-300"
-                />
-            </ErrorBoundary>
+                        <Route path="/calculadora" element={
+                            <AppLayout><CalculadoraPage /></AppLayout>
+                        } />
+                        <Route path="/historico" element={
+                            <AppLayout><HistoryPage /></AppLayout>
+                        } />
+                        <Route path="/operativos" element={
+                            <AppLayout><OperatingResourcesPage /></AppLayout>
+                        }
+                        />
+                        <Route path="*" element={<NotFoundPage404 />} />
+                    </Routes>
+                </AppInitializer>
+            </Router>
+            {/* <ToastContainer position="top-right" /> */}
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                closeOnClick
+                pauseOnHover
+                // draggable
+                theme="colored"
+                toastClassName="bg-purple-500 text-white rounded shadow-md"
+                className="text-sm font-medium"
+                progressClassName="bg-purple-300"
+            />
+            {/* </ErrorBoundary> */}
         </div>
     );
 }

@@ -37,8 +37,17 @@ const MixingCenterSettings = (props: MixingCenterSettingsProps) => {
         });
     }, [currentMixingCenterSettings]);
 
+
+
+    const refInternalDataFirstRender = useRef(true);
+
     // Cambio en interno → actualizar contexto (con debounce)
     useEffect(() => {
+        if (refInternalDataFirstRender.current) {
+            refInternalDataFirstRender.current = false;
+            return;
+        }
+
         if (internalData) {
             handleOnInternalModelChange(
                 debounceRef,

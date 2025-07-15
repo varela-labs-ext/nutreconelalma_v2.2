@@ -13,7 +13,7 @@ import RawMaterialModel from "@/logic/models/RawMaterialModel";
 import DefaultValuesProvider from "@/providers/DefaultValuesProvider";
 import StorageProvider from "@/providers/StorageProvider";
 import { deepClone } from "@/utils/objectUtils";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { callByCentralType, callByCentralTypeWithReturn } from "./ComputerContextExt";
 
 // ------------------- Tipos auxiliares -------------------
@@ -50,8 +50,8 @@ export interface ComputerContextProps {
     userDefaultValuesExists: boolean;
 
     currentFilename: string | null;
-    currentCentralType: CentralTypeIdEnum;
-    currentPopulationType: PopulationTypeIdEnum;
+    // currentCentralType: CentralTypeIdEnum;
+    // currentPopulationType: PopulationTypeIdEnum;
     currentMixingCenterSettings: MixingCenterSettingsModel;
 
     currentRawMaterialData: RawMaterialModel; //<- hay que renombrarlo a huevo!
@@ -68,8 +68,8 @@ export interface ComputerContextProps {
     setUserDefaultValuesExists: (inValue: boolean) => void;
 
     setCurrentFilename: (inFileName: string | null) => void;
-    setCurrentCentralType: (inValue: CentralTypeIdEnum) => void;
-    setCurrentPopulationType: (inValue: PopulationTypeIdEnum) => void;
+    // setCurrentCentralType: (inValue: CentralTypeIdEnum) => void;
+    // setCurrentPopulationType: (inValue: PopulationTypeIdEnum) => void;
 
     setCurrentMixingCenterSettings: (inValue: MixingCenterSettingsModel) => void;
     setCurrentRawMaterialData: (inValue: RawMaterialModel) => void; //<- hay que renombrarlo a huevo, el nombre del modelo!
@@ -101,8 +101,8 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
 
     const [userDefaultValuesExists, setUserDefaultValuesExists] = useState<boolean>(false);
     const [currentFilename, setCurrentFilename] = useState<string | null>(null);
-    const [currentCentralType, setCurrentCentralType] = useState<CentralTypeIdEnum>(CentralTypeIdEnum.Manual);
-    const [currentPopulationType, setCurrentPopulationType] = useState<PopulationTypeIdEnum>(PopulationTypeIdEnum.Adulto);
+    // const [currentCentralType, setCurrentCentralType] = useState<CentralTypeIdEnum>(CentralTypeIdEnum.Manual);
+    // const [currentPopulationType, setCurrentPopulationType] = useState<PopulationTypeIdEnum>(PopulationTypeIdEnum.Adulto);
     const [currentMixingCenterSettings, setCurrentMixingCenterSettings] = useState<MixingCenterSettingsModel>(new MixingCenterSettingsModel());
     const [currentRawMaterialData, setCurrentRawMaterialData] = useState<RawMaterialModel>(new RawMaterialModel());
     const [currentAutomatedEquipment, setCurrentAutomatedEquipment] = useState<AutomatedEquipmentGroupModel>(new AutomatedEquipmentGroupModel());
@@ -129,13 +129,13 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
             setExecutingSomething(true);
             console.log("METODO 'createNewFileAsync' INICIANDO...");
 
-            setCurrentCentralType(CentralTypeIdEnum.Manual);
-            setCurrentPopulationType(PopulationTypeIdEnum.Adulto);
+            // setCurrentCentralType(CentralTypeIdEnum.Manual);
+            // setCurrentPopulationType(PopulationTypeIdEnum.Adulto);
 
             if (userDefaultValuesExists) {
                 const result = await createNewFileWithUserCustomDefaultValuesAsync();
 
-                if (result) {
+                if (!result) {
                     createNewFileWithStandarDefaultValues();
                 }
             } else {
@@ -208,19 +208,27 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     }
 
     const createNewFileWithStandarDefaultValues = (): void => {
+        const mCSettings = DefaultValuesProvider.mixingCenterSettingsDefaults();
+        const lProductionLines: number = mCSettings.productionLines;
+        const lProductionPerMonth: number = (mCSettings.productionPerDay * 30);
+        const lCentralType: CentralTypeIdEnum = mCSettings.centralType;
+
+        console.log("createNewFileWithStandarDefaultValues()....");
+        console.log(`ProductionLines: ${lProductionLines}, ProductionPerMonth: ${lProductionPerMonth}`);
+
         setCurrentMixingCenterSettings(DefaultValuesProvider.mixingCenterSettingsDefaults());
 
         setCurrentAutomatedEquipment(DefaultValuesProvider.automatedEquipmentDefaults());
-        setCurrentHygieneAndCleaning(DefaultValuesProvider.hygieneAndCleaningDefaults(currentCentralType));
-        setCurrentPersonalProtection(DefaultValuesProvider.personalProtectionDefaults(currentCentralType));
-        setCurrentSterileWorkEquipment(DefaultValuesProvider.sterileWorkEquipmentDefaults(currentCentralType));
+        setCurrentHygieneAndCleaning(DefaultValuesProvider.hygieneAndCleaningDefaults(lCentralType));
+        setCurrentPersonalProtection(DefaultValuesProvider.personalProtectionDefaults(lCentralType));
+        setCurrentSterileWorkEquipment(DefaultValuesProvider.sterileWorkEquipmentDefaults(lCentralType));
 
-        setCurrentMaintenanceCosts(DefaultValuesProvider.maintenanceCostsDefaults(currentCentralType, currentMixingCenterSettings.productionLines, (currentMixingCenterSettings.productionPerDay * 30)));
+        setCurrentMaintenanceCosts(DefaultValuesProvider.maintenanceCostsDefaults(lCentralType, lProductionLines, lProductionPerMonth));
 
-        setCurrentProductionCosts(DefaultValuesProvider.productionCostsDefaults(currentCentralType, currentMixingCenterSettings.productionLines, (currentMixingCenterSettings.productionPerDay * 30)));
+        setCurrentProductionCosts(DefaultValuesProvider.productionCostsDefaults(lCentralType, lProductionLines, lProductionPerMonth));
 
-        setCurrentChemistSalary(DefaultValuesProvider.chemistSalaryDefaults(currentCentralType));
-        setCurrentAssistantSalary(DefaultValuesProvider.chemistAssistantSalaryDefaults(currentCentralType));
+        setCurrentChemistSalary(DefaultValuesProvider.chemistSalaryDefaults(lCentralType));
+        setCurrentAssistantSalary(DefaultValuesProvider.chemistAssistantSalaryDefaults(lCentralType));
 
         setMixingCenterManualAdultoRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Adulto));
         setMixingCenterManualNeonatalRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Neonatal));
@@ -343,10 +351,10 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     const backupCurrentRawMaterialInToRightOne = (): void => {
         const newData: RawMaterialModel = deepClone(currentRawMaterialData);
 
-        switch (currentPopulationType) {
+        switch (currentMixingCenterSettings.populationType) {
             case PopulationTypeIdEnum.Adulto:
                 callByCentralType(
-                    currentCentralType,
+                    currentMixingCenterSettings.centralType,
                     newData,
                     setMixingCenterManualAdultoRawMaterialData,
                     setMixingCenterAutomaticAdultoRawMaterialData
@@ -354,7 +362,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 break;
             case PopulationTypeIdEnum.Neonatal:
                 callByCentralType(
-                    currentCentralType,
+                    currentMixingCenterSettings.centralType,
                     newData,
                     setMixingCenterManualNeonatalRawMaterialData,
                     setMixingCenterAutomaticNeonatalRawMaterialData
@@ -362,7 +370,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 break;
             case PopulationTypeIdEnum.Pediatrica:
                 callByCentralType(
-                    currentCentralType,
+                    currentMixingCenterSettings.centralType,
                     newData,
                     setMixingCenterManualPediatricaRawMaterialData,
                     setMixingCenterAutomaticPediatricaRawMaterialData
@@ -375,24 +383,24 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     const getCurrentRawMaterial = (): RawMaterialModel | null => {
         let tempData: RawMaterialModel | null = null;
 
-        switch (currentPopulationType) {
+        switch (currentMixingCenterSettings.populationType) {
             case PopulationTypeIdEnum.Adulto:
                 tempData = callByCentralTypeWithReturn(
-                    currentCentralType,
+                    currentMixingCenterSettings.centralType,
                     () => mixingCenterManualAdultoRawMaterialData,
                     () => mixingCenterAutomaticAdultoRawMaterialData
                 );
                 break;
             case PopulationTypeIdEnum.Neonatal:
                 tempData = callByCentralTypeWithReturn(
-                    currentCentralType,
+                    currentMixingCenterSettings.centralType,
                     () => mixingCenterManualNeonatalRawMaterialData,
                     () => mixingCenterAutomaticNeonatalRawMaterialData
                 );
                 break;
             case PopulationTypeIdEnum.Pediatrica:
                 tempData = callByCentralTypeWithReturn(
-                    currentCentralType,
+                    currentMixingCenterSettings.centralType,
                     () => mixingCenterManualPediatricaRawMaterialData,
                     () => mixingCenterAutomaticPediatricaRawMaterialData
                 );
@@ -432,23 +440,60 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         }
     }
 
+
+    const refCurrentRawMaterialFirstRender = useRef(true);
+
     useEffect(() => {
-        if (executingSomething === false) {
-            backupCurrentRawMaterialInToRightOne();
-        } else {
-            console.log("HUBO UN CAMBIO EN 'CURRENT RAW MATERIAL' PERO OTRO PROCESO ESTABA EN EJECUCION.");
+        if (refCurrentRawMaterialFirstRender.current) {
+            refCurrentRawMaterialFirstRender.current = false;
+            return;
         }
+
+        console.log("HUBO UN CAMBIO EN 'CURRENT RAW MATERIAL'....");
+        backupCurrentRawMaterialInToRightOne();
+
+        // if (executingSomething === false) {
+
+        // } else {
+        //     console.log("HUBO UN CAMBIO EN 'CURRENT RAW MATERIAL' PERO OTRO PROCESO ESTABA EN EJECUCION.");
+        // }
     }, [currentRawMaterialData]);
 
-    useEffect(() => {
-        console.log("HUBO UN CAMBIO EN EL TIPO DE CENTRAL, O EN EL TIPO DE POBLACION.");
+    // useEffect(() => {
+    //     if (executingSomething === false) {
+    //         console.log("*** HUBO UN CAMBIO EN EL TIPO DE CENTRAL, O EN EL TIPO DE POBLACION. ***");
+    //         populateCurrentRawMaterial();
+    //     } else {
+    //         console.log("HUBO UN CAMBIO EN 'CENTRALTYPE O POPULATION TYPE' PERO OTRO PROCESO ESTABA EN EJECUCION.");
+    //     }
+    // }, [currentCentralType, currentPopulationType]);
 
-        if (executingSomething === false) {
-            populateCurrentRawMaterial();
-        } else {
-            console.log("HUBO UN CAMBIO EN 'CENTRALTYPE O POPULATION TYPE' PERO OTRO PROCESO ESTABA EN EJECUCION.");
-        }
-    }, [currentCentralType, currentPopulationType]);
+    // const isCurrentCentralTypeFirstRender = useRef(true);
+
+    // useEffect(() => {
+    //     if (isCurrentCentralTypeFirstRender.current) {
+    //         isCurrentCentralTypeFirstRender.current = false;
+    //         return;
+    //     }
+
+    //     console.log("*** HUBO UN CAMBIO EN EL TIPO DE CENTRAL ***");
+    //     populateCurrentRawMaterial();
+    // }, [currentCentralType]);
+
+    // const isCurrentPopulationTypeFirstRender = useRef(true);
+
+    // useEffect(() => {
+    //     if (isCurrentPopulationTypeFirstRender.current) {
+    //         isCurrentPopulationTypeFirstRender.current = false;
+    //         return;
+    //     }
+
+    //     console.log("*** HUBO UN CAMBIO EN EL TIPO DE POBLACION. ***");
+    //     populateCurrentRawMaterial();
+    // }, [currentPopulationType]);
+
+
+
 
     return (
         <ComputerContext.Provider
@@ -456,8 +501,8 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 executingSomething,
                 userDefaultValuesExists,
                 currentFilename,
-                currentCentralType,
-                currentPopulationType,
+                // currentCentralType,
+                // currentPopulationType,
                 currentMixingCenterSettings,
                 currentRawMaterialData,
                 currentAutomatedEquipment,
@@ -471,8 +516,8 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 setExecutingSomething,
                 setUserDefaultValuesExists,
                 setCurrentFilename,
-                setCurrentCentralType,
-                setCurrentPopulationType,
+                // setCurrentCentralType,
+                // setCurrentPopulationType,
                 setCurrentMixingCenterSettings,
                 setCurrentRawMaterialData,
                 setCurrentAutomatedEquipment,

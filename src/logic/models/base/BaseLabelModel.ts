@@ -3,7 +3,7 @@ abstract class BaseLabelModel {
     public label: string;
 
     constructor(inLabel: string) {
-        this.label = `${inLabel} :`;
+        this.label = `${inLabel}:`;
     }
 }
 

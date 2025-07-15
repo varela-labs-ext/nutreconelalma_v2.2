@@ -30,12 +30,6 @@ const MaintenanceCostsInputs = (props: MaintenanceCostsInputsProps) => {
         return output;
     }
 
-    // const getProductionLines = (): number => {
-    //     const output = new JustValueItemModel("Lineas de producción");
-    //     output.value = props.inProductionLines;
-    //     return output;
-    // }
-
     return (
         <div>
             <div>
@@ -51,12 +45,6 @@ const MaintenanceCostsInputs = (props: MaintenanceCostsInputsProps) => {
                     isReadOnly={true}
                     onChange={(A, B) => { }}
                 />
-                {/* <ReadOnlyNumberField
-                    label="Lineas de producción"
-                    name="inProductionLines"
-                    symbol=""
-                    value={props.inProductionLines}
-                /> */}
             </div>
             <MaintenanceCostsHeaders />
             <div>

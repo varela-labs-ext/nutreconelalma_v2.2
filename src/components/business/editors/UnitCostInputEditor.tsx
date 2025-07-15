@@ -73,7 +73,7 @@ const UnitCostInputEditor = (props: UnitCostInputEditorProps) => {
                     <div className="md:col-span-1 w-full">
                         <InputNumberField
                             label="costoPorUnidad"
-                            name="costoPorUnidad"
+                            name="unitCost"
                             value={internalData.unitCost}
                             readOnly={false}
                             symbol="$"
@@ -84,7 +84,7 @@ const UnitCostInputEditor = (props: UnitCostInputEditorProps) => {
                     <div className="md:col-span-1 w-full">
                         <ReadOnlyNumberField
                             label="costoTotalPorUnidad"
-                            name="costoTotalPorUnidad"
+                            name="totalCost"
                             symbol="$"
                             value={internalData.totalCost}
                         />

@@ -9,8 +9,6 @@ import MaterialsAndSuppliesCostsForm from "./materials_and_supplies/MaterialsAnd
 
 interface OperatingResourcesByMixingCentralProps {
     inCentralType: CentralTypeIdEnum;
-    inProductionLines: number;
-    inProductionPerMonth: number;
 }
 
 const OperatingResourcesByMixingCentral = (props: OperatingResourcesByMixingCentralProps) => {
@@ -32,8 +30,6 @@ const OperatingResourcesByMixingCentral = (props: OperatingResourcesByMixingCent
                 <PanelView label="Costos Operativos" icon={<Settings />} status="ok">
                     <OperatingCostsForm
                         inCentralType={props.inCentralType}
-                        inProductionPerMonth={props.inProductionPerMonth}
-                        inProductionLines={props.inProductionLines}
                     />
                 </PanelView>
                 <PanelView label="Staff / Personal" icon={<Users />} status="warning">

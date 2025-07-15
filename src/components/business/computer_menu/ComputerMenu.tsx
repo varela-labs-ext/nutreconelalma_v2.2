@@ -38,6 +38,7 @@ const ComputerMenu = (props: ComputerMenuProps) => {
 
     const handleOnItemClick = (actionName: string) => {
         if (actionName === "new") {
+            console.log("SIDEBAR MENU -  NEW CALC...");
             createNewFileAsync().then(() => {
                 toastService.showOk("Nueva calculadora creada...");
             });

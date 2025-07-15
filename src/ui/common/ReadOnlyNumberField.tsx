@@ -65,6 +65,20 @@ export const ReadOnlyNumberField: React.FC<ReadOnlyNumberFieldProps> = (props) =
 
     const inputWrapperClass = "relative w-full";
 
+    const getValue = (): string => {
+        if (props.symbol && props.symbol === "$") {
+            const tempValue = cleanUp(props.value);
+            const formatedValue: string = new Intl.NumberFormat("en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(tempValue); // o "en-US", depende
+            // console.log(formatedValue);
+            return formatedValue;
+        }
+
+        return cleanUp(props.value).toFixed(2);
+    }
+
     return (
         <div className={getContainerClass()} >
             <label htmlFor={props.name} className={getLabelClass()} >
@@ -77,8 +91,8 @@ export const ReadOnlyNumberField: React.FC<ReadOnlyNumberFieldProps> = (props) =
                 <input
                     id={props.name}
                     name={props.name}
-                    type="number"
-                    value={cleanUp(props.value).toFixed(2)}
+                    type="text"
+                    value={getValue()}
                     readOnly
                     className={getInputClass()}
                 />
