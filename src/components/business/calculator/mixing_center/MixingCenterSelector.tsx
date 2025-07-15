@@ -10,10 +10,21 @@ interface MixingCenterSelectorProps {
 const MixingCenterSelector = (props: MixingCenterSelectorProps) => {
 
     const handleOnTabChange = (inIndex: number) => {
+        inIndex = (inIndex + 1);
+
         const newCentralType: CentralTypeIdEnum = inIndex as CentralTypeIdEnum;
+
         console.log(`NEW Central type: ${newCentralType}`);
 
         props.onChange(newCentralType);
+    }
+
+    const getCentralType = (): number => {
+        const centralType: number = props.inCentralType;
+
+        const value: number = (centralType - 1);
+
+        return value;
     }
 
     return (
@@ -24,7 +35,7 @@ const MixingCenterSelector = (props: MixingCenterSelectorProps) => {
                     { label: "Central de Mezclas Automatizada", icon: <Bot />, status: "ok" },
                     // { label: "Apex", icon: <Cpu />, status: "error" },
                 ]}
-                selectedIndex={props.inCentralType}
+                selectedIndex={getCentralType()}
                 onSelect={handleOnTabChange}
             />
         </div>

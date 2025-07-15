@@ -1,14 +1,13 @@
 import AccordionMenuItemWithContextAction, { MenuSubItem } from "@/components/ui/menu/AccordionMenuItemWithContextAction";
 import { useComputerActionsContext } from "@/context/ComputerActionsContext";
 import { useComputerContext } from "@/context/ComputerContext";
-import { deepClone } from "@/utils/objectUtils";
+import { FileEdit, FilePlus, FileText, Save } from "lucide-react";
 
 interface ComputerMenuProps {
     label: string;
     icon: React.ReactNode;
     isActive: boolean;
     to: string;
-    items: MenuSubItem[];
     onCloseSidebar: () => void;
 }
 
@@ -17,48 +16,24 @@ const ComputerMenu = (props: ComputerMenuProps) => {
     const { setShowNewCalcDialog, setShowSaveAsDialog, setShowOpenFileDialog, saveFile } = useComputerActionsContext();
 
     const getMenuSubItems = (): MenuSubItem[] => {
-        // const itemsCopy = props.items.map(item => {
-        //     if (currentFilename != undefined && currentFilename !== null) {
-        //         if (item.actionName === "file") {
-        //             return {
-        //                 ...item,
-        //                 label: `Archivo: ${currentFilename}`
-        //             };
-        //         } else {
-        //             return {
-        //                 ...item
-        //             };
-        //         }
+        const output: MenuSubItem[] = [];
 
-        //     } else {
-        //         return {
-        //             ...item
-        //         };
-        //     }
-        // });
-
-        const itemsCopy = props.items.map(item => {
-            return { ...item };
-        });
-
-        itemsCopy.forEach((item) => {
-            if (currentFilename != undefined && currentFilename !== null && item.actionName === "file") {
-                item.label = `Archivo: ${currentFilename}`;
-            }
-        });
-
-
-
-        if (!currentFilename) {
-            return itemsCopy.filter((item) => !shouldRemove(item));
+        if (currentFilename != undefined && currentFilename !== null && currentFilename.trim() !== "") {
+            output.push({ label: `Editar: ${currentFilename}`, actionName: "file", icon: <FileText className="h-4 w-4" /> });
+        } else {
+            output.push({ label: "Editar", actionName: "file", icon: <FileText className="h-4 w-4" /> });
         }
 
-        return itemsCopy;
-    }
+        output.push({ label: "Nueva", actionName: "new", icon: <FilePlus className="h-4 w-4" /> });
 
-    const shouldRemove = (item: MenuSubItem) => {
-        return item.actionName === "file" || item.actionName === "save";
-    };
+        if (currentFilename != undefined && currentFilename !== null && currentFilename.trim() !== "") {
+            output.push({ label: "Salvar", actionName: "save", icon: <Save className="h-4 w-4" /> });
+        }
+
+        output.push({ label: "Salvar Como", actionName: "saveAs", icon: <FileEdit className="h-4 w-4" /> });
+
+        return output;
+    }
 
     const handleOnItemClick = (actionName: string) => {
         if (actionName === "new") {
@@ -84,8 +59,6 @@ const ComputerMenu = (props: ComputerMenuProps) => {
             setShowSaveAsDialog(true);
             return;
         }
-
-        props.onCloseSidebar();
     }
 
     return (

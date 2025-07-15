@@ -1,27 +1,37 @@
 import IconTabs from "@/components/ui/tabs/icon_tabs/IconTabs";
 import OperatingResourcesOverview from "./OperatingResourcesOverview";
-import { useState } from "react";
 import IconTab from "@/components/ui/tabs/icon_tabs/IconTab";
 import { Bot, FlaskConical } from "lucide-react";
-import OperatingResourcesModels from "@/logic/models/OperatingResourcesModels";
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import OperatingResourcesByMixingCentral from "./OperatingResourcesByMixingCentral";
-
+import { useComputerContext } from "@/context/ComputerContext";
+import { deepClone } from "@/utils/objectUtils";
 
 interface OperatingResourcesFormProps {
 }
 
 const OperatingResourcesForm = (props: OperatingResourcesFormProps) => {
-    const [activeComputerTabIndex, setActiveComputerTabIndex] = useState<number>(0);
+    const {
+        currentMixingCenterSettings,
+        setCurrentMixingCenterSettings
+    } = useComputerContext();
 
-    // const [resourcesMixingCentralManual, setResourcesMixingCentralManual] = useState<OperatingResourcesModels>(new OperatingResourcesModels());
-    // const [resourcesMixingCentralAutomatic, setResourcesMixingCentralAutomatic] = useState<OperatingResourcesModels>(new OperatingResourcesModels());
+    const getActiveTab = (): number => {
+        let index: number = currentMixingCenterSettings.centralType;
 
-    //OperatingResourcesModels
+        if (index === 0) {
+            return index;
+        } else {
+            return (index - 1);
+        }
+    }
 
     const handleOnTabsChange = (index: number) => {
-        console.log('Cambió a tab:', index); // Just in case
-        setActiveComputerTabIndex(index);
+        const newCentralType: CentralTypeIdEnum = (index + 1);
+        const newCM = deepClone(currentMixingCenterSettings);
+        newCM.centralType = newCentralType;
+
+        setCurrentMixingCenterSettings(newCM);
     }
 
     return (
@@ -35,7 +45,10 @@ const OperatingResourcesForm = (props: OperatingResourcesFormProps) => {
                 <OperatingResourcesOverview />
             </div>
             <div>
-                <IconTabs defaultTabIndex={0} activeTabIndex={activeComputerTabIndex} setActiveTabIndex={handleOnTabsChange}>
+                <IconTabs
+                    defaultTabIndex={0}
+                    activeTabIndex={getActiveTab()}
+                    setActiveTabIndex={handleOnTabsChange}>
                     <IconTab label="Central de Mezclas Manual" icon={FlaskConical}>
                         <OperatingResourcesByMixingCentral
                             inCentralTypeEdt={CentralTypeIdEnum.Manual}

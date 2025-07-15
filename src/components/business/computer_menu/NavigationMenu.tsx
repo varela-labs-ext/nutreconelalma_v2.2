@@ -47,14 +47,6 @@ const NavigationMenu = (props: NavigationMenuProps) => {
                         icon={<Calculator className="h-5 w-5 mr-2" />}
                         isActive={pathname.startsWith("/calculadora")}
                         onCloseSidebar={() => props.onSidebarOpen(false)}
-                        // setAccion={(actionName) => setAction("computer", actionName)}
-                        items={[
-                            { label: "Editar", actionName: "file", icon: <FileText className="h-4 w-4" /> },
-                            { label: "Nueva", actionName: "new", icon: <FilePlus className="h-4 w-4" /> },
-                            { label: "Abrir", actionName: "open", icon: <FolderOpen className="h-4 w-4" /> },
-                            { label: "Salvar", actionName: "save", icon: <Save className="h-4 w-4" /> },
-                            { label: "Salvar Como", actionName: "saveAs", icon: <FileEdit className="h-4 w-4" /> },
-                        ]}
                     />
                     <button
                         className={`w-full flex items-center rounded-full px-3 py-2 text-sm font-medium transition-colors ${pathname === "/historico" ? "bg-green-500 text-white" : "text-gray-700 hover:bg-gray-100"}`}

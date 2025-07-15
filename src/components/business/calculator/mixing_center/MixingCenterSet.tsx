@@ -114,7 +114,6 @@ const MixingCenterSet = (props: MixingCenterSetProps) => {
     const handleOnMixingCenterSelectorChange = (inNewCentralType: CentralTypeIdEnum): void => {
         const newData: MixingCenterSettingsModel = deepClone(props.inData);
         newData.centralType = inNewCentralType;
-
         props.onChange(newData);
     }
 
