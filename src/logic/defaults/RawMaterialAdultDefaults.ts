@@ -1,4 +1,4 @@
-import RawMaterialModel from "../models/RawMaterialModel";
+import RawMaterialModel from "../models/RawMaterialGroupModel";
 import DefaultsRawMaterialsBase from "./DefaultsRawMaterialsBase";
 
 class RawMaterialAdultDefaults extends DefaultsRawMaterialsBase<RawMaterialModel> {

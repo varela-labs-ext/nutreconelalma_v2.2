@@ -1,6 +1,6 @@
 import ForageManager from "../common/ForageManager";
 import MixingCenterSettingsModel from "../models/common/MixingCenterSettingsModel";
-import RawMaterialModel from "../models/RawMaterialModel";
+import RawMaterialModel from "../models/RawMaterialGroupModel";
 
 const buildKeyName = (
     inMethodKey: string,

@@ -1,4 +1,4 @@
-import RawMaterialModel from "@/logic/models/RawMaterialModel";
+import RawMaterialModel from "@/logic/models/RawMaterialGroupModel";
 import { useEffect, useRef, useState } from "react";
 import RawMaterialsSet from "../raw_material/RawMaterialsSet";
 import { useComputerContext } from "@/context/ComputerContext";

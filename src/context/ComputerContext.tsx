@@ -9,7 +9,7 @@ import PersonalProtectionGroupModel from "@/logic/models/operating_resources/Per
 import ProductionCostsGroupModel from "@/logic/models/operating_resources/ProductionCostsGroupModel";
 import StaffSalaryGroupModel from "@/logic/models/operating_resources/StaffSalaryGroupModel";
 import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
-import RawMaterialModel from "@/logic/models/RawMaterialModel";
+import RawMaterialModel from "@/logic/models/RawMaterialGroupModel";
 import DefaultValuesProvider from "@/providers/DefaultValuesProvider";
 import StorageProvider from "@/providers/StorageProvider";
 import { deepClone } from "@/utils/objectUtils";
@@ -46,12 +46,11 @@ export type ActionComputer = "nueva" | "cargar" | "salvar" | null;
 export interface ComputerContextProps {
     // CurrentAction: ActionComputer;
     // setAction: (Action: ActionComputer) => void;
-    executingSomething: boolean;
+
+    executingSomething: boolean; // <- esto es para avisarle al overlay que se active o no.
     userDefaultValuesExists: boolean;
 
     currentFilename: string | null;
-    // currentCentralType: CentralTypeIdEnum;
-    // currentPopulationType: PopulationTypeIdEnum;
     currentMixingCenterSettings: MixingCenterSettingsModel;
 
     currentRawMaterial: RawMaterialModel; //<- hay que renombrarlo a huevo!
@@ -68,8 +67,6 @@ export interface ComputerContextProps {
     setUserDefaultValuesExists: (inValue: boolean) => void;
 
     setCurrentFilename: (inFileName: string | null) => void;
-    // setCurrentCentralType: (inValue: CentralTypeIdEnum) => void;
-    // setCurrentPopulationType: (inValue: PopulationTypeIdEnum) => void;
 
     setCurrentMixingCenterSettings: (inValue: MixingCenterSettingsModel) => void;
     setCurrentRawMaterial: (inValue: RawMaterialModel) => void; //<- hay que renombrarlo a huevo, el nombre del modelo!
@@ -101,8 +98,6 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
 
     const [userDefaultValuesExists, setUserDefaultValuesExists] = useState<boolean>(false);
     const [currentFilename, setCurrentFilename] = useState<string | null>(null);
-    // const [currentCentralType, setCurrentCentralType] = useState<CentralTypeIdEnum>(CentralTypeIdEnum.Manual);
-    // const [currentPopulationType, setCurrentPopulationType] = useState<PopulationTypeIdEnum>(PopulationTypeIdEnum.Adulto);
     const [currentMixingCenterSettings, setCurrentMixingCenterSettings] = useState<MixingCenterSettingsModel>(new MixingCenterSettingsModel());
     const [currentRawMaterial, setCurrentRawMaterial] = useState<RawMaterialModel>(new RawMaterialModel());
     const [currentAutomatedEquipment, setCurrentAutomatedEquipment] = useState<AutomatedEquipmentGroupModel>(new AutomatedEquipmentGroupModel());
@@ -128,9 +123,6 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         try {
             setExecutingSomething(true);
             console.log("METODO 'createNewFileAsync' INICIANDO...");
-
-            // setCurrentCentralType(CentralTypeIdEnum.Manual);
-            // setCurrentPopulationType(PopulationTypeIdEnum.Adulto);
 
             if (userDefaultValuesExists) {
                 const result = await createNewFileWithUserCustomDefaultValuesAsync();
@@ -501,8 +493,6 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 executingSomething,
                 userDefaultValuesExists,
                 currentFilename,
-                // currentCentralType,
-                // currentPopulationType,
                 currentMixingCenterSettings,
                 currentRawMaterial,
                 currentAutomatedEquipment,
@@ -516,8 +506,6 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 setExecutingSomething,
                 setUserDefaultValuesExists,
                 setCurrentFilename,
-                // setCurrentCentralType,
-                // setCurrentPopulationType,
                 setCurrentMixingCenterSettings,
                 setCurrentRawMaterial,
                 setCurrentAutomatedEquipment,

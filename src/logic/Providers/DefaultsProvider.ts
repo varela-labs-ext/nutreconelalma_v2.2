@@ -20,7 +20,7 @@ import PersonalProtectionGroupModel from "../models/operating_resources/Personal
 import ProductionCostsGroupModel from "../models/operating_resources/ProductionCostsGroupModel";
 import StaffSalaryGroupModel from "../models/operating_resources/StaffSalaryGroupModel";
 import SterileWorkEquipmentGroupModel from "../models/operating_resources/SterileWorkEquipmentGroupModel";
-import RawMaterialModel from "../models/RawMaterialModel";
+import RawMaterialModel from "../models/RawMaterialGroupModel";
 
 class DefaultsProvider {
 

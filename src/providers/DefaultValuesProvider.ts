@@ -20,7 +20,7 @@ import PersonalProtectionGroupModel from "@/logic/models/operating_resources/Per
 import ProductionCostsGroupModel from "@/logic/models/operating_resources/ProductionCostsGroupModel";
 import StaffSalaryGroupModel from "@/logic/models/operating_resources/StaffSalaryGroupModel";
 import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
-import RawMaterialModel from "@/logic/models/RawMaterialModel";
+import RawMaterialModel from "@/logic/models/RawMaterialGroupModel";
 import CalculationService from "@/logic/services/CalculationService";
 
 class DefaultValuesProvider {

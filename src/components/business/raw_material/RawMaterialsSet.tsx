@@ -3,7 +3,7 @@ import RawMaterialsOverview from "./RawMaterialsOverview";
 import RawMaterialsOtherCosts from "./RawMaterialsOtherCosts";
 import AdditionalCostsModel from "@/logic/models/AdditionalCostsModel";
 import RawMaterialsAccourd from "./RawMaterialsAccourd";
-import RawMaterialModel from "@/logic/models/RawMaterialModel";
+import RawMaterialModel from "@/logic/models/RawMaterialGroupModel";
 
 
 interface RawMaterialsSetProps {

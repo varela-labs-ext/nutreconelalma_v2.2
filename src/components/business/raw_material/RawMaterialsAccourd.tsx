@@ -3,7 +3,7 @@ import AccordionItem from "@/components/ui/accordions/AccordionItem";
 import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
 import { Dna, Flame, Package, Droplet, Zap, Atom, Circle, Pill } from "lucide-react";
 import ClinicalInputsSet from "../clinical_inputs/ClinicalInputsSet";
-import RawMaterialModel from "@/logic/models/RawMaterialModel";
+import RawMaterialModel from "@/logic/models/RawMaterialGroupModel";
 import CalculationService from "@/logic/services/CalculationService";
 import ClinicaInputRowModel from "@/logic/models/row_item/ClinicaInputRowModel";
 import { deepClone } from "@/utils/objectUtils";

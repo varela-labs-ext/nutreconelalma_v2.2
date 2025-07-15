@@ -1,5 +1,5 @@
 import BaseCalc from "../services/BaseCalc";
-import RawMaterialModel from "../models/RawMaterialModel";
+import RawMaterialModel from "../models/RawMaterialGroupModel";
 import ClinicalInputCalc from "../services/ClinicalInputCalc";
 import { isClinicaInputRowModel, isValidObj } from "@/utils/itemsUtils";
 

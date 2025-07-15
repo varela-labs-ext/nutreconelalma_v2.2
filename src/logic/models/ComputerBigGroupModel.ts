@@ -6,7 +6,7 @@ import PersonalProtectionGroupModel from "./operating_resources/PersonalProtecti
 import ProductionCostsGroupModel from "./operating_resources/ProductionCostsGroupModel";
 import StaffSalaryGroupModel from "./operating_resources/StaffSalaryGroupModel";
 import SterileWorkEquipmentGroupModel from "./operating_resources/SterileWorkEquipmentGroupModel";
-import RawMaterialModel from "./RawMaterialModel";
+import RawMaterialModel from "./RawMaterialGroupModel";
 
 class ComputerBigGroupModel {
 

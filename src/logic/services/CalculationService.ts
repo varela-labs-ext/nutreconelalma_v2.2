@@ -4,7 +4,7 @@ import EstimatedCostItemModel from "../models/row_item/EstimatedCostItemRowModel
 import UnitCostItemModel from "../models/row_item/UnitCostItemRowModel";
 import StaffSalaryGroupModel from "../models/operating_resources/StaffSalaryGroupModel";
 import MaintenanceCostsGroupModel from "../models/operating_resources/MaintenanceCostsGroupModel";
-import RawMaterialModel from "../models/RawMaterialModel";
+import RawMaterialModel from "../models/RawMaterialGroupModel";
 import ChemistAssistantSalaryCalc from "../calcs/ChemistAssistantSalaryCalc";
 import ChemistSalaryCalc from "../calcs/ChemistSalaryCalc";
 import ClinicalInputCalc from "./ClinicalInputCalc";
