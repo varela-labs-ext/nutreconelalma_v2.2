@@ -8,8 +8,8 @@ import { useEffect, useRef, useState } from "react";
 interface EstimatedCostsInputEditorProps {
     inData: EstimatedCostItemModel;
     inName: string;
-    inMonthlyProductionCapacity: number;
     inProductionLines: number;
+    inProductionPerMonth: number;
     onChange: (inPropertyName: string, newItem: EstimatedCostItemModel) => void;
 }
 
@@ -29,7 +29,7 @@ const EstimatedCostsInputEditor = (props: EstimatedCostsInputEditorProps) => {
             };
 
             // Actualiza los totales dentro del objeto
-            CalculationService.ComputeEstimatedCostsInput(output, props.inMonthlyProductionCapacity, props.inProductionLines);
+            CalculationService.ComputeEstimatedCostsInput(output, props.inProductionLines, props.inProductionPerMonth);
 
             setInternalData(output);
 

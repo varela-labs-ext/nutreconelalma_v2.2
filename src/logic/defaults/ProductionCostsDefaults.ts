@@ -1,7 +1,13 @@
+import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
 import ProductionCostsGroupModel from "../models/operating_resources/ProductionCostsGroupModel";
 import DefaultsBase from "./DefaultsBase";
 
 class ProductionCostsDefaults extends DefaultsBase<ProductionCostsGroupModel> {
+
+    public setDefaultValuesB(inItem: ProductionCostsGroupModel, inCentralType: CentralTypeIdEnum): void {
+        this.setDefaultValues(inItem, inCentralType);
+    }
+
     protected setCommons(inItem: ProductionCostsGroupModel): void {
         inItem.total.value = 0;
     }
@@ -20,7 +26,6 @@ class ProductionCostsDefaults extends DefaultsBase<ProductionCostsGroupModel> {
     protected setMixingCentral_Automatic(inItem: ProductionCostsGroupModel): void {
         this.setMixingCentral_Manual(inItem);
     }
-
 }
 
 export default ProductionCostsDefaults;

@@ -51,7 +51,10 @@ export interface ComputerContextProps {
     currentCentralType: CentralTypeIdEnum;
     currentPopulationType: PopulationTypeIdEnum;
     mixingCenterSettingsData: MixingCenterSettingsModel;
+
     currentRawMaterialData: RawMaterialModel; //<- hay que renombrarlo a huevo!
+
+
     automatedEquipmentData: AutomatedEquipmentGroupModel;
     hygieneAndCleaningData: HygieneAndCleaningGroupModel;
     personalProtectionData: PersonalProtectionGroupModel;
@@ -120,6 +123,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     const createNewFileAsync = async (): Promise<void> => {
         try {
             setExecutingSomething(true);
+            console.log("METODO 'createNewFileAsync' INICIANDO...");
 
             setCurrentCentralType(CentralTypeIdEnum.Manual);
             setCurrentPopulationType(PopulationTypeIdEnum.Adulto);
@@ -140,6 +144,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
             throw error;
         } finally {
             setExecutingSomething(false);
+            console.log("METODO 'createNewFileAsync' TERMINANDO...");
         }
     }
 
@@ -200,14 +205,18 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
 
     const createNewFileWithStandarDefaultValues = (): void => {
         setMixingCenterSettingsData(DefaultValuesProvider.mixingCenterSettingsDefaults());
+
         setAutomatedEquipmentData(DefaultValuesProvider.automatedEquipmentDefaults());
         setHygieneAndCleaningData(DefaultValuesProvider.hygieneAndCleaningDefaults(currentCentralType));
         setPersonalProtectionData(DefaultValuesProvider.personalProtectionDefaults(currentCentralType));
         setSterileWorkEquipmentData(DefaultValuesProvider.sterileWorkEquipmentDefaults(currentCentralType));
-        setMaintenanceCostsData(DefaultValuesProvider.maintenanceCostsDefaults());
-        setProductionCostsData(DefaultValuesProvider.productionCostsDefaults());
-        setChemistSalaryData(DefaultValuesProvider.chemistSalaryDefaults());
-        setAssistantSalaryData(DefaultValuesProvider.chemistAssistantSalaryDefaults());
+
+        setMaintenanceCostsData(DefaultValuesProvider.maintenanceCostsDefaults(currentCentralType, mixingCenterSettingsData.productionLines, (mixingCenterSettingsData.productionPerDay * 30)));
+
+        setProductionCostsData(DefaultValuesProvider.productionCostsDefaults(currentCentralType, mixingCenterSettingsData.productionLines, (mixingCenterSettingsData.productionPerDay * 30)));
+
+        setChemistSalaryData(DefaultValuesProvider.chemistSalaryDefaults(currentCentralType));
+        setAssistantSalaryData(DefaultValuesProvider.chemistAssistantSalaryDefaults(currentCentralType));
 
         setMixingCenterManualAdultoRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Adulto));
         setMixingCenterManualNeonatalRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Neonatal));
@@ -218,6 +227,9 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         setMixingCenterAutomaticPediatricaRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Automatico, PopulationTypeIdEnum.Pediatrica));
 
         setCurrentRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Adulto));
+
+        console.log("METODO 'createNewFileWithStandarDefaultValues' EJECUTADO...");
+        console.log(productionCostsData);
     }
 
     const createNewFileWithUserCustomDefaultValuesAsync = async (): Promise<boolean> => {

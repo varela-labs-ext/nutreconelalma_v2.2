@@ -1,6 +1,7 @@
 import numberValidator from "@/utils/numberValidator";
 import EstimatedCostItemModel from "../models/row_item/EstimatedCostItemRowModel";
 import BaseCalc from "./BaseCalc";
+import { isValidObj } from "@/utils/itemsUtils";
 
 
 class EstimatedCostInputCalc extends BaseCalc<EstimatedCostItemModel> {
@@ -8,9 +9,8 @@ class EstimatedCostInputCalc extends BaseCalc<EstimatedCostItemModel> {
         throw new Error("Method not implemented.");
     }
 
-    public computeByParams(inItem: EstimatedCostItemModel, inMonthlyProductionCapacity: number, inProductionLines: number): void {
-        if (inItem === null || inItem == undefined) {
-            console.log("Objecto insumo no existe.")
+    public computeByParams(inItem: EstimatedCostItemModel, inProductionLines: number, inProductionPerMonth: number): void {
+        if (!isValidObj(inItem)) {
             return;
         }
 
@@ -21,17 +21,11 @@ class EstimatedCostInputCalc extends BaseCalc<EstimatedCostItemModel> {
             inItem.valorUnitario = 0;
         }
 
-        if (inMonthlyProductionCapacity === 0) {
-            console.log(`MonthlyProductionCapacity no puede ser 0 [${inItem.label}]`)
-            return;
+        if (inProductionLines > 0 && inProductionPerMonth > 0) {
+            inItem.valorUnitario = ((inItem.valorEstimado / inProductionPerMonth) / inProductionLines);
+        } else {
+            console.warn("LAS LINEAS DE PRODUCCION Y LA CAPACIDAD MENSUAL TIENEN QUE SER MAYO QUE CERO.");
         }
-
-        if (inProductionLines === 0) {
-            console.log(`ProductionLines no puede ser 0 [${inItem.label}]`)
-            return;
-        }
-
-        inItem.valorUnitario = ((inItem.valorEstimado / inMonthlyProductionCapacity) / inProductionLines);
     }
 }
 

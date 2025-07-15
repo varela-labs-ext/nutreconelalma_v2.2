@@ -110,13 +110,14 @@ const InputNumberField = (props: InputNumberFieldProps) => {
         const paddingLeft = props.symbol ? "pl-7" : "pl-3";
         const baseClass = `rounded-xl ${paddingLeft} pr-3 py-2 w-full text-left`;
         const baseClassB = "text-gray-500 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-0 transition-colors";
-        const moreClass = "dark:bg-gray-800 dark:text-white";
+        // const moreClass = "dark:bg-gray-800 dark:text-white";
+        const moreClass = "bg-gray-50 opacity-70 cursor-not-allowed";
 
         const borderClass = error
             ? "border border-red-500 focus:border-red-500 focus:ring-red-400"
             : "border border-gray-200 focus:border-purple-500 focus:ring-purple-500";
 
-        return `${baseClass} ${baseClassB} ${borderClass} ${moreClass}`;
+        return `${baseClass} ${baseClassB} ${borderClass} ${props.readOnly ? moreClass : ""}`;
     };
 
     const symbolClass =

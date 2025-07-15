@@ -52,7 +52,7 @@ export const ReadOnlyNumberField: React.FC<ReadOnlyNumberFieldProps> = (props) =
         const paddingLeft = props.symbol ? "pl-7" : "pl-3";
         const baseClass = `rounded-xl ${paddingLeft} pr-3 py-2 w-full text-left`;
         const baseClassB = "text-gray-600 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-0 transition-colors";
-        const moreClass = "bg-gray-50 opacity-70 dark:bg-gray-800 dark:text-white";
+        const moreClass = "bg-gray-50 opacity-70";
 
         const borderClass = "border border-gray-200 focus:border-purple-500 focus:ring-purple-500";
         const cursorClass = "cursor-not-allowed";

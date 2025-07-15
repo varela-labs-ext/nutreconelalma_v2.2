@@ -6,8 +6,8 @@ import AmountItemInputEditor from "@/components/business/editors/AmountItemInput
 
 interface ProductionCostsInputsProps {
     inData: ProductionCostsGroupModel;
-    inMonthlyProductionCapacity: number;
     inProductionLines: number;
+    inProductionPerMonth: number;
     onInputChange: (inPropertyName: string, inNewItem: EstimatedCostItemModel) => void;
 }
 
@@ -18,35 +18,35 @@ const ProductionCostsInputs = (props: ProductionCostsInputsProps) => {
             <EstimatedCostsInputEditor
                 inData={props.inData.aguaM3}
                 inName="aguaM3"
-                inMonthlyProductionCapacity={props.inMonthlyProductionCapacity}
+                inProductionPerMonth={props.inProductionPerMonth}
                 inProductionLines={props.inProductionLines}
                 onChange={props.onInputChange}
             />
             <EstimatedCostsInputEditor
                 inData={props.inData.luzKw}
                 inName="luzKw"
-                inMonthlyProductionCapacity={props.inMonthlyProductionCapacity}
+                inProductionPerMonth={props.inProductionPerMonth}
                 inProductionLines={props.inProductionLines}
                 onChange={props.onInputChange}
             />
             <EstimatedCostsInputEditor
                 inData={props.inData.manoObraIndirecta}
                 inName="manoObraIndirecta"
-                inMonthlyProductionCapacity={props.inMonthlyProductionCapacity}
+                inProductionPerMonth={props.inProductionPerMonth}
                 inProductionLines={props.inProductionLines}
                 onChange={props.onInputChange}
             />
             <EstimatedCostsInputEditor
                 inData={props.inData.telefoniaInternetAdmin}
                 inName="telefoniaInternetAdmin"
-                inMonthlyProductionCapacity={props.inMonthlyProductionCapacity}
+                inProductionPerMonth={props.inProductionPerMonth}
                 inProductionLines={props.inProductionLines}
                 onChange={props.onInputChange}
             />
             <EstimatedCostsInputEditor
                 inData={props.inData.depreciacionCabinaFlujoLaminar}
                 inName="depreciacionCabinaFlujoLaminar"
-                inMonthlyProductionCapacity={props.inMonthlyProductionCapacity}
+                inProductionPerMonth={props.inProductionPerMonth}
                 inProductionLines={props.inProductionLines}
                 onChange={props.onInputChange}
             />

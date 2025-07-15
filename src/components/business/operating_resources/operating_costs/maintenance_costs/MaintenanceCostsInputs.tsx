@@ -5,10 +5,12 @@ import MaintenanceCostsGroupModel from "@/logic/models/operating_resources/Maint
 import JustValueItemModel from "@/logic/models/row_item/OneValueItemRowModel";
 import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
 import MaintenanceCostsHeaders from "./MaintenanceCostsHeaders";
+import ReadOnlyNumberField from "@/ui/common/ReadOnlyNumberField";
 
 
 interface MaintenanceCostsInputsProps {
     inProductionLines: number;
+    inProductionPerMonth: number;
     inData: MaintenanceCostsGroupModel;
     onInputChange: (inPropertyName: string, inNewItem: UnitCostItemModel) => void;
 }
@@ -22,6 +24,18 @@ const MaintenanceCostsInputs = (props: MaintenanceCostsInputsProps) => {
         return output;
     }
 
+    const getProductionPerMonth = (): JustValueItemModel => {
+        const output = new JustValueItemModel("Capacidad producción mensual");
+        output.value = props.inProductionPerMonth;
+        return output;
+    }
+
+    // const getProductionLines = (): number => {
+    //     const output = new JustValueItemModel("Lineas de producción");
+    //     output.value = props.inProductionLines;
+    //     return output;
+    // }
+
     return (
         <div>
             <div>
@@ -31,6 +45,18 @@ const MaintenanceCostsInputs = (props: MaintenanceCostsInputsProps) => {
                     isReadOnly={true}
                     onChange={(A, B) => { }}
                 />
+                <JustValueInputEditor
+                    inData={getProductionPerMonth()}
+                    inName="inProductionPerMonth"
+                    isReadOnly={true}
+                    onChange={(A, B) => { }}
+                />
+                {/* <ReadOnlyNumberField
+                    label="Lineas de producción"
+                    name="inProductionLines"
+                    symbol=""
+                    value={props.inProductionLines}
+                /> */}
             </div>
             <MaintenanceCostsHeaders />
             <div>

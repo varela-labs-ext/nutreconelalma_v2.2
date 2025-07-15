@@ -7,35 +7,70 @@ import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
 import EstimatedCostItemModel from "@/logic/models/row_item/EstimatedCostItemRowModel";
 import CalculationService from "@/logic/services/CalculationService";
 import OperatingCostsAccourd from "./OperatingCostsAccourd";
+import { useComputerContext } from "@/context/ComputerContext";
+import { deepClone, deepEqual } from "@/utils/objectUtils";
 
 interface OperatingCostsFormProps {
     inCentralType: CentralTypeIdEnum;
-    inMonthlyProductionCapacity: number;
     inProductionLines: number;
+    inProductionPerMonth: number;
 }
 
 //ESTE DEBE GESTIONAR POR CUENTA PROPIA LA CARGA DE LOS DATOS DESDE LA DB
 
 const OperatingCostsForm = (props: OperatingCostsFormProps) => {
-    const [maintenanceCostsData, setMaintenanceCostsData] = useState<MaintenanceCostsGroupModel>(new MaintenanceCostsGroupModel());
-    const [productionCostsData, setProductionCostsData] = useState<ProductionCostsGroupModel>(new ProductionCostsGroupModel());
+    const { maintenanceCostsData, productionCostsData, setMaintenanceCostsData, setProductionCostsData } = useComputerContext();
 
+    const [internalMaintenanceCostsData, setInternalMaintenanceCostsData] = useState<MaintenanceCostsGroupModel | null>(null);
+    const [internalProductionCostsData, setInternalProductionCostsData] = useState<ProductionCostsGroupModel | null>(null);
+
+    // useEffect(() => {
+    //     // ChemistSalaryStarter.getInstance().iniciarValores(chemistSalaryData, props.inCentralType);
+    //     // CalculationService.ComputeChemistSalary(chemistSalaryData);
+    //     // ChemistAssistantSalaryStarter.getInstance().iniciarValores(assistantSalaryData, props.inCentralType);
+    //     // CalculationService.ChemistAssistantSalary(assistantSalaryData);
+    // }, []);
+
+    // Montaje inicial
     useEffect(() => {
-        // ChemistSalaryStarter.getInstance().iniciarValores(chemistSalaryData, props.inCentralType);
-        // CalculationService.ComputeChemistSalary(chemistSalaryData);
-        // ChemistAssistantSalaryStarter.getInstance().iniciarValores(assistantSalaryData, props.inCentralType);
-        // CalculationService.ChemistAssistantSalary(assistantSalaryData);
+        handleOnComponentMount();
     }, []);
 
-    // CREO QUE SE NECESITA LA inMonthlyProductionCapacity PARA HACER LOS CALCULOS DE maintenanceCostsData
+    const handleOnComponentMount = () => {
+        setInternalMaintenanceCostsData((prev) => {
+            if (!deepEqual(prev, maintenanceCostsData)) {
+                return deepClone(maintenanceCostsData);
+            }
+            return prev;
+        });
+
+        setInternalProductionCostsData((prev) => {
+            if (!deepEqual(prev, productionCostsData)) {
+                return deepClone(productionCostsData);
+            }
+            return prev;
+        });
+
+        // console.log("COMPONENTE 'OperatingCostsForm' MONTADO Y CARGADO");
+        // console.log(maintenanceCostsData);
+        // console.log(productionCostsData);
+        // console.log("xxxx COMPONENTE 'OperatingCostsForm' MONTADO Y CARGADO xxx");
+    }
+
+
+
+
+
+
+    // CREO QUE SE NECESITA LA inMonthlyProductionCapacity PARA HACER LOS CALCULOS DE internalMaintenanceCostsData
     //
     useEffect(() => {
 
-    }, [maintenanceCostsData]);
+    }, [internalMaintenanceCostsData]);
 
     useEffect(() => {
 
-    }, [productionCostsData]);
+    }, [internalProductionCostsData]);
 
     const handleOnMaintenanceCostsChange = (inNewItem: MaintenanceCostsGroupModel) => {
         //TODO
@@ -48,10 +83,10 @@ const OperatingCostsForm = (props: OperatingCostsFormProps) => {
     return (
         <OperatingCostsAccourd
             inCentralType={props.inCentralType}
-            inMaintenanceCostsData={maintenanceCostsData}
-            inProductionCostsData={productionCostsData}
-            inMonthlyProductionCapacity={props.inMonthlyProductionCapacity}
+            inMaintenanceCostsData={internalMaintenanceCostsData ?? new MaintenanceCostsGroupModel()}
+            inProductionCostsData={internalProductionCostsData ?? new ProductionCostsGroupModel()}
             inProductionLines={props.inProductionLines}
+            inProductionPerMonth={props.inProductionPerMonth}
             onMaintenanceCostsChange={handleOnMaintenanceCostsChange}
             onProductionCostsChange={handleOnProductionCostsChange}
         />

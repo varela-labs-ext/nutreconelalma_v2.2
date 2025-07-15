@@ -18,8 +18,8 @@ interface OperatingCostsAccourdProps {
     inCentralType: CentralTypeIdEnum;
     inMaintenanceCostsData: MaintenanceCostsGroupModel;
     inProductionCostsData: ProductionCostsGroupModel;
-    inMonthlyProductionCapacity: number;
     inProductionLines: number;
+    inProductionPerMonth: number
     onMaintenanceCostsChange: (inNewItem: MaintenanceCostsGroupModel) => void;
     onProductionCostsChange: (inNewItem: ProductionCostsGroupModel) => void;
 }
@@ -32,15 +32,15 @@ const OperatingCostsAccourd = (props: OperatingCostsAccourdProps) => {
                     <MaintenanceCostsSet
                         inData={props.inMaintenanceCostsData}
                         inProductionLines={props.inProductionLines}
+                        inProductionPerMonth={props.inProductionPerMonth}
                         onChange={props.onMaintenanceCostsChange}
                     />
-                    <>PENDING</>
                 </AccordionItem>
                 <AccordionItem id="id_ProdC" title="Costos de Producción" icon={Factory}>
                     <ProductionCostsSet
                         inData={props.inProductionCostsData}
-                        inMonthlyProductionCapacity={props.inMonthlyProductionCapacity}
                         inProductionLines={props.inProductionLines}
+                        inProductionPerMonth={props.inProductionPerMonth}
                         onChange={props.onProductionCostsChange}
                     />
                 </AccordionItem>

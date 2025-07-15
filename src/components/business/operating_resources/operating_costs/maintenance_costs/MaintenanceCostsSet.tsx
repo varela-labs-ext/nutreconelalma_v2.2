@@ -4,6 +4,7 @@ import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
 
 interface MaintenanceCostsSetProps {
     inProductionLines: number;
+    inProductionPerMonth: number;
     inData: MaintenanceCostsGroupModel;
     onChange: (inNewItem: MaintenanceCostsGroupModel) => void;
 }
@@ -23,6 +24,7 @@ const MaintenanceCostsSet = (props: MaintenanceCostsSetProps) => {
         <div className="flex flex-col gap-2">
             <MaintenanceCostsInputs
                 inProductionLines={props.inProductionLines}
+                inProductionPerMonth={props.inProductionPerMonth}
                 inData={props.inData}
                 onInputChange={handleOnMaintenanceCostsInputsChange}
             />

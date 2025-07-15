@@ -21,18 +21,21 @@ import ProductionCostsGroupModel from "@/logic/models/operating_resources/Produc
 import StaffSalaryGroupModel from "@/logic/models/operating_resources/StaffSalaryGroupModel";
 import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
 import RawMaterialModel from "@/logic/models/RawMaterialModel";
+import CalculationService from "@/logic/services/CalculationService";
 
 class DefaultValuesProvider {
-    public static chemistSalaryDefaults(inCentralType: CentralTypeIdEnum = CentralTypeIdEnum.None): StaffSalaryGroupModel {
+    public static chemistSalaryDefaults(inCentralType: CentralTypeIdEnum): StaffSalaryGroupModel {
         const output: StaffSalaryGroupModel = new StaffSalaryGroupModel();
         const defaults = new ChemistSalaryDefaults();
 
         defaults.setDefaultValues(output, inCentralType);
 
+        // CalculationService.ComputeChemistSalary(output);
+
         return output;
     }
 
-    public static chemistAssistantSalaryDefaults(inCentralType: CentralTypeIdEnum = CentralTypeIdEnum.None): StaffSalaryGroupModel {
+    public static chemistAssistantSalaryDefaults(inCentralType: CentralTypeIdEnum): StaffSalaryGroupModel {
         const output: StaffSalaryGroupModel = new StaffSalaryGroupModel();
         const defaults = new ChemistAssistantSalaryDefaults();
 
@@ -41,20 +44,24 @@ class DefaultValuesProvider {
         return output;
     }
 
-    public static productionCostsDefaults(inCentralType: CentralTypeIdEnum = CentralTypeIdEnum.None): ProductionCostsGroupModel {
+    public static productionCostsDefaults(inCentralType: CentralTypeIdEnum, inProductionLines: number, inProductionPerMonth: number): ProductionCostsGroupModel {
         const output: ProductionCostsGroupModel = new ProductionCostsGroupModel();
         const defaults = new ProductionCostsDefaults();
 
         defaults.setDefaultValues(output, inCentralType);
 
+        CalculationService
+
         return output;
     }
 
-    public static maintenanceCostsDefaults(inCentralType: CentralTypeIdEnum = CentralTypeIdEnum.None): MaintenanceCostsGroupModel {
+    public static maintenanceCostsDefaults(inCentralType: CentralTypeIdEnum, inProductionLines: number, inProductionPerMonth: number): MaintenanceCostsGroupModel {
         const output: MaintenanceCostsGroupModel = new MaintenanceCostsGroupModel();
         const defaults = new MaintenanceCostsDefaults();
 
         defaults.setDefaultValues(output, inCentralType);
+
+        CalculationService.computeMaintenanceCosts(output, inProductionLines, inProductionPerMonth);
 
         return output;
     }
@@ -74,6 +81,8 @@ class DefaultValuesProvider {
 
         defaults.setDefaultValues(output, inCentralType);
 
+        // CalculationService TODO
+
         return output;
     }
 
@@ -91,6 +100,8 @@ class DefaultValuesProvider {
         const defaults = new AutomatedEquipmentDefaults();
 
         defaults.setDefaultValues(output, CentralTypeIdEnum.Automatico);
+
+        // CalculationService.computeau TODO TODO
 
         return output;
     }

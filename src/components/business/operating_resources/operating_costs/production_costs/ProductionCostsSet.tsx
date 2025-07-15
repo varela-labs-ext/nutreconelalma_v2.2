@@ -6,8 +6,8 @@ import ProductionCostsInputs from "./ProductionCostsInputs";
 
 interface ProductionCostsSetProps {
     inData: ProductionCostsGroupModel;
-    inMonthlyProductionCapacity: number;
     inProductionLines: number;
+    inProductionPerMonth: number;
     onChange: (newItem: ProductionCostsGroupModel) => void;
 }
 
@@ -27,8 +27,8 @@ const ProductionCostsSet = (props: ProductionCostsSetProps) => {
             <ProductionCostsHeaders />
             <ProductionCostsInputs
                 inData={props.inData}
-                inMonthlyProductionCapacity={props.inMonthlyProductionCapacity}
                 inProductionLines={props.inProductionLines}
+                inProductionPerMonth={props.inProductionPerMonth}
                 onInputChange={handleOnProductionCostsInputs}
             />
         </div>
