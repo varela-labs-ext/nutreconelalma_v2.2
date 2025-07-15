@@ -1,6 +1,7 @@
 import MaintenanceCostsGroupModel from "@/logic/models/operating_resources/MaintenanceCostsGroupModel";
 import MaintenanceCostsInputs from "./MaintenanceCostsInputs";
 import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
+import { deepClone } from "@/utils/objectUtils";
 
 interface MaintenanceCostsSetProps {
     inProductionLines: number;
@@ -13,7 +14,7 @@ const MaintenanceCostsSet = (props: MaintenanceCostsSetProps) => {
 
     const handleOnMaintenanceCostsInputsChange = (inPropertyName: string, inNewItem: UnitCostItemModel) => {
         const output: MaintenanceCostsGroupModel = {
-            ...props.inData,
+            ...deepClone(props.inData),
             [inPropertyName]: inNewItem
         };
 

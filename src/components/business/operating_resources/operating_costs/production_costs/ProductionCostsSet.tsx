@@ -2,6 +2,7 @@ import ProductionCostsGroupModel from "@/logic/models/operating_resources/Produc
 import ProductionCostsHeaders from "./ProductionCostsHeaders";
 import EstimatedCostItemModel from "@/logic/models/row_item/EstimatedCostItemRowModel";
 import ProductionCostsInputs from "./ProductionCostsInputs";
+import { deepClone } from "@/utils/objectUtils";
 
 
 interface ProductionCostsSetProps {
@@ -15,7 +16,7 @@ const ProductionCostsSet = (props: ProductionCostsSetProps) => {
 
     const handleOnProductionCostsInputs = (inPropertyName: string, inNewItem: EstimatedCostItemModel) => {
         const output: ProductionCostsGroupModel = {
-            ...props.inData,
+            ...deepClone(props.inData),
             [inPropertyName]: inNewItem
         }
 

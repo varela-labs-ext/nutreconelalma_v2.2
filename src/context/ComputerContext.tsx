@@ -441,6 +441,8 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     }, [currentRawMaterialData]);
 
     useEffect(() => {
+        console.log("HUBO UN CAMBIO EN EL TIPO DE CENTRAL, O EN EL TIPO DE POBLACION.");
+
         if (executingSomething === false) {
             populateCurrentRawMaterial();
         } else {

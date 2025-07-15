@@ -3,6 +3,7 @@ import MixingCenterSet from "./mixing_center/MixingCenterSet";
 import { useEffect, useRef, useState } from "react";
 import { useComputerContext } from "@/context/ComputerContext";
 import { deepClone, deepEqual } from "@/utils/objectUtils";
+import { handleOnInternalModelChange } from "@/context/ComputerContextExt";
 
 
 interface MixingCenterSettingsProps {
@@ -38,23 +39,32 @@ const MixingCenterSettings = (props: MixingCenterSettingsProps) => {
 
     // Cambio en interno → actualizar contexto (con debounce)
     useEffect(() => {
-        if (internalData === null) return;
-
-        if (debounceRef.current) {
-            clearTimeout(debounceRef.current);
+        if (internalData) {
+            handleOnInternalModelChange(
+                debounceRef,
+                internalData,
+                currentMixingCenterSettings,
+                setCurrentMixingCenterSettings
+            );
         }
 
-        debounceRef.current = window.setTimeout(() => {
-            if (!deepEqual(internalData, currentMixingCenterSettings)) {
-                setCurrentMixingCenterSettings(deepClone(internalData)); // copia profunda antes de propagar
-            }
-        }, 300);
+        // if (internalData === null) return;
 
-        return () => {
-            if (debounceRef.current) {
-                clearTimeout(debounceRef.current);
-            }
-        };
+        // if (debounceRef.current) {
+        //     clearTimeout(debounceRef.current);
+        // }
+
+        // debounceRef.current = window.setTimeout(() => {
+        //     if (!deepEqual(internalData, currentMixingCenterSettings)) {
+        //         setCurrentMixingCenterSettings(deepClone(internalData)); // copia profunda antes de propagar
+        //     }
+        // }, 300);
+
+        // return () => {
+        //     if (debounceRef.current) {
+        //         clearTimeout(debounceRef.current);
+        //     }
+        // };
     }, [internalData]);
 
     const handleOnMixingCenterSetChange = (inNewData: MixingCenterSettingsModel): void => {

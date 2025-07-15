@@ -1,5 +1,6 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
+import { deepClone, deepEqual } from "@/utils/objectUtils";
 
 export const callByCentralType = <TModel>(
     inCentralType: CentralTypeIdEnum,
@@ -56,30 +57,46 @@ export const callByPopulationType = <TModel>(
     }
 }
 
-/*
+export const handleOnInternalModelChange = <TModel>(
+    inDebounceRef: React.MutableRefObject<number | null>,
+    internalData: TModel,
+    currentData: TModel,
+    callBack: (outData: TModel) => void) => {
 
-const ejecutarFuncion = (callback: () => void) => {
-  console.log("Antes de ejecutar la función...");
-  callback();
-  console.log("Después de ejecutar la función.");
+    if (internalData === null) return;
+
+    if (inDebounceRef.current) {
+        clearTimeout(inDebounceRef.current);
+    }
+
+    if (inDebounceRef.current) {
+        clearTimeout(inDebounceRef.current);
+    }
+
+    inDebounceRef.current = window.setTimeout(() => {
+        if (!deepEqual(internalData, currentData)) {
+            callBack(deepClone(internalData)); // copia profunda antes de propagar
+        }
+    }, 200);
+}
+
+
+export const safeSetState = <T>(
+    setStateFn: React.Dispatch<React.SetStateAction<T | null>>,
+    newValue: T,
+    options?: { clone?: boolean }
+) => {
+    setStateFn((prev) => {
+        if (prev === null) {
+            return options?.clone === false ? newValue : deepClone(newValue);
+        }
+
+        const isEqual = deepEqual(prev, newValue);
+
+        if (!isEqual) {
+            return options?.clone === false ? newValue : deepClone(newValue);
+        }
+
+        return prev;
+    });
 };
-
-const saludar = () => {
-  console.log("¡Hola, Joe!");
-};
-
-// Llamamos pasando la función como parámetro
-ejecutarFuncion(saludar);
-
-const procesarTexto = (texto: string, transformador: (input: string) => string) => {
-  const resultado = transformador(texto);
-  console.log("Resultado:", resultado);
-};
-
-const convertirAMayusculas = (texto: string) => {
-  return texto.toUpperCase();
-};
-
-procesarTexto("hola mundo", convertirAMayusculas);
-
-*/
