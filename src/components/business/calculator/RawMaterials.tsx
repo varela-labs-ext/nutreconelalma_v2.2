@@ -3,69 +3,56 @@ import { useEffect, useRef, useState } from "react";
 import RawMaterialsSet from "../raw_material/RawMaterialsSet";
 import { useComputerContext } from "@/context/ComputerContext";
 import { deepClone, deepEqual } from "@/utils/objectUtils";
+import { handleOnInternalModelChange, safeSetState } from "@/context/ComputerContextExt";
+import CalculationService from "@/logic/services/CalculationService";
 
 interface RawMaterialsProps {
 
 }
 
 const RawMaterials = (props: RawMaterialsProps) => {
-    const { currentRawMaterialData, setCurrentRawMaterialData } = useComputerContext();
+    const {
+        currentRawMaterial,
+        setCurrentRawMaterial
+    } = useComputerContext();
 
-    const [internalData, setInternalData] = useState<RawMaterialModel | null>(null);
+    const [loaded, setLoaded] = useState<boolean>(false);
+    const [internalRawMaterial, setInternalRawMaterial] = useState<RawMaterialModel | null>(null);
 
-    const debounceRef = useRef<number | null>(null);
+    const debounceRefByRawMaterial = useRef<number | null>(null);
 
     // Montaje inicial
     useEffect(() => {
-        setInternalData((prev) => {
-            if (!deepEqual(prev, currentRawMaterialData)) {
-                return deepClone(currentRawMaterialData); // copia profunda para evitar referencias compartidas
-            }
-            return prev;
-        });
+        safeSetState(setInternalRawMaterial, currentRawMaterial);
+        setLoaded(true);
     }, []);
 
     // Cambio en el contexto externo → actualizar interno
     useEffect(() => {
-        setInternalData((prev) => {
-            if (!deepEqual(prev, currentRawMaterialData)) {
-                return deepClone(currentRawMaterialData); // evita re-renders innecesarios
-            }
-            return prev;
-        });
-    }, [currentRawMaterialData]);
+        safeSetState(setInternalRawMaterial, currentRawMaterial);
+    }, [currentRawMaterial]);
 
     // Cambio en interno → actualizar contexto (con debounce)
     useEffect(() => {
-        if (internalData === null) return;
-
-        if (debounceRef.current) {
-            clearTimeout(debounceRef.current);
-        }
-
-        debounceRef.current = window.setTimeout(() => {
-            if (!deepEqual(internalData, currentRawMaterialData)) {
-                setCurrentRawMaterialData(deepClone(internalData)); // copia profunda antes de propagar
-            }
-        }, 300);
-
-        return () => {
-            if (debounceRef.current) {
-                clearTimeout(debounceRef.current);
-            }
+        if (internalRawMaterial) {
+            handleOnInternalModelChange(
+                debounceRefByRawMaterial,
+                internalRawMaterial,
+                currentRawMaterial,
+                setCurrentRawMaterial);
         };
-    }, [internalData]);
-
+    }, [internalRawMaterial]);
 
 
     const handleOnRawMaterialsSetChange = (inNewData: RawMaterialModel) => {
-        setInternalData({ ...inNewData });
+        CalculationService.computeRawMaterial(inNewData);
+        setInternalRawMaterial(inNewData);
     }
 
     return (
         <>
             <RawMaterialsSet
-                inData={internalData ?? new RawMaterialModel()}
+                inData={internalRawMaterial ?? new RawMaterialModel()}
                 onChange={handleOnRawMaterialsSetChange}
             />
         </>

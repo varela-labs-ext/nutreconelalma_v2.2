@@ -1,8 +1,8 @@
 import ClinicaInputRowModel from "../models/row_item/ClinicaInputRowModel";
 
-import BaseCalc from "./BaseCalc";
+import BaseCalc from "../services/BaseCalc";
 import RawMaterialModel from "../models/RawMaterialModel";
-import ClinicalInputCalc from "./ClinicalInputCalc";
+import ClinicalInputCalc from "../services/ClinicalInputCalc";
 import { isValidObj } from "@/utils/itemsUtils";
 
 class RawMaterialsCalc extends BaseCalc<RawMaterialModel> {

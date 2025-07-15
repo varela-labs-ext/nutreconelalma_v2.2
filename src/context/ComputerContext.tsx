@@ -54,7 +54,7 @@ export interface ComputerContextProps {
     // currentPopulationType: PopulationTypeIdEnum;
     currentMixingCenterSettings: MixingCenterSettingsModel;
 
-    currentRawMaterialData: RawMaterialModel; //<- hay que renombrarlo a huevo!
+    currentRawMaterial: RawMaterialModel; //<- hay que renombrarlo a huevo!
     currentAutomatedEquipment: AutomatedEquipmentGroupModel;
     currentHygieneAndCleaning: HygieneAndCleaningGroupModel;
     currentPersonalProtection: PersonalProtectionGroupModel;
@@ -72,7 +72,7 @@ export interface ComputerContextProps {
     // setCurrentPopulationType: (inValue: PopulationTypeIdEnum) => void;
 
     setCurrentMixingCenterSettings: (inValue: MixingCenterSettingsModel) => void;
-    setCurrentRawMaterialData: (inValue: RawMaterialModel) => void; //<- hay que renombrarlo a huevo, el nombre del modelo!
+    setCurrentRawMaterial: (inValue: RawMaterialModel) => void; //<- hay que renombrarlo a huevo, el nombre del modelo!
 
     setCurrentAutomatedEquipment: (inValue: AutomatedEquipmentGroupModel) => void;
     setCurrentHygieneAndCleaning: (inValue: HygieneAndCleaningGroupModel) => void;
@@ -104,7 +104,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     // const [currentCentralType, setCurrentCentralType] = useState<CentralTypeIdEnum>(CentralTypeIdEnum.Manual);
     // const [currentPopulationType, setCurrentPopulationType] = useState<PopulationTypeIdEnum>(PopulationTypeIdEnum.Adulto);
     const [currentMixingCenterSettings, setCurrentMixingCenterSettings] = useState<MixingCenterSettingsModel>(new MixingCenterSettingsModel());
-    const [currentRawMaterialData, setCurrentRawMaterialData] = useState<RawMaterialModel>(new RawMaterialModel());
+    const [currentRawMaterial, setCurrentRawMaterial] = useState<RawMaterialModel>(new RawMaterialModel());
     const [currentAutomatedEquipment, setCurrentAutomatedEquipment] = useState<AutomatedEquipmentGroupModel>(new AutomatedEquipmentGroupModel());
     const [currentHygieneAndCleaning, setCurrentHygieneAndCleaning] = useState<HygieneAndCleaningGroupModel>(new HygieneAndCleaningGroupModel());
     const [currentPersonalProtection, setCurrentPersonalProtection] = useState<PersonalProtectionGroupModel>(new PersonalProtectionGroupModel());
@@ -238,7 +238,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         setMixingCenterAutomaticNeonatalRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Automatico, PopulationTypeIdEnum.Neonatal));
         setMixingCenterAutomaticPediatricaRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Automatico, PopulationTypeIdEnum.Pediatrica));
 
-        setCurrentRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Adulto));
+        setCurrentRawMaterial(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Adulto));
 
         console.log("METODO 'createNewFileWithStandarDefaultValues' EJECUTADO...");
         console.log(currentProductionCosts);
@@ -343,13 +343,13 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         }
 
         if (inData.mixingCenterManualAdultoRawMaterial) {
-            setCurrentRawMaterialData(deepClone(inData.mixingCenterManualAdultoRawMaterial));
+            setCurrentRawMaterial(deepClone(inData.mixingCenterManualAdultoRawMaterial));
         }
     }
 
     // Se encarga de copiar los datos de 'CurrentRawMaterialData' al modelo que le corresponde según el tipo de central y el tipo de poblacion
     const backupCurrentRawMaterialInToRightOne = (): void => {
-        const newData: RawMaterialModel = deepClone(currentRawMaterialData);
+        const newData: RawMaterialModel = deepClone(currentRawMaterial);
 
         switch (currentMixingCenterSettings.populationType) {
             case PopulationTypeIdEnum.Adulto:
@@ -431,7 +431,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
 
             const newData: RawMaterialModel = deepClone(results);
 
-            setCurrentRawMaterialData(newData);
+            setCurrentRawMaterial(newData);
         } catch (error) {
             console.error(error);
             throw error;
@@ -457,7 +457,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         // } else {
         //     console.log("HUBO UN CAMBIO EN 'CURRENT RAW MATERIAL' PERO OTRO PROCESO ESTABA EN EJECUCION.");
         // }
-    }, [currentRawMaterialData]);
+    }, [currentRawMaterial]);
 
     // useEffect(() => {
     //     if (executingSomething === false) {
@@ -504,7 +504,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 // currentCentralType,
                 // currentPopulationType,
                 currentMixingCenterSettings,
-                currentRawMaterialData,
+                currentRawMaterial,
                 currentAutomatedEquipment,
                 currentHygieneAndCleaning,
                 currentPersonalProtection,
@@ -519,7 +519,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 // setCurrentCentralType,
                 // setCurrentPopulationType,
                 setCurrentMixingCenterSettings,
-                setCurrentRawMaterialData,
+                setCurrentRawMaterial,
                 setCurrentAutomatedEquipment,
                 setCurrentHygieneAndCleaning,
                 setCurrentPersonalProtection,

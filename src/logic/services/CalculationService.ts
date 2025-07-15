@@ -9,7 +9,7 @@ import ChemistAssistantSalaryCalc from "../calcs/ChemistAssistantSalaryCalc";
 import ChemistSalaryCalc from "../calcs/ChemistSalaryCalc";
 import ClinicalInputCalc from "./ClinicalInputCalc";
 import EstimatedCostInputCalc from "./EstimatedCostInputCalc";
-import RawMaterialsCalc from "./RawMaterialsCalc";
+import RawMaterialsCalc from "../calcs/RawMaterialsCalc";
 import UnitCostInputCalc from "./UnitCostInputCalc";
 import ProductionCostsGroupModel from "../models/operating_resources/ProductionCostsGroupModel";
 import ProductionCostsCalc from "../calcs/ProductionCostsCalc";

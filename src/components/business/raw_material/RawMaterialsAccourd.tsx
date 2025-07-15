@@ -22,7 +22,7 @@ const RawMaterialsAccourd = (props: RawMaterialsAccourdProps) => {
             [inName]: inNewItem
         };
 
-        CalculationService.computeRawMaterial(updatedData);
+        // CalculationService.computeRawMaterial(updatedData);
         props.onChange(updatedData);
     }
 
