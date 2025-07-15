@@ -10,7 +10,7 @@ interface MixingCenterSettingsProps {
 }
 
 const MixingCenterSettings = (props: MixingCenterSettingsProps) => {
-    const { mixingCenterSettingsData, setMixingCenterSettingsData } = useComputerContext();
+    const { currentMixingCenterSettings, setCurrentMixingCenterSettings } = useComputerContext();
 
     const [internalData, setInternalData] = useState<MixingCenterSettingsModel | null>(null);
 
@@ -19,8 +19,8 @@ const MixingCenterSettings = (props: MixingCenterSettingsProps) => {
     // Montaje inicial
     useEffect(() => {
         setInternalData((prev) => {
-            if (!deepEqual(prev, mixingCenterSettingsData)) {
-                return deepClone(mixingCenterSettingsData); // copia profunda para evitar referencias compartidas
+            if (!deepEqual(prev, currentMixingCenterSettings)) {
+                return deepClone(currentMixingCenterSettings); // copia profunda para evitar referencias compartidas
             }
             return prev;
         });
@@ -29,12 +29,12 @@ const MixingCenterSettings = (props: MixingCenterSettingsProps) => {
     // Cambio en el contexto externo → actualizar interno
     useEffect(() => {
         setInternalData((prev) => {
-            if (!deepEqual(prev, mixingCenterSettingsData)) {
-                return deepClone(mixingCenterSettingsData); // evita re-renders innecesarios
+            if (!deepEqual(prev, currentMixingCenterSettings)) {
+                return deepClone(currentMixingCenterSettings); // evita re-renders innecesarios
             }
             return prev;
         });
-    }, [mixingCenterSettingsData]);
+    }, [currentMixingCenterSettings]);
 
     // Cambio en interno → actualizar contexto (con debounce)
     useEffect(() => {
@@ -45,8 +45,8 @@ const MixingCenterSettings = (props: MixingCenterSettingsProps) => {
         }
 
         debounceRef.current = window.setTimeout(() => {
-            if (!deepEqual(internalData, mixingCenterSettingsData)) {
-                setMixingCenterSettingsData(deepClone(internalData)); // copia profunda antes de propagar
+            if (!deepEqual(internalData, currentMixingCenterSettings)) {
+                setCurrentMixingCenterSettings(deepClone(internalData)); // copia profunda antes de propagar
             }
         }, 300);
 

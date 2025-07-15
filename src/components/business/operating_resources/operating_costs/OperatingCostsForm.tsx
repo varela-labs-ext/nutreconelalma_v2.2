@@ -19,7 +19,7 @@ interface OperatingCostsFormProps {
 //ESTE DEBE GESTIONAR POR CUENTA PROPIA LA CARGA DE LOS DATOS DESDE LA DB
 
 const OperatingCostsForm = (props: OperatingCostsFormProps) => {
-    const { maintenanceCostsData, productionCostsData, setMaintenanceCostsData, setProductionCostsData } = useComputerContext();
+    const { currentMaintenanceCosts, currentProductionCosts, setCurrentMaintenanceCosts, setCurrentProductionCosts } = useComputerContext();
 
     const [internalMaintenanceCostsData, setInternalMaintenanceCostsData] = useState<MaintenanceCostsGroupModel | null>(null);
     const [internalProductionCostsData, setInternalProductionCostsData] = useState<ProductionCostsGroupModel | null>(null);
@@ -38,22 +38,22 @@ const OperatingCostsForm = (props: OperatingCostsFormProps) => {
 
     const handleOnComponentMount = () => {
         setInternalMaintenanceCostsData((prev) => {
-            if (!deepEqual(prev, maintenanceCostsData)) {
-                return deepClone(maintenanceCostsData);
+            if (!deepEqual(prev, currentMaintenanceCosts)) {
+                return deepClone(currentMaintenanceCosts);
             }
             return prev;
         });
 
         setInternalProductionCostsData((prev) => {
-            if (!deepEqual(prev, productionCostsData)) {
-                return deepClone(productionCostsData);
+            if (!deepEqual(prev, currentProductionCosts)) {
+                return deepClone(currentProductionCosts);
             }
             return prev;
         });
 
         // console.log("COMPONENTE 'OperatingCostsForm' MONTADO Y CARGADO");
-        // console.log(maintenanceCostsData);
-        // console.log(productionCostsData);
+        // console.log(currentMaintenanceCosts);
+        // console.log(currentProductionCosts);
         // console.log("xxxx COMPONENTE 'OperatingCostsForm' MONTADO Y CARGADO xxx");
     }
 

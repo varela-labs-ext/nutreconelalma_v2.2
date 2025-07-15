@@ -14,6 +14,7 @@ import DefaultValuesProvider from "@/providers/DefaultValuesProvider";
 import StorageProvider from "@/providers/StorageProvider";
 import { deepClone } from "@/utils/objectUtils";
 import { createContext, useContext, useEffect, useState } from "react";
+import { callByCentralType, callByCentralTypeWithReturn } from "./ComputerContextExt";
 
 // ------------------- Tipos auxiliares -------------------
 export type ActionComputer = "nueva" | "cargar" | "salvar" | null;
@@ -47,38 +48,40 @@ export interface ComputerContextProps {
     // setAction: (Action: ActionComputer) => void;
     executingSomething: boolean;
     userDefaultValuesExists: boolean;
+
     currentFilename: string | null;
     currentCentralType: CentralTypeIdEnum;
     currentPopulationType: PopulationTypeIdEnum;
-    mixingCenterSettingsData: MixingCenterSettingsModel;
+    currentMixingCenterSettings: MixingCenterSettingsModel;
 
     currentRawMaterialData: RawMaterialModel; //<- hay que renombrarlo a huevo!
-
-
-    automatedEquipmentData: AutomatedEquipmentGroupModel;
-    hygieneAndCleaningData: HygieneAndCleaningGroupModel;
-    personalProtectionData: PersonalProtectionGroupModel;
-    sterileWorkEquipmentData: SterileWorkEquipmentGroupModel;
-    maintenanceCostsData: MaintenanceCostsGroupModel;
-    productionCostsData: ProductionCostsGroupModel;
-    chemistSalaryData: StaffSalaryGroupModel;
-    assistantSalaryData: StaffSalaryGroupModel;
+    currentAutomatedEquipment: AutomatedEquipmentGroupModel;
+    currentHygieneAndCleaning: HygieneAndCleaningGroupModel;
+    currentPersonalProtection: PersonalProtectionGroupModel;
+    currentSterileWorkEquipment: SterileWorkEquipmentGroupModel;
+    currentMaintenanceCosts: MaintenanceCostsGroupModel;
+    currentProductionCosts: ProductionCostsGroupModel;
+    currentChemistSalary: StaffSalaryGroupModel;
+    currentAssistantSalary: StaffSalaryGroupModel;
 
     setExecutingSomething: (inValue: boolean) => void;
     setUserDefaultValuesExists: (inValue: boolean) => void;
+
     setCurrentFilename: (inFileName: string | null) => void;
     setCurrentCentralType: (inValue: CentralTypeIdEnum) => void;
     setCurrentPopulationType: (inValue: PopulationTypeIdEnum) => void;
-    setMixingCenterSettingsData: (inValue: MixingCenterSettingsModel) => void;
-    setCurrentRawMaterialData: (inValue: RawMaterialModel) => void; //<- hay que renombrarlo a huevo!
-    setAutomatedEquipmentData: (inValue: AutomatedEquipmentGroupModel) => void;
-    setHygieneAndCleaningData: (inValue: HygieneAndCleaningGroupModel) => void;
-    setPersonalProtectionData: (inValue: PersonalProtectionGroupModel) => void;
-    setSterileWorkEquipmentData: (inValue: SterileWorkEquipmentGroupModel) => void;
-    setMaintenanceCostsData: (inValue: MaintenanceCostsGroupModel) => void;
-    setProductionCostsData: (inValue: ProductionCostsGroupModel) => void;
-    setChemistSalaryData: (inValue: StaffSalaryGroupModel) => void;
-    setAssistantSalaryData: (inValue: StaffSalaryGroupModel) => void;
+
+    setCurrentMixingCenterSettings: (inValue: MixingCenterSettingsModel) => void;
+    setCurrentRawMaterialData: (inValue: RawMaterialModel) => void; //<- hay que renombrarlo a huevo, el nombre del modelo!
+
+    setCurrentAutomatedEquipment: (inValue: AutomatedEquipmentGroupModel) => void;
+    setCurrentHygieneAndCleaning: (inValue: HygieneAndCleaningGroupModel) => void;
+    setCurrentPersonalProtection: (inValue: PersonalProtectionGroupModel) => void;
+    setCurrentSterileWorkEquipment: (inValue: SterileWorkEquipmentGroupModel) => void;
+    setCurrentMaintenanceCosts: (inValue: MaintenanceCostsGroupModel) => void;
+    setCurrentProductionCosts: (inValue: ProductionCostsGroupModel) => void;
+    setCurrentChemistSalary: (inValue: StaffSalaryGroupModel) => void;
+    setCurrentAssistantSalary: (inValue: StaffSalaryGroupModel) => void;
 
     createNewFileAsync: () => Promise<void>;
     openFileAsync: (inFileName: string) => Promise<void>;
@@ -100,17 +103,18 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     const [currentFilename, setCurrentFilename] = useState<string | null>(null);
     const [currentCentralType, setCurrentCentralType] = useState<CentralTypeIdEnum>(CentralTypeIdEnum.Manual);
     const [currentPopulationType, setCurrentPopulationType] = useState<PopulationTypeIdEnum>(PopulationTypeIdEnum.Adulto);
-    const [mixingCenterSettingsData, setMixingCenterSettingsData] = useState<MixingCenterSettingsModel>(new MixingCenterSettingsModel());
+    const [currentMixingCenterSettings, setCurrentMixingCenterSettings] = useState<MixingCenterSettingsModel>(new MixingCenterSettingsModel());
     const [currentRawMaterialData, setCurrentRawMaterialData] = useState<RawMaterialModel>(new RawMaterialModel());
-    const [automatedEquipmentData, setAutomatedEquipmentData] = useState<AutomatedEquipmentGroupModel>(new AutomatedEquipmentGroupModel());
-    const [hygieneAndCleaningData, setHygieneAndCleaningData] = useState<HygieneAndCleaningGroupModel>(new HygieneAndCleaningGroupModel());
-    const [personalProtectionData, setPersonalProtectionData] = useState<PersonalProtectionGroupModel>(new PersonalProtectionGroupModel());
-    const [sterileWorkEquipmentData, setSterileWorkEquipmentData] = useState<SterileWorkEquipmentGroupModel>(new SterileWorkEquipmentGroupModel());
-    const [maintenanceCostsData, setMaintenanceCostsData] = useState<MaintenanceCostsGroupModel>(new MaintenanceCostsGroupModel());
-    const [productionCostsData, setProductionCostsData] = useState<ProductionCostsGroupModel>(new ProductionCostsGroupModel());
-    const [chemistSalaryData, setChemistSalaryData] = useState<StaffSalaryGroupModel>(new StaffSalaryGroupModel());
-    const [assistantSalaryData, setAssistantSalaryData] = useState<StaffSalaryGroupModel>(new StaffSalaryGroupModel());
+    const [currentAutomatedEquipment, setCurrentAutomatedEquipment] = useState<AutomatedEquipmentGroupModel>(new AutomatedEquipmentGroupModel());
+    const [currentHygieneAndCleaning, setCurrentHygieneAndCleaning] = useState<HygieneAndCleaningGroupModel>(new HygieneAndCleaningGroupModel());
+    const [currentPersonalProtection, setCurrentPersonalProtection] = useState<PersonalProtectionGroupModel>(new PersonalProtectionGroupModel());
+    const [currentSterileWorkEquipment, setCurrentSterileWorkEquipment] = useState<SterileWorkEquipmentGroupModel>(new SterileWorkEquipmentGroupModel());
+    const [currentMaintenanceCosts, setCurrentMaintenanceCosts] = useState<MaintenanceCostsGroupModel>(new MaintenanceCostsGroupModel());
+    const [currentProductionCosts, setCurrentProductionCosts] = useState<ProductionCostsGroupModel>(new ProductionCostsGroupModel());
+    const [currentChemistSalary, setCurrentChemistSalary] = useState<StaffSalaryGroupModel>(new StaffSalaryGroupModel());
+    const [currentAssistantSalary, setCurrentAssistantSalary] = useState<StaffSalaryGroupModel>(new StaffSalaryGroupModel());
 
+    // Estos son internos del contexto solamente.
     const [mixingCenterManualAdultoRawMaterialData, setMixingCenterManualAdultoRawMaterialData] = useState<RawMaterialModel>(new RawMaterialModel());
     const [mixingCenterManualNeonatalRawMaterialData, setMixingCenterManualNeonatalRawMaterialData] = useState<RawMaterialModel>(new RawMaterialModel());
     const [mixingCenterManualPediatricaRawMaterialData, setMixingCenterManualPediatricaRawMaterialData] = useState<RawMaterialModel>(new RawMaterialModel());
@@ -204,19 +208,19 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     }
 
     const createNewFileWithStandarDefaultValues = (): void => {
-        setMixingCenterSettingsData(DefaultValuesProvider.mixingCenterSettingsDefaults());
+        setCurrentMixingCenterSettings(DefaultValuesProvider.mixingCenterSettingsDefaults());
 
-        setAutomatedEquipmentData(DefaultValuesProvider.automatedEquipmentDefaults());
-        setHygieneAndCleaningData(DefaultValuesProvider.hygieneAndCleaningDefaults(currentCentralType));
-        setPersonalProtectionData(DefaultValuesProvider.personalProtectionDefaults(currentCentralType));
-        setSterileWorkEquipmentData(DefaultValuesProvider.sterileWorkEquipmentDefaults(currentCentralType));
+        setCurrentAutomatedEquipment(DefaultValuesProvider.automatedEquipmentDefaults());
+        setCurrentHygieneAndCleaning(DefaultValuesProvider.hygieneAndCleaningDefaults(currentCentralType));
+        setCurrentPersonalProtection(DefaultValuesProvider.personalProtectionDefaults(currentCentralType));
+        setCurrentSterileWorkEquipment(DefaultValuesProvider.sterileWorkEquipmentDefaults(currentCentralType));
 
-        setMaintenanceCostsData(DefaultValuesProvider.maintenanceCostsDefaults(currentCentralType, mixingCenterSettingsData.productionLines, (mixingCenterSettingsData.productionPerDay * 30)));
+        setCurrentMaintenanceCosts(DefaultValuesProvider.maintenanceCostsDefaults(currentCentralType, currentMixingCenterSettings.productionLines, (currentMixingCenterSettings.productionPerDay * 30)));
 
-        setProductionCostsData(DefaultValuesProvider.productionCostsDefaults(currentCentralType, mixingCenterSettingsData.productionLines, (mixingCenterSettingsData.productionPerDay * 30)));
+        setCurrentProductionCosts(DefaultValuesProvider.productionCostsDefaults(currentCentralType, currentMixingCenterSettings.productionLines, (currentMixingCenterSettings.productionPerDay * 30)));
 
-        setChemistSalaryData(DefaultValuesProvider.chemistSalaryDefaults(currentCentralType));
-        setAssistantSalaryData(DefaultValuesProvider.chemistAssistantSalaryDefaults(currentCentralType));
+        setCurrentChemistSalary(DefaultValuesProvider.chemistSalaryDefaults(currentCentralType));
+        setCurrentAssistantSalary(DefaultValuesProvider.chemistAssistantSalaryDefaults(currentCentralType));
 
         setMixingCenterManualAdultoRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Adulto));
         setMixingCenterManualNeonatalRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Neonatal));
@@ -229,7 +233,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         setCurrentRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Adulto));
 
         console.log("METODO 'createNewFileWithStandarDefaultValues' EJECUTADO...");
-        console.log(productionCostsData);
+        console.log(currentProductionCosts);
     }
 
     const createNewFileWithUserCustomDefaultValuesAsync = async (): Promise<boolean> => {
@@ -246,15 +250,15 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     const gatherComputerData = (): ComputerBigGroupModel => {
         const output: ComputerBigGroupModel = new ComputerBigGroupModel();
 
-        output.mixingCenterSettings = deepClone(mixingCenterSettingsData);
-        output.automatedEquipment = deepClone(automatedEquipmentData);
-        output.hygieneAndCleaning = deepClone(hygieneAndCleaningData);
-        output.personalProtection = deepClone(personalProtectionData);
-        output.sterileWorkEquipment = deepClone(sterileWorkEquipmentData);
-        output.maintenanceCosts = deepClone(maintenanceCostsData);
-        output.productionCosts = deepClone(productionCostsData);
-        output.chemistSalary = deepClone(chemistSalaryData);
-        output.assistantSalary = deepClone(assistantSalaryData);
+        output.mixingCenterSettings = deepClone(currentMixingCenterSettings);
+        output.automatedEquipment = deepClone(currentAutomatedEquipment);
+        output.hygieneAndCleaning = deepClone(currentHygieneAndCleaning);
+        output.personalProtection = deepClone(currentPersonalProtection);
+        output.sterileWorkEquipment = deepClone(currentSterileWorkEquipment);
+        output.maintenanceCosts = deepClone(currentMaintenanceCosts);
+        output.productionCosts = deepClone(currentProductionCosts);
+        output.chemistSalary = deepClone(currentChemistSalary);
+        output.assistantSalary = deepClone(currentAssistantSalary);
         output.mixingCenterManualAdultoRawMaterial = deepClone(mixingCenterManualAdultoRawMaterialData);
         output.mixingCenterManualNeonatalRawMaterial = deepClone(mixingCenterManualNeonatalRawMaterialData);
         output.mixingCenterManualPediatricaRawMaterial = deepClone(mixingCenterManualPediatricaRawMaterialData);
@@ -271,39 +275,39 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
             tempData.populationType = PopulationTypeIdEnum.Adulto;
             tempData.centralType = CentralTypeIdEnum.Manual;
 
-            setMixingCenterSettingsData(tempData);
+            setCurrentMixingCenterSettings(tempData);
         }
 
         if (inData.automatedEquipment) {
-            setAutomatedEquipmentData(deepClone(inData.automatedEquipment));
+            setCurrentAutomatedEquipment(deepClone(inData.automatedEquipment));
         }
 
         if (inData.hygieneAndCleaning) {
-            setHygieneAndCleaningData(deepClone(inData.hygieneAndCleaning));
+            setCurrentHygieneAndCleaning(deepClone(inData.hygieneAndCleaning));
         }
 
         if (inData.personalProtection) {
-            setPersonalProtectionData(deepClone(inData.personalProtection));
+            setCurrentPersonalProtection(deepClone(inData.personalProtection));
         }
 
         if (inData.sterileWorkEquipment) {
-            setSterileWorkEquipmentData(deepClone(inData.sterileWorkEquipment));
+            setCurrentSterileWorkEquipment(deepClone(inData.sterileWorkEquipment));
         }
 
         if (inData.maintenanceCosts) {
-            setMaintenanceCostsData(deepClone(inData.maintenanceCosts));
+            setCurrentMaintenanceCosts(deepClone(inData.maintenanceCosts));
         }
 
         if (inData.productionCosts) {
-            setProductionCostsData(deepClone(inData.productionCosts));
+            setCurrentProductionCosts(deepClone(inData.productionCosts));
         }
 
         if (inData.chemistSalary) {
-            setChemistSalaryData(deepClone(inData.chemistSalary));
+            setCurrentChemistSalary(deepClone(inData.chemistSalary));
         }
 
         if (inData.assistantSalary) {
-            setAssistantSalaryData(deepClone(inData.assistantSalary));
+            setCurrentAssistantSalary(deepClone(inData.assistantSalary));
         }
 
         if (inData.mixingCenterManualAdultoRawMaterial) {
@@ -341,34 +345,28 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
 
         switch (currentPopulationType) {
             case PopulationTypeIdEnum.Adulto:
-                switch (currentCentralType) {
-                    case CentralTypeIdEnum.Manual:
-                        setMixingCenterManualAdultoRawMaterialData(newData);
-                        break;
-                    case CentralTypeIdEnum.Automatico:
-                        setMixingCenterAutomaticAdultoRawMaterialData(newData);
-                        break;
-                }
+                callByCentralType(
+                    currentCentralType,
+                    newData,
+                    setMixingCenterManualAdultoRawMaterialData,
+                    setMixingCenterAutomaticAdultoRawMaterialData
+                );
                 break;
             case PopulationTypeIdEnum.Neonatal:
-                switch (currentCentralType) {
-                    case CentralTypeIdEnum.Manual:
-                        setMixingCenterManualNeonatalRawMaterialData(newData);
-                        break;
-                    case CentralTypeIdEnum.Automatico:
-                        setMixingCenterAutomaticNeonatalRawMaterialData(newData);
-                        break;
-                }
+                callByCentralType(
+                    currentCentralType,
+                    newData,
+                    setMixingCenterManualNeonatalRawMaterialData,
+                    setMixingCenterAutomaticNeonatalRawMaterialData
+                );
                 break;
             case PopulationTypeIdEnum.Pediatrica:
-                switch (currentCentralType) {
-                    case CentralTypeIdEnum.Manual:
-                        setMixingCenterManualPediatricaRawMaterialData(newData);
-                        break;
-                    case CentralTypeIdEnum.Automatico:
-                        setMixingCenterAutomaticPediatricaRawMaterialData(newData);
-                        break;
-                }
+                callByCentralType(
+                    currentCentralType,
+                    newData,
+                    setMixingCenterManualPediatricaRawMaterialData,
+                    setMixingCenterAutomaticPediatricaRawMaterialData
+                );
                 break;
         }
     }
@@ -379,41 +377,40 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
 
         switch (currentPopulationType) {
             case PopulationTypeIdEnum.Adulto:
-                switch (currentCentralType) {
-                    case CentralTypeIdEnum.Manual:
-                        tempData = mixingCenterManualAdultoRawMaterialData;
-                        break;
-                    case CentralTypeIdEnum.Automatico:
-                        tempData = mixingCenterAutomaticAdultoRawMaterialData;
-                        break;
-                }
+                tempData = callByCentralTypeWithReturn(
+                    currentCentralType,
+                    () => mixingCenterManualAdultoRawMaterialData,
+                    () => mixingCenterAutomaticAdultoRawMaterialData
+                );
                 break;
             case PopulationTypeIdEnum.Neonatal:
-                switch (currentCentralType) {
-                    case CentralTypeIdEnum.Manual:
-                        tempData = mixingCenterManualNeonatalRawMaterialData;
-                        break;
-                    case CentralTypeIdEnum.Automatico:
-                        tempData = mixingCenterAutomaticNeonatalRawMaterialData;
-                        break;
-                }
+                tempData = callByCentralTypeWithReturn(
+                    currentCentralType,
+                    () => mixingCenterManualNeonatalRawMaterialData,
+                    () => mixingCenterAutomaticNeonatalRawMaterialData
+                );
                 break;
             case PopulationTypeIdEnum.Pediatrica:
-                switch (currentCentralType) {
-                    case CentralTypeIdEnum.Manual:
-                        tempData = mixingCenterManualPediatricaRawMaterialData;
-                        break;
-                    case CentralTypeIdEnum.Automatico:
-                        tempData = mixingCenterAutomaticPediatricaRawMaterialData;
-                        break;
-                }
+                tempData = callByCentralTypeWithReturn(
+                    currentCentralType,
+                    () => mixingCenterManualPediatricaRawMaterialData,
+                    () => mixingCenterAutomaticPediatricaRawMaterialData
+                );
+                // switch (currentCentralType) {
+                //     case CentralTypeIdEnum.Manual:
+                //         tempData = mixingCenterManualPediatricaRawMaterialData;
+                //         break;
+                //     case CentralTypeIdEnum.Automatico:
+                //         tempData = mixingCenterAutomaticPediatricaRawMaterialData;
+                //         break;
+                // }
                 break;
         }
 
         return tempData;
     }
 
-    // Obtiene los datos de 'getCurrentRawMaterial' para asignarselo al punto central que es 'CurrentRawMaterialData'
+    // Obtiene los datos de 'get_CurrentRawMaterial' para asignarselo al punto central que es 'CurrentRawMaterialData'
     const populateCurrentRawMaterial = (): void => {
         try {
             setExecutingSomething(true);
@@ -459,31 +456,31 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 currentFilename,
                 currentCentralType,
                 currentPopulationType,
-                mixingCenterSettingsData,
+                currentMixingCenterSettings,
                 currentRawMaterialData,
-                automatedEquipmentData,
-                hygieneAndCleaningData,
-                personalProtectionData,
-                sterileWorkEquipmentData,
-                maintenanceCostsData,
-                productionCostsData,
-                chemistSalaryData,
-                assistantSalaryData,
+                currentAutomatedEquipment,
+                currentHygieneAndCleaning,
+                currentPersonalProtection,
+                currentSterileWorkEquipment,
+                currentMaintenanceCosts,
+                currentProductionCosts,
+                currentChemistSalary,
+                currentAssistantSalary,
                 setExecutingSomething,
                 setUserDefaultValuesExists,
                 setCurrentFilename,
                 setCurrentCentralType,
                 setCurrentPopulationType,
-                setMixingCenterSettingsData,
+                setCurrentMixingCenterSettings,
                 setCurrentRawMaterialData,
-                setAutomatedEquipmentData,
-                setHygieneAndCleaningData,
-                setPersonalProtectionData,
-                setSterileWorkEquipmentData,
-                setMaintenanceCostsData,
-                setProductionCostsData,
-                setChemistSalaryData,
-                setAssistantSalaryData,
+                setCurrentAutomatedEquipment,
+                setCurrentHygieneAndCleaning,
+                setCurrentPersonalProtection,
+                setCurrentSterileWorkEquipment,
+                setCurrentMaintenanceCosts,
+                setCurrentProductionCosts,
+                setCurrentChemistSalary,
+                setCurrentAssistantSalary,
                 createNewFileAsync,
                 openFileAsync,
                 saveFileAsync,

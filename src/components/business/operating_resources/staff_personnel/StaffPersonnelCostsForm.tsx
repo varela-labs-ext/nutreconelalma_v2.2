@@ -19,10 +19,10 @@ const StaffPersonnelCostsForm = (props: StaffPersonnelCostsFormProps) => {
 
     useEffect(() => {
         DefaultsProvider.chemistSalaryDefaults(chemistSalaryData, props.inCentralType);
-        CalculationService.ComputeChemistSalary(chemistSalaryData);
+        CalculationService.computeChemistSalary(chemistSalaryData);
 
         DefaultsProvider.chemistAssistantSalaryDefaults(assistantSalaryData, props.inCentralType);
-        CalculationService.ChemistAssistantSalary(assistantSalaryData);
+        CalculationService.computeChemistAssistantSalary(assistantSalaryData);
     }, []);
 
     //
