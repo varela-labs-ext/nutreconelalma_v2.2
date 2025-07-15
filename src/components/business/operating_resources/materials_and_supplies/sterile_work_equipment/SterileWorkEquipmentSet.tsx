@@ -2,6 +2,7 @@ import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/S
 import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
 import SterileWorkEquipmentHeaders from "./SterileWorkEquipmentHeaders";
 import SterileWorkEquipmentInputs from "./SterileWorkEquipmentInputs";
+import { deepClone } from "@/utils/objectUtils";
 
 interface SterileWorkEquipmentSetProps {
     inData: SterileWorkEquipmentGroupModel;
@@ -12,7 +13,7 @@ const SterileWorkEquipmentSet = (props: SterileWorkEquipmentSetProps) => {
 
     const handleOnSterileWorkEquipmentInputsChange = (inPropertyName: string, inNewItem: UnitCostItemModel) => {
         const output: SterileWorkEquipmentGroupModel = {
-            ...props.inData,
+            ...deepClone(props.inData),
             [inPropertyName]: inNewItem
         };
 

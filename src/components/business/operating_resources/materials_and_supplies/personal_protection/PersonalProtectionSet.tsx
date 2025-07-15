@@ -3,6 +3,7 @@ import PersonalProtectionGroupModel from "@/logic/models/operating_resources/Per
 import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
 import PersonalProtectionHeaders from "./PersonalProtectionHeaders";
 import PersonalProtectionInputs from "./PersonalProtectionInputs";
+import { deepClone } from "@/utils/objectUtils";
 
 
 interface PersonalProtectionSetProps {
@@ -14,7 +15,7 @@ const PersonalProtectionSet = (props: PersonalProtectionSetProps) => {
 
     const handleOnAutomatedEquipmentInputsChange = (inPropertyName: string, inNewItem: UnitCostItemModel) => {
         const output: PersonalProtectionGroupModel = {
-            ...props.inData,
+            ...deepClone(props.inData),
             [inPropertyName]: inNewItem
         };
 

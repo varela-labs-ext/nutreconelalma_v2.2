@@ -6,6 +6,7 @@ import AmountItemModel from "@/logic/models/row_item/AmountItemRowModel";
 import PorcentajeItemModel from "@/logic/models/row_item/PorcentajeItemRowModel";
 import JustValueItemModel from "@/logic/models/row_item/OneValueItemRowModel";
 import StaffSalarySet from "./staff_salary/StaffSalarySet";
+import { deepClone } from "@/utils/objectUtils";
 
 /*
 - STAFF/PERSONAL
@@ -29,13 +30,13 @@ const StaffPersonnelCostsAccourd = (props: StaffPersonnelCostsAccourdProps) => {
     const handleOnAmountItemModelInputChange = (inModel: UserRole, inPropertyName: string, inNewItem: AmountItemModel) => {
         if (inModel === "Chemist") {
             const chemistOutput: StaffSalaryGroupModel = {
-                ...props.inChemistSalaryData,
+                ...deepClone(props.inChemistSalaryData),
                 [inPropertyName]: inNewItem
             };
             props.onChemistSalaryChange(chemistOutput);
         } else {
             const chemistOutput: StaffSalaryGroupModel = {
-                ...props.inAssistantSalaryData,
+                ...deepClone(props.inAssistantSalaryData),
                 [inPropertyName]: inNewItem
             };
             props.onAssistantSalaryChange(chemistOutput);
@@ -45,13 +46,13 @@ const StaffPersonnelCostsAccourd = (props: StaffPersonnelCostsAccourdProps) => {
     const handleOnPorcentajeInputChange = (inModel: UserRole, inPropertyName: string, inNewItem: PorcentajeItemModel) => {
         if (inModel === "Chemist") {
             const chemistOutput: StaffSalaryGroupModel = {
-                ...props.inChemistSalaryData,
+                ...deepClone(props.inChemistSalaryData),
                 [inPropertyName]: inNewItem
             };
             props.onChemistSalaryChange(chemistOutput);
         } else {
             const chemistOutput: StaffSalaryGroupModel = {
-                ...props.inAssistantSalaryData,
+                ...deepClone(props.inAssistantSalaryData),
                 [inPropertyName]: inNewItem
             };
             props.onAssistantSalaryChange(chemistOutput);
@@ -61,13 +62,13 @@ const StaffPersonnelCostsAccourd = (props: StaffPersonnelCostsAccourdProps) => {
     const handleOnJustValueInputChange = (inModel: UserRole, inPropertyName: string, inNewItem: JustValueItemModel) => {
         if (inModel === "Chemist") {
             const chemistOutput: StaffSalaryGroupModel = {
-                ...props.inChemistSalaryData,
+                ...deepClone(props.inChemistSalaryData),
                 [inPropertyName]: inNewItem
             };
             props.onChemistSalaryChange(chemistOutput);
         } else {
             const chemistOutput: StaffSalaryGroupModel = {
-                ...props.inAssistantSalaryData,
+                ...deepClone(props.inAssistantSalaryData),
                 [inPropertyName]: inNewItem
             };
             props.onAssistantSalaryChange(chemistOutput);

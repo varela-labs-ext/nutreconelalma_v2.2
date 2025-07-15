@@ -3,6 +3,7 @@ import HygieneAndCleaningGroupModel from "@/logic/models/operating_resources/Hyg
 import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
 import HygieneAndCleaningHeaders from "./HygieneAndCleaningHeaders";
 import HygieneAndCleaningInputs from "./HygieneAndCleaningInputs";
+import { deepClone } from "@/utils/objectUtils";
 
 
 interface HygieneAndCleaningSetProps {
@@ -15,7 +16,7 @@ const HygieneAndCleaningSet = (props: HygieneAndCleaningSetProps) => {
 
     const handleOnHygieneAndCleaningInputsChange = (inPropertyName: string, inNewItem: UnitCostItemModel) => {
         const output: HygieneAndCleaningGroupModel = {
-            ...props.inData,
+            ...deepClone(props.inData),
             [inPropertyName]: inNewItem
         };
 

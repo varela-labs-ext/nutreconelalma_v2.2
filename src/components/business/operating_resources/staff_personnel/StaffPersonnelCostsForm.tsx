@@ -18,7 +18,6 @@ interface StaffPersonnelCostsFormProps {
 
 const StaffPersonnelCostsForm = (props: StaffPersonnelCostsFormProps) => {
     const {
-        currentMixingCenterSettings,
         currentChemistSalary,
         currentAssistantSalary,
         setCurrentChemistSalary,

@@ -22,7 +22,13 @@ interface OperatingCostsFormProps {
 // ENTONCES LA SELECCION DE LOS OBJETOS SE PUEDE ELOQUESE
 
 const OperatingCostsForm = (props: OperatingCostsFormProps) => {
-    const { currentMixingCenterSettings, currentMaintenanceCosts, currentProductionCosts, setCurrentMaintenanceCosts, setCurrentProductionCosts } = useComputerContext();
+    const {
+        currentMixingCenterSettings,
+        currentMaintenanceCosts,
+        currentProductionCosts,
+        setCurrentMaintenanceCosts,
+        setCurrentProductionCosts
+    } = useComputerContext();
 
     const [loaded, setLoaded] = useState<boolean>(false);
     const [internalMaintenanceCosts, setInternalMaintenanceCosts] = useState<MaintenanceCostsGroupModel | null>(null);
