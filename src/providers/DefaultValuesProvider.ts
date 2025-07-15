@@ -30,7 +30,7 @@ class DefaultValuesProvider {
 
         defaults.setDefaultValues(output, inCentralType);
 
-        // CalculationService.ComputeChemistSalary(output);
+        CalculationService.computeChemistSalary(output);
 
         return output;
     }
@@ -41,6 +41,8 @@ class DefaultValuesProvider {
 
         defaults.setDefaultValues(output, inCentralType);
 
+        CalculationService.computeChemistAssistantSalary(output);
+
         return output;
     }
 
@@ -50,7 +52,7 @@ class DefaultValuesProvider {
 
         defaults.setDefaultValues(output, inCentralType);
 
-        CalculationService
+        CalculationService.computeProductionCosts(output, inProductionLines, inProductionPerMonth);
 
         return output;
     }
@@ -72,6 +74,8 @@ class DefaultValuesProvider {
 
         defaults.setDefaultValues(output, inCentralType);
 
+        CalculationService.computeSterileWorkEquipment(output);
+
         return output;
     }
 
@@ -81,7 +85,7 @@ class DefaultValuesProvider {
 
         defaults.setDefaultValues(output, inCentralType);
 
-        // CalculationService TODO
+        CalculationService.computeHygieneAndCleaning(output);
 
         return output;
     }
@@ -92,6 +96,8 @@ class DefaultValuesProvider {
 
         defaults.setDefaultValues(output, inCentralType);
 
+        CalculationService.computePersonalProtection(output);
+
         return output;
     }
 
@@ -101,7 +107,7 @@ class DefaultValuesProvider {
 
         defaults.setDefaultValues(output, CentralTypeIdEnum.Automatico);
 
-        // CalculationService.computeau TODO TODO
+        CalculationService.computeAutomatedEquipment(output);
 
         return output;
     }

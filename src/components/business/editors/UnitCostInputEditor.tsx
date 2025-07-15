@@ -27,7 +27,7 @@ const UnitCostInputEditor = (props: UnitCostInputEditorProps) => {
             };
 
             // Actualiza los totales dentro del objeto
-            CalculationService.ComputeUnitCostInput(output);
+            CalculationService.computeUnitCostInput(output);
 
             setInternalData(output);
 

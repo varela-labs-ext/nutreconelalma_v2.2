@@ -11,6 +11,16 @@ import ClinicalInputCalc from "./ClinicalInputCalc";
 import EstimatedCostInputCalc from "./EstimatedCostInputCalc";
 import RawMaterialsCalc from "./RawMaterialsCalc";
 import UnitCostInputCalc from "./UnitCostInputCalc";
+import ProductionCostsGroupModel from "../models/operating_resources/ProductionCostsGroupModel";
+import ProductionCostsCalc from "../calcs/ProductionCostsCalc";
+import SterileWorkEquipmentCalc from "../calcs/SterileWorkEquipmentCalc";
+import SterileWorkEquipmentGroupModel from "../models/operating_resources/SterileWorkEquipmentGroupModel";
+import HygieneAndCleaningGroupModel from "../models/operating_resources/HygieneAndCleaningGroupModel";
+import HygieneAndCleaningCalc from "../calcs/HygieneAndCleaningCalc";
+import PersonalProtectionGroupModel from "../models/operating_resources/PersonalProtectionGroupModel";
+import PersonalProtectionCalc from "../calcs/PersonalProtectionCalc";
+import AutomatedEquipmentGroupModel from "../models/operating_resources/AutomatedEquipmentGroupModel";
+import AutomatedEquipmentCalc from "../calcs/AutomatedEquipmentCalc";
 
 /* Distriye las solicutedes de Calculos a la clase adecuada */
 class CalculationService {
@@ -40,7 +50,7 @@ class CalculationService {
         calc.compute(inItem);
     }
 
-    public static chemistAssistantSalary(inItem: StaffSalaryGroupModel): void {
+    public static computeChemistAssistantSalary(inItem: StaffSalaryGroupModel): void {
         const calc = new ChemistAssistantSalaryCalc();
         calc.compute(inItem);
     }
@@ -50,6 +60,30 @@ class CalculationService {
         calc.computeByParams(inItem, inProductionLines, inProductionPerMonth);
     }
 
+    public static computeProductionCosts(inItem: ProductionCostsGroupModel, inProductionLines: number, inProductionPerMonth: number): void {
+        const calc = new ProductionCostsCalc();
+        calc.computeByParams(inItem, inProductionLines, inProductionPerMonth);
+    }
+
+    public static computeSterileWorkEquipment(inItem: SterileWorkEquipmentGroupModel): void {
+        const calc = new SterileWorkEquipmentCalc();
+        calc.compute(inItem);
+    }
+
+    public static computeHygieneAndCleaning(inItem: HygieneAndCleaningGroupModel): void {
+        const calc = new HygieneAndCleaningCalc();
+        calc.compute(inItem);
+    }
+
+    public static computePersonalProtection(inItem: PersonalProtectionGroupModel): void {
+        const calc = new PersonalProtectionCalc();
+        calc.compute(inItem);
+    }
+
+    public static computeAutomatedEquipment(inItem: AutomatedEquipmentGroupModel): void {
+        const calc = new AutomatedEquipmentCalc();
+        calc.compute(inItem);
+    }
 
 }
 

@@ -1,3 +1,4 @@
+import { isValidObj } from "@/utils/itemsUtils";
 import StaffSalaryGroupModel from "../models/operating_resources/StaffSalaryGroupModel";
 import BaseCalc from "../services/BaseCalc";
 import StaffSalaryTaxesCalc from "../services/StaffSalaryTaxesCalc";
@@ -5,7 +6,7 @@ import StaffSalaryTaxesCalc from "../services/StaffSalaryTaxesCalc";
 class ChemistSalaryCalc extends BaseCalc<StaffSalaryGroupModel> {
 
     public compute(inItem: StaffSalaryGroupModel): void {
-        if (!this.isValidObj(inItem)) {
+        if (!isValidObj(inItem)) {
             return;
         }
 
@@ -17,10 +18,16 @@ class ChemistSalaryCalc extends BaseCalc<StaffSalaryGroupModel> {
         const taxes = new StaffSalaryTaxesCalc();
         inItem.totalParafiscales.value = taxes.compute(inItem, inItem.salarioBasico.value);
 
-        inItem.totalCompensacionSalarial.value = inItem.salarioBasico.value + inItem.totalParafiscales.value;
-        inItem.totalValorHora.value = inItem.totalCompensacionSalarial.value / inItem.horasTrabajoMensual.value;
-    }
+        if (isValidObj(inItem.totalParafiscales) && inItem.totalParafiscales.value > 0) {
+            inItem.totalCompensacionSalarial.value = inItem.salarioBasico.value + inItem.totalParafiscales.value;
 
+            if (inItem.totalCompensacionSalarial.value > 0 && inItem.horasTrabajoMensual.value > 0) {
+                inItem.totalValorHora.value = inItem.totalCompensacionSalarial.value / inItem.horasTrabajoMensual.value;
+            } else {
+                inItem.totalValorHora.value = 0;
+            }
+        }
+    }
 }
 
 export default ChemistSalaryCalc;

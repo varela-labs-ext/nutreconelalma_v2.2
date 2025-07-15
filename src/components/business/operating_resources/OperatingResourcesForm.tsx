@@ -39,14 +39,14 @@ const OperatingResourcesForm = (props: OperatingResourcesFormProps) => {
                     <IconTab label="Central de Mezclas Manual" icon={FlaskConical}>
                         <OperatingResourcesByMixingCentral
                             inCentralType={CentralTypeIdEnum.Manual}
-                            inMonthlyProductionCapacity={0}
+                            inProductionPerMonth={0}
                             inProductionLines={0}
                         />
                     </IconTab>
                     <IconTab label="Central de Mezclas Automatica" icon={Bot}>
                         <OperatingResourcesByMixingCentral
                             inCentralType={CentralTypeIdEnum.Automatico}
-                            inMonthlyProductionCapacity={0}
+                            inProductionPerMonth={0}
                             inProductionLines={0}
                         />
                     </IconTab>

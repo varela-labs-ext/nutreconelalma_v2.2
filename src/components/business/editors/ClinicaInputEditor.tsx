@@ -30,7 +30,7 @@ const ClinicaInputEditor = (props: ClinicaInputEditorProps) => {
             };
 
             // Actualiza los totales dentro del objeto
-            CalculationService.ComputeClinicalInput(output);
+            CalculationService.computeClinicalInput(output);
 
             setInternalData(output);
 

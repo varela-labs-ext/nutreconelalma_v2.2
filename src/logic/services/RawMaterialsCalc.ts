@@ -3,12 +3,13 @@ import ClinicaInputRowModel from "../models/row_item/ClinicaInputRowModel";
 import BaseCalc from "./BaseCalc";
 import RawMaterialModel from "../models/RawMaterialModel";
 import ClinicalInputCalc from "./ClinicalInputCalc";
+import { isValidObj } from "@/utils/itemsUtils";
 
 class RawMaterialsCalc extends BaseCalc<RawMaterialModel> {
 
     public compute(inItem: RawMaterialModel): void {
 
-        if (!this.isValidObj(inItem)) {
+        if (!isValidObj(inItem)) {
             console.log("Objecto 'RawMaterialModel' no existe.");
             console.log(inItem);
             return;

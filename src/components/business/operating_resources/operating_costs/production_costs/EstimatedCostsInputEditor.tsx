@@ -29,7 +29,7 @@ const EstimatedCostsInputEditor = (props: EstimatedCostsInputEditorProps) => {
             };
 
             // Actualiza los totales dentro del objeto
-            CalculationService.ComputeEstimatedCostsInput(output, props.inProductionLines, props.inProductionPerMonth);
+            CalculationService.computeEstimatedCostsInput(output, props.inProductionLines, props.inProductionPerMonth);
 
             setInternalData(output);
 
