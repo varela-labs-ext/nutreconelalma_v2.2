@@ -1,11 +1,6 @@
-import FileNameDialogBox from "@/components/ui/dialogs/FileNameDialogBox";
-import SelectFileDialogBox from "@/components/ui/dialogs/SelectFileDialogBox";
-import YesNoModal from "@/components/ui/dialogs/YesNoModal";
 import AccordionMenuItemWithContextAction, { MenuSubItem } from "@/components/ui/menu/AccordionMenuItemWithContextAction";
+import { useComputerActionsContext } from "@/context/ComputerActionsContext";
 import { useComputerContext } from "@/context/ComputerContext";
-import ForageManager from "@/logic/common/ForageManager";
-import { toastService } from "@/services/toastService";
-import { useEffect, useState } from "react";
 
 interface ComputerMenuProps {
     label: string;
@@ -13,31 +8,12 @@ interface ComputerMenuProps {
     isActive: boolean;
     to: string;
     items: MenuSubItem[];
-    onCloseSidebar?: () => void;
+    onCloseSidebar: () => void;
 }
 
 const ComputerMenu = (props: ComputerMenuProps) => {
-    const { currentFilename, createNewFileAsync } = useComputerContext();
-
-    const [showNewCalcDialog, setShowNewCalcDialog] = useState(false);
-    const [showSaveAsDialog, setShowSaveAsDialog] = useState(false);
-    const [showOpenFileDialog, setShowOpenFileDialog] = useState(false);
-
-    const [fileList, setFileList] = useState<string[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
-
-    useEffect(() => {
-        const fetchFiles = async () => {
-            setIsLoading(true);
-            const files = await ForageManager.getAllKeysAsync();
-            setFileList(files);
-            setIsLoading(false);
-        };
-
-        if (showOpenFileDialog) {
-            fetchFiles();
-        }
-    }, [showOpenFileDialog]);
+    const { currentFilename } = useComputerContext();
+    const { setShowNewCalcDialog, setShowSaveAsDialog, setShowOpenFileDialog, saveFile } = useComputerActionsContext();
 
     const getMenuSubItems = (): MenuSubItem[] => {
         const itemsCopy = props.items.map(item => {
@@ -53,58 +29,43 @@ const ComputerMenu = (props: ComputerMenuProps) => {
             }
         });
 
-        // if (!currentFilename) {
-        //     return itemsCopy.filter(item => item.actionName !== "file");
-        // }
+        if (!currentFilename) {
+            return itemsCopy.filter(item => item.actionName !== "file");
+        }
 
         return itemsCopy;
     }
 
-    const callCreateNewFile = () => {
-        createNewFileAsync().then(() => {
-            toastService.showOk("Nueva calculadora creada...");
-            setShowNewCalcDialog(false);
-        });
-    }
-
-    // const getFilenameList = (): string[] => {
-    //     ForageManager.getAllKeysAsync().then((values) => {
-    //         return values;
-    //     });
-    // }
-
     const handleOnItemClick = (actionName: string) => {
         if (actionName === "new") {
+            props.onCloseSidebar();
             setShowNewCalcDialog(true);
+            return;
         }
 
         if (actionName === "open") {
+            props.onCloseSidebar();
             setShowOpenFileDialog(true);
+            return;
         }
 
         if (actionName === "save") {
-            //TODO
+            props.onCloseSidebar();
+            saveFile();
+            return;
         }
 
         if (actionName === "saveAs") {
+            props.onCloseSidebar();
             setShowSaveAsDialog(true);
+            return;
         }
-    }
 
-
-
-    const handleOnSaveAsConfirm = (fileName: string) => {
-        //todo
-        setShowSaveAsDialog(false);
-    }
-
-    const handleOnOpenConfirm = (selectedFile: string) => {
-        //TODO
-        setShowOpenFileDialog(false);
+        props.onCloseSidebar();
     }
 
     return (
-        <div>
+        <>
             <AccordionMenuItemWithContextAction
                 label={props.label}
                 to={props.to}
@@ -114,16 +75,7 @@ const ComputerMenu = (props: ComputerMenuProps) => {
                 onCloseSidebar={props.onCloseSidebar}
                 onItemClick={handleOnItemClick}
             />
-            {showNewCalcDialog && (
-                <YesNoModal mainTitle="Desea crear una nueva calculadora?" onConfirm={() => callCreateNewFile()} onCancel={() => setShowNewCalcDialog(false)} />
-            )}
-            {showSaveAsDialog && (
-                <FileNameDialogBox isOpen={showSaveAsDialog} onConfirm={handleOnSaveAsConfirm} onCancel={() => setShowSaveAsDialog(false)} />
-            )}
-            {showOpenFileDialog && (
-                <SelectFileDialogBox isOpen={showOpenFileDialog} files={fileList} onConfirm={handleOnOpenConfirm} onCancel={() => setShowOpenFileDialog(false)} />
-            )}
-        </div>
+        </>
     );
 }
 
