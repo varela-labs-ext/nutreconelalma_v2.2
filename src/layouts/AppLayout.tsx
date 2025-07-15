@@ -1,4 +1,4 @@
-import NavigationMenu from "@/ui/components/NavigationMenu";
+import NavigationMenu from "@/components/business/computer_menu/NavigationMenu";
 import SubLayout from "./SubLayout";
 import { LoadingProvider } from "@/context/LoadingContext";
 import LoadingOverlay from "@/components/ui/loaders/LoadingOverlay";
