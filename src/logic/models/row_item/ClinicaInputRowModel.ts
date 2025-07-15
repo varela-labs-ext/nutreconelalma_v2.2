@@ -8,11 +8,11 @@ class ClinicaInputRowModel {
     public costoPorUnidad: number; // Editable
     public costoTotalPorUnidad: number; // Calculado
     public label: string;
-    public excluirDelCalculo: boolean;
+    public exclude: boolean;
     public category: ClinicalInputCategoryEnumId;
 
     constructor(inLabel: string, inCategory: ClinicalInputCategoryEnumId) {
-        this.excluirDelCalculo = true; // La idea es que todos se excluyan por defecto. Y al momento de usar el factory, justo ahí se definen los que estaran dentro del calculo final.
+        this.exclude = true; // La idea es que todos se excluyan por defecto. Y al momento de usar el factory, justo ahí se definen los que estaran dentro del calculo final.
         this.label = inLabel;
         this.presentacionMl = 0;
         this.cantidadMl = 0;

@@ -24,8 +24,8 @@ const ClinicalInputsEditors = (props: ClinicalInputsEditorsProps) => {
         return (
             typeof inValue === "object" &&
             inValue !== null &&
-            "excluirDelCalculo" in inValue &&
-            (inValue as ClinicaInputRowModel).excluirDelCalculo === false &&
+            "exclude" in inValue &&
+            (inValue as ClinicaInputRowModel).exclude === false &&
             (inCategory === undefined || (inValue as ClinicaInputRowModel).category === inCategory)
         );
     };

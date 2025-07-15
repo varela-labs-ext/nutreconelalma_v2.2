@@ -41,7 +41,9 @@ abstract class DefaultsRawMaterialsBase<TModel> {
         item.costoPorMl = inCostoPorMl;
         item.costoPorUnidad = inCostoPorUnidad;
         item.costoTotalPorUnidad = inCostoTotalPorUnidad;
-        item.excluirDelCalculo = false;
+        item.exclude = false;
+        // POR DEFECTO TODO ESTAN EXLUIDOS (OSEA EN TRUE), ENTONCES AL LLEGAR A ESTE PUNTO
+        // ESTAMOS DANDO POR VALIDO ESTE ELEMENTO PARA LOS CALCULOS
     }
 }
 

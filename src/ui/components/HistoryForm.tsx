@@ -2,7 +2,7 @@ import ForageManager from "@/logic/common/ForageManager";
 import { useEffect, useState } from "react";
 import KeyLineField from "../common/KeyLineField";
 import DataDisplayModal from "../common/DataDisplayModal";
-import DeleteAllKeysModal from "../common/DeleteAllKeysModal";
+import DeleteAllKeysModal from "../../components/ui/dialogs/DeleteAllKeysModal";
 import DeleteKeyModal from "../common/DeleteKeyModal";
 
 

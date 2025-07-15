@@ -1,39 +1,42 @@
-import ClinicaInputRowModel from "../models/row_item/ClinicaInputRowModel";
-
 import BaseCalc from "../services/BaseCalc";
 import RawMaterialModel from "../models/RawMaterialModel";
 import ClinicalInputCalc from "../services/ClinicalInputCalc";
-import { isValidObj } from "@/utils/itemsUtils";
+import { isClinicaInputRowModel, isValidObj } from "@/utils/itemsUtils";
 
 class RawMaterialsCalc extends BaseCalc<RawMaterialModel> {
 
     public compute(inItem: RawMaterialModel): void {
-
         if (!isValidObj(inItem)) {
-            console.log("Objecto 'RawMaterialModel' no existe.");
+            console.log("Objecto 'RawMaterialModel' no ES VALIDO.");
             console.log(inItem);
             return;
         }
 
-        const calc = new ClinicalInputCalc();
+        const clinicalInputCalc = new ClinicalInputCalc();
         let total = 0;
         let totalPorMl = 0;
 
-        Object.keys(inItem).forEach((clave) => {
-            const subItem = (inItem as Record<string, any>)[clave];
+        for (const propertyName in inItem) {
+            const posibleItem = inItem[propertyName as keyof RawMaterialModel];
 
-            if (subItem instanceof ClinicaInputRowModel) {
-                const insumo = subItem as ClinicaInputRowModel;
+            if (isClinicaInputRowModel(posibleItem)) {
+                // const item = posibleItem as ClinicaInputRowModel;
 
-                if (insumo && insumo.excluirDelCalculo === false) {
-                    calc.compute(insumo);
-                    total += insumo.costoTotalPorUnidad;
-                    totalPorMl += insumo.costoPorMl;
+                if (posibleItem.exclude === false) {
+                    clinicalInputCalc.compute(posibleItem);
+
+                    if (!isNaN(posibleItem.costoTotalPorUnidad)) {
+                        total += posibleItem.costoTotalPorUnidad;
+                    }
+
+                    if (!isNaN(posibleItem.costoPorMl)) {
+                        totalPorMl += posibleItem.costoPorMl;
+                    }
                 } else {
-                    console.log(`Propiedad: ${clave} EXCLUIDA`);
+                    console.log(`Propiedad: ${propertyName} EXCLUIDA`);
                 }
             }
-        });
+        }
 
         inItem.total = total;
         inItem.totalPorMl = totalPorMl;

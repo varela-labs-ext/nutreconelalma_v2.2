@@ -3,12 +3,14 @@
 import numberValidator from "@/utils/numberValidator";
 import ClinicaInputRowModel from "../models/row_item/ClinicaInputRowModel";
 import BaseCalc from "./BaseCalc";
+import { isValidObj } from "@/utils/itemsUtils";
 
 class ClinicalInputCalc extends BaseCalc<ClinicaInputRowModel> {
 
     public compute(inItem: ClinicaInputRowModel): void {
-        if (inItem === null || inItem == undefined) {
-            console.log("Objecto insumo no existe.")
+        if (!isValidObj(inItem)) {
+            console.log("Objecto insumo NO ES VALIDO.")
+            console.log(inItem);
             return;
         }
 
@@ -20,20 +22,18 @@ class ClinicalInputCalc extends BaseCalc<ClinicaInputRowModel> {
             return;
         }
 
-        if (inItem.presentacionMl === 0) {
+        if (inItem.presentacionMl > 0) {
+            inItem.costoTotalPorUnidad =
+                (inItem.costoPorUnidad / inItem.presentacionMl)
+                * inItem.cantidadMl;
+
+            inItem.costoPorMl =
+                (inItem.cantidadMl * inItem.costoPorUnidad)
+                / inItem.presentacionMl;
+        } else {
             console.log(`presentacionMl no puede ser 0 [${inItem.label}]`)
-            return;
         }
-
-        inItem.costoTotalPorUnidad =
-            (inItem.costoPorUnidad / inItem.presentacionMl)
-            * inItem.cantidadMl;
-
-        inItem.costoPorMl =
-            (inItem.cantidadMl * inItem.costoPorUnidad)
-            / inItem.presentacionMl;
     }
-
 }
 
 export default ClinicalInputCalc;
