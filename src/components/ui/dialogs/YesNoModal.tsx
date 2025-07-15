@@ -13,18 +13,17 @@ const YesNoModal = (props: YesNoModalProps) => {
                 </h3>
                 <div className="flex justify-center gap-4">
                     <button
-                        className="bg-purple-400 text-white px-4 py-2 rounded hover:bg-purple-700"
-                        onClick={() => props.onConfirm()}
-                    >
-                        Sí
-                    </button>
-                    <button
-                        className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
+                        className="min-w-[120px] bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
                         onClick={() => props.onCancel()}
                     >
                         Cancelar
                     </button>
-
+                    <button
+                        className="min-w-[120px] bg-purple-400 text-white px-4 py-2 rounded hover:bg-purple-700"
+                        onClick={() => props.onConfirm()}
+                    >
+                        Sí
+                    </button>
                 </div>
             </div>
         </div >

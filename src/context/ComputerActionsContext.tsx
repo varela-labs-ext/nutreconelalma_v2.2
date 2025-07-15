@@ -32,22 +32,23 @@ export const ComputerActionsProvider = ({ children }: { children: React.ReactNod
     const [filenameList, setFilenameList] = useState<string[]>([]);
 
     const fetchFilenameList = async () => {
+        console.log("LOADING FILE NAME LIST");
         const files = await ForageManager.getAllKeysAsync();
         setFilenameList(files);
     };
 
     const refCurrentRawMaterialFirstRender = useRef(true);
 
-    useEffect(() => {
-        if (refCurrentRawMaterialFirstRender.current) {
-            refCurrentRawMaterialFirstRender.current = false;
-            return;
-        }
+    // useEffect(() => {
+    //     if (refCurrentRawMaterialFirstRender.current) {
+    //         refCurrentRawMaterialFirstRender.current = false;
+    //         return;
+    //     }
 
-        if (showOpenFileDialog) {
-            fetchFilenameList();
-        }
-    }, [showOpenFileDialog]);
+    //     if (showOpenFileDialog) {
+    //         fetchFilenameList();
+    //     }
+    // }, [showOpenFileDialog]);
 
     const saveFile = () => {
         saveFileAsync().then(() => {

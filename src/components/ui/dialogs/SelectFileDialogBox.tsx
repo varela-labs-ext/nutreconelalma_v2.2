@@ -81,14 +81,14 @@ const SelectFileDialogBox = (props: SelectFileDialogBoxProps) => {
                 <div className="flex justify-end gap-3 mt-6">
                     <button
                         onClick={handleCancel}
-                        className="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700"
+                        className="min-w-[120px] px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700"
                     >
                         Cancelar
                     </button>
                     <button
                         onClick={handleConfirm}
                         disabled={hasError || selectedFile === ""}
-                        className={`px-4 py-2 rounded-md text-white font-semibold ${hasError || selectedFile === ""
+                        className={`min-w-[120px] px-4 py-2 rounded-md text-white font-semibold ${hasError || selectedFile === ""
                             ? "bg-purple-300 cursor-not-allowed"
                             : "bg-purple-600 hover:bg-purple-700"
                             }`}
