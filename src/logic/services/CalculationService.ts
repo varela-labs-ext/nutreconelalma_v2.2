@@ -4,7 +4,7 @@ import EstimatedCostItemModel from "../models/row_item/EstimatedCostItemRowModel
 import UnitCostItemModel from "../models/row_item/UnitCostItemRowModel";
 import StaffSalaryGroupModel from "../models/operating_resources/StaffSalaryGroupModel";
 import MaintenanceCostsGroupModel from "../models/operating_resources/MaintenanceCostsGroupModel";
-import RawMaterialModel from "../models/RawMaterialGroupModel";
+import RawMaterialGroupModel from "../models/RawMaterialGroupModel";
 import ChemistAssistantSalaryCalc from "../calcs/ChemistAssistantSalaryCalc";
 import ChemistSalaryCalc from "../calcs/ChemistSalaryCalc";
 import ClinicalInputCalc from "./ClinicalInputCalc";
@@ -30,7 +30,7 @@ class CalculationService {
         calc.compute(inItem);
     }
 
-    public static computeRawMaterial(inItem: RawMaterialModel): void {
+    public static computeRawMaterial(inItem: RawMaterialGroupModel): void {
         const calc = new RawMaterialsCalc();
         calc.compute(inItem);
     }

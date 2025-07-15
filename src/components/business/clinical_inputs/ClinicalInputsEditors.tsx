@@ -1,5 +1,5 @@
 import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
-import RawMaterialModel from "@/logic/models/RawMaterialGroupModel";
+import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 import ClinicaInputRowModel from "@/logic/models/row_item/ClinicaInputRowModel";
 import ClinicaInputEditor from "../editors/ClinicaInputEditor";
 
@@ -9,7 +9,7 @@ type ValidItemType = {
 };
 
 interface ClinicalInputsEditorsProps {
-    inData: RawMaterialModel;
+    inData: RawMaterialGroupModel;
     inCategory?: ClinicalInputCategoryEnumId;
     inShowPresentation: boolean;
     onClinicaInputChange: (inName: string, inNewItem: ClinicaInputRowModel) => void;

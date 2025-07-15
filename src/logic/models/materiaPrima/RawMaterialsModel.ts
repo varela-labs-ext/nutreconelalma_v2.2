@@ -3,7 +3,7 @@
 // import ClinicaInputRowModel from "../common/ClinicaInputRowModel";
 
 
-// class RawMaterialModel extends RawMaterialBaseModel {
+// class RawMaterialGroupModel extends RawMaterialBaseModel {
 //     public AguaEsteril_500ml: ClinicaInputRowModel;
 //     public Complejo_B: ClinicaInputRowModel;
 //     public Vitamina_C: ClinicaInputRowModel;
@@ -17,4 +17,4 @@
 //     }
 // }
 
-// export default RawMaterialModel;
+// export default RawMaterialGroupModel;

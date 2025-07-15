@@ -1,13 +1,13 @@
 // import ClinicaInputRowModel from "../models/common/ClinicaInputRowModel";
-// import RawMaterialModel from "../models/materiaPrima/RawMaterialModel";
+// import RawMaterialGroupModel from "../models/materiaPrima/RawMaterialGroupModel";
 // import InsumoItemCalc from "./InsumoItemCalc";
 // import BaseCalc from "./BaseCalc";
 
-// class MateriaPrimaCalc extends BaseCalc<RawMaterialModel> {
+// class MateriaPrimaCalc extends BaseCalc<RawMaterialGroupModel> {
 
-//     public calcular(inItem: RawMaterialModel): void {
+//     public calcular(inItem: RawMaterialGroupModel): void {
 //         if (!this.isValidObj(inItem)) {
-//             console.log("Objecto 'RawMaterialModel' no existe.");
+//             console.log("Objecto 'RawMaterialGroupModel' no existe.");
 //             console.log(inItem);
 //             return;
 //         }

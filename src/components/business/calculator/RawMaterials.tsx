@@ -1,4 +1,4 @@
-import RawMaterialModel from "@/logic/models/RawMaterialGroupModel";
+import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 import { useEffect, useRef, useState } from "react";
 import RawMaterialsSet from "../raw_material/RawMaterialsSet";
 import { useComputerContext } from "@/context/ComputerContext";
@@ -17,7 +17,7 @@ const RawMaterials = (props: RawMaterialsProps) => {
     } = useComputerContext();
 
     const [loaded, setLoaded] = useState<boolean>(false);
-    const [internalRawMaterial, setInternalRawMaterial] = useState<RawMaterialModel | null>(null);
+    const [internalRawMaterial, setInternalRawMaterial] = useState<RawMaterialGroupModel | null>(null);
 
     const debounceRefByRawMaterial = useRef<number | null>(null);
 
@@ -44,7 +44,7 @@ const RawMaterials = (props: RawMaterialsProps) => {
     }, [internalRawMaterial]);
 
 
-    const handleOnRawMaterialsSetChange = (inNewData: RawMaterialModel) => {
+    const handleOnRawMaterialsSetChange = (inNewData: RawMaterialGroupModel) => {
         CalculationService.computeRawMaterial(inNewData);
         setInternalRawMaterial(inNewData);
     }
@@ -52,7 +52,7 @@ const RawMaterials = (props: RawMaterialsProps) => {
     return (
         <>
             <RawMaterialsSet
-                inData={internalRawMaterial ?? new RawMaterialModel()}
+                inData={internalRawMaterial ?? new RawMaterialGroupModel()}
                 onChange={handleOnRawMaterialsSetChange}
             />
         </>

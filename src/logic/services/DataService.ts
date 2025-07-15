@@ -1,6 +1,6 @@
 import ForageManager from "../common/ForageManager";
 import MixingCenterSettingsModel from "../models/common/MixingCenterSettingsModel";
-import RawMaterialModel from "../models/RawMaterialGroupModel";
+import RawMaterialGroupModel from "../models/RawMaterialGroupModel";
 
 const buildKeyName = (
     inMethodKey: string,
@@ -13,11 +13,11 @@ class DataService {
     private static readonly RAW_MATERIALS_KEY = 'RAW_MATERIAL';
     private static readonly MIXING_CENTER_KEY = 'MIXING_CENTER';
 
-    static async getRawMaterialData(inSourceKey: string): Promise<RawMaterialModel | null> {
+    static async getRawMaterialData(inSourceKey: string): Promise<RawMaterialGroupModel | null> {
         try {
             const key: string = buildKeyName(DataService.RAW_MATERIALS_KEY, inSourceKey);
 
-            const data: RawMaterialModel | null = await ForageManager.getAsync<RawMaterialModel>(key);
+            const data: RawMaterialGroupModel | null = await ForageManager.getAsync<RawMaterialGroupModel>(key);
             if (!data) {
                 console.log(`No data found for key: ${key}`);
                 return null;
@@ -31,12 +31,12 @@ class DataService {
         }
     }
 
-    static async saveRawMaterialData(inSourceKey: string, inData: RawMaterialModel): Promise<void> {
+    static async saveRawMaterialData(inSourceKey: string, inData: RawMaterialGroupModel): Promise<void> {
         try {
             // console.log('Setting materia prima data:', data);
             const key: string = buildKeyName(DataService.RAW_MATERIALS_KEY, inSourceKey);
 
-            await ForageManager.saveAsync<RawMaterialModel>(key, inData);
+            await ForageManager.saveAsync<RawMaterialGroupModel>(key, inData);
 
             console.log(`Loaded key: ${key}`, inData);
 

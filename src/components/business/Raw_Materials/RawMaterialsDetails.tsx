@@ -1,4 +1,4 @@
-// import RawMaterialModel from "@/logic/models/RawMaterialModel";
+// import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 // import { useEffect, useState } from "react";
 // import ClinicaInputRowModel from "@/logic/models/row_item/ClinicaInputRowModel";
 // import CalculationService from "@/logic/services/CalculationService";
@@ -9,14 +9,14 @@
 // import { Atom, Circle, Dna, Droplet, Flame, Folder, Package, Pill, Zap } from "lucide-react";
 
 // interface RawMaterialsDetailsProps {
-//     inData: RawMaterialModel;
+//     inData: RawMaterialGroupModel;
 //     inShowDetails: boolean;
 //     inShowPresentation: boolean;
-//     onChange: (inNewItem: RawMaterialModel) => void;
+//     onChange: (inNewItem: RawMaterialGroupModel) => void;
 // }
 
 // const RawMaterialsDetails = (props: RawMaterialsDetailsProps) => {
-//     const [internalData, setInternalData] = useState<RawMaterialModel>(props.inData);
+//     const [internalData, setInternalData] = useState<RawMaterialGroupModel>(props.inData);
 
 //     useEffect(() => {
 //         setInternalData(props.inData);
@@ -27,7 +27,7 @@
 //     const handleClinicaInputChange = (inName: string, inNewItem: ClinicaInputRowModel) => {
 
 //         // Actualizar el estado interno con el nuevo item
-//         const updatedData: RawMaterialModel = {
+//         const updatedData: RawMaterialGroupModel = {
 //             ...internalData,
 //             [inName]: inNewItem
 //         };

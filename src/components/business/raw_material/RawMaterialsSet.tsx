@@ -3,12 +3,12 @@ import RawMaterialsOverview from "./RawMaterialsOverview";
 import RawMaterialsOtherCosts from "./RawMaterialsOtherCosts";
 import AdditionalCostsModel from "@/logic/models/AdditionalCostsModel";
 import RawMaterialsAccourd from "./RawMaterialsAccourd";
-import RawMaterialModel from "@/logic/models/RawMaterialGroupModel";
+import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 
 
 interface RawMaterialsSetProps {
-    inData: RawMaterialModel;
-    onChange: (inNewData: RawMaterialModel) => void;
+    inData: RawMaterialGroupModel;
+    onChange: (inNewData: RawMaterialGroupModel) => void;
 }
 
 const RawMaterialsSet = (props: RawMaterialsSetProps) => {

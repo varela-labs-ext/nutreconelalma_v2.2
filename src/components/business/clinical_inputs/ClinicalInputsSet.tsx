@@ -2,10 +2,10 @@ import ClinicaInputRowModel from "@/logic/models/row_item/ClinicaInputRowModel";
 import ClinicalInputsEditors from "./ClinicalInputsEditors";
 import ClinicalInputsHeader from "./ClinicalInputsHeader";
 import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
-import RawMaterialModel from "@/logic/models/RawMaterialGroupModel";
+import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 
 interface ClinicalInputsSetProps {
-    inData: RawMaterialModel;
+    inData: RawMaterialGroupModel;
     inShowPresentation: boolean;
     inCategory: ClinicalInputCategoryEnumId;
     onClinicaInputChange: (inName: string, inNewItem: ClinicaInputRowModel) => void;

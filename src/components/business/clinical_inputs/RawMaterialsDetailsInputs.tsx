@@ -1,4 +1,4 @@
-// import RawMaterialModel from "@/logic/models/RawMaterialModel";
+// import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 // import ClinicaInputEditor from "../editors/ClinicaInputEditor";
 // import ClinicaInputRowModel from "@/logic/models/row_item/ClinicaInputRowModel";
 // import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
@@ -10,14 +10,14 @@
 // };
 
 // interface RawMaterialsDetailsInputsProps {
-//     inData: RawMaterialModel;
+//     inData: RawMaterialGroupModel;
 //     inCategory?: ClinicalInputCategoryEnumId;
 //     inShowPresentation: boolean;
 //     onClinicaInputChange: (inName: string, inNewItem: ClinicaInputRowModel) => void;
 // }
 
 // const RawMaterialsDetailsInputs = (props: RawMaterialsDetailsInputsProps) => {
-//     // const [internalData, setInternalData] = useState<RawMaterialModel>(props.inData);
+//     // const [internalData, setInternalData] = useState<RawMaterialGroupModel>(props.inData);
 //     // const [inputList, setInputList] = useState<ValidItemType[]>([]);
 
 //     // useEffect(() => {

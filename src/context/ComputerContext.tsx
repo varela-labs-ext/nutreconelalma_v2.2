@@ -9,7 +9,7 @@ import PersonalProtectionGroupModel from "@/logic/models/operating_resources/Per
 import ProductionCostsGroupModel from "@/logic/models/operating_resources/ProductionCostsGroupModel";
 import StaffSalaryGroupModel from "@/logic/models/operating_resources/StaffSalaryGroupModel";
 import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
-import RawMaterialModel from "@/logic/models/RawMaterialGroupModel";
+import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 import DefaultValuesProvider from "@/providers/DefaultValuesProvider";
 import StorageProvider from "@/providers/StorageProvider";
 import { deepClone } from "@/utils/objectUtils";
@@ -53,7 +53,7 @@ export interface ComputerContextProps {
     currentFilename: string | null;
     currentMixingCenterSettings: MixingCenterSettingsModel;
 
-    currentRawMaterial: RawMaterialModel; //<- hay que renombrarlo a huevo!
+    currentRawMaterial: RawMaterialGroupModel; //<- hay que renombrarlo a huevo!
     currentAutomatedEquipment: AutomatedEquipmentGroupModel;
     currentHygieneAndCleaning: HygieneAndCleaningGroupModel;
     currentPersonalProtection: PersonalProtectionGroupModel;
@@ -69,7 +69,7 @@ export interface ComputerContextProps {
     setCurrentFilename: (inFileName: string | null) => void;
 
     setCurrentMixingCenterSettings: (inValue: MixingCenterSettingsModel) => void;
-    setCurrentRawMaterial: (inValue: RawMaterialModel) => void; //<- hay que renombrarlo a huevo, el nombre del modelo!
+    setCurrentRawMaterial: (inValue: RawMaterialGroupModel) => void; //<- hay que renombrarlo a huevo, el nombre del modelo!
 
     setCurrentAutomatedEquipment: (inValue: AutomatedEquipmentGroupModel) => void;
     setCurrentHygieneAndCleaning: (inValue: HygieneAndCleaningGroupModel) => void;
@@ -99,7 +99,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     const [userDefaultValuesExists, setUserDefaultValuesExists] = useState<boolean>(false);
     const [currentFilename, setCurrentFilename] = useState<string | null>(null);
     const [currentMixingCenterSettings, setCurrentMixingCenterSettings] = useState<MixingCenterSettingsModel>(new MixingCenterSettingsModel());
-    const [currentRawMaterial, setCurrentRawMaterial] = useState<RawMaterialModel>(new RawMaterialModel());
+    const [currentRawMaterial, setCurrentRawMaterial] = useState<RawMaterialGroupModel>(new RawMaterialGroupModel());
     const [currentAutomatedEquipment, setCurrentAutomatedEquipment] = useState<AutomatedEquipmentGroupModel>(new AutomatedEquipmentGroupModel());
     const [currentHygieneAndCleaning, setCurrentHygieneAndCleaning] = useState<HygieneAndCleaningGroupModel>(new HygieneAndCleaningGroupModel());
     const [currentPersonalProtection, setCurrentPersonalProtection] = useState<PersonalProtectionGroupModel>(new PersonalProtectionGroupModel());
@@ -110,13 +110,13 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     const [currentAssistantSalary, setCurrentAssistantSalary] = useState<StaffSalaryGroupModel>(new StaffSalaryGroupModel());
 
     // Estos son internos del contexto solamente.
-    const [mixingCenterManualAdultoRawMaterialData, setMixingCenterManualAdultoRawMaterialData] = useState<RawMaterialModel>(new RawMaterialModel());
-    const [mixingCenterManualNeonatalRawMaterialData, setMixingCenterManualNeonatalRawMaterialData] = useState<RawMaterialModel>(new RawMaterialModel());
-    const [mixingCenterManualPediatricaRawMaterialData, setMixingCenterManualPediatricaRawMaterialData] = useState<RawMaterialModel>(new RawMaterialModel());
+    const [mixingCenterManualAdultoRawMaterialData, setMixingCenterManualAdultoRawMaterialData] = useState<RawMaterialGroupModel>(new RawMaterialGroupModel());
+    const [mixingCenterManualNeonatalRawMaterialData, setMixingCenterManualNeonatalRawMaterialData] = useState<RawMaterialGroupModel>(new RawMaterialGroupModel());
+    const [mixingCenterManualPediatricaRawMaterialData, setMixingCenterManualPediatricaRawMaterialData] = useState<RawMaterialGroupModel>(new RawMaterialGroupModel());
 
-    const [mixingCenterAutomaticAdultoRawMaterialData, setMixingCenterAutomaticAdultoRawMaterialData] = useState<RawMaterialModel>(new RawMaterialModel());
-    const [mixingCenterAutomaticNeonatalRawMaterialData, setMixingCenterAutomaticNeonatalRawMaterialData] = useState<RawMaterialModel>(new RawMaterialModel());
-    const [mixingCenterAutomaticPediatricaRawMaterialData, setMixingCenterAutomaticPediatricaRawMaterialData] = useState<RawMaterialModel>(new RawMaterialModel());
+    const [mixingCenterAutomaticAdultoRawMaterialData, setMixingCenterAutomaticAdultoRawMaterialData] = useState<RawMaterialGroupModel>(new RawMaterialGroupModel());
+    const [mixingCenterAutomaticNeonatalRawMaterialData, setMixingCenterAutomaticNeonatalRawMaterialData] = useState<RawMaterialGroupModel>(new RawMaterialGroupModel());
+    const [mixingCenterAutomaticPediatricaRawMaterialData, setMixingCenterAutomaticPediatricaRawMaterialData] = useState<RawMaterialGroupModel>(new RawMaterialGroupModel());
 
 
     const createNewFileAsync = async (): Promise<void> => {
@@ -341,7 +341,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
 
     // Se encarga de copiar los datos de 'CurrentRawMaterialData' al modelo que le corresponde según el tipo de central y el tipo de poblacion
     const backupCurrentRawMaterialInToRightOne = (): void => {
-        const newData: RawMaterialModel = deepClone(currentRawMaterial);
+        const newData: RawMaterialGroupModel = deepClone(currentRawMaterial);
 
         switch (currentMixingCenterSettings.populationType) {
             case PopulationTypeIdEnum.Adulto:
@@ -372,8 +372,8 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     }
 
     // Obtiene los datos segun el tipo de central y el tipo de poblacion (recordar que estan almancenados independientemente)
-    const getCurrentRawMaterial = (): RawMaterialModel | null => {
-        let tempData: RawMaterialModel | null = null;
+    const getCurrentRawMaterial = (): RawMaterialGroupModel | null => {
+        let tempData: RawMaterialGroupModel | null = null;
 
         switch (currentMixingCenterSettings.populationType) {
             case PopulationTypeIdEnum.Adulto:
@@ -415,13 +415,13 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         try {
             setExecutingSomething(true);
 
-            const results: RawMaterialModel | null = getCurrentRawMaterial();
+            const results: RawMaterialGroupModel | null = getCurrentRawMaterial();
 
             if (results === null) {
                 throw new Error("Error. Los datos recoletados de memoria no pueden estar null.");
             }
 
-            const newData: RawMaterialModel = deepClone(results);
+            const newData: RawMaterialGroupModel = deepClone(results);
 
             setCurrentRawMaterial(newData);
         } catch (error) {

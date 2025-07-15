@@ -4,7 +4,7 @@ import RawMaterialBaseModel from "./RawMaterialBaseModel";
 import ClinicalInputCategoryEnumId from "../enums/ClinicalInputCategoryEnumId";
 
 
-class RawMaterialModel extends RawMaterialBaseModel {
+class RawMaterialGroupModel extends RawMaterialBaseModel {
     public AguaEsteril_500ml: ClinicaInputRowModel;
     public Aminoacidos15_1000Ml: ClinicaInputRowModel;
     public Aminoacidos15_500Ml: ClinicaInputRowModel;
@@ -84,4 +84,4 @@ class RawMaterialModel extends RawMaterialBaseModel {
     }
 }
 
-export default RawMaterialModel;
+export default RawMaterialGroupModel;

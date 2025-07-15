@@ -6,7 +6,7 @@ import PersonalProtectionGroupModel from "./operating_resources/PersonalProtecti
 import ProductionCostsGroupModel from "./operating_resources/ProductionCostsGroupModel";
 import StaffSalaryGroupModel from "./operating_resources/StaffSalaryGroupModel";
 import SterileWorkEquipmentGroupModel from "./operating_resources/SterileWorkEquipmentGroupModel";
-import RawMaterialModel from "./RawMaterialGroupModel";
+import RawMaterialGroupModel from "./RawMaterialGroupModel";
 
 class ComputerBigGroupModel {
 
@@ -20,13 +20,13 @@ class ComputerBigGroupModel {
     public chemistSalary: StaffSalaryGroupModel | null;
     public assistantSalary: StaffSalaryGroupModel | null;
 
-    public mixingCenterManualAdultoRawMaterial: RawMaterialModel | null;
-    public mixingCenterManualNeonatalRawMaterial: RawMaterialModel | null;
-    public mixingCenterManualPediatricaRawMaterial: RawMaterialModel | null;
+    public mixingCenterManualAdultoRawMaterial: RawMaterialGroupModel | null;
+    public mixingCenterManualNeonatalRawMaterial: RawMaterialGroupModel | null;
+    public mixingCenterManualPediatricaRawMaterial: RawMaterialGroupModel | null;
 
-    public mixingCenterAutomaticAdultoRawMaterial: RawMaterialModel | null;
-    public mixingCenterAutomaticNeonatalRawMaterial: RawMaterialModel | null;
-    public mixingCenterAutomaticPediatricaRawMaterial: RawMaterialModel | null;
+    public mixingCenterAutomaticAdultoRawMaterial: RawMaterialGroupModel | null;
+    public mixingCenterAutomaticNeonatalRawMaterial: RawMaterialGroupModel | null;
+    public mixingCenterAutomaticPediatricaRawMaterial: RawMaterialGroupModel | null;
 
     constructor() {
         this.mixingCenterSettings = null;

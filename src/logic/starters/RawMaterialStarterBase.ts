@@ -1,6 +1,6 @@
 // import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
 // import ClinicaInputRowModel from "../models/row_item/ClinicaInputRowModel";
-// import RawMaterialModel from "../models/RawMaterialModel";
+// import RawMaterialGroupModel from "../models/RawMaterialGroupModel";
 
 
 // abstract class RawMaterialStarterBase {
@@ -10,7 +10,7 @@
 //         this.ZERO = 0.00;
 //     }
 
-//     public iniciarInsumos(inItem: RawMaterialModel, inTipoCentral: CentralTypeIdEnum): void {
+//     public iniciarInsumos(inItem: RawMaterialGroupModel, inTipoCentral: CentralTypeIdEnum): void {
 
 //         switch (inTipoCentral) {
 //             case CentralTypeIdEnum.Automatico:
@@ -46,13 +46,13 @@
 //         item.excluirDelCalculo = false;
 //     }
 
-//     protected abstract iniciarInsumosCentralManualComunes(inItem: RawMaterialModel): void;
+//     protected abstract iniciarInsumosCentralManualComunes(inItem: RawMaterialGroupModel): void;
 
-//     protected abstract iniciarInsumosCentralAutomaticaComunes(inItem: RawMaterialModel): void;
+//     protected abstract iniciarInsumosCentralAutomaticaComunes(inItem: RawMaterialGroupModel): void;
 
-//     protected abstract iniciarInsumosCentralManual(inItem: RawMaterialModel): void;
+//     protected abstract iniciarInsumosCentralManual(inItem: RawMaterialGroupModel): void;
 
-//     protected abstract iniciarInsumosCentralAutomatica(inItem: RawMaterialModel): void;
+//     protected abstract iniciarInsumosCentralAutomatica(inItem: RawMaterialGroupModel): void;
 // }
 
 // export default RawMaterialStarterBase;

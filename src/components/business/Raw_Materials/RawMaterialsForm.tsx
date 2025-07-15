@@ -1,6 +1,6 @@
 // // RawMaterialsForm
 
-// import RawMaterialModel from "@/logic/models/RawMaterialModel";
+// import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 // import { useContext, useEffect, useRef, useState } from "react";
 // import RawMaterialsDetails from "./RawMaterialsDetails";
 // import LoadingCard from "../../../ui/common/LoadingCard";
@@ -16,8 +16,8 @@
 // import AdditionalCostsModel from "@/logic/models/AdditionalCostsModel";
 
 // interface RawMaterialsFormProps {
-//     inData: RawMaterialModel;
-//     onChange: (inNewData: RawMaterialModel) => void;
+//     inData: RawMaterialGroupModel;
+//     onChange: (inNewData: RawMaterialGroupModel) => void;
 
 //     // inCentralType: CentralTypeIdEnum;
 //     // inPopulationType: PopulationTypeIdEnum;
@@ -25,7 +25,7 @@
 // }
 
 // const RawMaterialsForm = (props: RawMaterialsFormProps) => {
-//     // const [internalData, setInternalData] = useState<RawMaterialModel | null>(null);
+//     // const [internalData, setInternalData] = useState<RawMaterialGroupModel | null>(null);
 //     // const [dataLoaded, setDataLoaded] = useState(false);
 
 //     const [showDetails, setShowDetails] = useState(false);
@@ -74,7 +74,7 @@
 //     // const loadDataFromDb = async (): Promise<void> => {
 //     //     try {
 //     //         console.log("RawMaterialsForm: Cargando materia prima...");
-//     //         let gatheredData: RawMaterialModel | null = null;
+//     //         let gatheredData: RawMaterialGroupModel | null = null;
 //     //         props.onSetLoading(true);
 
 //     //         const mainKey = buildKeyName("current", props.inCentralType, props.inPopulationType);
@@ -99,7 +99,7 @@
 //     //     }
 //     // }
 
-//     // const saveDataInDb = async (inData: RawMaterialModel): Promise<void> => {
+//     // const saveDataInDb = async (inData: RawMaterialGroupModel): Promise<void> => {
 //     //     try {
 //     //         if (internalData) {
 //     //             const mainKey = buildKeyName("current", props.inCentralType, props.inPopulationType);
@@ -126,11 +126,11 @@
 //         setShowPresentation(newValue);
 //     }
 
-//     const handleRawMaterialsDetailsChange = (newData: RawMaterialModel): void => {
+//     const handleRawMaterialsDetailsChange = (newData: RawMaterialGroupModel): void => {
 //         // if (!internalData) return;
 
 //         // try {
-//         //     const outputData: RawMaterialModel = {
+//         //     const outputData: RawMaterialGroupModel = {
 //         //         ...newData
 //         //     };
 
@@ -141,7 +141,7 @@
 //         //     // TODO
 //         // }
 
-//         const output: RawMaterialModel = {
+//         const output: RawMaterialGroupModel = {
 //             ...newData
 //         };
 

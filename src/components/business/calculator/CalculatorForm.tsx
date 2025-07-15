@@ -30,7 +30,7 @@ const CalculatorForm = (props: CalculatorFormProps) => {
                     <CalculatorFormSets />
                     {/* <ComputerFormLeft
                             inMixingCenterSettings={mixingCenterSettingsData ?? new MixingCenterSettingsModel()}
-                            inRawMaterial={rawMaterialsData ?? new RawMaterialModel()}
+                            inRawMaterial={rawMaterialsData ?? new RawMaterialGroupModel()}
                             onMixingCenterSettingsChange={handleOnMixingCenterSettingsChange}
                             onRawMaterialChange={handleOnRawMaterialChange}
                         // setMixingCenterConfigLoad={setMixingCenterLoad}

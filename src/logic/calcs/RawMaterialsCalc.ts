@@ -1,13 +1,13 @@
 import BaseCalc from "../services/BaseCalc";
-import RawMaterialModel from "../models/RawMaterialGroupModel";
+import RawMaterialGroupModel from "../models/RawMaterialGroupModel";
 import ClinicalInputCalc from "../services/ClinicalInputCalc";
 import { isClinicaInputRowModel, isValidObj } from "@/utils/itemsUtils";
 
-class RawMaterialsCalc extends BaseCalc<RawMaterialModel> {
+class RawMaterialsCalc extends BaseCalc<RawMaterialGroupModel> {
 
-    public compute(inItem: RawMaterialModel): void {
+    public compute(inItem: RawMaterialGroupModel): void {
         if (!isValidObj(inItem)) {
-            console.log("Objecto 'RawMaterialModel' no ES VALIDO.");
+            console.log("Objecto 'RawMaterialGroupModel' no ES VALIDO.");
             console.log(inItem);
             return;
         }
@@ -17,7 +17,7 @@ class RawMaterialsCalc extends BaseCalc<RawMaterialModel> {
         let totalPorMl = 0;
 
         for (const propertyName in inItem) {
-            const posibleItem = inItem[propertyName as keyof RawMaterialModel];
+            const posibleItem = inItem[propertyName as keyof RawMaterialGroupModel];
 
             if (isClinicaInputRowModel(posibleItem)) {
                 // const item = posibleItem as ClinicaInputRowModel;

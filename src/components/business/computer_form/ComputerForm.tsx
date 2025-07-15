@@ -7,7 +7,7 @@
 // import ComputerFormLeft from "./ComputerFormLeft";
 // import ComputerFormRight from "./ComputerFormRight";
 // import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSettingsModel";
-// import RawMaterialModel from "@/logic/models/RawMaterialModel";
+// import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 // import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 // import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
 // import CalculadoraStarter from "@/logic/starters/CalculadoraStarter";
@@ -20,7 +20,7 @@
 //     const { getAction, setAction, clearAction } = useMultiActionContext();
 
 //     const [mixingCenterSettingsData, setMixingCenterSettingsData] = useState<MixingCenterSettingsModel | null>(null);
-//     const [rawMaterialsData, setRawMaterialsData] = useState<RawMaterialModel | null>(null);
+//     const [rawMaterialsData, setRawMaterialsData] = useState<RawMaterialGroupModel | null>(null);
 //     const [activeComputerTabIndex, setActiveComputerTabIndex] = useState<number>(0);
 
 
@@ -122,7 +122,7 @@
 //         setMixingCenterSettingsData(inNewData);
 //     };
 
-//     const handleOnRawMaterialChange = (inNewData: RawMaterialModel) => {
+//     const handleOnRawMaterialChange = (inNewData: RawMaterialGroupModel) => {
 //         setRawMaterialsData(inNewData);
 //         console.log("nueva materia prima recibida... *************");
 //     };
@@ -139,7 +139,7 @@
 //                 <IconTab label="Central de Mezclas" icon={Home}>
 //                     <ComputerFormLeft
 //                         inMixingCenterSettings={mixingCenterSettingsData ?? new MixingCenterSettingsModel()}
-//                         inRawMaterial={rawMaterialsData ?? new RawMaterialModel()}
+//                         inRawMaterial={rawMaterialsData ?? new RawMaterialGroupModel()}
 //                         onMixingCenterSettingsChange={handleOnMixingCenterSettingsChange}
 //                         onRawMaterialChange={handleOnRawMaterialChange}
 //                     // setMixingCenterConfigLoad={setMixingCenterLoad}

@@ -3,21 +3,21 @@ import AccordionItem from "@/components/ui/accordions/AccordionItem";
 import ClinicalInputCategoryEnumId from "@/logic/enums/ClinicalInputCategoryEnumId";
 import { Dna, Flame, Package, Droplet, Zap, Atom, Circle, Pill } from "lucide-react";
 import ClinicalInputsSet from "../clinical_inputs/ClinicalInputsSet";
-import RawMaterialModel from "@/logic/models/RawMaterialGroupModel";
+import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 import CalculationService from "@/logic/services/CalculationService";
 import ClinicaInputRowModel from "@/logic/models/row_item/ClinicaInputRowModel";
 import { deepClone } from "@/utils/objectUtils";
 
 interface RawMaterialsAccourdProps {
-    inData: RawMaterialModel;
+    inData: RawMaterialGroupModel;
     inShowPresentation: boolean;
-    onChange: (inNewItem: RawMaterialModel) => void;
+    onChange: (inNewItem: RawMaterialGroupModel) => void;
 }
 
 const RawMaterialsAccourd = (props: RawMaterialsAccourdProps) => {
     const handleClinicaInputChange = (inName: string, inNewItem: ClinicaInputRowModel) => {
         // Actualizar el estado interno con el nuevo item
-        const updatedData: RawMaterialModel = {
+        const updatedData: RawMaterialGroupModel = {
             ...deepClone(props.inData),
             [inName]: inNewItem
         };

@@ -5,14 +5,14 @@
 // import RawMaterialsForm from "@/components/business/Raw_Materials/RawMaterialsForm";
 // import ComputerActionIdEnum from "@/logic/enums/ComputerActionIdEnum";
 // import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSettingsModel";
-// import RawMaterialModel from "@/logic/models/RawMaterialModel";
+// import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 
 // interface ComputerFormLeftProps {
 //     inMixingCenterSettings: MixingCenterSettingsModel;
-//     inRawMaterial: RawMaterialModel;
+//     inRawMaterial: RawMaterialGroupModel;
 
 //     onMixingCenterSettingsChange: (inNewData: MixingCenterSettingsModel) => void;
-//     onRawMaterialChange: (inNewData: RawMaterialModel) => void;
+//     onRawMaterialChange: (inNewData: RawMaterialGroupModel) => void;
 
 //     // setMixingCenterConfigLoad: (inStatus: boolean) => void;
 //     // setRawMaterialsLoad: (inStatus: boolean) => void;

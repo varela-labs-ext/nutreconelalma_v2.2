@@ -20,7 +20,7 @@ import PersonalProtectionGroupModel from "@/logic/models/operating_resources/Per
 import ProductionCostsGroupModel from "@/logic/models/operating_resources/ProductionCostsGroupModel";
 import StaffSalaryGroupModel from "@/logic/models/operating_resources/StaffSalaryGroupModel";
 import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
-import RawMaterialModel from "@/logic/models/RawMaterialGroupModel";
+import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 import CalculationService from "@/logic/services/CalculationService";
 
 class DefaultValuesProvider {
@@ -112,8 +112,8 @@ class DefaultValuesProvider {
         return output;
     }
 
-    public static rawMaterialsDefaults(inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum): RawMaterialModel {
-        const output: RawMaterialModel = new RawMaterialModel();
+    public static rawMaterialsDefaults(inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum): RawMaterialGroupModel {
+        const output: RawMaterialGroupModel = new RawMaterialGroupModel();
 
         switch (inPopulationType) {
             case PopulationTypeIdEnum.Neonatal:

@@ -1,18 +1,18 @@
 // import ClinicaInputRowModel from "@/logic/models/common/ClinicaInputRowModel";
-// import RawMaterialModel from "@/logic/models/materiaPrima/RawMaterialModel";
+// import RawMaterialGroupModel from "@/logic/models/materiaPrima/RawMaterialGroupModel";
 // import ClinicaInputEditor from "../common/ClinicaInputEditor";
 // import { useEffect, useState } from "react";
 // import CalculosService from "@/logic/services/CalculosService";
 
 
 // interface MateriaPrimaDetailsProps {
-//     inData: RawMaterialModel;
+//     inData: RawMaterialGroupModel;
 //     mostrarDetalles: boolean;
-//     onChange: (updatedItem: RawMaterialModel) => void;
+//     onChange: (updatedItem: RawMaterialGroupModel) => void;
 // }
 
 // const MateriaPrimaDetails = (props: MateriaPrimaDetailsProps) => {
-//     const [internalData, setInternalData] = useState<RawMaterialModel>(props.inData);
+//     const [internalData, setInternalData] = useState<RawMaterialGroupModel>(props.inData);
 
 //     useEffect(() => {
 //         setInternalData(props.inData);
@@ -25,7 +25,7 @@
 //         console.log(inItem);
 
 //         // Actualizar el estado interno con el nuevo item
-//         const updatedData: RawMaterialModel = {
+//         const updatedData: RawMaterialGroupModel = {
 //             ...internalData,
 //             [inKey]: inItem
 //         };

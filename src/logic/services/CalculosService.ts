@@ -1,6 +1,6 @@
 // import ClinicaInputRowModel from "../models/common/ClinicaInputRowModel";
 // import InsumoItemCalc from "./InsumoItemCalc";
-// import RawMaterialModel from '@/logic/models/materiaPrima/RawMaterialModel';
+// import RawMaterialGroupModel from '@/logic/models/materiaPrima/RawMaterialGroupModel';
 // import MateriaPrimaCalc from "./MateriaPrimaCalc";
 
 
@@ -12,7 +12,7 @@
 //         calc.calcular(inItem);
 //     }
 
-//     public static CalcularMateriaPrima(inItem: RawMaterialModel): void {
+//     public static CalcularMateriaPrima(inItem: RawMaterialGroupModel): void {
 //         const calc = new MateriaPrimaCalc();
 //         calc.calcular(inItem);
 //     }

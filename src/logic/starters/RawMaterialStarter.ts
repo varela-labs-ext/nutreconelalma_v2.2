@@ -1,7 +1,7 @@
 
 // import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
 // import PopulationTypeIdEnum from "../enums/PopulationTypeIdEnum";
-// import RawMaterialModel from "../models/RawMaterialModel";
+// import RawMaterialGroupModel from "../models/RawMaterialGroupModel";
 // import RawMaterialAdultStarter from "./RawMaterialAdultStarter";
 // import RawMaterialNeonatalStarter from "./RawMaterialNeonatalStarter";
 // import RawMaterialPediatricStarter from "./RawMaterialPediatricStarter";
@@ -19,9 +19,9 @@
 //     }
 
 
-//     public buildRawMaterialModel(inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum): RawMaterialModel {
+//     public buildRawMaterialModel(inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum): RawMaterialGroupModel {
 //         try {
-//             const inItem = new RawMaterialModel();
+//             const inItem = new RawMaterialGroupModel();
 
 //             inItem.cantidad = 1;
 //             inItem.total = 0;

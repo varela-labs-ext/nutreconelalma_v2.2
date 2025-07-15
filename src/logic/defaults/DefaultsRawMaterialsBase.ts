@@ -1,5 +1,5 @@
 import CentralTypeIdEnum from "../enums/CentralTypeIdEnum";
-import RawMaterialModel from "../models/RawMaterialGroupModel";
+import RawMaterialGroupModel from "../models/RawMaterialGroupModel";
 import ClinicaInputRowModel from "../models/row_item/ClinicaInputRowModel";
 
 abstract class DefaultsRawMaterialsBase<TModel> {

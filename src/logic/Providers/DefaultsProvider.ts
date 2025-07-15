@@ -20,7 +20,7 @@ import PersonalProtectionGroupModel from "../models/operating_resources/Personal
 import ProductionCostsGroupModel from "../models/operating_resources/ProductionCostsGroupModel";
 import StaffSalaryGroupModel from "../models/operating_resources/StaffSalaryGroupModel";
 import SterileWorkEquipmentGroupModel from "../models/operating_resources/SterileWorkEquipmentGroupModel";
-import RawMaterialModel from "../models/RawMaterialGroupModel";
+import RawMaterialGroupModel from "../models/RawMaterialGroupModel";
 
 class DefaultsProvider {
 
@@ -64,7 +64,7 @@ class DefaultsProvider {
         defaults.setDefaultValues(inItem, CentralTypeIdEnum.Automatico);
     }
 
-    public static rawMaterialsDefaults(inItem: RawMaterialModel, inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum): void {
+    public static rawMaterialsDefaults(inItem: RawMaterialGroupModel, inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum): void {
         switch (inPopulationType) {
             case PopulationTypeIdEnum.Neonatal:
                 const neonatalDefaults = new RawMaterialNeonatalDefaults();

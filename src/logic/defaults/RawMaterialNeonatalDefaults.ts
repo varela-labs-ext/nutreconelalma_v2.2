@@ -1,9 +1,9 @@
-import RawMaterialModel from "../models/RawMaterialGroupModel";
+import RawMaterialGroupModel from "../models/RawMaterialGroupModel";
 import DefaultsRawMaterialsBase from "./DefaultsRawMaterialsBase";
 
-class RawMaterialNeonatalDefaults extends DefaultsRawMaterialsBase<RawMaterialModel> {
+class RawMaterialNeonatalDefaults extends DefaultsRawMaterialsBase<RawMaterialGroupModel> {
 
-    protected setCommons_MixingCentral_Manual(inItem: RawMaterialModel): void {
+    protected setCommons_MixingCentral_Manual(inItem: RawMaterialGroupModel): void {
         this.setClinicalInput(inItem.AguaEsteril_500ml, 500.00, 0, 0, 0, 4000.00, 0); //4000.00
         this.setClinicalInput(inItem.CloruroPotasioVial_10cc, 10.00, 0, 1.00, 0, 1500.00, 0); //1500.00
         this.setClinicalInput(inItem.CloruroSodioVial_10cc, 10.00, 0, 1.00, 0, 1500.00, 0); //1500.00
@@ -17,7 +17,7 @@ class RawMaterialNeonatalDefaults extends DefaultsRawMaterialsBase<RawMaterialMo
         this.setClinicalInput(inItem.VitaminasHidrosolubles, 1.00, 0, 0, 0, 23000.00, 0); //23000.00
     }
 
-    protected setOthers_MixingCentral_Manual(inItem: RawMaterialModel): void {
+    protected setOthers_MixingCentral_Manual(inItem: RawMaterialGroupModel): void {
         this.setClinicalInput(inItem.AminoacidosInfantil100Ml, 100.00, 50.00, 1.00, 0, 40000.00, 0); // 20000.00
         this.setClinicalInput(inItem.AminoacidosInfantil1000Ml, 1000.00, 0, 0, 0, 20546.6, 0); // 0.00
         this.setClinicalInput(inItem.AminoacidosInfantil250Ml, 250.00, 0, 0, 0, 50000.00, 0); // 0.00
@@ -29,7 +29,7 @@ class RawMaterialNeonatalDefaults extends DefaultsRawMaterialsBase<RawMaterialMo
         this.setClinicalInput(inItem.VitaminasLiposolublesInfantil, 1.00, 0, 0, 0, 13000.00, 0); //13000.00
     }
 
-    protected setCommons_MixingCentral_Automatic(inItem: RawMaterialModel): void {
+    protected setCommons_MixingCentral_Automatic(inItem: RawMaterialGroupModel): void {
         this.setClinicalInput(inItem.AguaEsteril_500ml, 500.00, 100.00, 0, 0, 4000.00, 0); //4000.00
         this.setClinicalInput(inItem.CloruroPotasioVial_10cc, 10.00, 0.4, 1.00, 0, 1500.00, 0); //1500.00
         this.setClinicalInput(inItem.CloruroSodioVial_10cc, 10.00, 1.57, 1.00, 0, 1500.00, 0); //1500.00
@@ -43,7 +43,7 @@ class RawMaterialNeonatalDefaults extends DefaultsRawMaterialsBase<RawMaterialMo
         this.setClinicalInput(inItem.VitaminasHidrosolubles, 0, 1.00, 0, 0, 23000.00, 0); //23000.00
     }
 
-    protected setOthers_MixingCentral_Automatic(inItem: RawMaterialModel): void {
+    protected setOthers_MixingCentral_Automatic(inItem: RawMaterialGroupModel): void {
         this.setClinicalInput(inItem.AminoacidosInfantil100Ml, 100.00, 20.54, 1.00, 0, 40000.00, 0); // 8216.00
         this.setClinicalInput(inItem.AminoacidosInfantil1000Ml, 1000.00, 0, 0, 0, 20546.6, 0); // 0.00
         this.setClinicalInput(inItem.AminoacidosInfantil250Ml, 250.00, 0, 0, 0, 50000.00, 0); // 0.00
