@@ -12,7 +12,7 @@ import { deepClone } from "@/utils/objectUtils";
 
 
 interface MaterialsAndSuppliesCostsFormProps {
-    inCentralType: CentralTypeIdEnum;
+    // inCentralType: CentralTypeIdEnum;
 }
 
 //ESTE DEBE GESTIONAR POR CUENTA PROPIA LA CARGA DE LOS DATOS DESDE LA DB
@@ -144,7 +144,7 @@ const MaterialsAndSuppliesCostsForm = (props: MaterialsAndSuppliesCostsFormProps
 
     return (
         <MaterialsAndSuppliesCostsAccourd
-            inCentralType={props.inCentralType}
+            inCentralType={currentMixingCenterSettings.centralType}
             inAutomatedEquipmentData={internalAutomatedEquipment ?? new AutomatedEquipmentGroupModel()}
             inHygieneAndCleaningData={internalHygieneAndCleaning ?? new HygieneAndCleaningGroupModel()}
             inPersonalProtectionData={internalPersonalProtection ?? new PersonalProtectionModel()}

@@ -38,12 +38,12 @@ const OperatingResourcesForm = (props: OperatingResourcesFormProps) => {
                 <IconTabs defaultTabIndex={0} activeTabIndex={activeComputerTabIndex} setActiveTabIndex={handleOnTabsChange}>
                     <IconTab label="Central de Mezclas Manual" icon={FlaskConical}>
                         <OperatingResourcesByMixingCentral
-                            inCentralType={CentralTypeIdEnum.Manual}
+                            inCentralTypeEdt={CentralTypeIdEnum.Manual}
                         />
                     </IconTab>
                     <IconTab label="Central de Mezclas Automatica" icon={Bot}>
                         <OperatingResourcesByMixingCentral
-                            inCentralType={CentralTypeIdEnum.Automatico}
+                            inCentralTypeEdt={CentralTypeIdEnum.Automatico}
                         />
                     </IconTab>
                 </IconTabs>

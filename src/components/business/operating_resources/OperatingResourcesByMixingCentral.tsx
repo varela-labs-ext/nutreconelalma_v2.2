@@ -6,9 +6,8 @@ import OperatingCostsForm from "./operating_costs/OperatingCostsForm";
 import StaffPersonnelCostsForm from "./staff_personnel/StaffPersonnelCostsForm";
 import MaterialsAndSuppliesCostsForm from "./materials_and_supplies/MaterialsAndSuppliesCostsForm";
 
-
 interface OperatingResourcesByMixingCentralProps {
-    inCentralType: CentralTypeIdEnum;
+    inCentralTypeEdt: CentralTypeIdEnum;
 }
 
 const OperatingResourcesByMixingCentral = (props: OperatingResourcesByMixingCentralProps) => {
@@ -16,7 +15,7 @@ const OperatingResourcesByMixingCentral = (props: OperatingResourcesByMixingCent
     const getMixingCentralName = (): string => {
         let name = "Central de Mezclas Manual";
 
-        if (props.inCentralType === CentralTypeIdEnum.Automatico) {
+        if (props.inCentralTypeEdt === CentralTypeIdEnum.Automatico) {
             name = "Central de Mezclas Automática";
         }
 
@@ -29,7 +28,7 @@ const OperatingResourcesByMixingCentral = (props: OperatingResourcesByMixingCent
             <PanelViewsSelector defaultIndex={0}>
                 <PanelView label="Costos Operativos" icon={<Settings />} status="ok">
                     <OperatingCostsForm
-                    // inCentralType={props.inCentralType}
+                        inCentralTypeEdt={props.inCentralTypeEdt}
                     />
                 </PanelView>
                 <PanelView label="Staff / Personal" icon={<Users />} status="warning">
@@ -39,7 +38,7 @@ const OperatingResourcesByMixingCentral = (props: OperatingResourcesByMixingCent
                 </PanelView>
                 <PanelView label="Materiales e Insumos" icon={<PackageOpen />} status="warning">
                     <MaterialsAndSuppliesCostsForm
-                        inCentralType={props.inCentralType}
+                    // inCentralType={props.inCentralType}
                     />
                 </PanelView>
             </PanelViewsSelector>

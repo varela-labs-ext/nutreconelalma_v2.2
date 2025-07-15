@@ -3,6 +3,7 @@ import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
 import AutomatedEquipmentGroupModel from "@/logic/models/operating_resources/AutomatedEquipmentGroupModel";
 import AutomatedEquipmentInputs from "./AutomatedEquipmentInputs";
 import AutomatedEquipmentHeaders from "./AutomatedEquipmentHeaders";
+import { deepClone } from "@/utils/objectUtils";
 
 interface AutomatedEquipmentSetProps {
     inData: AutomatedEquipmentGroupModel;
@@ -13,7 +14,7 @@ const AutomatedEquipmentSet = (props: AutomatedEquipmentSetProps) => {
 
     const handleOnAutomatedEquipmentInputsChange = (inPropertyName: string, inNewItem: UnitCostItemModel) => {
         const output: AutomatedEquipmentGroupModel = {
-            ...props.inData,
+            ...deepClone(props.inData),
             [inPropertyName]: inNewItem
         };
 

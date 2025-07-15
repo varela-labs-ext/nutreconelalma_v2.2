@@ -6,6 +6,7 @@ import { useState } from "react";
 import { isValidNumber } from "@/utils/validators";
 import MixingCenterSelector from "./MixingCenterSelector";
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
+import { deepClone } from "@/utils/objectUtils";
 
 
 interface MixingCenterSetProps {
@@ -44,10 +45,8 @@ const MixingCenterSet = (props: MixingCenterSetProps) => {
 
     const handleOnPopulationTypeChange = (newPopulationType: PopulationTypeIdEnum): void => {
         if (props.inData) {
-            const newData = {
-                ...props.inData,
-                populationType: newPopulationType
-            };
+            const newData: MixingCenterSettingsModel = deepClone(props.inData);
+            newData.populationType = newPopulationType;
             props.onChange(newData);
         } else {
             console.error("Error: props.inData is null when trying to change population type.");
@@ -56,10 +55,9 @@ const MixingCenterSet = (props: MixingCenterSetProps) => {
 
     const handleOnProductionLinesChange = (newProductionLines: number): void => {
         if (props.inData && isValidNumber(newProductionLines)) {
-            const newData = {
-                ...props.inData,
-                productionLines: newProductionLines
-            };
+            const newData: MixingCenterSettingsModel = deepClone(props.inData);
+            newData.productionLines = newProductionLines;
+
             props.onChange(newData);
         } else {
             console.error("Error: props.inData is null when trying to change production lines.");
@@ -68,10 +66,9 @@ const MixingCenterSet = (props: MixingCenterSetProps) => {
 
     const handleOnProductionPerDayChange = (newProductionPerDay: number): void => {
         if (props.inData && isValidNumber(newProductionPerDay)) {
-            const newData = {
-                ...props.inData,
-                productionPerDay: newProductionPerDay
-            };
+            const newData: MixingCenterSettingsModel = deepClone(props.inData);
+            newData.productionPerDay = newProductionPerDay;
+
             props.onChange(newData);
         } else {
             console.error("Error: props.inData is null when trying to change production per day.");
@@ -80,10 +77,9 @@ const MixingCenterSet = (props: MixingCenterSetProps) => {
 
     const handleOnPercentPerAdultChange = (newPercentAdult: number): void => {
         if (props.inData && isValidNumber(newPercentAdult)) {
-            const newData = {
-                ...props.inData,
-                percentPerAdult: newPercentAdult
-            };
+            const newData: MixingCenterSettingsModel = deepClone(props.inData);
+            newData.percentPerAdult = newPercentAdult;
+
             validatePercentages("percentPerAdult", newData);
             props.onChange(newData);
         } else {
@@ -93,10 +89,9 @@ const MixingCenterSet = (props: MixingCenterSetProps) => {
 
     const handleOnPercentPerPediatricChange = (newPercentPediatric: number): void => {
         if (props.inData && isValidNumber(newPercentPediatric)) {
-            const newData = {
-                ...props.inData,
-                percentPerPediatric: newPercentPediatric
-            };
+            const newData: MixingCenterSettingsModel = deepClone(props.inData);
+            newData.percentPerPediatric = newPercentPediatric;
+
             validatePercentages("percentPerPediatric", newData);
             props.onChange(newData);
         } else {
@@ -106,10 +101,8 @@ const MixingCenterSet = (props: MixingCenterSetProps) => {
 
     const handleOnPercentPerNeonatalChange = (newPercentNeonatal: number): void => {
         if (props.inData && isValidNumber(newPercentNeonatal)) {
-            const newData: MixingCenterSettingsModel = {
-                ...props.inData,
-                percentPerNeonatal: newPercentNeonatal
-            };
+            const newData: MixingCenterSettingsModel = deepClone(props.inData);
+            newData.percentPerNeonatal = newPercentNeonatal;
 
             validatePercentages("percentPerNeonatal", newData);
             props.onChange(newData);
@@ -119,10 +112,8 @@ const MixingCenterSet = (props: MixingCenterSetProps) => {
     }
 
     const handleOnMixingCenterSelectorChange = (inNewCentralType: CentralTypeIdEnum): void => {
-        const newData: MixingCenterSettingsModel = {
-            ...props.inData,
-            centralType: inNewCentralType
-        };
+        const newData: MixingCenterSettingsModel = deepClone(props.inData);
+        newData.centralType = inNewCentralType;
 
         props.onChange(newData);
     }

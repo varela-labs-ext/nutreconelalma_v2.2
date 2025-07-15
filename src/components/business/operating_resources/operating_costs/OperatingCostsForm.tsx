@@ -12,12 +12,14 @@ import { deepClone, deepEqual } from "@/utils/objectUtils";
 import { getProductionPerMonth, handleOnInternalModelChange, safeSetState } from "@/context/ComputerContextExt";
 
 interface OperatingCostsFormProps {
-    // inCentralType: CentralTypeIdEnum;
+    inCentralTypeEdt: CentralTypeIdEnum;
     // inProductionLines: number;
     // inProductionPerMonth: number;
 }
 
-//ESTE DEBE GESTIONAR POR CUENTA PROPIA LA CARGA DE LOS DATOS DESDE LA DB
+// HAY UNA SITUACION CON EL CENTRAL TYPE, YA QUE EL CONTEXTO ESTA PENSADO EN UN "CURRENT" RELACIONADO A
+// LA CENTRAL SELECCIONADA, PERO LA CONFIGURACION, ESTA PENSADA PARA EDITAR SELECCIONADO LA CENTRAL,
+// ENTONCES LA SELECCION DE LOS OBJETOS SE PUEDE ELOQUESE
 
 const OperatingCostsForm = (props: OperatingCostsFormProps) => {
     const { currentMixingCenterSettings, currentMaintenanceCosts, currentProductionCosts, setCurrentMaintenanceCosts, setCurrentProductionCosts } = useComputerContext();
@@ -93,7 +95,7 @@ const OperatingCostsForm = (props: OperatingCostsFormProps) => {
 
     return (
         <OperatingCostsAccourd
-            inCentralType={currentMixingCenterSettings.centralType}
+            inCentralType={props.inCentralTypeEdt}
             inMaintenanceCostsData={internalMaintenanceCosts ?? new MaintenanceCostsGroupModel()}
             inProductionCostsData={internalProductionCosts ?? new ProductionCostsGroupModel()}
             inProductionLines={currentMixingCenterSettings.productionLines}
