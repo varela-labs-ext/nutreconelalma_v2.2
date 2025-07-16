@@ -5,6 +5,7 @@ import ForageManager from "@/logic/common/ForageManager";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useComputerContext } from "./ComputerContext";
 import { toastService } from "@/services/toastService";
+import { useComputerFileHandlerContext } from "./ComputerFileHandlerContext";
 
 
 export interface ComputerActionsContextProps {
@@ -18,13 +19,14 @@ export interface ComputerActionsContextProps {
     setShowOpenFileDialog: (inValue: boolean) => void;
     setFilenameList: (inValue: string[]) => void;
 
-    saveFile: () => void;
+    callSaveFile: () => void;
 }
 
 export const ComputerActionsContext = createContext<ComputerActionsContextProps | undefined>(undefined);
 
 export const ComputerActionsProvider = ({ children }: { children: React.ReactNode }) => {
-    const { currentFilename, createNewFileAsync, openFileAsync, saveFileAsync, saveFileAsAsync } = useComputerContext();
+    const { currentFilename, } = useComputerContext();
+    const { createNewFileAsync, openFileAsync, saveFileAsync, saveFileAsAsync } = useComputerFileHandlerContext();
 
     const [showNewCalcDialog, setShowNewCalcDialog] = useState(false);
     const [showSaveAsDialog, setShowSaveAsDialog] = useState(false);
@@ -50,7 +52,7 @@ export const ComputerActionsProvider = ({ children }: { children: React.ReactNod
     //     }
     // }, [showOpenFileDialog]);
 
-    const saveFile = () => {
+    const callSaveFile = () => {
         saveFileAsync().then(() => {
             toastService.showOk(`Calculadora almacenada: ${currentFilename}`);
         });
@@ -63,14 +65,14 @@ export const ComputerActionsProvider = ({ children }: { children: React.ReactNod
         });
     }
 
-    const callOpenFileAsync = (selectedFilename: string) => {
+    const callOpenFile = (selectedFilename: string) => {
         openFileAsync(selectedFilename).then(() => {
             toastService.showOk(`Calculadora abierta: ${selectedFilename}`);
             setShowOpenFileDialog(false);
         });
     }
 
-    const callSaveFileAsAsync = (fileName: string) => {
+    const callSaveFileAs = (fileName: string) => {
         saveFileAsAsync(fileName).then(() => {
             toastService.showOk(`Calculadora creada: ${fileName}`);
             setShowSaveAsDialog(false);
@@ -88,7 +90,7 @@ export const ComputerActionsProvider = ({ children }: { children: React.ReactNod
                 setShowSaveAsDialog,
                 setShowOpenFileDialog,
                 setFilenameList,
-                saveFile
+                callSaveFile
             }}>
             <div>
                 <div>
@@ -99,10 +101,10 @@ export const ComputerActionsProvider = ({ children }: { children: React.ReactNod
                         <YesNoModal mainTitle="Desea crear una nueva calculadora?" onConfirm={() => callCreateNewFile()} onCancel={() => setShowNewCalcDialog(false)} />
                     )}
                     {showOpenFileDialog && (
-                        <SelectFileDialogBox isOpen={showOpenFileDialog} files={filenameList} onConfirm={callOpenFileAsync} onCancel={() => setShowOpenFileDialog(false)} />
+                        <SelectFileDialogBox isOpen={showOpenFileDialog} files={filenameList} onConfirm={callOpenFile} onCancel={() => setShowOpenFileDialog(false)} />
                     )}
                     {showSaveAsDialog && (
-                        <FileNameDialogBox isOpen={showSaveAsDialog} onConfirm={callSaveFileAsAsync} onCancel={() => setShowSaveAsDialog(false)} />
+                        <FileNameDialogBox isOpen={showSaveAsDialog} onConfirm={callSaveFileAs} onCancel={() => setShowSaveAsDialog(false)} />
                     )}
                 </div>
             </div>

@@ -1,6 +1,9 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
 import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSettingsModel";
+import MixingCenterOperatingResourcesModel from "@/logic/models/MixingCenterOperatingResourcesModel";
+import MixingCenterRawMaterialsModel from "@/logic/models/MixingCenterRawMaterialsModel";
+import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 import { deepClone, deepEqual } from "@/utils/objectUtils";
 
 export const callByCentralType = <TModel>(
@@ -20,12 +23,13 @@ export const callByCentralType = <TModel>(
             console.warn("callByCentralType. Tipo de central no reconocido:", inCentralType);
             break;
     }
-}
+};
 
 export const callByCentralTypeWithReturn = <TModel>(
     inCentralType: CentralTypeIdEnum,
     callbackManual: () => TModel,
-    callbackAutomatic: () => TModel): TModel | null => {
+    callbackAutomatic: () => TModel
+): TModel | null => {
 
     switch (inCentralType) {
         case CentralTypeIdEnum.Manual:
@@ -36,7 +40,7 @@ export const callByCentralTypeWithReturn = <TModel>(
             console.warn("callByCentralTypeWithReturn. Tipo de central no reconocido:", inCentralType);
             return null;
     }
-}
+};
 
 export const callByPopulationType = <TModel>(
     inPopulationType: PopulationTypeIdEnum,
@@ -56,7 +60,27 @@ export const callByPopulationType = <TModel>(
             callbackPediatrica(inData);
             break;
     }
-}
+};
+
+export const callByPopulationTypeWithReturn = <TModel>(
+    inPopulationType: PopulationTypeIdEnum,
+    callbackAdulto: () => TModel,
+    callbackNeonatal: () => TModel,
+    callbackPediatrica: () => TModel
+): TModel | null => {
+
+    switch (inPopulationType) {
+        case PopulationTypeIdEnum.Adulto:
+            return callbackAdulto();
+        case PopulationTypeIdEnum.Neonatal:
+            return callbackNeonatal();
+        case PopulationTypeIdEnum.Pediatrica:
+            return callbackPediatrica();
+        default:
+            console.warn("callByPopulationTypeWithReturn. Tipo de población no reconocido:", inPopulationType);
+            return null;
+    }
+};
 
 export const handleOnInternalModelChange = <TModel>(
     inDebounceRef: React.MutableRefObject<number | null>,
@@ -79,8 +103,7 @@ export const handleOnInternalModelChange = <TModel>(
             callBack(deepClone(internalData)); // copia profunda antes de propagar
         }
     }, 200);
-}
-
+};
 
 export const safeSetState = <T>(
     setStateFn: React.Dispatch<React.SetStateAction<T | null>>,
@@ -102,6 +125,204 @@ export const safeSetState = <T>(
     });
 };
 
+export const safeSetStateWithNulls = <T>(
+    setStateFn: React.Dispatch<React.SetStateAction<T | null>>,
+    newValue: T,
+    callBack: () => void,
+    options?: { clone?: boolean }
+) => {
+    let shouldCallBack = false;
+    setStateFn((prev) => {
+        if (prev === null) {
+            return options?.clone === false ? newValue : deepClone(newValue);
+        }
+
+        const isEqual = deepEqual(prev, newValue);
+        if (!isEqual) {
+            shouldCallBack = true;
+            return options?.clone === false ? newValue : deepClone(newValue);
+        }
+
+        return prev;
+    });
+
+    if (shouldCallBack) {
+        queueMicrotask(callBack);
+    }
+};
+
+export const safeSetStateNoNulls = <T>(
+    setStateFn: React.Dispatch<React.SetStateAction<T>>,
+    newValue: T,
+    callBack: () => void,
+    options?: { clone?: boolean }
+) => {
+    let shouldCallBack = false;
+    setStateFn((prev) => {
+        const isEqual = deepEqual(prev, newValue);
+        if (!isEqual) {
+            shouldCallBack = true;
+            return options?.clone === false ? newValue : deepClone(newValue);
+        }
+
+        return prev;
+    });
+
+    if (shouldCallBack) {
+        queueMicrotask(callBack);
+    }
+};
+
 export const getProductionPerMonth = (inItem: MixingCenterSettingsModel): number => {
     return (inItem.productionPerDay * 30);
+};
+
+export const backupRawMaterialInTo = (
+    inCentralType: CentralTypeIdEnum,
+    inPopulationType: PopulationTypeIdEnum,
+    inCurrentRawMaterial: RawMaterialGroupModel,
+    backup_MC_Manual_RawMaterials: MixingCenterRawMaterialsModel,
+    backup_MC_Automatic_RawMaterials: MixingCenterRawMaterialsModel,
+    setBackup_MC_Manual_RawMaterials: (value: MixingCenterRawMaterialsModel) => void,
+    setBackup_MC_Automatic_RawMaterials: (value: MixingCenterRawMaterialsModel) => void,
+): void => {
+    const newData: RawMaterialGroupModel = deepClone(inCurrentRawMaterial);
+
+    callByCentralType(
+        inCentralType,
+        newData,
+        (dataManual) => { // Manual
+            callByPopulationType(
+                inPopulationType,
+                dataManual,
+                (dataAdulto) => {
+                    const backup = deepClone(backup_MC_Manual_RawMaterials);
+                    backup.adultoRawMaterial = dataAdulto;
+                    setBackup_MC_Manual_RawMaterials(backup);
+                }, // Adulto
+                (dataNeonatal) => {
+                    const backup = deepClone(backup_MC_Manual_RawMaterials);
+                    backup.neonatalRawMaterial = dataNeonatal;
+                    setBackup_MC_Manual_RawMaterials(backup);
+                }, // Neonatal
+                (dataPediatrica) => {
+                    const backup = deepClone(backup_MC_Manual_RawMaterials);
+                    backup.pediatricoRawMaterial = dataPediatrica;
+                    setBackup_MC_Manual_RawMaterials(backup);
+                } // Pediatrica
+            );
+        },
+        (dataAutomatic) => { // Automatic
+            callByPopulationType(
+                inPopulationType,
+                dataAutomatic,
+                (dataAdulto) => {
+                    const backup = deepClone(backup_MC_Automatic_RawMaterials);
+                    backup.adultoRawMaterial = dataAdulto;
+                    setBackup_MC_Automatic_RawMaterials(backup);
+                }, // Adulto
+                (dataNeonatal) => {
+                    const backup = deepClone(backup_MC_Automatic_RawMaterials);
+                    backup.neonatalRawMaterial = dataNeonatal;
+                    setBackup_MC_Automatic_RawMaterials(backup);
+                }, // Neonatal
+                (dataPediatrica) => {
+                    const backup = deepClone(backup_MC_Automatic_RawMaterials);
+                    backup.pediatricoRawMaterial = dataPediatrica;
+                    setBackup_MC_Automatic_RawMaterials(backup);
+                } // Pediatrica
+            );
+        }
+    );
+}
+
+export const gatherRawMaterialFromBackup = (
+    inCentralType: CentralTypeIdEnum,
+    inPopulationType: PopulationTypeIdEnum,
+    inBackup_MC_Manual_RawMaterials: MixingCenterRawMaterialsModel,
+    inBackup_MC_Automatic_RawMaterials: MixingCenterRawMaterialsModel
+): RawMaterialGroupModel | null => {
+    let gatherData: RawMaterialGroupModel | null = null;
+
+    gatherData = callByCentralTypeWithReturn(
+        inCentralType,
+        () => { // Manual
+            return callByPopulationTypeWithReturn(
+                inPopulationType,
+                () => {
+                    return deepClone(inBackup_MC_Manual_RawMaterials.adultoRawMaterial);
+                }, //Adulto
+                () => {
+                    return deepClone(inBackup_MC_Manual_RawMaterials.neonatalRawMaterial);
+                }, //Neonatal
+                () => {
+                    return deepClone(inBackup_MC_Manual_RawMaterials.pediatricoRawMaterial);
+                }, //Pediatrico
+            );
+        },
+        () => { //Automatic
+            return callByPopulationTypeWithReturn(
+                inPopulationType,
+                () => {
+                    return deepClone(inBackup_MC_Automatic_RawMaterials.adultoRawMaterial);
+                }, //Adulto
+                () => {
+                    return deepClone(inBackup_MC_Automatic_RawMaterials.neonatalRawMaterial);
+                }, //Neonatal
+                () => {
+                    return deepClone(inBackup_MC_Automatic_RawMaterials.pediatricoRawMaterial);
+                }, //Pediatrico
+            );
+        }
+    );
+
+    return gatherData;
+}
+
+export const backupDataModelByCentralType = <TModel>(
+    inCentralType: CentralTypeIdEnum,
+    inData: TModel,
+    backup_MC_Manual_Resources: MixingCenterOperatingResourcesModel,
+    backup_MC_Automatic_Resources: MixingCenterOperatingResourcesModel,
+    setBackup_MC_Manual_Resources: (value: MixingCenterOperatingResourcesModel) => void,
+    setBackup_MC_Automatic_Resources: (value: MixingCenterOperatingResourcesModel) => void,
+    setDataModelTo: (from: MixingCenterOperatingResourcesModel, value: TModel) => void
+): void => {
+    callByCentralType(
+        inCentralType,
+        deepClone(inData),
+        (dataManual) => {
+            const backup = deepClone(backup_MC_Manual_Resources);
+            setDataModelTo(backup, dataManual);
+            setBackup_MC_Manual_Resources(backup);
+        },
+        (dataAutomatic) => {
+            const backup = deepClone(backup_MC_Automatic_Resources);
+            setDataModelTo(backup, dataAutomatic);
+            setBackup_MC_Automatic_Resources(backup);
+        }
+    );
+}
+
+export const gatherDataModelFromBackup = <TModel>(
+    inCentralType: CentralTypeIdEnum,
+    backup_MC_Manual_Resources: MixingCenterOperatingResourcesModel,
+    backup_MC_Automatic_Resources: MixingCenterOperatingResourcesModel,
+    callback: (from: MixingCenterOperatingResourcesModel) => TModel | null
+): TModel | null => {
+    let result: TModel | null = null;
+
+    switch (inCentralType) {
+        case CentralTypeIdEnum.Manual:
+            result = callback(backup_MC_Manual_Resources);
+            break;
+        case CentralTypeIdEnum.Automatico:
+            result = callback(backup_MC_Automatic_Resources);
+            break;
+        default:
+            console.warn("gatherDataModelFromBackup. Tipo de central no reconocido:", inCentralType);
+            break
+    }
+
+    return result;
 }
