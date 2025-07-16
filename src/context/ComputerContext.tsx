@@ -10,52 +10,18 @@ import ProductionCostsGroupModel from "@/logic/models/operating_resources/Produc
 import StaffSalaryGroupModel from "@/logic/models/operating_resources/StaffSalaryGroupModel";
 import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
 import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
-import DefaultValuesProvider from "@/providers/DefaultValuesProvider";
-import StorageProvider from "@/providers/StorageProvider";
-import { deepClone, deepEqual } from "@/utils/objectUtils";
+import { deepClone } from "@/utils/objectUtils";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { backupDataModelByCentralType, backupRawMaterialInTo, callByCentralTypeWithReturn, gatherDataModelFromBackup, gatherRawMaterialFromBackup } from "./ComputerContextExt";
+import { backupDataModelByCentralType, backupRawMaterialInTo, gatherDataModelFromBackup, gatherRawMaterialFromBackup } from "./ComputerContextExt";
 import MixingCenterRawMaterialsModel from "@/logic/models/MixingCenterRawMaterialsModel";
 import MixingCenterOperatingResourcesModel from "@/logic/models/MixingCenterOperatingResourcesModel";
 
-// ------------------- Tipos auxiliares -------------------
-export type ActionComputer = "nueva" | "cargar" | "salvar" | null;
-
-// ------------------- Proveedor de almacenamiento -------------------
-// class ComputerStorageProvider {
-//     async guardarDatos(datos: {
-//         tipoA: TipoAModel;
-//         tipoB: TipoBModel;
-//         tipoC: TipoCModel;
-//         tipoD: TipoDModel;
-//         tipoE: TipoEModel;
-//         tipoF: TipoFModel;
-//         tipoG: TipoGModel;
-//         tipoH: TipoHModel;
-//     }) {
-//         // TODO: Implementar lógica de guardado en base de datos local
-//         console.log("Guardando datos en almacenamiento local...", datos);
-//     }
-
-//     async cargarDatos(nombre: string) {
-//         // TODO: Implementar lógica de carga desde almacenamiento local
-//         console.log(`Cargando archivo: ${nombre}`);
-//         return null;
-//     }
-// }
-
 // ------------------- Interfaz del Contexto -------------------
 export interface ComputerContextProps {
-    // CurrentAction: ActionComputer;
-    // setAction: (Action: ActionComputer) => void;
-
     executingSomething: boolean; // <- esto es para avisarle al overlay que se active o no.
-    userDefaultValuesExists: boolean;
-
     currentFilename: string | null;
     currentMixingCenterSettings: MixingCenterSettingsModel;
-
-    currentRawMaterial: RawMaterialGroupModel; //<- hay que renombrarlo a huevo!
+    currentRawMaterial: RawMaterialGroupModel;
     currentAutomatedEquipment: AutomatedEquipmentGroupModel;
     currentHygieneAndCleaning: HygieneAndCleaningGroupModel;
     currentPersonalProtection: PersonalProtectionGroupModel;
@@ -64,15 +30,10 @@ export interface ComputerContextProps {
     currentProductionCosts: ProductionCostsGroupModel;
     currentChemistSalary: StaffSalaryGroupModel;
     currentAssistantSalary: StaffSalaryGroupModel;
-
     setExecutingSomething: (inValue: boolean) => void;
-    setUserDefaultValuesExists: (inValue: boolean) => void;
-
     setCurrentFilename: (inFileName: string | null) => void;
-
     setCurrentMixingCenterSettings: (inValue: MixingCenterSettingsModel) => void;
-    setCurrentRawMaterial: (inValue: RawMaterialGroupModel) => void; //<- hay que renombrarlo a huevo, el nombre del modelo!
-
+    setCurrentRawMaterial: (inValue: RawMaterialGroupModel) => void;
     setCurrentAutomatedEquipment: (inValue: AutomatedEquipmentGroupModel) => void;
     setCurrentHygieneAndCleaning: (inValue: HygieneAndCleaningGroupModel) => void;
     setCurrentPersonalProtection: (inValue: PersonalProtectionGroupModel) => void;
@@ -81,8 +42,8 @@ export interface ComputerContextProps {
     setCurrentProductionCosts: (inValue: ProductionCostsGroupModel) => void;
     setCurrentChemistSalary: (inValue: StaffSalaryGroupModel) => void;
     setCurrentAssistantSalary: (inValue: StaffSalaryGroupModel) => void;
-
-    resetCalcUseFabridDefaults: () => void;
+    gatherExternalBackup: () => ComputerBigGroupModel;
+    loadExternalBackup: (inExternalData: ComputerBigGroupModel | undefined | null) => void;
 }
 
 // ------------------- Contexto -------------------
@@ -91,17 +52,13 @@ export const ComputerContext = createContext<ComputerContextProps | undefined>(u
 // ------------------- Provider -------------------
 // Antiguo calculadora provider
 export const ComputerProvider = ({ children }: { children: React.ReactNode }) => {
-    // const [CurrentAction, setCurrentAction] = useState<ActionComputer>(null);
+    const msgInvalidData = "Datos leidos del backup internos son inválidos!";
 
     const [isReady, setIsReady] = useState(false);
     const [executingSomething, setExecutingSomething] = useState<boolean>(false);
-
-    const [userDefaultValuesExists, setUserDefaultValuesExists] = useState<boolean>(false);
     const [currentFilename, setCurrentFilename] = useState<string | null>(null);
     const [currentMixingCenterSettings, setCurrentMixingCenterSettings] = useState<MixingCenterSettingsModel>(new MixingCenterSettingsModel());
-
     const [currentRawMaterial, setCurrentRawMaterial] = useState<RawMaterialGroupModel>(new RawMaterialGroupModel());
-
     const [currentAutomatedEquipment, setCurrentAutomatedEquipment] = useState<AutomatedEquipmentGroupModel>(new AutomatedEquipmentGroupModel());
     const [currentHygieneAndCleaning, setCurrentHygieneAndCleaning] = useState<HygieneAndCleaningGroupModel>(new HygieneAndCleaningGroupModel());
     const [currentPersonalProtection, setCurrentPersonalProtection] = useState<PersonalProtectionGroupModel>(new PersonalProtectionGroupModel());
@@ -110,74 +67,131 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     const [currentProductionCosts, setCurrentProductionCosts] = useState<ProductionCostsGroupModel>(new ProductionCostsGroupModel());
     const [currentChemistSalary, setCurrentChemistSalary] = useState<StaffSalaryGroupModel>(new StaffSalaryGroupModel());
     const [currentAssistantSalary, setCurrentAssistantSalary] = useState<StaffSalaryGroupModel>(new StaffSalaryGroupModel());
-
-
-    // Estos son internos del contexto solamente.
-    // Son para manter los cambios en memoria de cada tipo de central, ya que los elementos que comienzan con "current..."
-    // Son temporales relacionados a la central seleccionada.
     const [backup_MC_Manual_RawMaterials, setBackup_MC_Manual_RawMaterials] = useState<MixingCenterRawMaterialsModel>(new MixingCenterRawMaterialsModel());
     const [backup_MC_Automatic_RawMaterials, setBackup_MC_Automatic_RawMaterials] = useState<MixingCenterRawMaterialsModel>(new MixingCenterRawMaterialsModel());
-
     const [backup_MC_Manual_Resources, setBackup_MC_Manual_Resources] = useState<MixingCenterOperatingResourcesModel>(new MixingCenterOperatingResourcesModel());
     const [backup_MC_Automatic_Resources, setBackup_MC_Automatic_Resources] = useState<MixingCenterOperatingResourcesModel>(new MixingCenterOperatingResourcesModel());
-
     const [internalCentralType, setInternalCentralType] = useState<CentralTypeIdEnum>(CentralTypeIdEnum.Manual);
     const [internalPopulationType, setInternalPopulationType] = useState<PopulationTypeIdEnum>(PopulationTypeIdEnum.Adulto);
 
-    // // Estos son internos del contexto solamente.
-    // const [mixingCenterManualAdultoRawMaterialData, setMixingCenterManualAdultoRawMaterialData] = useState<RawMaterialGroupModel>(new RawMaterialGroupModel());
-    // const [mixingCenterManualNeonatalRawMaterialData, setMixingCenterManualNeonatalRawMaterialData] = useState<RawMaterialGroupModel>(new RawMaterialGroupModel());
-    // const [mixingCenterManualPediatricaRawMaterialData, setMixingCenterManualPediatricaRawMaterialData] = useState<RawMaterialGroupModel>(new RawMaterialGroupModel());
+    /* *************************************** MIXING CENTER HANDLING *************************************** */
 
-    // const [mixingCenterAutomaticAdultoRawMaterialData, setMixingCenterAutomaticAdultoRawMaterialData] = useState<RawMaterialGroupModel>(new RawMaterialGroupModel());
-    // const [mixingCenterAutomaticNeonatalRawMaterialData, setMixingCenterAutomaticNeonatalRawMaterialData] = useState<RawMaterialGroupModel>(new RawMaterialGroupModel());
-    // const [mixingCenterAutomaticPediatricaRawMaterialData, setMixingCenterAutomaticPediatricaRawMaterialData] = useState<RawMaterialGroupModel>(new RawMaterialGroupModel());
+    const updatesMixingCenterBasics = (): void => {
+        if (currentMixingCenterSettings !== undefined && currentMixingCenterSettings !== null) {
+            const _centralType = currentMixingCenterSettings.centralType;
+            const _populationType = currentMixingCenterSettings.populationType;
 
+            if (internalCentralType !== _centralType) {
+                setInternalCentralType(_centralType);
+            }
 
-    const resetCalcUseFabridDefaults = (): void => {
+            if (internalPopulationType !== _populationType) {
+                setInternalPopulationType(_populationType);
+            }
+        }
+    }
+
+    /* *************************************** AREA DE LOS BACKUPS *************************************** */
+
+    const gatherExternalBackup = (): ComputerBigGroupModel => {
+        const output: ComputerBigGroupModel = new ComputerBigGroupModel();
+
         try {
             setIsReady(false);
-            console.log("REINICIANDO CALCULADORA, USANDO VALORES DE FABRICA...");
 
-            const _mixingCenterSettings = DefaultValuesProvider.mixingCenterSettingsDefaults();
-            const _productionLines: number = _mixingCenterSettings.productionLines;
-            const _productionPerMonth: number = (_mixingCenterSettings.productionPerDay * 30);
-            const _centralType: CentralTypeIdEnum = _mixingCenterSettings.centralType;
+            output.mixingCenterSettings = deepClone(currentMixingCenterSettings);
 
-            console.log("createNewFileWithStandarDefaultValues()....");
-            console.log(`ProductionLines: ${_productionLines}, ProductionPerMonth: ${_productionPerMonth}`);
+            output.backup_MC_Manual_RawMaterials = deepClone(backup_MC_Manual_RawMaterials);
+            output.backup_MC_Automatic_RawMaterials = deepClone(backup_MC_Automatic_RawMaterials);
 
-            setCurrentMixingCenterSettings(_mixingCenterSettings);
+            output.backup_MC_Manual_Resources = deepClone(backup_MC_Manual_Resources);
+            output.backup_MC_Automatic_Resources = deepClone(backup_MC_Automatic_Resources);
 
-            setCurrentAutomatedEquipment(DefaultValuesProvider.automatedEquipmentDefaults());
-            setCurrentHygieneAndCleaning(DefaultValuesProvider.hygieneAndCleaningDefaults(_centralType));
-            setCurrentPersonalProtection(DefaultValuesProvider.personalProtectionDefaults(_centralType));
-            setCurrentSterileWorkEquipment(DefaultValuesProvider.sterileWorkEquipmentDefaults(_centralType));
-            setCurrentMaintenanceCosts(DefaultValuesProvider.maintenanceCostsDefaults(_centralType, _productionLines, _productionPerMonth));
-            setCurrentProductionCosts(DefaultValuesProvider.productionCostsDefaults(_centralType, _productionLines, _productionPerMonth));
-            setCurrentChemistSalary(DefaultValuesProvider.chemistSalaryDefaults(_centralType));
-            setCurrentAssistantSalary(DefaultValuesProvider.chemistAssistantSalaryDefaults(_centralType));
-            setCurrentRawMaterial(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Adulto));
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setIsReady(true);
+        }
 
-            // TODO: tambien hay que resetear los backups, porque si el usuario cambia de central, los valores cargados estarian en blanco
+        return output;
+    }
 
-            // setMixingCenterManualAdultoRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Adulto));
-            // setMixingCenterManualNeonatalRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Neonatal));
-            // setMixingCenterManualPediatricaRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Manual, PopulationTypeIdEnum.Pediatrica));
+    const loadExternalBackup = (inExternalData: ComputerBigGroupModel | undefined | null): void => {
+        try {
+            setIsReady(false);
 
-            // setMixingCenterAutomaticAdultoRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Automatico, PopulationTypeIdEnum.Adulto));
-            // setMixingCenterAutomaticNeonatalRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Automatico, PopulationTypeIdEnum.Neonatal));
-            // setMixingCenterAutomaticPediatricaRawMaterialData(DefaultValuesProvider.rawMaterialsDefaults(CentralTypeIdEnum.Automatico, PopulationTypeIdEnum.Pediatrica));
+            if (inExternalData !== undefined && inExternalData !== null && isExternalDataValid(inExternalData)) {
+                loadExternalBackupProcess(inExternalData);
+                updatesMixingCenterBasics();
+            } else {
+                throw new Error("Datos de backup inválidos!");
+            }
 
-        } catch (error) {
-            console.error(error);
+        } catch (err) {
+            throw err;
         } finally {
             setIsReady(true);
         }
     }
 
-    /* *************************************** AREA DE LOS GET FROM BACKUP *************************************** */
+    const isExternalDataValid = (inExternalData: ComputerBigGroupModel): boolean => {
+        return (
+            inExternalData.mixingCenterSettings !== undefined && inExternalData.mixingCenterSettings != null &&
+            inExternalData.backup_MC_Automatic_RawMaterials !== undefined && inExternalData.backup_MC_Automatic_RawMaterials !== null &&
+            inExternalData.backup_MC_Automatic_Resources !== undefined && inExternalData.backup_MC_Automatic_Resources !== null &&
+            inExternalData.backup_MC_Manual_RawMaterials !== undefined && inExternalData.backup_MC_Manual_RawMaterials !== null &&
+            inExternalData.backup_MC_Manual_Resources !== undefined && inExternalData.backup_MC_Manual_Resources !== null
+        );
+    }
 
+    const loadExternalBackupProcess = (inExternalData: ComputerBigGroupModel): void => {
+
+        if (inExternalData.mixingCenterSettings) {
+            setCurrentMixingCenterSettings(deepClone(inExternalData.mixingCenterSettings));
+            setInternalCentralType(inExternalData.mixingCenterSettings.centralType);
+            setInternalPopulationType(inExternalData.mixingCenterSettings.populationType);
+        }
+
+        if (inExternalData.backup_MC_Manual_RawMaterials) {
+            setBackup_MC_Manual_RawMaterials(deepClone(inExternalData.backup_MC_Manual_RawMaterials));
+        }
+
+        if (inExternalData.backup_MC_Automatic_RawMaterials) {
+            setBackup_MC_Automatic_RawMaterials(deepClone(inExternalData.backup_MC_Automatic_RawMaterials));
+        }
+
+        if (inExternalData.backup_MC_Manual_Resources) {
+            setBackup_MC_Manual_Resources(deepClone(inExternalData.backup_MC_Manual_Resources));
+        }
+
+        if (inExternalData.backup_MC_Automatic_Resources) {
+            setBackup_MC_Automatic_Resources(deepClone(inExternalData.backup_MC_Automatic_Resources));
+        }
+
+        getAndSetDataFromInternalBackup(getRawMaterialFromBackup, setCurrentRawMaterial);
+
+        getAndSetDataFromInternalBackup(getAutomatedEquipmentFromBackup, setCurrentAutomatedEquipment);
+        getAndSetDataFromInternalBackup(getHygieneAndCleaningFromBackup, setCurrentHygieneAndCleaning);
+        getAndSetDataFromInternalBackup(getSterileWorkEquipmentFromBackup, setCurrentSterileWorkEquipment);
+        getAndSetDataFromInternalBackup(getMaintenanceCostsFromBackup, setCurrentMaintenanceCosts);
+        getAndSetDataFromInternalBackup(getProductionCostsFromBackup, setCurrentProductionCosts);
+        getAndSetDataFromInternalBackup(getStaffChemistSalaryFromBackup, setCurrentChemistSalary);
+        getAndSetDataFromInternalBackup(getStaffAssistantSalaryFromBackup, setCurrentAssistantSalary);
+    }
+
+    const getAndSetDataFromInternalBackup = <TModel,>(
+        callBackGet: () => TModel | null,
+        setDataFromBackup: (inData: TModel) => void
+    ): void => {
+        const _dataFromBackup: TModel | null = callBackGet();
+        if (_dataFromBackup) {
+            setDataFromBackup(_dataFromBackup);
+        } else {
+            throw new Error(msgInvalidData);
+        }
+    }
+
+    /* *************************************** AREA DE LOS GET FROM BACKUP *************************************** */
     // Obtiene los datos segun el tipo de central y el tipo de poblacion (recordar que estan almancenados independientemente)
     const getRawMaterialFromBackup = (): RawMaterialGroupModel | null => {
         return gatherRawMaterialFromBackup(
@@ -322,82 +336,91 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
 
     useEffect(() => {
         if (isReady) {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT RAW MATERIAL'.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT MIXINGCENTERSETTINGS.");
+            updatesMixingCenterBasics();
+        } else {
+            console.log("HUBO UN CAMBIO EN 'CURRENT MIXINGCENTERSETTINGS' PERO NO SE HA TERMINADO DE MONTAR.");
+        }
+    }, [currentMixingCenterSettings]);
+
+    useEffect(() => {
+        if (isReady) {
+            console.log("HUBO UN CAMBIO EN 'CURRENT RAW MATERIAL'.");
             backupCurrentRawMaterial();
         } else {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT RAW MATERIAL' PERO NO SE HA TERMINADO DE MONTAR.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT RAW MATERIAL' PERO NO SE HA TERMINADO DE MONTAR.");
         }
     }, [currentRawMaterial]);
 
     useEffect(() => {
         if (isReady) {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT AUTOMATED EQUIPMENT'.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT AUTOMATED EQUIPMENT'.");
             backupAutomatedEquipmentData();
         } else {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT AUTOMATED EQUIPMENT' PERO NO SE HA TERMINADO DE MONTAR.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT AUTOMATED EQUIPMENT' PERO NO SE HA TERMINADO DE MONTAR.");
         }
     }, [currentAutomatedEquipment]);
 
     useEffect(() => {
         if (isReady) {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT HygieneAndCleaning'.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT HygieneAndCleaning'.");
             backupHygieneAndCleaningData();
         } else {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT HygieneAndCleaning' PERO NO SE HA TERMINADO DE MONTAR.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT HygieneAndCleaning' PERO NO SE HA TERMINADO DE MONTAR.");
         }
     }, [currentHygieneAndCleaning]);
 
     useEffect(() => {
         if (isReady) {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT PersonalProtection'.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT PersonalProtection'.");
             backupPersonalProtectionData();
         } else {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT PersonalProtection' PERO NO SE HA TERMINADO DE MONTAR.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT PersonalProtection' PERO NO SE HA TERMINADO DE MONTAR.");
         }
     }, [currentPersonalProtection]);
 
     useEffect(() => {
         if (isReady) {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT PersonalProtection'.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT PersonalProtection'.");
             backupSterileWorkEquipmentData();
         } else {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT PersonalProtection' PERO NO SE HA TERMINADO DE MONTAR.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT PersonalProtection' PERO NO SE HA TERMINADO DE MONTAR.");
         }
     }, [currentSterileWorkEquipment]);
 
     useEffect(() => {
         if (isReady) {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT MaintenanceCosts'.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT MaintenanceCosts'.");
             backupMaintenanceCostsData();
         } else {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT MaintenanceCosts' PERO NO SE HA TERMINADO DE MONTAR.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT MaintenanceCosts' PERO NO SE HA TERMINADO DE MONTAR.");
         }
     }, [currentMaintenanceCosts]);
 
     useEffect(() => {
         if (isReady) {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT ProductionCosts'.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT ProductionCosts'.");
             backupProductionCostsData();
         } else {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT ProductionCosts' PERO NO SE HA TERMINADO DE MONTAR.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT ProductionCosts' PERO NO SE HA TERMINADO DE MONTAR.");
         }
     }, [currentProductionCosts]);
 
     useEffect(() => {
         if (isReady) {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT ChemistSalary'.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT ChemistSalary'.");
             backupChemistSalaryData();
         } else {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT ChemistSalary' PERO NO SE HA TERMINADO DE MONTAR.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT ChemistSalary' PERO NO SE HA TERMINADO DE MONTAR.");
         }
     }, [currentChemistSalary]);
 
     useEffect(() => {
         if (isReady) {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT AssistantSalary'.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT AssistantSalary'.");
             backupAssistantSalaryData();
         } else {
-            console.log("HUBO UN CAMBIO REAL EN 'CURRENT AssistantSalary' PERO NO SE HA TERMINADO DE MONTAR.");
+            console.log("HUBO UN CAMBIO EN 'CURRENT AssistantSalary' PERO NO SE HA TERMINADO DE MONTAR.");
         }
     }, [currentAssistantSalary]);
 
@@ -412,7 +435,6 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         <ComputerContext.Provider
             value={{
                 executingSomething,
-                userDefaultValuesExists,
                 currentFilename,
                 currentMixingCenterSettings,
                 currentRawMaterial,
@@ -425,7 +447,6 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 currentChemistSalary,
                 currentAssistantSalary,
                 setExecutingSomething,
-                setUserDefaultValuesExists,
                 setCurrentFilename,
                 setCurrentMixingCenterSettings,
                 setCurrentRawMaterial,
@@ -437,7 +458,8 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 setCurrentProductionCosts,
                 setCurrentChemistSalary,
                 setCurrentAssistantSalary,
-                resetCalcUseFabridDefaults
+                gatherExternalBackup,
+                loadExternalBackup
             }}
         >
             {children}

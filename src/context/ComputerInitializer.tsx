@@ -1,17 +1,20 @@
 import { useEffect } from "react";
-import { ComputerProvider, useComputerContext } from "./ComputerContext";
-
+import { useComputerFileHandlerContext } from "./ComputerFileHandlerContext";
 
 const InitLogic = ({ children }: { children: React.ReactNode }) => {
-    const { createNewFileAsync } = useComputerContext();
+    const { createNewFileAsync } = useComputerFileHandlerContext();
+
+    const init = (): void => {
+        createNewFileAsync()
+            .then(() => {
+                console.log("DONE. CALCULADORA INICIAL HECHA.");
+            })
+            .catch(() => {
+                console.error("ERROR FATAL AL INICIAR LA CALCULADORA.");
+            });
+    }
 
     useEffect(() => {
-        const init = async () => {
-            //TODO: TOMAR EN CUENTA SI HAY VALORES POR DEFECTO EN LA DB,PARA UN FUTURO.
-            await createNewFileAsync();
-            console.log("DONE. CALCULADORA INICIAL HECHA.");
-        };
-
         init();
     }, []);
 

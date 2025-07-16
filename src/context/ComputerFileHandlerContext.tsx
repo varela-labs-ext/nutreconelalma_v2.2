@@ -1,6 +1,8 @@
 import { createContext, useContext } from "react";
 import { useComputerContext } from "./ComputerContext";
 import StorageProvider from "@/providers/StorageProvider";
+import ComputerBigGroupModel from "@/logic/models/ComputerBigGroupModel";
+import DefaultsProvider from "@/providers/DefaultsProvider";
 
 
 export interface ComputerFileHandlerContextProps {
@@ -14,25 +16,20 @@ export interface ComputerFileHandlerContextProps {
 export const ComputerFileHandlerContext = createContext<ComputerFileHandlerContextProps | undefined>(undefined);
 
 export const ComputerFileHandlerProvider = ({ children }: { children: React.ReactNode }) => {
-    const { currentFilename, setCurrentFilename, setExecutingSomething, resetCalcUseFabridDefaults } = useComputerContext();
+    const { currentFilename, setCurrentFilename, setExecutingSomething, loadExternalBackup } = useComputerContext();
 
     const createNewFileAsync = async (): Promise<void> => {
         try {
             setExecutingSomething(true);
             console.log("METODO 'createNewFileAsync' INICIANDO...");
 
-            // if (userDefaultValuesExists) {
-            //     const result = await createNewFileWithUserCustomDefaultValuesAsync();
+            let userDefaultValues: ComputerBigGroupModel | null = await StorageProvider.getUserDefaultValuesAsync();
 
-            //     if (!result) {
-            //         createNewFileWithStandarDefaultValues();
-            //     }
-            // } else {
-            //     createNewFileWithStandarDefaultValues();
-            // }
+            if (userDefaultValues === undefined || userDefaultValues === null) {
+                userDefaultValues = DefaultsProvider.getDefaultsForBigGroupData();
+            }
 
-            resetCalcUseFabridDefaults();
-
+            loadExternalBackup(userDefaultValues);
             setCurrentFilename(null);
         } catch (error) {
             console.error(error);
@@ -48,12 +45,14 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
             setExecutingSomething(true);
 
             if (inFileName) {
-                const results = await StorageProvider.loadFileDataAsync(inFileName);
+                const results: ComputerBigGroupModel | null = await StorageProvider.loadFileDataAsync(inFileName);
 
                 if (results) {
                     //TODO
                     // applyComputerData(results);
                     setCurrentFilename(inFileName);
+                } else {
+                    throw new Error(`El archivo '${inFileName}' no existe o esta corrupto.`);
                 }
             }
         } catch (error) {
@@ -100,6 +99,8 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
             setExecutingSomething(false);
         }
     }
+
+
 
     // const createNewFileWithUserCustomDefaultValuesAsync = async (): Promise<boolean> => {
     //     const results = await StorageProvider.getUserDefaultValuesAsync();

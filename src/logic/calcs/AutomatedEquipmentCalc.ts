@@ -1,6 +1,5 @@
 import { isValidObj, isUnitCostItemModel } from "@/utils/itemsUtils";
 import AutomatedEquipmentGroupModel from "../models/operating_resources/AutomatedEquipmentGroupModel";
-import PersonalProtectionGroupModel from "../models/operating_resources/PersonalProtectionGroupModel";
 import BaseCalc from "../services/BaseCalc";
 import UnitCostInputCalc from "../services/UnitCostInputCalc";
 

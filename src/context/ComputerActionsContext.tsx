@@ -1,18 +1,17 @@
 import FileNameDialogBox from "@/components/ui/dialogs/FileNameDialogBox";
 import SelectFileDialogBox from "@/components/ui/dialogs/SelectFileDialogBox";
 import YesNoModal from "@/components/ui/dialogs/YesNoModal";
-import ForageManager from "@/logic/common/ForageManager";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useComputerContext } from "./ComputerContext";
 import { toastService } from "@/services/toastService";
 import { useComputerFileHandlerContext } from "./ComputerFileHandlerContext";
+import StorageProvider from "@/providers/StorageProvider";
 
 
 export interface ComputerActionsContextProps {
     showNewCalcDialog: boolean;
     showSaveAsDialog: boolean;
     showOpenFileDialog: boolean;
-    filenameList: string[];
 
     setShowNewCalcDialog: (inValue: boolean) => void;
     setShowSaveAsDialog: (inValue: boolean) => void;
@@ -33,24 +32,31 @@ export const ComputerActionsProvider = ({ children }: { children: React.ReactNod
     const [showOpenFileDialog, setShowOpenFileDialog] = useState(false);
     const [filenameList, setFilenameList] = useState<string[]>([]);
 
-    const fetchFilenameList = async () => {
+    const fetchFilenameList = (): void => {
         console.log("LOADING FILE NAME LIST");
-        const files = await ForageManager.getAllKeysAsync();
-        setFilenameList(files);
+
+        StorageProvider.getFilesList()
+            .then((data) => {
+                setFilenameList(data);
+            })
+            .catch(() => {
+                console.error("ERROR AL CARGAR LA LISTA DE ARCHIVOS DISPONIBLES.");
+            });
     };
 
     const refCurrentRawMaterialFirstRender = useRef(true);
 
-    // useEffect(() => {
-    //     if (refCurrentRawMaterialFirstRender.current) {
-    //         refCurrentRawMaterialFirstRender.current = false;
-    //         return;
-    //     }
+    useEffect(() => {
+        if (refCurrentRawMaterialFirstRender.current) {
+            refCurrentRawMaterialFirstRender.current = false;
+            return;
+        }
 
-    //     if (showOpenFileDialog) {
-    //         fetchFilenameList();
-    //     }
-    // }, [showOpenFileDialog]);
+        if (showOpenFileDialog === true) {
+            fetchFilenameList();
+        }
+
+    }, [showOpenFileDialog]);
 
     const callSaveFile = () => {
         saveFileAsync().then(() => {
@@ -61,6 +67,10 @@ export const ComputerActionsProvider = ({ children }: { children: React.ReactNod
     const callCreateNewFile = () => {
         createNewFileAsync().then(() => {
             toastService.showOk("Nueva calculadora creada...");
+            setShowNewCalcDialog(false);
+        }).catch((error) => {
+            console.error("Error en 'callCreateNewFile':", error);
+            toastService.showError(`Error Fatal: ${error.message}`);
             setShowNewCalcDialog(false);
         });
     }
@@ -85,7 +95,6 @@ export const ComputerActionsProvider = ({ children }: { children: React.ReactNod
                 showNewCalcDialog,
                 showSaveAsDialog,
                 showOpenFileDialog,
-                filenameList,
                 setShowNewCalcDialog,
                 setShowSaveAsDialog,
                 setShowOpenFileDialog,

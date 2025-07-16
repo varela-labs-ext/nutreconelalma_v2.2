@@ -276,6 +276,10 @@ export const gatherRawMaterialFromBackup = (
         }
     );
 
+    if (gatherData === undefined || gatherData === null) {
+        console.warn("Datos nulos. [gatherRawMaterialFromBackup]");
+    }
+
     return gatherData;
 }
 
