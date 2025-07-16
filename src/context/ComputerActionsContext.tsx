@@ -58,18 +58,12 @@ export const ComputerActionsProvider = ({ children }: { children: React.ReactNod
 
     }, [showOpenFileDialog]);
 
-    const callSaveFile = () => {
-        saveFileAsync().then(() => {
-            toastService.showOk(`Calculadora almacenada: ${currentFilename}`);
-        });
-    }
-
     const callCreateNewFile = () => {
         createNewFileAsync().then(() => {
             toastService.showOk("Nueva calculadora creada...");
             setShowNewCalcDialog(false);
         }).catch((error) => {
-            console.error("Error en 'callCreateNewFile':", error);
+            console.error("Error iniciarlizar la calculadora:", error);
             toastService.showError(`Error Fatal: ${error.message}`);
             setShowNewCalcDialog(false);
         });
@@ -79,6 +73,20 @@ export const ComputerActionsProvider = ({ children }: { children: React.ReactNod
         openFileAsync(selectedFilename).then(() => {
             toastService.showOk(`Calculadora abierta: ${selectedFilename}`);
             setShowOpenFileDialog(false);
+        }).catch((error) => {
+            console.error("Error al abrir la calculadora:", error);
+            toastService.showError(`Error Fatal: ${error.message}`);
+            setShowNewCalcDialog(false);
+        });
+    }
+
+    const callSaveFile = () => {
+        saveFileAsync().then(() => {
+            toastService.showOk(`Calculadora almacenada: ${currentFilename}`);
+        }).catch((error) => {
+            console.error("Error al salvar la calculadora:", error);
+            toastService.showError(`Error Fatal: ${error.message}`);
+            setShowNewCalcDialog(false);
         });
     }
 
@@ -86,6 +94,10 @@ export const ComputerActionsProvider = ({ children }: { children: React.ReactNod
         saveFileAsAsync(fileName).then(() => {
             toastService.showOk(`Calculadora creada: ${fileName}`);
             setShowSaveAsDialog(false);
+        }).catch((error) => {
+            console.error("Error al salvar la calculadora:", error);
+            toastService.showError(`Error Fatal: ${error.message}`);
+            setShowNewCalcDialog(false);
         });
     }
 

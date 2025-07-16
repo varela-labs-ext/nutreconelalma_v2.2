@@ -16,14 +16,20 @@ export interface ComputerFileHandlerContextProps {
 export const ComputerFileHandlerContext = createContext<ComputerFileHandlerContextProps | undefined>(undefined);
 
 export const ComputerFileHandlerProvider = ({ children }: { children: React.ReactNode }) => {
-    const { currentFilename, setCurrentFilename, setExecutingSomething, loadExternalBackup } = useComputerContext();
+    const {
+        currentFilename,
+        setCurrentFilename,
+        setExecutingSomething,
+        loadExternalBackup,
+        gatherExternalBackup
+    } = useComputerContext();
 
     const createNewFileAsync = async (): Promise<void> => {
         try {
             setExecutingSomething(true);
             console.log("METODO 'createNewFileAsync' INICIANDO...");
 
-            let userDefaultValues: ComputerBigGroupModel | null = await StorageProvider.getUserDefaultValuesAsync();
+            let userDefaultValues: ComputerBigGroupModel | null = await StorageProvider.loadUserDefaultsAsync();
 
             if (userDefaultValues === undefined || userDefaultValues === null) {
                 userDefaultValues = DefaultsProvider.getDefaultsForBigGroupData();
@@ -48,8 +54,7 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
                 const results: ComputerBigGroupModel | null = await StorageProvider.loadFileDataAsync(inFileName);
 
                 if (results) {
-                    //TODO
-                    // applyComputerData(results);
+                    loadExternalBackup(results);
                     setCurrentFilename(inFileName);
                 } else {
                     throw new Error(`El archivo '${inFileName}' no existe o esta corrupto.`);
@@ -64,18 +69,23 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
     }
 
     const saveFileAsync = async (): Promise<void> => {
-        if (!currentFilename) {
-            console.log("No hay archivo activo. Usa guardarComo(nombre) en su lugar.");
-            return;
-        }
+
 
         try {
             setExecutingSomething(true);
 
-            //TODO
-            // const output = gatherComputerData();
-            // await StorageProvider.saveFileDataAsync(currentFilename, output);
+            if (currentFilename === undefined || currentFilename === null || currentFilename.trim() === "") {
+                console.log("No hay archivo activo. Usa guardarComo(nombre) en su lugar.");
+                throw new Error("Error. No hay un archivo en uso");
+            }
 
+            const results: ComputerBigGroupModel | null = gatherExternalBackup();
+
+            if (results === undefined || results === null) {
+                throw new Error("La data obtenida para salvar no es válida.");
+            } else {
+                await StorageProvider.saveFileDataAsync(currentFilename, results);
+            }
         } catch (error) {
             console.error(error);
             throw error;
@@ -88,9 +98,23 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
         try {
             setExecutingSomething(true);
 
-            //TODO
-            // const output = gatherComputerData();
-            // await StorageProvider.saveFileDataAsync(inFileName, output);
+            if (inFileName === undefined || inFileName === null || inFileName.trim() === "") {
+                throw new Error("Error. Nombre de archivo inválido.");
+            }
+
+            const currentFileList: string[] = await StorageProvider.getFilesList();
+
+            if (currentFileList.includes(inFileName.toUpperCase())) {
+                throw new Error("Error. El nombre de archivo ya existe.");
+            }
+
+            const results: ComputerBigGroupModel | null = gatherExternalBackup();
+
+            if (results === undefined || results === null) {
+                throw new Error("La data obtenida para salvar no es válida.");
+            } else {
+                await StorageProvider.saveFileDataAsync(inFileName, results);
+            }
         } catch (error) {
             console.error(error);
             throw error;
@@ -99,19 +123,6 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
             setExecutingSomething(false);
         }
     }
-
-
-
-    // const createNewFileWithUserCustomDefaultValuesAsync = async (): Promise<boolean> => {
-    //     const results = await StorageProvider.getUserDefaultValuesAsync();
-
-    //     if (results) {
-    //         applyComputerData(results);
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
 
     return (
         <ComputerFileHandlerContext.Provider

@@ -13,7 +13,12 @@ interface ComputerMenuProps {
 
 const ComputerMenu = (props: ComputerMenuProps) => {
     const { currentFilename } = useComputerContext();
-    const { setShowNewCalcDialog, setShowSaveAsDialog, setShowOpenFileDialog, saveFile } = useComputerActionsContext();
+    const {
+        setShowNewCalcDialog,
+        setShowSaveAsDialog,
+        setShowOpenFileDialog,
+        callSaveFile
+    } = useComputerActionsContext();
 
     const getMenuSubItems = (): MenuSubItem[] => {
         const output: MenuSubItem[] = [];
@@ -50,7 +55,7 @@ const ComputerMenu = (props: ComputerMenuProps) => {
 
         if (actionName === "save") {
             props.onCloseSidebar();
-            saveFile();
+            callSaveFile();
             return;
         }
 
