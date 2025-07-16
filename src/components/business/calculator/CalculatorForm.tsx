@@ -4,12 +4,15 @@ import { useState } from "react";
 import { FileText, Home } from "lucide-react";
 import CalculatorFormResults from "./CalculatorFormResults";
 import CalculatorFormSets from "./CalculatorFormSets";
+import SectionTitle from "@/components/ui/titles/SectionTitle";
+import { useComputerContext } from "@/context/ComputerContext";
 
 interface CalculatorFormProps {
 
 }
 
 const CalculatorForm = (props: CalculatorFormProps) => {
+    const { currentFilename } = useComputerContext();
     const [activeComputerTabIndex, setActiveComputerTabIndex] = useState<number>(0);
 
     const handleOnTabsChange = (index: number) => {
@@ -23,6 +26,11 @@ const CalculatorForm = (props: CalculatorFormProps) => {
                 <h1 className="text-2xl sm:text-3xl font-bold text-purple-800 mb-4 sm:mb-0">
                     CALCULADORA NUTRICIÓN HOSPITALARIA
                 </h1>
+            </div>
+            <div>
+                {currentFilename && (
+                    <SectionTitle titleText={currentFilename} />
+                )}
             </div>
             {/* setActiveTabIndex={setActiveTabIndex} */}
             <IconTabs defaultTabIndex={0} activeTabIndex={activeComputerTabIndex} setActiveTabIndex={handleOnTabsChange}>

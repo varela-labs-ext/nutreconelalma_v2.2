@@ -41,7 +41,7 @@ class StorageProvider {
 
     public static async getFilesList(): Promise<string[]> {
         const fileList = await ForageManager.getAllKeysAsync();
-        return fileList.filter(this.isComputerDataKey);
+        return fileList.filter(this.isComputerDataKey).map((key) => key.substring(COMPUTER_DATA_KEY.length + 1));
     }
 
     private static isComputerDataKey(key: string): boolean {

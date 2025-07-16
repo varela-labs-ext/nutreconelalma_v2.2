@@ -1,7 +1,7 @@
 import AccordionMenuItemWithContextAction, { MenuSubItem } from "@/components/ui/menu/AccordionMenuItemWithContextAction";
 import { useComputerActionsContext } from "@/context/ComputerActionsContext";
 import { useComputerContext } from "@/context/ComputerContext";
-import { FileEdit, FilePlus, FileText, Save } from "lucide-react";
+import { FileEdit, FilePlus, FileText, FolderOpen, Save } from "lucide-react";
 
 interface ComputerMenuProps {
     label: string;
@@ -30,6 +30,8 @@ const ComputerMenu = (props: ComputerMenuProps) => {
         }
 
         output.push({ label: "Nueva", actionName: "new", icon: <FilePlus className="h-4 w-4" /> });
+
+        output.push({ label: "Abrir", actionName: "open", icon: <FolderOpen className="h-4 w-4" /> });
 
         if (currentFilename != undefined && currentFilename !== null && currentFilename.trim() !== "") {
             output.push({ label: "Salvar", actionName: "save", icon: <Save className="h-4 w-4" /> });

@@ -48,13 +48,7 @@ const NavigationMenu = (props: NavigationMenuProps) => {
                         isActive={pathname.startsWith("/calculadora")}
                         onCloseSidebar={() => props.onSidebarOpen(false)}
                     />
-                    <button
-                        className={`w-full flex items-center rounded-full px-3 py-2 text-sm font-medium transition-colors ${pathname === "/historico" ? "bg-green-500 text-white" : "text-gray-700 hover:bg-gray-100"}`}
-                        onClick={() => handleNavigation("/historico")}
-                    >
-                        <ClipboardList className="h-5 w-5" />
-                        <span className="ml-3">Histórico</span>
-                    </button>
+
 
                     {/* Otros ítems */}
                     <button
@@ -63,6 +57,14 @@ const NavigationMenu = (props: NavigationMenuProps) => {
                     >
                         <Settings className="h-5 w-5" />
                         <span className="ml-3">Recursos Operativos</span>
+                    </button>
+
+                    <button
+                        className={`w-full flex items-center rounded-full px-3 py-2 text-sm font-medium transition-colors ${pathname === "/historico" ? "bg-green-500 text-white" : "text-gray-700 hover:bg-gray-100"}`}
+                        onClick={() => handleNavigation("/historico")}
+                    >
+                        <ClipboardList className="h-5 w-5" />
+                        <span className="ml-3">Histórico</span>
                     </button>
                 </nav>
 

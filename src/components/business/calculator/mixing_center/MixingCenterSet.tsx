@@ -119,7 +119,8 @@ const MixingCenterSet = (props: MixingCenterSetProps) => {
 
     return (
         <div className="w-full">
-            <h2 className="text-xl font-semibold text-green-600 mb-4">Ingreso de datos</h2>
+            {/* font-semibold */}
+            <h2 className="text-xl  text-green-600 mb-4">Ingreso de datos</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="md:col-span-1 w-full text-left">
                     <MixingCenterBasics

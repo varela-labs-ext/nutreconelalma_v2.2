@@ -20,7 +20,7 @@ interface AccordionMenuItemWithContextActionProps {
 }
 
 const AccordionMenuItemWithContextAction = (props: AccordionMenuItemWithContextActionProps) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isOpen, setIsOpen] = useState<boolean>(true);
     const navigate = useNavigate();
 
     const toggleOpen = () => setIsOpen(!isOpen);
@@ -29,7 +29,7 @@ const AccordionMenuItemWithContextAction = (props: AccordionMenuItemWithContextA
         props.onItemClick(actionName);
         navigate(props.to);
         props.onCloseSidebar?.();
-        setIsOpen(false);
+        // setIsOpen(false);
     };
 
     return (
@@ -55,7 +55,7 @@ const AccordionMenuItemWithContextAction = (props: AccordionMenuItemWithContextA
 
             <div
                 className={clsx(
-                    "ml-8 space-y-1 overflow-hidden transition-all duration-300 ease-in-out",
+                    "ml-2 space-y-1 overflow-hidden transition-all duration-300 ease-in-out",
                     isOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
                 )}
             >
