@@ -24,25 +24,31 @@ const MixingCenterBasics = (props: MixingCenterBasicsProps) => {
     return (
         //  "flex flex-col gap-4"
         <div className="">
-            <PopulationTypeInput
-                inPopulationType={props.inPopulationType}
-                labelAlways={true}
-                onChange={props.onPopulationTypeChange}
-            />
-            <InputNumberField
-                label="Líneas de producción"
-                name="lineasProduccion"
-                value={props.inProductionLines}
-                labelAlways={true}
-                onChange={handleOnProductionLinesChange}
-            />
-            <InputNumberField
-                label="Producción por día"
-                name="produccionDia"
-                value={props.inProductionPerDay}
-                labelAlways={true}
-                onChange={handleOnProductionPerDayChange}
-            />
+            <div className="pb-4">
+                <PopulationTypeInput
+                    inPopulationType={props.inPopulationType}
+                    labelAlways={true}
+                    onChange={props.onPopulationTypeChange}
+                />
+            </div>
+            <div className="pb-4">
+                <InputNumberField
+                    label="Líneas de producción"
+                    name="lineasProduccion"
+                    value={props.inProductionLines}
+                    labelAlways={true}
+                    onChange={handleOnProductionLinesChange}
+                />
+            </div>
+            <div className="pb-4">
+                <InputNumberField
+                    label="Producción por día"
+                    name="produccionDia"
+                    value={props.inProductionPerDay}
+                    labelAlways={true}
+                    onChange={handleOnProductionPerDayChange}
+                />
+            </div>
         </div>
     );
 }

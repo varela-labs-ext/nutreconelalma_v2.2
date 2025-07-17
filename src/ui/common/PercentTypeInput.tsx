@@ -1,6 +1,6 @@
 // PercentTypeInput
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface PercentTypeInputProps {
     label: string;
@@ -13,9 +13,29 @@ interface PercentTypeInputProps {
 }
 
 export const PercentTypeInput = (props: PercentTypeInputProps) => {
+    const [localValue, setLocalValue] = useState<string>(props.value.toString());
+
     // const [error, setError] = useState<string | null>("algo");
     const labelPosition = props.labelPosition || "top";
     const labelAlways = props.labelAlways || false;
+
+    // Si cambia el valor desde el padre, actualizamos el local
+    useEffect(() => {
+        setLocalValue(props.value.toString());
+    }, [props.value]);
+
+    const isRealNumber = (inValue: string | undefined | null): boolean => {
+        if (inValue !== undefined && inValue !== null && inValue.trim() !== '') {
+            const value: number | undefined | null = Number(inValue.replace(",", "."));
+            if (!isNaN(value)) {
+                if (value >= 0 && value <= 100) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 
     const handleInternalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const input = e.target.value;
@@ -46,13 +66,57 @@ export const PercentTypeInput = (props: PercentTypeInputProps) => {
     //         ? "flex flex-row items-center justify-between gap-2"
     //         : "flex flex-col";
 
-    const getContainerClass = () => {
-        const baseClass = "flex";
-        const leftClass = "flex-row items-center justify-between gap-2";
-        const topClass = "flex-col";
 
-        return `${baseClass} ${labelPosition === "left" ? leftClass : topClass}`;
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        let newValue: string = event.target.value;
+        console.log(`handleChange: ${event.target.value}`);
+
+        if (isRealNumber(newValue)) {
+            // setError(null);
+            newValue = newValue.replace(",", ".");
+        } else {
+            // setError("error");
+            newValue = "";
+        }
+
+        setLocalValue(newValue);
     };
+
+    const callOnChange = () => {
+        let value: number = Number(localValue);
+        if (value !== props.value) {
+            console.log(`Input: ${props.name} changed to ${value}`);
+            //props.name,
+            props.onChange(value);
+        }
+    }
+
+    const commitChange = () => {
+        if (isRealNumber(localValue)) {
+            callOnChange();
+        } else {
+            setLocalValue("0");
+            // setError(null);
+            callOnChange();
+        }
+    };
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter") {
+            // commitChange();
+            event.currentTarget.blur(); // opcional: para disparar también onBlur
+        }
+    };
+
+
+
+
+    const getValue = (): string => {
+        //cleanUp(localValue)
+        return localValue;
+    }
 
 
 
@@ -70,6 +134,14 @@ export const PercentTypeInput = (props: PercentTypeInputProps) => {
     //     labelPosition === "left"
     //         ? "w-32 text-sm font-medium text-gray-700 dark:text-gray-300"
     //         : "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
+
+    const getContainerClass = () => {
+        const baseClass = "flex";
+        const leftClass = "flex-row items-center justify-between gap-2";
+        const topClass = "flex-col";
+
+        return `${baseClass} ${labelPosition === "left" ? leftClass : topClass}`;
+    };
 
     const getLabelClass = () => {
         const baseClass = "block md:hidden"; /* Esto hace que cuando sea mayor o igual a md (el size) se oculte */
@@ -109,14 +181,20 @@ export const PercentTypeInput = (props: PercentTypeInputProps) => {
             < div className={inputWrapperClass} >
                 <input
                     type="number"
-                    inputMode="numeric"
+                    // inputMode="numeric"
                     name={props.name}
-                    value={props.value}
-                    onChange={handleInternalChange}
-                    className={getInputClass()}
+                    // value={props.value}
+                    // onChange={handleInternalChange}
+
+                    value={getValue()}
+                    onChange={handleChange}
+                    onBlur={commitChange}
+                    onKeyDown={handleKeyDown}
+
                     min={0}
                     max={100}
                     step={1}
+                    className={getInputClass()}
                 />
                 <span className={percentSymbolClass}>%</span>
                 {/* {

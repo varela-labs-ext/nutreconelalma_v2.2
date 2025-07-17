@@ -15,7 +15,7 @@ export type LoadingProviderProps = {
     minDurationMs?: number; // nuevo parámetro opcional
 };
 
-export const LoadingProvider = ({ children, minDurationMs = 400 }: LoadingProviderProps) => {
+export const LoadingProvider = ({ children, minDurationMs = 1400 }: LoadingProviderProps) => {
     const [isLoading, setIsLoading] = useState(false);
     const loadingStartTimeRef = useRef<number | null>(null);
 

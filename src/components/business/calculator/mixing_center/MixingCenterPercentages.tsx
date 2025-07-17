@@ -19,7 +19,7 @@ const MixingCenterPercentages = (props: MixingCenterPercentagesProps) => {
     return (
         // flex flex-col gap-4
         <div className="">
-            <div>
+            <div className="pb-4">
                 <PercentTypeInput
                     label="Porcentaje Adulto"
                     name="porcentajeAdulto"
@@ -32,7 +32,7 @@ const MixingCenterPercentages = (props: MixingCenterPercentagesProps) => {
                     <p className="text-sm font-bold text-orange-600 mt-1 text-right w-full block">{sumTotalError}</p>
                 )}
             </div>
-            <div>
+            <div className="pb-4">
                 <PercentTypeInput
                     label="Porcentaje Pediátrico"
                     name="porcentajePediatrico"
@@ -45,7 +45,7 @@ const MixingCenterPercentages = (props: MixingCenterPercentagesProps) => {
                     <p className="text-sm font-bold text-orange-600 mt-1 text-right w-full block">{sumTotalError}</p>
                 )}
             </div>
-            <div>
+            <div className="pb-4">
                 <PercentTypeInput
                     label="Porcentaje Neonatal"
                     name="porcentajeNeonatal"

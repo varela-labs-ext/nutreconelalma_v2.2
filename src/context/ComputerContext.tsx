@@ -363,32 +363,75 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         }
     }
 
+    const handleOnCentralTypeChange = (inNewSettings: MixingCenterSettingsModel): void => {
+        console.log("EL TIPO DE CENTRAL ES DIFERENTE AL TIPO DE CENTRAL ALMACENADO.");
+
+        // HACE RESPALDO DE LOS DATOS ACTUALES CON LA CONFIGURACION ACTUAL
+        runFullOperationalResourcesBackup(backup_MixingCenterSettings.centralType);
+        runFullRawMaterialBackup(backup_MixingCenterSettings.centralType, backup_MixingCenterSettings.populationType);
+
+        // CARGA LOS DATOS USANDO LA CONFIGURACION NUEVA
+        reloadInternalResourcesBackupsIntoCurrents(inNewSettings.centralType);
+        reloadInternalRawMaterialBackupsIntoCurrents(inNewSettings.centralType, inNewSettings.populationType);
+
+        // // HACE EL RESPALDO DE LA CONFIGURACIO NUEVA PARA QUE SIRVA COMO PUNTO DE COMPARACION
+        // const _backup_settings = deepClone(inNewSettings);
+        // setBackup_MixingCenterSettings(_backup_settings);
+    }
+
+    const handleOnPopulationTypeChange = (inNewSettings: MixingCenterSettingsModel): void => {
+        console.log("EL TIPO DE POBLACION ES DIFERENTE AL TIPO DE POBLACION ALMACENADO.");
+
+        // HACE RESPALDO DE LOS DATOS ACTUALES CON LA CONFIGURACION ACTUAL
+        runFullRawMaterialBackup(backup_MixingCenterSettings.centralType, backup_MixingCenterSettings.populationType);
+
+        // CARGA LOS DATOS USANDO LA CONFIGURACION NUEVA
+        reloadInternalRawMaterialBackupsIntoCurrents(inNewSettings.centralType, inNewSettings.populationType);
+
+        // // HACE EL RESPALDO DE LA CONFIGURACIO NUEVA PARA QUE SIRVA COMO PUNTO DE COMPARACION
+        // const _backup_settings = deepClone(inNewSettings);
+        // setBackup_MixingCenterSettings(_backup_settings);
+    }
+
+    const isDifferentCentralType = (inData: MixingCenterSettingsModel): boolean => {
+        return (inData.centralType !== backup_MixingCenterSettings.centralType);
+    }
+
+    const isDifferentPopulationType = (inData: MixingCenterSettingsModel): boolean => {
+        return (inData.populationType !== backup_MixingCenterSettings.populationType);
+    }
+
+    const areDifferentPercentages = (inData: MixingCenterSettingsModel): boolean => {
+        return (
+            inData.percentPerAdult != backup_MixingCenterSettings.percentPerAdult ||
+            inData.percentPerNeonatal != backup_MixingCenterSettings.percentPerNeonatal ||
+            inData.percentPerPediatric != backup_MixingCenterSettings.percentPerPediatric
+        );
+    }
+
+    const isDifferentProduction = (inData: MixingCenterSettingsModel): boolean => {
+        return (
+            inData.productionLines != backup_MixingCenterSettings.productionLines ||
+            inData.productionPerDay != backup_MixingCenterSettings.productionPerDay
+        );
+    }
+
     const runOnMixingCenterSettingsChange = (inMC_Settings: MixingCenterSettingsModel): void => {
-        if (inMC_Settings.centralType !== backup_MixingCenterSettings.centralType) {
-            console.log("EL TIPO DE CENTRAL ES DIFERENTE AL TIPO DE CENTRAL ALMACENADO.");
-
-            runFullOperationalResourcesBackup(backup_MixingCenterSettings.centralType);
-            runFullRawMaterialBackup(backup_MixingCenterSettings.centralType, backup_MixingCenterSettings.populationType);
-
-            //todo
-            reloadInternalResourcesBackupsIntoCurrents(inMC_Settings.centralType);
-            reloadInternalRawMaterialBackupsIntoCurrents(inMC_Settings.centralType, inMC_Settings.populationType);
-
-            const _backup_settings = deepClone(inMC_Settings);
-            setBackup_MixingCenterSettings(_backup_settings);
-
-        } else if (inMC_Settings.populationType !== backup_MixingCenterSettings.populationType) {
-            console.log("EL TIPO DE POBLACION ES DIFERENTE AL TIPO DE POBLACION ALMACENADO.");
-
-            runFullRawMaterialBackup(backup_MixingCenterSettings.centralType, backup_MixingCenterSettings.populationType);
-
-            reloadInternalRawMaterialBackupsIntoCurrents(inMC_Settings.centralType, inMC_Settings.populationType);
-
-            const _backup_settings = deepClone(inMC_Settings);
-            setBackup_MixingCenterSettings(_backup_settings);
+        if (isDifferentCentralType(inMC_Settings) === true) {
+            handleOnCentralTypeChange(inMC_Settings);
+        } else if (isDifferentPopulationType(inMC_Settings) === true) {
+            handleOnPopulationTypeChange(inMC_Settings);
+        } else if (areDifferentPercentages(inMC_Settings) === true) {
+            console.log("LOS PORCENTAJES CAMBIARON");
+        } else if (isDifferentProduction(inMC_Settings) === true) {
+            console.log("LA PRODUCCION CAMBIO");
         } else {
             console.log("NINGUNO DEL TIPO DE CENTRAL O EL TIPO DE POBLACION TUVO CAMBIO.");
         }
+
+        // HACE EL RESPALDO DE LA CONFIGURACIO NUEVA PARA QUE SIRVA COMO PUNTO DE COMPARACION
+        const _backup_settings = deepClone(inMC_Settings);
+        setBackup_MixingCenterSettings(_backup_settings);
     }
 
     /* *************************************** AREA DE LOS USE-EFFECT *************************************** */
