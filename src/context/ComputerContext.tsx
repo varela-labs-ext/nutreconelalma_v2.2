@@ -242,6 +242,10 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         );
     }
 
+    const refreshAdditionSummary = (): void => {
+        //T0DOO
+    }
+
     const loadExternalBackupIntoRawMaterialBackups = (inData: ComputerBigGroupModel | null): void => {
         if (inData === null || inData === undefined) {
             throw new Error("loadExternalBackupIntoRawMaterialBackups(). LA DATA NO PUEDE SER NULA.");
