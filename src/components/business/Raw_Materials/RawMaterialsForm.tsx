@@ -13,7 +13,7 @@
 // import CalculadoraStarter from "@/logic/starters/CalculadoraStarter";
 // import CalculationService from "@/logic/services/CalculationService";
 // import AdditionalCostsForm from "../../../ui/components/AdditionalCostsForm";
-// import AdditionalCostsModel from "@/logic/models/AdditionalCostsModel";
+// import AdditionalCostsTotalsModel from "@/logic/models/AdditionalCostsTotalsModel";
 
 // interface RawMaterialsFormProps {
 //     inData: RawMaterialGroupModel;
@@ -167,7 +167,7 @@
 //                 onChange={handleRawMaterialsDetailsChange}
 //             />
 //             <AdditionalCostsForm
-//                 inData={new AdditionalCostsModel()}
+//                 inData={new AdditionalCostsTotalsModel()}
 //                 inShowDetails={true}
 //             />
 //         </div>

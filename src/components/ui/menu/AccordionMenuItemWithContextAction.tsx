@@ -55,7 +55,7 @@ const AccordionMenuItemWithContextAction = (props: AccordionMenuItemWithContextA
 
             <div
                 className={clsx(
-                    "ml-2 space-y-1 overflow-hidden transition-all duration-300 ease-in-out",
+                    "ml-2 pb-1 space-y-1 overflow-hidden transition-all duration-300 ease-in-out",
                     isOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
                 )}
             >

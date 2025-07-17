@@ -3,6 +3,7 @@ import { useComputerContext } from "./ComputerContext";
 import StorageProvider from "@/providers/StorageProvider";
 import ComputerBigGroupModel from "@/logic/models/ComputerBigGroupModel";
 import DefaultsProvider from "@/providers/DefaultsProvider";
+import { Logger } from "@/utils/logger";
 
 
 export interface ComputerFileHandlerContextProps {
@@ -27,25 +28,25 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
     const createNewFileAsync = async (): Promise<void> => {
         try {
             setExecutingSomething(true);
-            console.log("ComputerFileHandlerProvider.createNewFileAsync() STARTS...");
+            Logger.info("ComputerFileHandlerProvider.createNewFileAsync() STARTS...");
 
             let userDefaultValues: ComputerBigGroupModel | null = await StorageProvider.loadUserDefaultsAsync();
 
             if (userDefaultValues === undefined || userDefaultValues === null) {
                 userDefaultValues = DefaultsProvider.getDefaultsForBigGroupData();
-                console.log("ComputerFileHandlerProvider.createNewFileAsync() USING FABRIC DEFAULT VALUES...");
-                console.log(userDefaultValues);
-                console.log("");
+                Logger.info("ComputerFileHandlerProvider.createNewFileAsync() USING FABRIC DEFAULT VALUES...");
+                Logger.info(userDefaultValues);
+                Logger.info("");
             }
 
             loadExternalBackup(userDefaultValues);
             setCurrentFilename(null);
         } catch (error) {
-            console.error(error);
+            Logger.error(error);
             throw error;
         } finally {
             setExecutingSomething(false);
-            console.log("ComputerFileHandlerProvider.createNewFileAsync() ENDS...");
+            Logger.info("ComputerFileHandlerProvider.createNewFileAsync() ENDS...");
         }
     }
 
@@ -64,7 +65,7 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
                 }
             }
         } catch (error) {
-            console.error(error);
+            Logger.error(error);
             throw error;
         } finally {
             setExecutingSomething(false);
@@ -77,7 +78,7 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
             setExecutingSomething(true);
 
             if (currentFilename === undefined || currentFilename === null || currentFilename.trim() === "") {
-                console.log("No hay archivo activo. Usa guardarComo(nombre) en su lugar.");
+                Logger.info("No hay archivo activo. Usa guardarComo(nombre) en su lugar.");
                 throw new Error("Error. No hay un archivo en uso");
             }
 
@@ -89,7 +90,7 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
                 await StorageProvider.saveFileDataAsync(currentFilename, results);
             }
         } catch (error) {
-            console.error(error);
+            Logger.error(error);
             throw error;
         } finally {
             setExecutingSomething(false);
@@ -118,7 +119,7 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
                 await StorageProvider.saveFileDataAsync(inFileName, results);
             }
         } catch (error) {
-            console.error(error);
+            Logger.error(error);
             throw error;
         } finally {
             setCurrentFilename(inFileName);

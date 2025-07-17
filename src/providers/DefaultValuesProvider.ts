@@ -132,6 +132,8 @@ class DefaultValuesProvider {
                 throw new Error("No implementado...");
         }
 
+        CalculationService.computeRawMaterial(output);
+
         return output;
     }
 

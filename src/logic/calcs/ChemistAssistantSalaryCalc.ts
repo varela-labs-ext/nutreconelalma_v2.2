@@ -20,9 +20,18 @@ class ChemistAssistantSalaryCalc extends BaseCalc<StaffSalaryGroupModel> {
         inItem.totalParafiscales.value = taxes.compute(inItem, inItem.salarioBasico.value);
 
         if (isValidObj(inItem.totalParafiscales) && inItem.totalParafiscales.value > 0) {
-            inItem.totalCompensacionSalarial.value = inItem.salarioBasico.value + inItem.totalParafiscales.value;
+            inItem.totalCompensacionSalarial.value = (
+                inItem.salarioBasico.value +
+                inItem.costoEmpresa.value +
+                inItem.auxilioTransporte.value +
+                inItem.subsidioTransporte.value +
+                inItem.totalParafiscales.value
+            );
 
-            if (inItem.totalCompensacionSalarial.value > 0 && inItem.horasTrabajoMensual.value > 0) {
+            if (!isNaN(inItem.totalCompensacionSalarial.value) &&
+                inItem.totalCompensacionSalarial.value > 0 &&
+                inItem.horasTrabajoMensual.value > 0
+            ) {
                 inItem.totalValorHora.value = inItem.totalCompensacionSalarial.value / inItem.horasTrabajoMensual.value;
             } else {
                 inItem.totalValorHora.value = 0;

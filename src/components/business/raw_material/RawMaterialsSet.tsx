@@ -1,7 +1,7 @@
 import { useState } from "react";
 import RawMaterialsOverview from "./RawMaterialsOverview";
 import RawMaterialsOtherCosts from "./RawMaterialsOtherCosts";
-import AdditionalCostsModel from "@/logic/models/AdditionalCostsModel";
+import AdditionalCostsTotalsModel from "@/logic/models/AdditionalCostsTotalsModel";
 import RawMaterialsAccourd from "./RawMaterialsAccourd";
 import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 
@@ -28,18 +28,16 @@ const RawMaterialsSet = (props: RawMaterialsSetProps) => {
                 onShowPresentation={setShowPresentation}
             />
             {showDetails && (
-                <>
-                    <RawMaterialsAccourd
-                        inData={props.inData}
-                        inShowPresentation={showPresentation}
-                        onChange={props.onChange}
-                    />
-                    <RawMaterialsOtherCosts
-                        inData={new AdditionalCostsModel()}
-                        inShowDetails={true}
-                    />
-                </>
+                <RawMaterialsAccourd
+                    inData={props.inData}
+                    inShowPresentation={showPresentation}
+                    onChange={props.onChange}
+                />
             )}
+            <RawMaterialsOtherCosts
+                inData={new AdditionalCostsTotalsModel()}
+                inShowDetails={true}
+            />
         </div>
     );
 }

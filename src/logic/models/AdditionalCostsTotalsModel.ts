@@ -1,5 +1,5 @@
 
-class AdditionalCostsModel {
+class AdditionalCostsTotalsModel {
     public maintenanceTotal: number;
     public productionTotal: number;
     public staffTotal: number;
@@ -19,4 +19,4 @@ class AdditionalCostsModel {
     }
 }
 
-export default AdditionalCostsModel;
+export default AdditionalCostsTotalsModel;

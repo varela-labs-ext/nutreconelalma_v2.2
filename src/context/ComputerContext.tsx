@@ -14,6 +14,9 @@ import { deepClone } from "@/utils/objectUtils";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import MixingCenterRawMaterialsModel from "@/logic/models/MixingCenterRawMaterialsModel";
 import MixingCenterOperatingResourcesModel from "@/logic/models/MixingCenterOperatingResourcesModel";
+import CalculationService from "@/logic/services/CalculationService";
+import { getProductionPerMonth } from "./ComputerContextExt";
+import { Logger } from "@/utils/logger";
 
 // ------------------- Interfaz del Contexto -------------------
 export interface ComputerContextProps {
@@ -119,7 +122,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     const loadExternalBackup = (inExternalData: ComputerBigGroupModel | undefined | null): void => {
         try {
             setIsReady(false);
-            console.log("ComputerProvider.loadExternalBackup() STARTS...");
+            Logger.info("ComputerProvider.loadExternalBackup() STARTS...");
 
             if (inExternalData !== undefined && inExternalData !== null && isExternalDataValid(inExternalData)) {
                 loadExternalBackupProcess(inExternalData);
@@ -131,7 +134,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
             throw err;
         } finally {
             setIsReady(true);
-            console.log("ComputerProvider.loadExternalBackup() ENDS...");
+            Logger.info("ComputerProvider.loadExternalBackup() ENDS...");
         }
     }
 
@@ -149,25 +152,24 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
 
     // Este metodo permite al sistema cargar desde una fuente cualquiera el bloque de datos.
     const loadExternalBackupProcess = (inExternalData: ComputerBigGroupModel): void => {
-        const _internal = deepClone(inExternalData);
+        const _copyOfInData = deepClone(inExternalData);
 
-        if (_internal?.mixingCenterSettings === null) {
+        if (_copyOfInData?.mixingCenterSettings === null) {
             throw new Error("loadExternalBackupProcess() - Los datos no pueden ser nulos.");
         }
 
-        console.log("ComputerContext.loadExternalBackupProcess() STARTS");
+        Logger.info("ComputerContext.loadExternalBackupProcess() STARTS");
 
-        loadExternalBackupIntoRawMaterialBackups(_internal); // Raw material
-        loadExternalBackupIntoRecoursesBackups(_internal); // Resources
+        loadExternalBackupIntoRawMaterialBackups(_copyOfInData); // Raw material
+        loadExternalBackupIntoRecoursesBackups(_copyOfInData); // Resources
         loadExternalBackupIntoCurrents(
-            _internal.mixingCenterSettings?.centralType,
-            _internal.mixingCenterSettings?.populationType,
-            _internal);
+            _copyOfInData.mixingCenterSettings?.centralType,
+            _copyOfInData.mixingCenterSettings?.populationType,
+            _copyOfInData);
 
-        setCurrentMixingCenterSettings(_internal.mixingCenterSettings);
+        setCurrentMixingCenterSettings(_copyOfInData.mixingCenterSettings);
 
-        console.log(new Date());
-        console.log("ComputerContext.loadExternalBackupProcess() ENDS");
+        Logger.info("ComputerContext.loadExternalBackupProcess() ENDS");
     }
 
     const loadExternalBackupIntoCurrents = (inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum, inExternalData: ComputerBigGroupModel): void => {
@@ -259,7 +261,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     }
 
     const reloadInternalRawMaterialBackupsIntoCurrents = (inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum): void => {
-        console.log(`RESTAURANDO BACKUP DE MATERIA PRIMA. CENTRAL: ${CentralTypeIdEnum[inCentralType]}, POBLACION: ${PopulationTypeIdEnum[inPopulationType]}`);
+        Logger.info(`RESTAURANDO BACKUP DE MATERIA PRIMA. CENTRAL: ${CentralTypeIdEnum[inCentralType]}, POBLACION: ${PopulationTypeIdEnum[inPopulationType]}`);
 
         switch (inCentralType) {
             case CentralTypeIdEnum.Manual:
@@ -275,7 +277,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     }
 
     const reloadInternalResourcesBackupsIntoCurrents = (inCentralType: CentralTypeIdEnum): void => {
-        console.log(`RESTAURANDO BACKUP DE LOS RESOURCES. CENTRAL: ${CentralTypeIdEnum[inCentralType]}`);
+        Logger.info(`RESTAURANDO BACKUP DE LOS RESOURCES. CENTRAL: ${CentralTypeIdEnum[inCentralType]}`);
 
         switch (inCentralType) {
             case CentralTypeIdEnum.Manual:
@@ -307,7 +309,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     }
 
     const runFullOperationalResourcesBackup = (inCentralType: CentralTypeIdEnum): void => {
-        console.log(`EJECUTANDO BACKUP DE LOS RESOURCES. CENTRAL: ${CentralTypeIdEnum[inCentralType]}`);
+        Logger.info(`EJECUTANDO BACKUP DE LOS RESOURCES. CENTRAL: ${CentralTypeIdEnum[inCentralType]}`);
 
         switch (inCentralType) {
             case CentralTypeIdEnum.Manual:
@@ -346,7 +348,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     }
 
     const runFullRawMaterialBackup = (inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum): void => {
-        console.log(`EJECUTANDO BACKUP DE MATERIA PRIMA. CENTRAL: ${CentralTypeIdEnum[inCentralType]}, POBLACION: ${PopulationTypeIdEnum[inPopulationType]}`);
+        Logger.info(`EJECUTANDO BACKUP DE MATERIA PRIMA. CENTRAL: ${CentralTypeIdEnum[inCentralType]}, POBLACION: ${PopulationTypeIdEnum[inPopulationType]}`);
 
         switch (inCentralType) {
             case CentralTypeIdEnum.Manual:
@@ -364,7 +366,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     }
 
     const handleOnCentralTypeChange = (inNewSettings: MixingCenterSettingsModel): void => {
-        console.log("EL TIPO DE CENTRAL ES DIFERENTE AL TIPO DE CENTRAL ALMACENADO.");
+        Logger.info("EL TIPO DE CENTRAL ES DIFERENTE AL TIPO DE CENTRAL ALMACENADO.");
 
         // HACE RESPALDO DE LOS DATOS ACTUALES CON LA CONFIGURACION ACTUAL
         runFullOperationalResourcesBackup(backup_MixingCenterSettings.centralType);
@@ -373,24 +375,41 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         // CARGA LOS DATOS USANDO LA CONFIGURACION NUEVA
         reloadInternalResourcesBackupsIntoCurrents(inNewSettings.centralType);
         reloadInternalRawMaterialBackupsIntoCurrents(inNewSettings.centralType, inNewSettings.populationType);
-
-        // // HACE EL RESPALDO DE LA CONFIGURACIO NUEVA PARA QUE SIRVA COMO PUNTO DE COMPARACION
-        // const _backup_settings = deepClone(inNewSettings);
-        // setBackup_MixingCenterSettings(_backup_settings);
     }
 
     const handleOnPopulationTypeChange = (inNewSettings: MixingCenterSettingsModel): void => {
-        console.log("EL TIPO DE POBLACION ES DIFERENTE AL TIPO DE POBLACION ALMACENADO.");
+        Logger.info("EL TIPO DE POBLACION ES DIFERENTE AL TIPO DE POBLACION ALMACENADO.");
 
         // HACE RESPALDO DE LOS DATOS ACTUALES CON LA CONFIGURACION ACTUAL
         runFullRawMaterialBackup(backup_MixingCenterSettings.centralType, backup_MixingCenterSettings.populationType);
 
         // CARGA LOS DATOS USANDO LA CONFIGURACION NUEVA
         reloadInternalRawMaterialBackupsIntoCurrents(inNewSettings.centralType, inNewSettings.populationType);
+    }
 
-        // // HACE EL RESPALDO DE LA CONFIGURACIO NUEVA PARA QUE SIRVA COMO PUNTO DE COMPARACION
-        // const _backup_settings = deepClone(inNewSettings);
-        // setBackup_MixingCenterSettings(_backup_settings);
+    const handleOnPercentagesChange = (inData: MixingCenterSettingsModel): void => {
+        Logger.info("LOS PORCENTAJES CAMBIARON");
+    }
+
+    const handleOnProductionChange = (inData: MixingCenterSettingsModel): void => {
+        Logger.info("LA PRODUCCION CAMBIO");
+
+        const _productionPerMonth = getProductionPerMonth(inData);
+        const _productionLines = inData.productionLines;
+        const _maintenanceCosts = deepClone(currentMaintenanceCosts);
+        const _productionCosts = deepClone(currentProductionCosts);
+        const _manualResourcesBackup = deepClone(backup_MC_Manual_Resources);
+        const _automaticResourcesBackup = deepClone(backup_MC_Automatic_Resources);
+
+        CalculationService.computeMaintenanceCosts(_maintenanceCosts, _productionLines, _productionPerMonth);
+        CalculationService.computeProductionCosts(_productionCosts, _productionLines, _productionPerMonth);
+        CalculationService.computeMaintenanceCosts(_manualResourcesBackup.maintenanceCosts, _productionLines, _productionPerMonth);
+        CalculationService.computeProductionCosts(_automaticResourcesBackup.productionCosts, _productionLines, _productionPerMonth);
+
+        setCurrentMaintenanceCosts(_maintenanceCosts);
+        setCurrentProductionCosts(_productionCosts);
+        setBackup_MC_Manual_Resources(_manualResourcesBackup);
+        setBackup_MC_Automatic_Resources(_automaticResourcesBackup);
     }
 
     const isDifferentCentralType = (inData: MixingCenterSettingsModel): boolean => {
@@ -417,16 +436,19 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     }
 
     const runOnMixingCenterSettingsChange = (inMC_Settings: MixingCenterSettingsModel): void => {
+        Logger.info("runOnMixingCenterSettingsChange");
+
         if (isDifferentCentralType(inMC_Settings) === true) {
             handleOnCentralTypeChange(inMC_Settings);
         } else if (isDifferentPopulationType(inMC_Settings) === true) {
             handleOnPopulationTypeChange(inMC_Settings);
         } else if (areDifferentPercentages(inMC_Settings) === true) {
-            console.log("LOS PORCENTAJES CAMBIARON");
+            handleOnPercentagesChange(inMC_Settings);
         } else if (isDifferentProduction(inMC_Settings) === true) {
-            console.log("LA PRODUCCION CAMBIO");
+            handleOnProductionChange(inMC_Settings);
         } else {
-            console.log("NINGUNO DEL TIPO DE CENTRAL O EL TIPO DE POBLACION TUVO CAMBIO.");
+            Logger.info("NO HUBO NINGUN CAMBIO EN LA CONFIGURACION DE LA CENTRAL");
+            return;
         }
 
         // HACE EL RESPALDO DE LA CONFIGURACIO NUEVA PARA QUE SIRVA COMO PUNTO DE COMPARACION
@@ -439,14 +461,12 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
 
     useEffect(() => {
         runOnMixingCenterSettingsChange(currentMixingCenterSettings);
-        console.log(currentMixingCenterSettings);
-        console.log(new Date());
+        Logger.info("useEffect -> currentMixingCenterSettings");
+        Logger.info(currentMixingCenterSettings);
     }, [currentMixingCenterSettings]);
 
-
     useEffect(() => {
-        console.log("ComputerContext.Provider MONTADO!!!");
-        console.log(new Date());
+        Logger.info("ComputerContext.Provider MONTADO!!!");
     }, []);
 
     return (

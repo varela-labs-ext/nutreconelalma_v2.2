@@ -1,27 +1,24 @@
 import { useEffect } from "react";
 import { useComputerFileHandlerContext } from "./ComputerFileHandlerContext";
+import { Logger } from "@/utils/logger";
 
 const InitLogic = ({ children }: { children: React.ReactNode }) => {
     const { createNewFileAsync } = useComputerFileHandlerContext();
 
     const init = async (): Promise<void> => {
-        console.log("ComputerInitializer.init() STARTS COUNTER...");
-        console.log(new Date());
+        Logger.info("ComputerInitializer.init() STARTS COUNTER...");
 
         setTimeout(() => {
-            console.log("ComputerInitializer.init() STARTS...");
-            console.log(new Date());
+            Logger.info("ComputerInitializer.init() STARTS...");
 
             createNewFileAsync()
                 .then(() => {
-                    console.log("DONE. CALCULADORA INICIAL HECHA.");
-                    console.log("ComputerInitializer.init() ENDS...");
-                    console.log(new Date());
+                    Logger.info("DONE. CALCULADORA INICIAL HECHA.");
+                    Logger.info("ComputerInitializer.init() ENDS...");
                 })
                 .catch(() => {
                     console.error("ERROR FATAL AL INICIAR LA CALCULADORA.");
-                    console.log("ComputerInitializer.init() ENDS...");
-                    console.log(new Date());
+                    Logger.info("ComputerInitializer.init() ENDS...");
                 });
         }, 600);
     }

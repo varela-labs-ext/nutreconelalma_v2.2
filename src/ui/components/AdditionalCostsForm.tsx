@@ -1,8 +1,8 @@
-// import AdditionalCostsModel from "@/logic/models/AdditionalCostsModel";
+// import AdditionalCostsTotalsModel from "@/logic/models/AdditionalCostsTotalsModel";
 // import ReadOnlyNumberField from "../common/ReadOnlyNumberField";
 
 // interface AdditionalCostsFormProps {
-//     inData: AdditionalCostsModel;
+//     inData: AdditionalCostsTotalsModel;
 //     inShowDetails: boolean;
 // }
 

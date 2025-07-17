@@ -16,12 +16,12 @@ class MixingCenterSettingsModel {
         this.populationType = PopulationTypeIdEnum.Adulto; // Se podría configurar mas adelante
         this.centralType = CentralTypeIdEnum.Manual;
 
-        this.productionLines = 0;
-        this.productionPerDay = 0;
+        this.productionLines = 4;
+        this.productionPerDay = 10;
 
-        this.percentPerAdult = 0;
-        this.percentPerPediatric = 0;
-        this.percentPerNeonatal = 0;
+        this.percentPerAdult = 34;
+        this.percentPerPediatric = 33;
+        this.percentPerNeonatal = 33;
     }
 }
 

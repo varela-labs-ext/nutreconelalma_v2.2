@@ -2,15 +2,18 @@ import BaseCalc from "../services/BaseCalc";
 import RawMaterialGroupModel from "../models/RawMaterialGroupModel";
 import ClinicalInputCalc from "../services/ClinicalInputCalc";
 import { isClinicaInputRowModel, isValidObj } from "@/utils/itemsUtils";
+import { getClassName, Logger } from "@/utils/logger";
 
 class RawMaterialsCalc extends BaseCalc<RawMaterialGroupModel> {
 
     public compute(inItem: RawMaterialGroupModel): void {
         if (!isValidObj(inItem)) {
-            console.log("Objecto 'RawMaterialGroupModel' no ES VALIDO.");
-            console.log(inItem);
+            Logger.warn("OBJETO INVALIDO.", getClassName(this));
+            Logger.info(inItem);
             return;
         }
+
+        Logger.info("COMPUTE", getClassName(this));
 
         const clinicalInputCalc = new ClinicalInputCalc();
         let total = 0;
@@ -33,7 +36,7 @@ class RawMaterialsCalc extends BaseCalc<RawMaterialGroupModel> {
                         totalPorMl += posibleItem.costoPorMl;
                     }
                 } else {
-                    console.log(`Propiedad: ${propertyName} EXCLUIDA`);
+                    Logger.warn(`Propiedad: ${propertyName} EXCLUIDA`, getClassName(this));
                 }
             }
         }
