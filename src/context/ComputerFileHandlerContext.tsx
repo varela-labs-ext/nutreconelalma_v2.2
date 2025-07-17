@@ -27,12 +27,15 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
     const createNewFileAsync = async (): Promise<void> => {
         try {
             setExecutingSomething(true);
-            console.log("METODO 'createNewFileAsync' INICIANDO...");
+            console.log("ComputerFileHandlerProvider.createNewFileAsync() STARTS...");
 
             let userDefaultValues: ComputerBigGroupModel | null = await StorageProvider.loadUserDefaultsAsync();
 
             if (userDefaultValues === undefined || userDefaultValues === null) {
                 userDefaultValues = DefaultsProvider.getDefaultsForBigGroupData();
+                console.log("ComputerFileHandlerProvider.createNewFileAsync() USING FABRIC DEFAULT VALUES...");
+                console.log(userDefaultValues);
+                console.log("");
             }
 
             loadExternalBackup(userDefaultValues);
@@ -42,7 +45,7 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
             throw error;
         } finally {
             setExecutingSomething(false);
-            console.log("METODO 'createNewFileAsync' TERMINANDO...");
+            console.log("ComputerFileHandlerProvider.createNewFileAsync() ENDS...");
         }
     }
 
@@ -69,7 +72,6 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
     }
 
     const saveFileAsync = async (): Promise<void> => {
-
 
         try {
             setExecutingSomething(true);

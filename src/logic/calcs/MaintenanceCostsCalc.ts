@@ -10,8 +10,8 @@ class MaintenanceCostsCalc extends BaseCalc<MaintenanceCostsGroupModel> {
     }
 
     public computeByParams(inItem: MaintenanceCostsGroupModel, inProductionLines: number, inProductionPerMonth: number): void {
-        console.log("----- MaintenanceCostsCalc ------");
-        console.log(inItem);
+        // console.log("----- MaintenanceCostsCalc ------");
+        // console.log(inItem);
 
         if (!isValidObj(inItem)) {
             return;
