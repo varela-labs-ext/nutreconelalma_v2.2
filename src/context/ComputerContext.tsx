@@ -387,7 +387,6 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     /* *************************************** AREA DE LOS USE-EFFECT *************************************** */
 
 
-
     useEffect(() => {
         runOnMixingCenterSettingsChange(currentMixingCenterSettings);
         console.log(currentMixingCenterSettings);
