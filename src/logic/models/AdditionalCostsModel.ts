@@ -1,12 +1,12 @@
 
 class AdditionalCostsModel {
-    public protectiveMaterialsTotal: number;
-    public sterilizedEquipmentTotal: number;
     public maintenanceTotal: number;
-    public staffTotal: number;
-    public hygieneNCleanlinessTotal: number;
-    public automatedEquipmentTotal: number;
     public productionTotal: number;
+    public staffTotal: number;
+    public protectiveMaterialsTotal: number;
+    public hygieneNCleanlinessTotal: number;
+    public sterilizedEquipmentTotal: number;
+    public automatedEquipmentTotal: number;
 
     constructor() {
         this.protectiveMaterialsTotal = 0;
