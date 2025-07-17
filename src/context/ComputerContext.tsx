@@ -162,13 +162,6 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
 
         setCurrentMixingCenterSettings(_internal.mixingCenterSettings);
 
-        // console.log("-");
-        // console.log("**** EXTERNAL mixingCenterSettings: *****");
-        // console.log(_internal.mixingCenterSettings);
-        // console.log("**** mixingCenterSettings: *****");
-        // console.log(currentMixingCenterSettings);
-        // console.log("-");
-
         console.log(new Date());
         console.log("ComputerContext.loadExternalBackupProcess() ENDS");
     }
