@@ -3,7 +3,6 @@ import ReadOnlyNumberField from "@/ui/common/ReadOnlyNumberField";
 
 interface RawMaterialsOtherCostsProps {
     inData: AdditionalCostsTotalsModel;
-    inShowDetails: boolean;
 }
 
 const RawMaterialsOtherCosts = (props: RawMaterialsOtherCostsProps) => {

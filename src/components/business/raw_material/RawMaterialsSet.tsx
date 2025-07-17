@@ -8,6 +8,7 @@ import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 
 interface RawMaterialsSetProps {
     inData: RawMaterialGroupModel;
+    inAdditionalCosts: AdditionalCostsTotalsModel;
     onChange: (inNewData: RawMaterialGroupModel) => void;
 }
 
@@ -35,8 +36,7 @@ const RawMaterialsSet = (props: RawMaterialsSetProps) => {
                 />
             )}
             <RawMaterialsOtherCosts
-                inData={new AdditionalCostsTotalsModel()}
-                inShowDetails={true}
+                inData={props.inAdditionalCosts}
             />
         </div>
     );

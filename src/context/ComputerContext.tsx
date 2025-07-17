@@ -15,8 +15,9 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 import MixingCenterRawMaterialsModel from "@/logic/models/MixingCenterRawMaterialsModel";
 import MixingCenterOperatingResourcesModel from "@/logic/models/MixingCenterOperatingResourcesModel";
 import CalculationService from "@/logic/services/CalculationService";
-import { getProductionPerMonth } from "./ComputerContextExt";
+import { getProductionPerMonth, updateAdditionalCostsSummary } from "./ComputerContextExt";
 import { Logger } from "@/utils/logger";
+import AdditionalCostsTotalsModel from "@/logic/models/AdditionalCostsTotalsModel";
 
 // ------------------- Interfaz del Contexto -------------------
 export interface ComputerContextProps {
@@ -24,6 +25,7 @@ export interface ComputerContextProps {
     currentFilename: string | null;
     currentMixingCenterSettings: MixingCenterSettingsModel;
     currentRawMaterial: RawMaterialGroupModel;
+    additionalCostsSummary: AdditionalCostsTotalsModel;
     currentAutomatedEquipment: AutomatedEquipmentGroupModel;
     currentHygieneAndCleaning: HygieneAndCleaningGroupModel;
     currentPersonalProtection: PersonalProtectionGroupModel;
@@ -61,9 +63,9 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     const [currentFilename, setCurrentFilename] = useState<string | null>(null);
 
     const [currentMixingCenterSettings, setCurrentMixingCenterSettings] = useState<MixingCenterSettingsModel>(new MixingCenterSettingsModel());
-
     const [backup_MixingCenterSettings, setBackup_MixingCenterSettings] = useState<MixingCenterSettingsModel>(new MixingCenterSettingsModel());
 
+    const [additionalCostsSummary, setAdditionalCostsSummary] = useState<AdditionalCostsTotalsModel>(new AdditionalCostsTotalsModel());
 
     const [currentRawMaterial, setCurrentRawMaterial] = useState<RawMaterialGroupModel>(new RawMaterialGroupModel());
 
@@ -226,6 +228,18 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         setCurrentProductionCosts(inData.productionCosts);
         setCurrentChemistSalary(inData.staffChemistSalary);
         setCurrentAssistantSalary(inData.staffAssistantSalary);
+
+        updateAdditionalCostsSummary(
+            inData.automatedEquipment,
+            inData.hygieneAndCleaning,
+            inData.personalProtection,
+            inData.sterileWorkEquipment,
+            inData.maintenanceCosts,
+            inData.productionCosts,
+            inData.staffChemistSalary,
+            inData.staffAssistantSalary,
+            setAdditionalCostsSummary
+        );
     }
 
     const loadExternalBackupIntoRawMaterialBackups = (inData: ComputerBigGroupModel | null): void => {
@@ -293,7 +307,6 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 break;
         }
     }
-
 
     const getCopyOfOperationalResources = (): MixingCenterOperatingResourcesModel => {
         const resources: MixingCenterOperatingResourcesModel = new MixingCenterOperatingResourcesModel();
@@ -406,6 +419,18 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         CalculationService.computeMaintenanceCosts(_manualResourcesBackup.maintenanceCosts, _productionLines, _productionPerMonth);
         CalculationService.computeProductionCosts(_automaticResourcesBackup.productionCosts, _productionLines, _productionPerMonth);
 
+        updateAdditionalCostsSummary(
+            currentAutomatedEquipment,
+            currentHygieneAndCleaning,
+            currentPersonalProtection,
+            currentSterileWorkEquipment,
+            _maintenanceCosts,
+            _productionCosts,
+            currentChemistSalary,
+            currentAssistantSalary,
+            setAdditionalCostsSummary
+        );
+
         setCurrentMaintenanceCosts(_maintenanceCosts);
         setCurrentProductionCosts(_productionCosts);
         setBackup_MC_Manual_Resources(_manualResourcesBackup);
@@ -476,6 +501,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 currentFilename,
                 currentMixingCenterSettings,
                 currentRawMaterial,
+                additionalCostsSummary,
                 currentAutomatedEquipment,
                 currentHygieneAndCleaning,
                 currentPersonalProtection,

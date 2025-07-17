@@ -14,4 +14,14 @@ export default defineConfig({
         globals: true,
         setupFiles: "./src/setupTests.ts",
     },
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    react: ['react', 'react-dom'],
+                    vendor: ['lodash'], // ajusta según tus dependencias
+                },
+            },
+        },
+    }
 });

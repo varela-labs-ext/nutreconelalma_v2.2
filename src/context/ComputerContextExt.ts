@@ -1,8 +1,16 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import PopulationTypeIdEnum from "@/logic/enums/PopulationTypeIdEnum";
+import AdditionalCostsTotalsModel from "@/logic/models/AdditionalCostsTotalsModel";
 import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSettingsModel";
 import MixingCenterOperatingResourcesModel from "@/logic/models/MixingCenterOperatingResourcesModel";
 import MixingCenterRawMaterialsModel from "@/logic/models/MixingCenterRawMaterialsModel";
+import AutomatedEquipmentGroupModel from "@/logic/models/operating_resources/AutomatedEquipmentGroupModel";
+import HygieneAndCleaningGroupModel from "@/logic/models/operating_resources/HygieneAndCleaningGroupModel";
+import MaintenanceCostsGroupModel from "@/logic/models/operating_resources/MaintenanceCostsGroupModel";
+import PersonalProtectionGroupModel from "@/logic/models/operating_resources/PersonalProtectionGroupModel";
+import ProductionCostsGroupModel from "@/logic/models/operating_resources/ProductionCostsGroupModel";
+import StaffSalaryGroupModel from "@/logic/models/operating_resources/StaffSalaryGroupModel";
+import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
 import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 import { deepClone, deepEqual } from "@/utils/objectUtils";
 
@@ -329,4 +337,52 @@ export const gatherDataModelFromBackup = <TModel>(
     }
 
     return result;
+}
+
+
+// export const updateAndSetAdditionalCostsSummary = (
+//     inData: MixingCenterOperatingResourcesModel,
+//     setSummaryCallBack: (data: AdditionalCostsTotalsModel) => void
+// ): void => {
+
+//     const newSummary = new AdditionalCostsTotalsModel();
+
+//     newSummary.automatedEquipmentTotal = inData.automatedEquipment.total.value;
+//     newSummary.hygieneNCleanlinessTotal = inData.hygieneAndCleaning.total.value;
+//     newSummary.protectiveMaterialsTotal = inData.personalProtection.total.value;
+//     newSummary.sterilizedEquipmentTotal = inData.sterileWorkEquipment.total.value;
+//     newSummary.maintenanceTotal = inData.maintenanceCosts.total.value;
+//     newSummary.productionTotal = inData.productionCosts.total.value;
+//     newSummary.staffTotal =
+//         inData.staffChemistSalary.totalCompensacionSalarial.value +
+//         inData.staffAssistantSalary.totalCompensacionSalarial.value;
+
+//     setSummaryCallBack(newSummary);
+// }
+
+export const updateAdditionalCostsSummary = (
+    inAutomatedEquipment: AutomatedEquipmentGroupModel,
+    inHygieneAndCleaning: HygieneAndCleaningGroupModel,
+    inPersonalProtection: PersonalProtectionGroupModel,
+    inSterileWorkEquipment: SterileWorkEquipmentGroupModel,
+    inMaintenanceCosts: MaintenanceCostsGroupModel,
+    inProductionCosts: ProductionCostsGroupModel,
+    inStaffChemistSalary: StaffSalaryGroupModel,
+    inStaffAssistantSalary: StaffSalaryGroupModel,
+    setSummaryCallBack: (data: AdditionalCostsTotalsModel) => void
+): void => {
+
+    const newSummary = new AdditionalCostsTotalsModel();
+
+    newSummary.automatedEquipmentTotal = inAutomatedEquipment.total.value;
+    newSummary.hygieneNCleanlinessTotal = inHygieneAndCleaning.total.value;
+    newSummary.protectiveMaterialsTotal = inPersonalProtection.total.value;
+    newSummary.sterilizedEquipmentTotal = inSterileWorkEquipment.total.value;
+    newSummary.maintenanceTotal = inMaintenanceCosts.total.value;
+    newSummary.productionTotal = inProductionCosts.total.value;
+    newSummary.staffTotal =
+        inStaffChemistSalary.totalCompensacionSalarial.value +
+        inStaffAssistantSalary.totalCompensacionSalarial.value;
+
+    setSummaryCallBack(newSummary);
 }

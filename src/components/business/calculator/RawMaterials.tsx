@@ -13,6 +13,7 @@ interface RawMaterialsProps {
 const RawMaterials = (props: RawMaterialsProps) => {
     const {
         currentRawMaterial,
+        additionalCostsSummary,
         setCurrentRawMaterial
     } = useComputerContext();
 
@@ -53,6 +54,7 @@ const RawMaterials = (props: RawMaterialsProps) => {
         <>
             <RawMaterialsSet
                 inData={internalRawMaterial ?? new RawMaterialGroupModel()}
+                inAdditionalCosts={additionalCostsSummary}
                 onChange={handleOnRawMaterialsSetChange}
             />
         </>
