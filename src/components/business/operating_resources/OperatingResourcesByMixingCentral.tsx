@@ -26,17 +26,17 @@ const OperatingResourcesByMixingCentral = (props: OperatingResourcesByMixingCent
         <>
             <h3 className="text-lg font-semibold text-green-600 mb-4">{getMixingCentralName()}</h3>
             <PanelViewsSelector defaultIndex={0}>
-                <PanelView label="Costos Operativos" icon={<Settings />} status="ok">
+                <PanelView label="Costos Operativos" icon={<Settings />} status="none">
                     <OperatingCostsForm
                         inCentralTypeEdt={props.inCentralTypeEdt}
                     />
                 </PanelView>
-                <PanelView label="Staff / Personal" icon={<Users />} status="warning">
+                <PanelView label="Staff / Personal" icon={<Users />} status="none">
                     <StaffPersonnelCostsForm
                     // inCentralType={props.inCentralType}
                     />
                 </PanelView>
-                <PanelView label="Materiales e Insumos" icon={<PackageOpen />} status="warning">
+                <PanelView label="Materiales e Insumos" icon={<PackageOpen />} status="none">
                     <MaterialsAndSuppliesCostsForm
                     // inCentralType={props.inCentralType}
                     />

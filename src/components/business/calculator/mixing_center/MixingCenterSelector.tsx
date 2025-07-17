@@ -31,8 +31,8 @@ const MixingCenterSelector = (props: MixingCenterSelectorProps) => {
         <div className="text-sm font-medium">
             <PanelTabsSelector
                 titles={[
-                    { label: "Central de Mezclas Manual", icon: <FlaskConical />, status: "ok" },
-                    { label: "Central de Mezclas Automatizada", icon: <Bot />, status: "ok" },
+                    { label: "Central de Mezclas Manual", icon: <FlaskConical />, status: "none" },
+                    { label: "Central de Mezclas Automatizada", icon: <Bot />, status: "none" },
                     // { label: "Apex", icon: <Cpu />, status: "error" },
                 ]}
                 selectedIndex={getCentralType()}
