@@ -59,7 +59,15 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
 
     const [currentMixingCenterSettings, setCurrentMixingCenterSettings] = useState<MixingCenterSettingsModel>(new MixingCenterSettingsModel());
 
+    const [backup_MixingCenterSettings, setBackup_MixingCenterSettings] = useState<MixingCenterSettingsModel>(new MixingCenterSettingsModel());
+
+
     const [currentRawMaterial, setCurrentRawMaterial] = useState<RawMaterialGroupModel>(new RawMaterialGroupModel());
+
+    // Materia Prima
+    const [backup_MC_Manual_RawMaterials, setBackup_MC_Manual_RawMaterials] = useState<MixingCenterRawMaterialsModel>(new MixingCenterRawMaterialsModel());
+    const [backup_MC_Automatic_RawMaterials, setBackup_MC_Automatic_RawMaterials] = useState<MixingCenterRawMaterialsModel>(new MixingCenterRawMaterialsModel());
+
 
     const [currentAutomatedEquipment, setCurrentAutomatedEquipment] = useState<AutomatedEquipmentGroupModel>(new AutomatedEquipmentGroupModel());
     const [currentHygieneAndCleaning, setCurrentHygieneAndCleaning] = useState<HygieneAndCleaningGroupModel>(new HygieneAndCleaningGroupModel());
@@ -70,16 +78,12 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     const [currentChemistSalary, setCurrentChemistSalary] = useState<StaffSalaryGroupModel>(new StaffSalaryGroupModel());
     const [currentAssistantSalary, setCurrentAssistantSalary] = useState<StaffSalaryGroupModel>(new StaffSalaryGroupModel());
 
-    // Materia Prima
-    const [backup_MC_Manual_RawMaterials, setBackup_MC_Manual_RawMaterials] = useState<MixingCenterRawMaterialsModel>(new MixingCenterRawMaterialsModel());
-    const [backup_MC_Automatic_RawMaterials, setBackup_MC_Automatic_RawMaterials] = useState<MixingCenterRawMaterialsModel>(new MixingCenterRawMaterialsModel());
-
     // Recursos Operativos
     const [backup_MC_Manual_Resources, setBackup_MC_Manual_Resources] = useState<MixingCenterOperatingResourcesModel>(new MixingCenterOperatingResourcesModel());
     const [backup_MC_Automatic_Resources, setBackup_MC_Automatic_Resources] = useState<MixingCenterOperatingResourcesModel>(new MixingCenterOperatingResourcesModel());
 
-    const [internalCentralType, setInternalCentralType] = useState<CentralTypeIdEnum>(CentralTypeIdEnum.Manual);
-    const [internalPopulationType, setInternalPopulationType] = useState<PopulationTypeIdEnum>(PopulationTypeIdEnum.Adulto);
+    // const [internalCentralType, setInternalCentralType] = useState<CentralTypeIdEnum>(CentralTypeIdEnum.Manual);
+    // const [internalPopulationType, setInternalPopulationType] = useState<PopulationTypeIdEnum>(PopulationTypeIdEnum.Adulto);
 
     /* *********************************************************************************************************************** */
 
@@ -360,25 +364,28 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     }
 
     const runOnMixingCenterSettingsChange = (inMC_Settings: MixingCenterSettingsModel): void => {
-        if (inMC_Settings.centralType !== internalCentralType) {
+        if (inMC_Settings.centralType !== backup_MixingCenterSettings.centralType) {
             console.log("EL TIPO DE CENTRAL ES DIFERENTE AL TIPO DE CENTRAL ALMACENADO.");
 
-            runFullOperationalResourcesBackup(internalCentralType);
-            runFullRawMaterialBackup(internalCentralType, internalPopulationType);
+            runFullOperationalResourcesBackup(backup_MixingCenterSettings.centralType);
+            runFullRawMaterialBackup(backup_MixingCenterSettings.centralType, backup_MixingCenterSettings.populationType);
 
             //todo
             reloadInternalResourcesBackupsIntoCurrents(inMC_Settings.centralType);
             reloadInternalRawMaterialBackupsIntoCurrents(inMC_Settings.centralType, inMC_Settings.populationType);
 
-            setInternalCentralType(inMC_Settings.centralType);
-        } else if (inMC_Settings.populationType !== internalPopulationType) {
+            const _backup_settings = deepClone(inMC_Settings);
+            setBackup_MixingCenterSettings(_backup_settings);
+
+        } else if (inMC_Settings.populationType !== backup_MixingCenterSettings.populationType) {
             console.log("EL TIPO DE POBLACION ES DIFERENTE AL TIPO DE POBLACION ALMACENADO.");
 
-            runFullRawMaterialBackup(internalCentralType, internalPopulationType);
+            runFullRawMaterialBackup(backup_MixingCenterSettings.centralType, backup_MixingCenterSettings.populationType);
 
             reloadInternalRawMaterialBackupsIntoCurrents(inMC_Settings.centralType, inMC_Settings.populationType);
 
-            setInternalPopulationType(inMC_Settings.populationType);
+            const _backup_settings = deepClone(inMC_Settings);
+            setBackup_MixingCenterSettings(_backup_settings);
         } else {
             console.log("NINGUNO DEL TIPO DE CENTRAL O EL TIPO DE POBLACION TUVO CAMBIO.");
         }
@@ -395,18 +402,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
 
 
     useEffect(() => {
-        // setTimeout(() => {
-        //     setIsReady(true);
-        //     setExecutingSomething(false);
-        // }, 200);
-
-        // console.log("___________________________________");
-        // console.log("___________________________________");
-        // console.log("___________________________________");
         console.log("ComputerContext.Provider MONTADO!!!");
-        // console.log("___________________________________");
-        // console.log("___________________________________");
-        // console.log("___________________________________");
         console.log(new Date());
     }, []);
 

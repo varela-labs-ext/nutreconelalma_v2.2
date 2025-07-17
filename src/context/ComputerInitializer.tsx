@@ -23,7 +23,7 @@ const InitLogic = ({ children }: { children: React.ReactNode }) => {
                     console.log("ComputerInitializer.init() ENDS...");
                     console.log(new Date());
                 });
-        }, 800);
+        }, 600);
     }
 
     useEffect(() => {
