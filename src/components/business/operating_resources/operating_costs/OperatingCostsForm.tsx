@@ -7,9 +7,9 @@ import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
 import EstimatedCostItemModel from "@/logic/models/row_item/EstimatedCostItemRowModel";
 import CalculationService from "@/logic/services/CalculationService";
 import OperatingCostsAccourd from "./OperatingCostsAccourd";
-import { useComputerContext } from "@/context/MixingCenterContext/ComputerContext";
+import { useComputerContext } from "@/context/MixingCenterContext/MixingCenterProvider";
 import { deepClone, deepEqual } from "@/utils/objectUtils";
-import { getProductionPerMonth, handleOnInternalModelChange, safeSetState } from "@/context/MixingCenterContext/ComputerContextExt";
+import { getProductionPerMonth, handleOnInternalModelChange, safeSetState } from "@/context/MixingCenterContext/MixingCenterUtils";
 
 interface OperatingCostsFormProps {
     inCentralTypeEdt: CentralTypeIdEnum;

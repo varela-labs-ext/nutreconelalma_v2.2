@@ -5,7 +5,7 @@ import { FileText, Home } from "lucide-react";
 import CalculatorFormResults from "./CalculatorFormResults";
 import CalculatorFormSets from "./CalculatorFormSets";
 import SectionTitle from "@/components/ui/titles/SectionTitle";
-import { useComputerContext } from "@/context/MixingCenterContext/ComputerContext";
+import { useComputerContext } from "@/context/MixingCenterContext/MixingCenterProvider";
 
 interface CalculatorFormProps {
 

@@ -1,7 +1,7 @@
 import { AuthProvider } from "@/context/AuthContext";
-import { ComputerActionsProvider } from "@/context/FileDialogContext/ComputerActionsContext";
-import { ComputerProvider } from "@/context/MixingCenterContext/ComputerContext";
-import { ComputerFileHandlerProvider } from "@/context/FileStorageContext/ComputerFileHandlerContext";
+import { ComputerActionsProvider } from "@/context/FileDialogContext/FileDialogProvider";
+import { ComputerProvider } from "@/context/MixingCenterContext/MixingCenterProvider";
+import { ComputerFileHandlerProvider } from "@/context/FileStorageContext/FileStorageProvider";
 import ComputerInitializer from "@/context/ComputerInitializer";
 import { ReactNode } from "react";
 

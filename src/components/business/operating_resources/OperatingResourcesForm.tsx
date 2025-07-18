@@ -4,7 +4,7 @@ import IconTab from "@/components/ui/tabs/icon_tabs/IconTab";
 import { Bot, FlaskConical } from "lucide-react";
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import OperatingResourcesByMixingCentral from "./OperatingResourcesByMixingCentral";
-import { useComputerContext } from "@/context/MixingCenterContext/ComputerContext";
+import { useComputerContext } from "@/context/MixingCenterContext/MixingCenterProvider";
 import { deepClone } from "@/utils/objectUtils";
 
 interface OperatingResourcesFormProps {
