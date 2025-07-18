@@ -1,7 +1,7 @@
 //ResultsForm
 
 import ResultItemModel from "@/logic/models/ResultItemModel";
-import ResultsModel from "@/logic/models/ResultsModel";
+import ResultsModel from "@/logic/models/MixingCenterResultsModel";
 import ResultItemField from "./ResultItemField";
 
 
