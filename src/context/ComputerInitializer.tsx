@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useComputerFileHandlerContext } from "./ComputerFileHandlerContext";
+import { useComputerFileHandlerContext } from "./FileStorageContext/FileStorageProvider";
 import { Logger } from "@/utils/logger";
 
 const InitLogic = ({ children }: { children: React.ReactNode }) => {

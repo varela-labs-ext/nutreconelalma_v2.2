@@ -20,7 +20,7 @@ class ProductionCostsDefaults extends DefaultsBase<ProductionCostsGroupModel> {
         this.setEstimatedCostItem(inItem.depreciacionCabinaFlujoLaminar, 63000.00, 0);
         this.setEstimatedCostItem(inItem.luzKw, 6775276.50, 0);
         this.setEstimatedCostItem(inItem.manoObraIndirecta, 4783964.40, 0);
-        this.setEstimatedCostItem(inItem.telefoniaInternetAdmin, 6688000.00, 0);
+        this.setEstimatedCostItem(inItem.telefoniaInternetAdmin, 6688.00, 0);
     }
 
     protected setMixingCentral_Automatic(inItem: ProductionCostsGroupModel): void {

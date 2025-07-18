@@ -2,10 +2,10 @@ import FileNameDialogBox from "@/components/ui/dialogs/FileNameDialogBox";
 import SelectFileDialogBox from "@/components/ui/dialogs/SelectFileDialogBox";
 import YesNoModal from "@/components/ui/dialogs/YesNoModal";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { useComputerContext } from "./ComputerContext";
 import { toastService } from "@/services/toastService";
-import { useComputerFileHandlerContext } from "./ComputerFileHandlerContext";
+import { useComputerFileHandlerContext } from "../FileStorageContext/FileStorageProvider";
 import StorageProvider from "@/providers/StorageProvider";
+import useMixingCenterContext from "../MixingCenterContext/useMixingCenterContext";
 
 
 export interface ComputerActionsContextProps {
@@ -24,7 +24,7 @@ export interface ComputerActionsContextProps {
 export const ComputerActionsContext = createContext<ComputerActionsContextProps | undefined>(undefined);
 
 export const ComputerActionsProvider = ({ children }: { children: React.ReactNode }) => {
-    const { currentFilename, } = useComputerContext();
+    const { activeFilename, } = useMixingCenterContext();
     const { createNewFileAsync, openFileAsync, saveFileAsync, saveFileAsAsync } = useComputerFileHandlerContext();
 
     const [showNewCalcDialog, setShowNewCalcDialog] = useState(false);
@@ -82,7 +82,7 @@ export const ComputerActionsProvider = ({ children }: { children: React.ReactNod
 
     const callSaveFile = () => {
         saveFileAsync().then(() => {
-            toastService.showOk(`Calculadora almacenada: ${currentFilename}`);
+            toastService.showOk(`Calculadora almacenada: ${activeFilename}`);
         }).catch((error) => {
             console.error("Error al salvar la calculadora:", error);
             toastService.showError(`Error Fatal: ${error.message}`);
@@ -136,7 +136,7 @@ export const ComputerActionsProvider = ({ children }: { children: React.ReactNod
 export const useComputerActionsContext = (): ComputerActionsContextProps => {
     const context = useContext(ComputerActionsContext);
     if (!context) {
-        throw new Error("useComputerActionsContext debe usarse dentro de un ComputerProvider");
+        throw new Error("useComputerActionsContext debe usarse dentro de un MixingCenterProvider");
     }
     return context;
 };

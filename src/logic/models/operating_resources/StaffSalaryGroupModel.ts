@@ -11,6 +11,9 @@ class StaffSalaryGroupModel extends StaffTaxesModel {
     public totalCompensacionSalarial: AmountItemModel;
     public totalValorHora: AmountItemModel;
 
+    public horasPersonalFarmaceuticoPorNP: AmountItemModel;
+    public costoPersonalFarmaceuticoPorPreparacion: AmountItemModel;
+
     constructor() {
         super();
 
@@ -21,6 +24,8 @@ class StaffSalaryGroupModel extends StaffTaxesModel {
         this.totalParafiscales = new AmountItemModel("Total aportes parafiscales");
         this.totalCompensacionSalarial = new AmountItemModel("Total compensación salarial");
         this.totalValorHora = new AmountItemModel("Valor total por hora");
+        this.horasPersonalFarmaceuticoPorNP = new AmountItemModel("Horas de personal farmacéutico para 1 nutrición parenteral"); // Es una constante 0.36
+        this.costoPersonalFarmaceuticoPorPreparacion = new AmountItemModel("Costo por personal farmacéutico requerido para preparación");
     }
 }
 

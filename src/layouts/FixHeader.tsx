@@ -1,6 +1,6 @@
-import { useComputerContext } from "@/context/ComputerContext";
 import { Menu, X, FileText } from "lucide-react"
 import logoBbraun from "@/assets/imgs/logo.png";
+import useMixingCenterContext from "@/context/MixingCenterContext/useMixingCenterContext";
 
 interface FixHeaderProps {
     isSidebarOpen: boolean;
@@ -8,7 +8,7 @@ interface FixHeaderProps {
 }
 
 const FixHeader = (props: FixHeaderProps) => {
-    const { currentFilename } = useComputerContext();
+    const { activeFilename } = useMixingCenterContext();
 
     return (
         <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
@@ -36,24 +36,24 @@ const FixHeader = (props: FixHeaderProps) => {
                     />
 
                     {/* Texto a la derecha en desktop */}
-                    {currentFilename && (
+                    {activeFilename && (
                         <div
                             className="hidden sm:flex items-center justify-end gap-1 max-w-[40vw] text-sm text-gray-700 font-medium truncate hover:underline hover:text-blue-600 transition-colors duration-200"
-                            title={currentFilename}
+                            title={activeFilename}
                         >
-                            <span className="truncate">{currentFilename}</span>
+                            <span className="truncate">{activeFilename}</span>
                             <FileText className="h-4 w-4 text-gray-500" />
                         </div>
                     )}
                 </div>
 
                 {/* Segunda línea visible solo en móviles */}
-                {currentFilename && (
+                {activeFilename && (
                     <div
                         className="flex sm:hidden items-center justify-center gap-1 text-sm text-gray-700 font-medium mt-2"
                     >
                         <FileText className="h-4 w-4 text-gray-500" />
-                        <span className="truncate">{currentFilename}</span>
+                        <span className="truncate">{activeFilename}</span>
                     </div>
                 )}
             </div>

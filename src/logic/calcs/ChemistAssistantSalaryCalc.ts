@@ -33,6 +33,17 @@ class ChemistAssistantSalaryCalc extends BaseCalc<StaffSalaryGroupModel> {
                 inItem.horasTrabajoMensual.value > 0
             ) {
                 inItem.totalValorHora.value = inItem.totalCompensacionSalarial.value / inItem.horasTrabajoMensual.value;
+
+                if (!isNaN(inItem.horasPersonalFarmaceuticoPorNP.value) &&
+                    !isNaN(inItem.personalPreparacion.value) &&
+                    !isNaN(inItem.totalValorHora.value)) {
+                    inItem.costoPersonalFarmaceuticoPorPreparacion.value =
+                        inItem.horasPersonalFarmaceuticoPorNP.value *
+                        inItem.personalPreparacion.value *
+                        inItem.totalValorHora.value;
+                } else {
+                    inItem.costoPersonalFarmaceuticoPorPreparacion.value = 0;
+                }
             } else {
                 inItem.totalValorHora.value = 0;
             }

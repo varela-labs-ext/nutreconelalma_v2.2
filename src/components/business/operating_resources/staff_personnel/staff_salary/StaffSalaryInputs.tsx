@@ -32,6 +32,11 @@ const StaffSalaryInputs = (props: StaffSalaryInputsProps) => {
                     inName="personalPreparacion"
                     onChange={props.onJustValueInputChange}
                 />
+                <JustValueInputEditor
+                    inData={props.inData.horasPersonalFarmaceuticoPorNP}
+                    inName="horasPersonalFarmaceuticoPorNP"
+                    onChange={props.onJustValueInputChange}
+                />
             </div>
             <StaffSalaryHeaders title={props.title} />
             <div>
@@ -124,6 +129,12 @@ const StaffSalaryInputs = (props: StaffSalaryInputsProps) => {
                 <AmountItemInputEditor
                     inData={props.inData.totalValorHora}
                     inName="totalValorHora"
+                    isReadOnly={true}
+                    onChange={(x, y) => (console.log("nothing"))}
+                />
+                <AmountItemInputEditor
+                    inData={props.inData.costoPersonalFarmaceuticoPorPreparacion}
+                    inName="costoPersonalFarmaceuticoPorPreparacion"
                     isReadOnly={true}
                     onChange={(x, y) => (console.log("nothing"))}
                 />

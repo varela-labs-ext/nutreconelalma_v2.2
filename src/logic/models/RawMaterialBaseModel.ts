@@ -7,7 +7,7 @@ abstract class RawMaterialBaseModel {
     public guiaMateria: string;
 
     constructor() {
-        this.cantidad = 0;
+        this.cantidad = 1;
         this.total = 0;
         this.totalPorMl = 0;
         this.guiaMateria = uuidv4();

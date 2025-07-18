@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { LoadingContext } from '../../../context/LoadingContext';
+import { LoadingContext } from '../../../context/LoadingContext/LoadingContext';
 
 const LoadingOverlay = () => {
     const loadingContext = useContext(LoadingContext);

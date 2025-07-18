@@ -4,11 +4,13 @@ import RawMaterialsOtherCosts from "./RawMaterialsOtherCosts";
 import AdditionalCostsTotalsModel from "@/logic/models/AdditionalCostsTotalsModel";
 import RawMaterialsAccourd from "./RawMaterialsAccourd";
 import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
+import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 
 
 interface RawMaterialsSetProps {
     inData: RawMaterialGroupModel;
     inAdditionalCosts: AdditionalCostsTotalsModel;
+    inCentralType: CentralTypeIdEnum;
     onChange: (inNewData: RawMaterialGroupModel) => void;
 }
 
@@ -37,6 +39,7 @@ const RawMaterialsSet = (props: RawMaterialsSetProps) => {
             )}
             <RawMaterialsOtherCosts
                 inData={props.inAdditionalCosts}
+                inCentralType={props.inCentralType}
             />
         </div>
     );

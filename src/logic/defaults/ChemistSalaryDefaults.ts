@@ -14,6 +14,9 @@ class ChemistSalaryDefaults extends DefaultsBase<StaffSalaryGroupModel> {
 
         inItem.horasTrabajoMensual.value = 230;
         inItem.personalPreparacion.value = 1;
+
+
+        inItem.costoPersonalFarmaceuticoPorPreparacion.value = 0;
     }
 
     protected setExtras(inItem: StaffSalaryGroupModel): void {
@@ -23,10 +26,12 @@ class ChemistSalaryDefaults extends DefaultsBase<StaffSalaryGroupModel> {
 
     protected setMixingCentral_Manual(inItem: StaffSalaryGroupModel): void {
         inItem.salarioBasico.value = 3800000.00;
+        inItem.horasPersonalFarmaceuticoPorNP.value = 0.36; // Esta es la constante por defecto.
     }
 
     protected setMixingCentral_Automatic(inItem: StaffSalaryGroupModel): void {
         inItem.salarioBasico.value = 4000000.00;
+        inItem.horasPersonalFarmaceuticoPorNP.value = 0.08; // Esta es la constante por defecto.
     }
 }
 

@@ -118,7 +118,7 @@ let gatherData: RawMaterialGroupModel | null = null;
 
 
 // useEffect(() => {
-    //     if (executingSomething === false) {
+    //     if (isProcessing === false) {
     //         console.log("*** HUBO UN CAMBIO EN EL TIPO DE CENTRAL, O EN EL TIPO DE POBLACION. ***");
     //         populateCurrentRawMaterial();
     //     } else {
@@ -281,7 +281,7 @@ const gatherComputerData = (): ComputerBigGroupModel => {
     // Obtiene los datos de 'get_CurrentRawMaterial' para asignarselo al punto central que es 'CurrentRawMaterialData'
     const populateCurrentRawMaterial = (): void => {
         try {
-            setExecutingSomething(true);
+            setIsProcessing(true);
 
             const results: RawMaterialGroupModel | null = gatherRawMaterial();
 
@@ -296,6 +296,6 @@ const gatherComputerData = (): ComputerBigGroupModel => {
             console.error(error);
             throw error;
         } finally {
-            setExecutingSomething(false);
+            setIsProcessing(false);
         }
     }

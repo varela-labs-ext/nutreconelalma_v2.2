@@ -12,7 +12,16 @@ import ProductionCostsGroupModel from "@/logic/models/operating_resources/Produc
 import StaffSalaryGroupModel from "@/logic/models/operating_resources/StaffSalaryGroupModel";
 import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
 import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
+import { Logger } from "@/utils/logger";
 import { deepClone, deepEqual } from "@/utils/objectUtils";
+
+
+// -- VERSION NUEVA AQUI
+
+
+
+
+// --- VERSION ANTIGUA AQUI
 
 export const callByCentralType = <TModel>(
     inCentralType: CentralTypeIdEnum,
@@ -378,11 +387,37 @@ export const updateAdditionalCostsSummary = (
     newSummary.hygieneNCleanlinessTotal = inHygieneAndCleaning.total.value;
     newSummary.protectiveMaterialsTotal = inPersonalProtection.total.value;
     newSummary.sterilizedEquipmentTotal = inSterileWorkEquipment.total.value;
-    newSummary.maintenanceTotal = inMaintenanceCosts.total.value;
+    newSummary.maintenanceTotal = inMaintenanceCosts.costoNpt.value;
     newSummary.productionTotal = inProductionCosts.total.value;
     newSummary.staffTotal =
         inStaffChemistSalary.totalCompensacionSalarial.value +
         inStaffAssistantSalary.totalCompensacionSalarial.value;
 
     setSummaryCallBack(newSummary);
+}
+
+export const getAdditionalCostsSummary = (
+    inAutomatedEquipment: AutomatedEquipmentGroupModel,
+    inHygieneAndCleaning: HygieneAndCleaningGroupModel,
+    inPersonalProtection: PersonalProtectionGroupModel,
+    inSterileWorkEquipment: SterileWorkEquipmentGroupModel,
+    inMaintenanceCosts: MaintenanceCostsGroupModel,
+    inProductionCosts: ProductionCostsGroupModel,
+    inStaffChemistSalary: StaffSalaryGroupModel,
+    inStaffAssistantSalary: StaffSalaryGroupModel
+): AdditionalCostsTotalsModel => {
+
+    const newSummary = new AdditionalCostsTotalsModel();
+
+    newSummary.automatedEquipmentTotal = inAutomatedEquipment.total.value;
+    newSummary.hygieneNCleanlinessTotal = inHygieneAndCleaning.total.value;
+    newSummary.protectiveMaterialsTotal = inPersonalProtection.total.value;
+    newSummary.sterilizedEquipmentTotal = inSterileWorkEquipment.total.value;
+    newSummary.maintenanceTotal = inMaintenanceCosts.costoNpt.value;
+    newSummary.productionTotal = inProductionCosts.total.value;
+    newSummary.staffTotal =
+        inStaffChemistSalary.totalCompensacionSalarial.value +
+        inStaffAssistantSalary.totalCompensacionSalarial.value;
+
+    return newSummary;
 }

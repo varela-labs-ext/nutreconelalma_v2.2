@@ -1,3 +1,5 @@
+import ForageManager from "@/logic/common/ForageManager";
+import { Logger } from "@/utils/logger";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,35 +14,53 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export default AuthContext;
 
+const USER_KEY = "USER_KEY";
+
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState<string | null>(null);
+
     const navigate = useNavigate();
 
+    const handleOnLoad = (): void => {
+        ForageManager.getAsync<string>(USER_KEY)
+            .then((savedUser: string | null) => {
+                if (savedUser) {
+                    setUser(savedUser);
+                    setIsAuthenticated(true);
+                }
+            })
+            .catch(() => {
+                Logger.error("ERROR AL OBTENER EL USER DESDE LA DB.", "AuthProvider");
+            });
+    }
+
     useEffect(() => {
-        const savedUser = localStorage.getItem("user");
-        if (savedUser) {
-            setUser(savedUser);
-            setIsAuthenticated(true);
-        }
+        handleOnLoad();
     }, []);
 
-    const login = async (username: string, password: string): Promise<boolean> => {
+    const login = async (inUsername: string, password: string): Promise<boolean> => {
         // lógica simulada de login
-        if (username === "admin" && password === "admin") {
-            setUser(username);
+        if (inUsername === "admin" && password === "admin") {
+            setUser(inUsername);
             setIsAuthenticated(true);
-            localStorage.setItem("user", username);
+            await ForageManager.saveAsync(USER_KEY, inUsername);
             return true;
         }
+
         return false;
     };
 
     const logout = () => {
         setUser(null);
         setIsAuthenticated(false);
-        localStorage.removeItem("user");
-        navigate("/");
+        ForageManager.deleteAsync(USER_KEY)
+            .then(() => {
+                navigate("/");
+            })
+            .catch(() => {
+                Logger.error("ERROR AL ELIMINAR EL USER DESDE LA DB.", "AuthProvider");
+            });
     };
 
     return (

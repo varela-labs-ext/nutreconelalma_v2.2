@@ -1,14 +1,14 @@
 import { AuthProvider } from "@/context/AuthContext";
-import { ComputerActionsProvider } from "@/context/ComputerActionsContext";
-import { ComputerProvider } from "@/context/ComputerContext";
-import { ComputerFileHandlerProvider } from "@/context/ComputerFileHandlerContext";
+import { ComputerActionsProvider } from "@/context/FileDialogContext/FileDialogProvider";
+import { MixingCenterProvider } from "@/context/MixingCenterContext/MixingCenterProvider";
+import { ComputerFileHandlerProvider } from "@/context/FileStorageContext/FileStorageProvider";
 import ComputerInitializer from "@/context/ComputerInitializer";
 import { ReactNode } from "react";
 
 const AppInitializer = ({ children }: { children: ReactNode }) => {
     return (
         <AuthProvider>
-            <ComputerProvider>
+            <MixingCenterProvider>
                 <ComputerFileHandlerProvider>
                     <ComputerActionsProvider>
                         <ComputerInitializer>
@@ -16,7 +16,7 @@ const AppInitializer = ({ children }: { children: ReactNode }) => {
                         </ComputerInitializer>
                     </ComputerActionsProvider>
                 </ComputerFileHandlerProvider>
-            </ComputerProvider>
+            </MixingCenterProvider>
         </AuthProvider>
     );
 };

@@ -1,8 +1,10 @@
+import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import AdditionalCostsTotalsModel from "@/logic/models/AdditionalCostsTotalsModel";
 import ReadOnlyNumberField from "@/ui/common/ReadOnlyNumberField";
 
 interface RawMaterialsOtherCostsProps {
     inData: AdditionalCostsTotalsModel;
+    inCentralType: CentralTypeIdEnum;
 }
 
 const RawMaterialsOtherCosts = (props: RawMaterialsOtherCostsProps) => {
@@ -99,19 +101,26 @@ const RawMaterialsOtherCosts = (props: RawMaterialsOtherCostsProps) => {
                         </div>
                     </div>
                     {/* Fila 3 */}
-                    <div className="flex items-center">
-                        <label className="hidden lg:block w-1/2 text-sm text-gray-700">Equipo automatizado:</label>
-                        <div className="w-full lg:w-1/2 px-2 py-1">
-                            <ReadOnlyNumberField
-                                label="Equipo automatizado:"
-                                name="automatedEquipmentTotal"
-                                value={props.inData.automatedEquipmentTotal}
-                                labelPosition="top"
-                                labelAlways={false}
-                                symbol="$"
-                            />
-                        </div>
-                    </div>
+                    {props.inCentralType === CentralTypeIdEnum.Manual ?
+                        (
+                            <div className="flex items-center"></div>
+                        ) :
+                        (
+                            <div className="flex items-center">
+                                <label className="hidden lg:block w-1/2 text-sm text-gray-700">Equipo automatizado:</label>
+                                <div className="w-full lg:w-1/2 px-2 py-1">
+                                    <ReadOnlyNumberField
+                                        label="Equipo automatizado:"
+                                        name="automatedEquipmentTotal"
+                                        value={props.inData.automatedEquipmentTotal}
+                                        labelPosition="top"
+                                        labelAlways={false}
+                                        symbol="$"
+                                    />
+                                </div>
+                            </div>
+                        )}
+
                     <div className="flex items-center"></div>
                 </div>
             </div>
