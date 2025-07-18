@@ -6,14 +6,14 @@ import useMixingCenterContext from "./useMixingCenterContext";
 
 const MixingCenterUseEffects = ({ children }: { children: React.ReactNode }) => {
     const {
-        currentAutomatedEquipment,
-        currentHygieneAndCleaning,
-        currentPersonalProtection,
-        currentSterileWorkEquipment,
-        currentMaintenanceCosts,
-        currentProductionCosts,
-        currentChemistSalary,
-        currentAssistantSalary,
+        activeAutomatedEquipment: currentAutomatedEquipment,
+        activeHygieneAndCleaning: currentHygieneAndCleaning,
+        activePersonalProtection: currentPersonalProtection,
+        activeSterileWorkEquipment: currentSterileWorkEquipment,
+        activeMaintenanceCosts: currentMaintenanceCosts,
+        activeProductionCosts: currentProductionCosts,
+        activeChemistSalary: currentChemistSalary,
+        activeAssistantSalary: currentAssistantSalary,
         recalculateAdditionalCostsSummary
     } = useMixingCenterContext();
 

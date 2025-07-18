@@ -24,3 +24,28 @@
 | `areDifferentPercentages`                      | `hasPercentageDistributionChanged`     X  | Aclara que compara múltiples porcentajes.                                                 |
 | `isDifferentProduction`                        | `hasProductionChanged`                 X  | Simple y coherente.                                                                       |
 | `refreshAdditionSummary`                       | `recalculateAdditionalCostsSummary`    X  | Claramente comunica la acción y su efecto.                                                |
+
+
+| Nombre actual                 | ✅ Nombre sugerido            | Justificación                                      |
+| ----------------------------- | ---------------------------- | -------------------------------------------------- |
+| `currentMixingCenterSettings` | `activeSettings`             | Más corto. “Active” comunica mejor “en uso ahora”. |
+| `currentFilename`             | `activeFilename`             | Idem anterior.                                     |
+| `currentRawMaterial`          | `activeRawMaterialGroup`     | Específico en el tipo.                             |
+| `currentAutomatedEquipment`   | `activeAutomatedEquipment`   | Sigue misma convención.                            |
+| `currentHygieneAndCleaning`   | `activeHygieneAndCleaning`   | Consistente con lo anterior.                       |
+| `currentPersonalProtection`   | `activePersonalProtection`   | -                                                  |
+| `currentSterileWorkEquipment` | `activeSterileWorkEquipment` | -                                                  |
+| `currentMaintenanceCosts`     | `activeMaintenanceCosts`     | -                                                  |
+| `currentProductionCosts`      | `activeProductionCosts`      | -                                                  |
+| `currentChemistSalary`        | `activeChemistSalary`        | -                                                  |
+| `currentAssistantSalary`      | `activeAssistantSalary`      | -                                                  |
+
+
+
+| Nombre actual                      | ✅ Nombre sugerido            | Justificación                        |
+| ---------------------------------- | ---------------------------- | ------------------------------------ |
+| `backup_MixingCenterSettings`      | `backupSettings`             | Ya se entiende que es de la central. |
+| `backup_MC_Manual_RawMaterials`    | `manualRawMaterialBackup`    | Más claro y en orden semántico.      |
+| `backup_MC_Automatic_RawMaterials` | `automaticRawMaterialBackup` | -                                    |
+| `backup_MC_Manual_Resources`       | `manualResourceBackup`       | Más legible y ordenado.              |
+| `backup_MC_Automatic_Resources`    | `automaticResourceBackup`    | -                                    |

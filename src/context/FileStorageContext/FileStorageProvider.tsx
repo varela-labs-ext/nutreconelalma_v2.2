@@ -18,11 +18,11 @@ export const ComputerFileHandlerContext = createContext<ComputerFileHandlerConte
 
 export const ComputerFileHandlerProvider = ({ children }: { children: React.ReactNode }) => {
     const {
-        currentFilename,
-        setCurrentFilename,
+        activeFilename: currentFilename,
+        setActiveFilename: setCurrentFilename,
         setIsProcessing,
-        loadExternalBackup,
-        gatherExternalBackup
+        loadBackupFromPayload: loadExternalBackup,
+        buildBackupPayload: gatherExternalBackup
     } = useMixingCenterContext();
 
     const createNewFileAsync = async (): Promise<void> => {

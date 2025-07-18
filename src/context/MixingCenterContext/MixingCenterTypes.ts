@@ -12,31 +12,34 @@ import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 
 export default interface MixingCenterContextProps {
     isProcessing: boolean; // <- esto es para avisarle al overlay que se active o no.
-    currentFilename: string | null;
-    currentMixingCenterSettings: MixingCenterSettingsModel;
-    currentRawMaterial: RawMaterialGroupModel;
     additionalCostsSummary: AdditionalCostsTotalsModel;
-    currentAutomatedEquipment: AutomatedEquipmentGroupModel;
-    currentHygieneAndCleaning: HygieneAndCleaningGroupModel;
-    currentPersonalProtection: PersonalProtectionGroupModel;
-    currentSterileWorkEquipment: SterileWorkEquipmentGroupModel;
-    currentMaintenanceCosts: MaintenanceCostsGroupModel;
-    currentProductionCosts: ProductionCostsGroupModel;
-    currentChemistSalary: StaffSalaryGroupModel;
-    currentAssistantSalary: StaffSalaryGroupModel;
+
+    activeFilename: string | null;
+    activeSettings: MixingCenterSettingsModel;
+    activeRawMaterialGroup: RawMaterialGroupModel;
+    activeAutomatedEquipment: AutomatedEquipmentGroupModel;
+    activeHygieneAndCleaning: HygieneAndCleaningGroupModel;
+    activePersonalProtection: PersonalProtectionGroupModel;
+    activeSterileWorkEquipment: SterileWorkEquipmentGroupModel;
+    activeMaintenanceCosts: MaintenanceCostsGroupModel;
+    activeProductionCosts: ProductionCostsGroupModel;
+    activeChemistSalary: StaffSalaryGroupModel;
+    activeAssistantSalary: StaffSalaryGroupModel;
+
     setIsProcessing: (inValue: boolean) => void;
-    setCurrentFilename: (inFileName: string | null) => void;
-    setCurrentMixingCenterSettings: (inValue: MixingCenterSettingsModel) => void;
-    setCurrentRawMaterial: (inValue: RawMaterialGroupModel) => void;
-    setCurrentAutomatedEquipment: (inValue: AutomatedEquipmentGroupModel) => void;
-    setCurrentHygieneAndCleaning: (inValue: HygieneAndCleaningGroupModel) => void;
-    setCurrentPersonalProtection: (inValue: PersonalProtectionGroupModel) => void;
-    setCurrentSterileWorkEquipment: (inValue: SterileWorkEquipmentGroupModel) => void;
-    setCurrentMaintenanceCosts: (inValue: MaintenanceCostsGroupModel) => void;
-    setCurrentProductionCosts: (inValue: ProductionCostsGroupModel) => void;
-    setCurrentChemistSalary: (inValue: StaffSalaryGroupModel) => void;
-    setCurrentAssistantSalary: (inValue: StaffSalaryGroupModel) => void;
-    gatherExternalBackup: () => ComputerBigGroupModel;
-    loadExternalBackup: (inExternalData: ComputerBigGroupModel | undefined | null) => void;
+    setActiveFilename: (inFileName: string | null) => void;
+    setActiveSettings: (inValue: MixingCenterSettingsModel) => void;
+    setActiveRawMaterialGroup: (inValue: RawMaterialGroupModel) => void;
+    setActiveAutomatedEquipment: (inValue: AutomatedEquipmentGroupModel) => void;
+    setActiveHygieneAndCleaning: (inValue: HygieneAndCleaningGroupModel) => void;
+    setActivePersonalProtection: (inValue: PersonalProtectionGroupModel) => void;
+    setActiveSterileWorkEquipment: (inValue: SterileWorkEquipmentGroupModel) => void;
+    setActiveMaintenanceCosts: (inValue: MaintenanceCostsGroupModel) => void;
+    setActiveProductionCosts: (inValue: ProductionCostsGroupModel) => void;
+    setActiveChemistSalary: (inValue: StaffSalaryGroupModel) => void;
+    setActiveAssistantSalary: (inValue: StaffSalaryGroupModel) => void;
+
+    buildBackupPayload: () => ComputerBigGroupModel;
+    loadBackupFromPayload: (inExternalData: ComputerBigGroupModel | undefined | null) => void;
     recalculateAdditionalCostsSummary: () => void;
-}
+};
