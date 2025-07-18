@@ -136,6 +136,7 @@ export const ComparisonProvider = ({ children }: { children: React.ReactNode }) 
 
                 brandNewResults.auxiliaryStaffHours.valueNptManual = resourcesManual.staffAssistantSalary.horasPersonalFarmaceuticoPorNP.value;
                 brandNewResults.costPerAuxiliaryStaff.valueNptManual = resourcesManual.staffAssistantSalary.costoPersonalFarmaceuticoPorPreparacion.value;
+                brandNewResults.automatedEquipmentCosts.valueNptManual = 0;
             }
 
             if (dataBackupPayload.backup_MC_Automatic_Resources !== null) {
@@ -197,6 +198,11 @@ export const ComparisonProvider = ({ children }: { children: React.ReactNode }) 
                     brandNewResults.produccionDiaria.value *
                     (brandNewResults.porcentajeNeonatal.value / 100)) *
                     rawMaterials.neonatalRawMaterial.total;
+
+                brandNewResults.valorTotalNutriciosDia.valueNptManual =
+                    brandNewResults.valorTotalAdult.valueNptManual +
+                    brandNewResults.valorTotalPediatric.valueNptManual +
+                    brandNewResults.valorTotalNeonatal.valueNptManual;
             }
 
             if (dataBackupPayload.backup_MC_Automatic_RawMaterials !== null) {
@@ -248,6 +254,11 @@ export const ComparisonProvider = ({ children }: { children: React.ReactNode }) 
                     brandNewResults.produccionDiaria.value *
                     (brandNewResults.porcentajeNeonatal.value / 100)) *
                     rawMaterialsAutomatic.neonatalRawMaterial.total;
+
+                brandNewResults.valorTotalNutriciosDia.valueNptAutomatic =
+                    brandNewResults.valorTotalAdult.valueNptAutomatic +
+                    brandNewResults.valorTotalPediatric.valueNptAutomatic +
+                    brandNewResults.valorTotalNeonatal.valueNptAutomatic;
             }
 
             setResults(brandNewResults);

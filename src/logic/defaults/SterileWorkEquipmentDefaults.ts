@@ -2,6 +2,14 @@ import SterileWorkEquipmentGroupModel from "../models/operating_resources/Steril
 import DefaultsBase from "./DefaultsBase";
 
 class SterileWorkEquipmentDefaults extends DefaultsBase<SterileWorkEquipmentGroupModel> {
+    public _boligrafosEtiquetado: number;
+
+    constructor() {
+        super()
+
+        this._boligrafosEtiquetado = Number((1.00 / 60.00).toFixed(6));
+    }
+
     protected setCommons(inItem: SterileWorkEquipmentGroupModel): void {
         inItem.total.value = 0;
     }
@@ -11,7 +19,7 @@ class SterileWorkEquipmentDefaults extends DefaultsBase<SterileWorkEquipmentGrou
 
     protected setMixingCentral_Manual(inItem: SterileWorkEquipmentGroupModel): void {
         this.setUnitCostItem(inItem.agujasEsteriles, 10.00, 400.00);
-        this.setUnitCostItem(inItem.boligrafosEtiquetado, (1.00 / 60.00), 1500.00);
+        this.setUnitCostItem(inItem.boligrafosEtiquetado, this._boligrafosEtiquetado, 1500.00);
         this.setUnitCostItem(inItem.bolsaNegraNoContaminados, 0.50, 500.00);
         this.setUnitCostItem(inItem.bolsaRojaBiologicos, 0.10, 500.00);
         this.setUnitCostItem(inItem.buretroles, 4.00, 2500.00);
@@ -29,7 +37,7 @@ class SterileWorkEquipmentDefaults extends DefaultsBase<SterileWorkEquipmentGrou
 
     protected setMixingCentral_Automatic(inItem: SterileWorkEquipmentGroupModel): void {
         this.setUnitCostItem(inItem.agujasEsteriles, 2.00, 400.00);
-        this.setUnitCostItem(inItem.boligrafosEtiquetado, (1.00 / 60.00), 1500.00);
+        this.setUnitCostItem(inItem.boligrafosEtiquetado, this._boligrafosEtiquetado, 1500.00);
         this.setUnitCostItem(inItem.bolsaNegraNoContaminados, 0.50, 500.00);
         this.setUnitCostItem(inItem.bolsaRojaBiologicos, 0.10, 500.00);
         this.setUnitCostItem(inItem.buretroles, 0, 2500.00);

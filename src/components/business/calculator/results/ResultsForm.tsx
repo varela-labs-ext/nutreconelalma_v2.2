@@ -12,8 +12,9 @@ const ResultsForm = (props: ResultsFormProps) => {
 
     return (
         <div>
-            <div className="w-full">
-                <h3 className="text-lg font-semibold text-purple-500 mb-4">Resultados</h3>
+            <div className="w-full pt-4">
+                <h1 className="text-xl font-semibold text-green-600 mb-4">Resultados</h1>
+                {/* <h3 className="text-lg font-semibold text-purple-500 mb-4">Resultados</h3> */}
                 <div>
                     <JustValueInputEditor
                         inData={props.inData.lineasProduccion}
@@ -54,12 +55,10 @@ const ResultsForm = (props: ResultsFormProps) => {
                     />
                 </div>
 
-                <ResultsFormHeaders />
-
-                <div className="p-2">
-
+                <div className="pt-10">
                     <div>
-                        <h3>Recursos Operativos</h3>
+                        <h2 className="text-lg text-green-600 mb-4">Recursos Operativos</h2>
+                        <ResultsFormHeaders />
                         <div>
                             <ResultItemField
                                 inData={props.inData.PersonalProtectiveMaterialsCosts}
@@ -88,8 +87,9 @@ const ResultsForm = (props: ResultsFormProps) => {
                         </div>
                     </div>
 
-                    <div>
-                        <h3>Personal Requerido</h3>
+                    <div className="pt-10">
+                        <h2 className="text-lg text-green-600 mb-4">Personal Requerido</h2>
+                        <ResultsFormHeaders />
                         <div>
                             <ResultItemField
                                 inData={props.inData.chemicalStaffHours}
@@ -111,8 +111,9 @@ const ResultsForm = (props: ResultsFormProps) => {
                         </div>
                     </div>
 
-                    <div>
-                        <h3>Costos por 1 Npt</h3>
+                    <div className="pt-10">
+                        <h2 className="text-lg text-green-600 mb-4">Costos por 1 Npt</h2>
+                        <ResultsFormHeaders />
                         <div>
                             <ResultItemField
                                 inData={props.inData.cost1NptAdult}
@@ -129,8 +130,9 @@ const ResultsForm = (props: ResultsFormProps) => {
                         </div>
                     </div>
 
-                    <div>
-                        <h3>Total de costos preparación 1 nutrición parenteral</h3>
+                    <div className="pt-10">
+                        <h2 className="text-lg text-green-600 mb-4">Total de costos preparación 1 nutrición parenteral</h2>
+                        <ResultsFormHeaders />
                         <div>
                             <ResultItemField
                                 inData={props.inData.costoTotalPreparacionNptAdult}
@@ -147,8 +149,9 @@ const ResultsForm = (props: ResultsFormProps) => {
                         </div>
                     </div>
 
-                    <div>
-                        <h3>VALOR TOTAL NUTRICIONES DIA</h3>
+                    <div className="pt-10">
+                        <h2 className="text-lg text-green-600 mb-4">Valor Total Nutriciones Día</h2>
+                        <ResultsFormHeaders />
                         <div>
                             <ResultItemField
                                 inData={props.inData.valorTotalAdult}
