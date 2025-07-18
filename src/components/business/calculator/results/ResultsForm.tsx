@@ -3,12 +3,17 @@ import ResultItemField from "./ResultItemField";
 import ResultsFormHeaders from "./ResultsFormHeaders";
 import JustValueInputEditor from "../../editors/JustValueInputEditor";
 import MixingCenterResultsModel from "@/logic/models/MixingCenterResultsModel";
+import DownloadReportButton from "../../reporting/DownloadReportButton";
+import PreviewReportButton from "../../reporting/PreviewReportButton";
+import { useState } from "react";
+import FullScreenPreviewDialog from "../../reporting/FullScreenPreviewDialog";
 
 interface ResultsFormProps {
     inData: MixingCenterResultsModel;
 }
 
 const ResultsForm = (props: ResultsFormProps) => {
+    const [openPreview, setOpenPreview] = useState(false);
 
     return (
         <div>
@@ -174,7 +179,16 @@ const ResultsForm = (props: ResultsFormProps) => {
                             </div>
                         </div>
                     </div>
+                    {/* <div className="flex flex-col sm:flex-row items-center justify-center gap-4"> */}
+                    <div className="w-full pt-6 max-w-screen-md mx-auto flex flex-col sm:flex-row items-center justify-center gap-4 px-4">
+
+                        <DownloadReportButton />
+                        <PreviewReportButton onClick={() => setOpenPreview(true)} />
+                    </div>
                 </div>
+            </div>
+            <div>
+                <FullScreenPreviewDialog isOpen={openPreview} onClose={() => setOpenPreview(false)} />
             </div>
         </div>
     );
