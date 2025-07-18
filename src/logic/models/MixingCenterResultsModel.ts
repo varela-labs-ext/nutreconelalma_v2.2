@@ -63,9 +63,9 @@ class MixingCenterResultsModel {
         this.costPerAuxiliaryStaff = new ResultItemModel("Costos por auxiliar farmacéutico para 1 nutrición parenteral", "$");
 
         // Costos por npt
-        this.cost1NptAdult = new ResultItemModel("Valor total de adulto (34%)", "$");
-        this.cost1NptPediatric = new ResultItemModel("Valor total pediátrica(33 %)", "$");
-        this.cost1NptNeonatal = new ResultItemModel("Valor total neonatal (33%)", "$");
+        this.cost1NptAdult = new ResultItemModel("Costos 1 NPT adulto", "$");
+        this.cost1NptPediatric = new ResultItemModel("Costos 1 NPT pediátrica", "$");
+        this.cost1NptNeonatal = new ResultItemModel("Costos 1 NPT neonatal", "$");
 
         this.costoTotalPreparacionNptAdult = new ResultItemModel("Total de costos preparación 1 nutrición parenteral Adulto", "$");
         this.costoTotalPreparacionNptPediatric = new ResultItemModel("Total de costos preparación 1 nutrición parenteral Pediatrica", "$");
