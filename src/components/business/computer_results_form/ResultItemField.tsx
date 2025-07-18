@@ -1,11 +1,13 @@
+import ResultItemModel from "@/logic/models/ResultItemModel";
 import ReadOnlyNumberField from "../../../ui/common/ReadOnlyNumberField";
 
 interface ResultItemFieldProps {
-    inLabel: string;
+    inData: ResultItemModel;
+    // inLabel: string;
     inName: string;
-    inSymbol: string | null;
-    inValueA: number;
-    inValueB: number;
+    // inSymbol: string | null;
+    // inValueA: number;
+    // inValueB: number;
 }
 
 const ResultItemField = (props: ResultItemFieldProps) => {
@@ -14,7 +16,7 @@ const ResultItemField = (props: ResultItemFieldProps) => {
             {/* Columna 1 - Etiqueta */}
             <div className="w-full lg:w-1/3 flex items-center ">
                 {/* px-1 py-1 */}
-                <label className="text-sm text-gray-700 w-full">{props.inLabel}</label>
+                <label className="text-sm text-gray-700 w-full">{props.inData.label}</label>
             </div>
 
             {/* Columna 2 - Input A */}
@@ -28,10 +30,10 @@ const ResultItemField = (props: ResultItemFieldProps) => {
                 <ReadOnlyNumberField
                     label=""
                     name={`${props.inName}_a`}
-                    value={props.inValueA}
+                    value={props.inData.valueNptManual}
                     labelPosition="top"
                     labelAlways={false}
-                    symbol={props.inSymbol ? props.inSymbol : ""}
+                    symbol={props.inData.symbol ? props.inData.symbol : ""}
                 />
             </div>
 
@@ -45,10 +47,10 @@ const ResultItemField = (props: ResultItemFieldProps) => {
                 <ReadOnlyNumberField
                     label=""
                     name={`${props.inName}_b`}
-                    value={props.inValueB}
+                    value={props.inData.valueNptAutomatic}
                     labelPosition="top"
                     labelAlways={false}
-                    symbol={props.inSymbol ? props.inSymbol : ""}
+                    symbol={props.inData.symbol ? props.inData.symbol : ""}
                 />
             </div>
         </div>
