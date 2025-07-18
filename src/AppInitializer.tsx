@@ -4,7 +4,7 @@ import { MixingCenterProvider } from "@/context/MixingCenterContext/MixingCenter
 import { FileStorageProvider } from "@/context/FileStorageContext/FileStorageProvider";
 import ComputerInitializer from "@/context/ComputerInitializer";
 import { ReactNode } from "react";
-import { MixingCenterComparisonProvider } from "./context/ComparisonContext/MixingCenterComparisonContext";
+import { ComparisonProvider } from "./context/ComparisonContext/ComparisonProvider";
 
 const AppInitializer = ({ children }: { children: ReactNode }) => {
     return (
@@ -12,11 +12,11 @@ const AppInitializer = ({ children }: { children: ReactNode }) => {
             <MixingCenterProvider>
                 <FileStorageProvider>
                     <FileDialogProvider>
-                        <MixingCenterComparisonProvider>
+                        <ComparisonProvider>
                             <ComputerInitializer>
                                 {children}
                             </ComputerInitializer>
-                        </MixingCenterComparisonProvider>
+                        </ComparisonProvider>
                     </FileDialogProvider>
                 </FileStorageProvider>
             </MixingCenterProvider>

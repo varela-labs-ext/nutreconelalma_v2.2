@@ -6,7 +6,7 @@ import CalculatorFormResults from "./CalculatorFormResults";
 import CalculatorFormSets from "./CalculatorFormSets";
 import SectionTitle from "@/components/ui/titles/SectionTitle";
 import useMixingCenterContext from "@/context/MixingCenterContext/useMixingCenterContext";
-import { useMixingCenterComparison } from "@/context/ComparisonContext/MixingCenterComparisonContext";
+import { useComparisonContext } from "@/context/ComparisonContext/ComparisonProvider";
 
 
 interface CalculatorFormProps {
@@ -15,7 +15,7 @@ interface CalculatorFormProps {
 
 const CalculatorForm = (props: CalculatorFormProps) => {
     const { activeFilename } = useMixingCenterContext();
-    const { setStartComparision } = useMixingCenterComparison();
+    const { setStartComparision } = useComparisonContext();
 
 
     const [activeComputerTabIndex, setActiveComputerTabIndex] = useState<number>(0);

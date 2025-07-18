@@ -61,7 +61,7 @@ const JustValueInputEditor = (props: JustValueInputEditorProps) => {
                             {internalData.label}
                         </div>
                     </div>
-
+                    <div className="md:col-span-1 w-full"></div>
                     <div className="md:col-span-1 w-full">
                         <InputNumberField
                             label="value"
@@ -72,7 +72,7 @@ const JustValueInputEditor = (props: JustValueInputEditorProps) => {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="md:col-span-1 w-full"></div>
+
                 </div>
             </div>
         </>

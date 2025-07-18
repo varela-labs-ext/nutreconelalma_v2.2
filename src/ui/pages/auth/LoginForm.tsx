@@ -10,8 +10,8 @@ const LoginForm = (props: LoginFormProps) => {
     const { login } = useAuth();
     const navigate = useNavigate();
 
-    const [usuario, setUsuario] = useState("admin");
-    const [password, setPassword] = useState("admin");
+    const [usuario, setUsuario] = useState("info@nutreconelalma.com");
+    const [password, setPassword] = useState("Nutre2025##");
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
