@@ -22,7 +22,7 @@ const RawMaterialsSet = (props: RawMaterialsSetProps) => {
         <div className="flex flex-col gap-6">
             <RawMaterialsOverview
                 // inQuantity={0}
-                inTotalPerNpt={0}
+                inTotalPerNpt={props.inData.total}
                 // inTotalPerMl={0}
                 inShowDetails={showDetails}
                 inShowPresentation={showPresentation}
