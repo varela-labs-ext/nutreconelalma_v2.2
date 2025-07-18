@@ -1,6 +1,6 @@
 import NavigationMenu from "@/components/business/computer_menu/NavigationMenu";
 import SubLayout from "./SubLayout";
-import { LoadingProvider } from "@/context/LoadingContext";
+import { LoadingProvider } from "@/context/LoadingContext/LoadingContext";
 import LoadingOverlay from "@/components/ui/loaders/LoadingOverlay";
 import { useState } from "react";
 import FixHeader from "./FixHeader";

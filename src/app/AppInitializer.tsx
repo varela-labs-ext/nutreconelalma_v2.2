@@ -1,7 +1,7 @@
 import { AuthProvider } from "@/context/AuthContext";
 import { ComputerActionsProvider } from "@/context/ComputerActionsContext";
 import { ComputerProvider } from "@/context/ComputerContext";
-import { ComputerFileHandlerProvider } from "@/context/ComputerFileHandlerContext";
+import { ComputerFileHandlerProvider } from "@/context/FileStorageContext/ComputerFileHandlerContext";
 import ComputerInitializer from "@/context/ComputerInitializer";
 import { ReactNode } from "react";
 

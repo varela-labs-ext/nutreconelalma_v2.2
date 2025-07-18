@@ -1,5 +1,5 @@
 import { useComputerContext } from "@/context/ComputerContext";
-import { useLoadingContext } from "@/context/LoadingContext";
+import { useLoadingContext } from "@/context/LoadingContext/LoadingContext";
 import MainHeaderBlock from "@/ui/components/MainHeaderBlock";
 import { useEffect } from "react";
 

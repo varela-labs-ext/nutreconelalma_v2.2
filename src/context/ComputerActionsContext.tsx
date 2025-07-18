@@ -4,7 +4,7 @@ import YesNoModal from "@/components/ui/dialogs/YesNoModal";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useComputerContext } from "./ComputerContext";
 import { toastService } from "@/services/toastService";
-import { useComputerFileHandlerContext } from "./ComputerFileHandlerContext";
+import { useComputerFileHandlerContext } from "./FileStorageContext/ComputerFileHandlerContext";
 import StorageProvider from "@/providers/StorageProvider";
 
 
