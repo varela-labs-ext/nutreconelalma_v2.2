@@ -47,7 +47,9 @@ const RawMaterials = (props: RawMaterialsProps) => {
 
 
     const handleOnRawMaterialsSetChange = (inNewData: RawMaterialGroupModel) => {
+
         CalculationService.computeRawMaterial(inNewData);
+
         setInternalRawMaterial(inNewData);
     }
 

@@ -274,7 +274,6 @@ export const ComparisonProvider = ({ children }: { children: React.ReactNode }) 
             Logger.info(`Start Comparision: ${startComparision}`);
             startProcess();
         }
-
     }, [startComparision]);
 
     return (
@@ -298,5 +297,3 @@ export const useComparisonContext = () => {
     }
     return context;
 };
-
-// export { ComparisonProvider, useComparisonContext };
