@@ -15,7 +15,7 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 import MixingCenterRawMaterialsModel from "@/logic/models/MixingCenterRawMaterialsModel";
 import MixingCenterOperatingResourcesModel from "@/logic/models/MixingCenterOperatingResourcesModel";
 import CalculationService from "@/logic/services/CalculationService";
-import { getProductionPerMonth, updateAdditionalCostsSummary } from "./ComputerContextExt";
+import { getProductionPerMonth, updateAdditionalCostsSummary } from "../ComputerContextExt";
 import { Logger } from "@/utils/logger";
 import AdditionalCostsTotalsModel from "@/logic/models/AdditionalCostsTotalsModel";
 
