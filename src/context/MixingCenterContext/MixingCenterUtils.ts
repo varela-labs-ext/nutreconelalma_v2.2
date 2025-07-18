@@ -395,3 +395,29 @@ export const updateAdditionalCostsSummary = (
 
     setSummaryCallBack(newSummary);
 }
+
+export const getAdditionalCostsSummary = (
+    inAutomatedEquipment: AutomatedEquipmentGroupModel,
+    inHygieneAndCleaning: HygieneAndCleaningGroupModel,
+    inPersonalProtection: PersonalProtectionGroupModel,
+    inSterileWorkEquipment: SterileWorkEquipmentGroupModel,
+    inMaintenanceCosts: MaintenanceCostsGroupModel,
+    inProductionCosts: ProductionCostsGroupModel,
+    inStaffChemistSalary: StaffSalaryGroupModel,
+    inStaffAssistantSalary: StaffSalaryGroupModel
+): AdditionalCostsTotalsModel => {
+
+    const newSummary = new AdditionalCostsTotalsModel();
+
+    newSummary.automatedEquipmentTotal = inAutomatedEquipment.total.value;
+    newSummary.hygieneNCleanlinessTotal = inHygieneAndCleaning.total.value;
+    newSummary.protectiveMaterialsTotal = inPersonalProtection.total.value;
+    newSummary.sterilizedEquipmentTotal = inSterileWorkEquipment.total.value;
+    newSummary.maintenanceTotal = inMaintenanceCosts.costoNpt.value;
+    newSummary.productionTotal = inProductionCosts.total.value;
+    newSummary.staffTotal =
+        inStaffChemistSalary.totalCompensacionSalarial.value +
+        inStaffAssistantSalary.totalCompensacionSalarial.value;
+
+    return newSummary;
+}

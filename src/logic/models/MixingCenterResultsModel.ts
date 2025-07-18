@@ -3,7 +3,15 @@
 import ResultItemModel from "./ResultItemModel";
 import JustValueItemModel from "./row_item/OneValueItemRowModel";
 
-class ResultsModel {
+class MixingCenterResultsModel {
+    public lineasProduccion: JustValueItemModel;
+    public produccionDiaria: JustValueItemModel;
+    public produccionMensual: JustValueItemModel;
+
+    public porcentajeAdulto: JustValueItemModel;
+    public porcentajePediatric: JustValueItemModel;
+    public porcentajeNeonatal: JustValueItemModel;
+
     public PersonalProtectiveMaterialsCosts: ResultItemModel;
     public hygieneNCleaningMaterialsCosts: ResultItemModel;
     public maintenanceCosts: ResultItemModel;
@@ -25,14 +33,6 @@ class ResultsModel {
     public costoTotalPreparacionNptPediatric: ResultItemModel;
     public costoTotalPreparacionNptNeonatal: ResultItemModel;
 
-    public lineasProduccion: JustValueItemModel;
-    public produccionDiaria: JustValueItemModel;
-    public produccionMensual: JustValueItemModel;
-
-    public porcentajeAdulto: JustValueItemModel;
-    public porcentajePediatric: JustValueItemModel;
-    public porcentajeNeonatal: JustValueItemModel;
-
     public valorTotalAdult: ResultItemModel;
     public valorTotalPediatric: ResultItemModel;
     public valorTotalNeonatal: ResultItemModel;
@@ -40,6 +40,14 @@ class ResultsModel {
 
 
     constructor() {
+        this.lineasProduccion = new JustValueItemModel("Lineas de producción de la central");
+        this.produccionDiaria = new JustValueItemModel("Producción diaria");
+        this.produccionMensual = new JustValueItemModel("Producción mensual");
+
+        this.porcentajeAdulto = new JustValueItemModel("Porcentaje de nutriciones de adulto");
+        this.porcentajePediatric = new JustValueItemModel("Porcentaje de nutriciones de Pediatrica");
+        this.porcentajeNeonatal = new JustValueItemModel("Porcentaje de nutriciones de Neonatal");
+
         //Recursos Operativos
         this.PersonalProtectiveMaterialsCosts = new ResultItemModel("Costos de materiales de protección personal", "$");
         this.hygieneNCleaningMaterialsCosts = new ResultItemModel("Costos de materiales de higiene y limpieza", "$");
@@ -63,14 +71,6 @@ class ResultsModel {
         this.costoTotalPreparacionNptPediatric = new ResultItemModel("Total de costos preparación 1 nutrición parenteral Pediatrica", "$");
         this.costoTotalPreparacionNptNeonatal = new ResultItemModel("Total de costos preparación 1 nutrición parenteral Neonatal", "$");
 
-        this.lineasProduccion = new JustValueItemModel("Lineas de producción de la central");
-        this.produccionDiaria = new JustValueItemModel("Producción diaria");
-        this.produccionMensual = new JustValueItemModel("Producción mensual");
-
-        this.porcentajeAdulto = new JustValueItemModel("Porcentaje de nutriciones de adulto");
-        this.porcentajePediatric = new JustValueItemModel("Porcentaje de nutriciones de Pediatrica");
-        this.porcentajeNeonatal = new JustValueItemModel("Porcentaje de nutriciones de Neonatal");
-
         this.valorTotalAdult = new ResultItemModel("Valor total de adulto", "$");
         this.valorTotalPediatric = new ResultItemModel("Valor total pediatrica", "$");
         this.valorTotalNeonatal = new ResultItemModel("Valor total neonatal", "$");
@@ -79,4 +79,4 @@ class ResultsModel {
     }
 }
 
-export default ResultsModel;
+export default MixingCenterResultsModel;

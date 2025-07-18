@@ -8,6 +8,8 @@ class AdditionalCostsTotalsModel {
     public sterilizedEquipmentTotal: number;
     public automatedEquipmentTotal: number;
 
+    public totalSinStaff: number;
+
     constructor() {
         this.protectiveMaterialsTotal = 0;
         this.sterilizedEquipmentTotal = 0;
@@ -16,6 +18,7 @@ class AdditionalCostsTotalsModel {
         this.hygieneNCleanlinessTotal = 0;
         this.automatedEquipmentTotal = 0;
         this.productionTotal = 0;
+        this.totalSinStaff = 0;
     }
 }
 
