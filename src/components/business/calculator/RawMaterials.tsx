@@ -12,6 +12,7 @@ interface RawMaterialsProps {
 
 const RawMaterials = (props: RawMaterialsProps) => {
     const {
+        currentMixingCenterSettings,
         currentRawMaterial,
         additionalCostsSummary,
         setCurrentRawMaterial
@@ -55,6 +56,7 @@ const RawMaterials = (props: RawMaterialsProps) => {
             <RawMaterialsSet
                 inData={internalRawMaterial ?? new RawMaterialGroupModel()}
                 inAdditionalCosts={additionalCostsSummary}
+                inCentralType={currentMixingCenterSettings.centralType}
                 onChange={handleOnRawMaterialsSetChange}
             />
         </>

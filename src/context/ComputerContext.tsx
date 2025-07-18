@@ -73,7 +73,6 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     const [backup_MC_Manual_RawMaterials, setBackup_MC_Manual_RawMaterials] = useState<MixingCenterRawMaterialsModel>(new MixingCenterRawMaterialsModel());
     const [backup_MC_Automatic_RawMaterials, setBackup_MC_Automatic_RawMaterials] = useState<MixingCenterRawMaterialsModel>(new MixingCenterRawMaterialsModel());
 
-
     const [currentAutomatedEquipment, setCurrentAutomatedEquipment] = useState<AutomatedEquipmentGroupModel>(new AutomatedEquipmentGroupModel());
     const [currentHygieneAndCleaning, setCurrentHygieneAndCleaning] = useState<HygieneAndCleaningGroupModel>(new HygieneAndCleaningGroupModel());
     const [currentPersonalProtection, setCurrentPersonalProtection] = useState<PersonalProtectionGroupModel>(new PersonalProtectionGroupModel());
@@ -86,12 +85,6 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     // Recursos Operativos
     const [backup_MC_Manual_Resources, setBackup_MC_Manual_Resources] = useState<MixingCenterOperatingResourcesModel>(new MixingCenterOperatingResourcesModel());
     const [backup_MC_Automatic_Resources, setBackup_MC_Automatic_Resources] = useState<MixingCenterOperatingResourcesModel>(new MixingCenterOperatingResourcesModel());
-
-    // const [internalCentralType, setInternalCentralType] = useState<CentralTypeIdEnum>(CentralTypeIdEnum.Manual);
-    // const [internalPopulationType, setInternalPopulationType] = useState<PopulationTypeIdEnum>(PopulationTypeIdEnum.Adulto);
-
-    /* *********************************************************************************************************************** */
-
 
     // PUBLIC
     const gatherExternalBackup = (): ComputerBigGroupModel => {
@@ -139,8 +132,6 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
             Logger.info("ComputerProvider.loadExternalBackup() ENDS...");
         }
     }
-
-    /* *********************************************************************************************************************** */
 
     const isExternalDataValid = (inExternalData: ComputerBigGroupModel): boolean => {
         return (
@@ -242,9 +233,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         );
     }
 
-    const refreshAdditionSummary = (): void => {
-        //T0DOO
-    }
+
 
     const loadExternalBackupIntoRawMaterialBackups = (inData: ComputerBigGroupModel | null): void => {
         if (inData === null || inData === undefined) {
@@ -485,8 +474,19 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         setBackup_MixingCenterSettings(_backup_settings);
     }
 
-    /* *************************************** AREA DE LOS USE-EFFECT *************************************** */
-
+    const refreshAdditionSummary = (): void => {
+        updateAdditionalCostsSummary(
+            currentAutomatedEquipment,
+            currentHygieneAndCleaning,
+            currentPersonalProtection,
+            currentSterileWorkEquipment,
+            currentMaintenanceCosts,
+            currentProductionCosts,
+            currentChemistSalary,
+            currentAssistantSalary,
+            setAdditionalCostsSummary
+        );
+    }
 
     useEffect(() => {
         runOnMixingCenterSettingsChange(currentMixingCenterSettings);
@@ -497,6 +497,40 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     useEffect(() => {
         Logger.info("ComputerContext.Provider MONTADO!!!");
     }, []);
+
+    useEffect(() => {
+        refreshAdditionSummary();
+    }, [currentAutomatedEquipment]);
+
+    useEffect(() => {
+        refreshAdditionSummary();
+    }, [currentHygieneAndCleaning]);
+
+    useEffect(() => {
+        refreshAdditionSummary();
+    }, [currentPersonalProtection]);
+
+    useEffect(() => {
+        refreshAdditionSummary();
+    }, [currentSterileWorkEquipment]);
+
+    useEffect(() => {
+        refreshAdditionSummary();
+    }, [currentMaintenanceCosts]);
+
+    useEffect(() => {
+        refreshAdditionSummary();
+    }, [currentProductionCosts]);
+
+    useEffect(() => {
+        refreshAdditionSummary();
+    }, [currentChemistSalary]);
+
+    useEffect(() => {
+        refreshAdditionSummary();
+    }, [currentAssistantSalary]);
+
+
 
     return (
         <ComputerContext.Provider
