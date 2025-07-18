@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const login = async (inUsername: string, password: string): Promise<boolean> => {
         // lógica simulada de login
-        if (inUsername === "admin" && password === "admin") {
+        if (inUsername === "info@nutreconelalma.com" && password === "Nutre2025##") {
             setUser(inUsername);
             setIsAuthenticated(true);
             await ForageManager.saveAsync(USER_KEY, inUsername);

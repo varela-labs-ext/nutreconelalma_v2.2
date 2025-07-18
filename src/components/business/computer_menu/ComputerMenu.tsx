@@ -1,5 +1,5 @@
 import AccordionMenuItemWithContextAction, { MenuSubItem } from "@/components/ui/menu/AccordionMenuItemWithContextAction";
-import { useComputerActionsContext } from "@/context/FileDialogContext/FileDialogProvider";
+import { useFileDialogContext } from "@/context/FileDialogContext/FileDialogProvider";
 import useMixingCenterContext from "@/context/MixingCenterContext/useMixingCenterContext";
 
 import { FileEdit, FilePlus, FileText, FolderOpen, Save } from "lucide-react";
@@ -19,7 +19,7 @@ const ComputerMenu = (props: ComputerMenuProps) => {
         setShowSaveAsDialog,
         setShowOpenFileDialog,
         callSaveFile
-    } = useComputerActionsContext();
+    } = useFileDialogContext();
 
     const getMenuSubItems = (): MenuSubItem[] => {
         const output: MenuSubItem[] = [];

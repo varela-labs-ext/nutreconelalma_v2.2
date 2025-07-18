@@ -3,12 +3,12 @@ import SelectFileDialogBox from "@/components/ui/dialogs/SelectFileDialogBox";
 import YesNoModal from "@/components/ui/dialogs/YesNoModal";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { toastService } from "@/services/toastService";
-import { useComputerFileHandlerContext } from "../FileStorageContext/FileStorageProvider";
+import { useFileStorageContext } from "../FileStorageContext/FileStorageProvider";
 import StorageProvider from "@/providers/StorageProvider";
 import useMixingCenterContext from "../MixingCenterContext/useMixingCenterContext";
 
 
-export interface ComputerActionsContextProps {
+export interface FileDialogContextType {
     showNewCalcDialog: boolean;
     showSaveAsDialog: boolean;
     showOpenFileDialog: boolean;
@@ -21,11 +21,11 @@ export interface ComputerActionsContextProps {
     callSaveFile: () => void;
 }
 
-export const ComputerActionsContext = createContext<ComputerActionsContextProps | undefined>(undefined);
+export const FileDialogContext = createContext<FileDialogContextType | undefined>(undefined);
 
-export const ComputerActionsProvider = ({ children }: { children: React.ReactNode }) => {
+export const FileDialogProvider = ({ children }: { children: React.ReactNode }) => {
     const { activeFilename, } = useMixingCenterContext();
-    const { createNewFileAsync, openFileAsync, saveFileAsync, saveFileAsAsync } = useComputerFileHandlerContext();
+    const { createNewFileAsync, openFileAsync, saveFileAsync, saveFileAsAsync } = useFileStorageContext();
 
     const [showNewCalcDialog, setShowNewCalcDialog] = useState(false);
     const [showSaveAsDialog, setShowSaveAsDialog] = useState(false);
@@ -102,7 +102,7 @@ export const ComputerActionsProvider = ({ children }: { children: React.ReactNod
     }
 
     return (
-        <ComputerActionsContext.Provider
+        <FileDialogContext.Provider
             value={{
                 showNewCalcDialog,
                 showSaveAsDialog,
@@ -129,14 +129,14 @@ export const ComputerActionsProvider = ({ children }: { children: React.ReactNod
                     )}
                 </div>
             </div>
-        </ComputerActionsContext.Provider>
+        </FileDialogContext.Provider>
     );
 }
 
-export const useComputerActionsContext = (): ComputerActionsContextProps => {
-    const context = useContext(ComputerActionsContext);
+export const useFileDialogContext = (): FileDialogContextType => {
+    const context = useContext(FileDialogContext);
     if (!context) {
-        throw new Error("useComputerActionsContext debe usarse dentro de un MixingCenterProvider");
+        throw new Error("useFileDialogContext debe usarse dentro de un MixingCenterProvider");
     }
     return context;
 };

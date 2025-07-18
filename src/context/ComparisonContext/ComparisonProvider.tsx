@@ -16,7 +16,7 @@ import MixingCenterRawMaterialsModel from '@/logic/models/MixingCenterRawMateria
 //     automated: MixingCenterResultsModel | null;
 // };
 
-type MixingCenterComparisonContextType = {
+type ComparisonContextType = {
     startComparision: boolean;
     results: MixingCenterResultsModel;
     // loadResults: (inData: MixingCenterResultsModel) => void;
@@ -29,13 +29,13 @@ type MixingCenterComparisonContextType = {
 //     automated: null,
 // };
 
-export const MixingCenterComparisonContext = createContext<MixingCenterComparisonContextType | undefined>(undefined);
+export const ComparisonContext = createContext<ComparisonContextType | undefined>(undefined);
 
 // type Props = {
 //     children: React.ReactNode;
 // };
 
-export const MixingCenterComparisonProvider = ({ children }: { children: React.ReactNode }) => {
+export const ComparisonProvider = ({ children }: { children: React.ReactNode }) => {
     const { buildBackupPayload } = useMixingCenterContext();
 
     const [startComparision, setStartComparision] = useState<boolean>(false);
@@ -136,6 +136,7 @@ export const MixingCenterComparisonProvider = ({ children }: { children: React.R
 
                 brandNewResults.auxiliaryStaffHours.valueNptManual = resourcesManual.staffAssistantSalary.horasPersonalFarmaceuticoPorNP.value;
                 brandNewResults.costPerAuxiliaryStaff.valueNptManual = resourcesManual.staffAssistantSalary.costoPersonalFarmaceuticoPorPreparacion.value;
+                brandNewResults.automatedEquipmentCosts.valueNptManual = 0;
             }
 
             if (dataBackupPayload.backup_MC_Automatic_Resources !== null) {
@@ -197,6 +198,11 @@ export const MixingCenterComparisonProvider = ({ children }: { children: React.R
                     brandNewResults.produccionDiaria.value *
                     (brandNewResults.porcentajeNeonatal.value / 100)) *
                     rawMaterials.neonatalRawMaterial.total;
+
+                brandNewResults.valorTotalNutriciosDia.valueNptManual =
+                    brandNewResults.valorTotalAdult.valueNptManual +
+                    brandNewResults.valorTotalPediatric.valueNptManual +
+                    brandNewResults.valorTotalNeonatal.valueNptManual;
             }
 
             if (dataBackupPayload.backup_MC_Automatic_RawMaterials !== null) {
@@ -248,8 +254,14 @@ export const MixingCenterComparisonProvider = ({ children }: { children: React.R
                     brandNewResults.produccionDiaria.value *
                     (brandNewResults.porcentajeNeonatal.value / 100)) *
                     rawMaterialsAutomatic.neonatalRawMaterial.total;
+
+                brandNewResults.valorTotalNutriciosDia.valueNptAutomatic =
+                    brandNewResults.valorTotalAdult.valueNptAutomatic +
+                    brandNewResults.valorTotalPediatric.valueNptAutomatic +
+                    brandNewResults.valorTotalNeonatal.valueNptAutomatic;
             }
 
+            setResults(brandNewResults);
         } catch (err) {
             Logger.error(err);
         } finally {
@@ -259,13 +271,14 @@ export const MixingCenterComparisonProvider = ({ children }: { children: React.R
 
     useEffect(() => {
         if (startComparision === true) {
+            Logger.info(`Start Comparision: ${startComparision}`);
             startProcess();
         }
 
     }, [startComparision]);
 
     return (
-        <MixingCenterComparisonContext.Provider
+        <ComparisonContext.Provider
             value={{
                 startComparision,
                 results,
@@ -274,16 +287,16 @@ export const MixingCenterComparisonProvider = ({ children }: { children: React.R
             }}
         >
             {children}
-        </MixingCenterComparisonContext.Provider>
+        </ComparisonContext.Provider>
     );
 };
 
-export const useMixingCenterComparison = () => {
-    const context = useContext(MixingCenterComparisonContext);
+export const useComparisonContext = () => {
+    const context = useContext(ComparisonContext);
     if (!context) {
-        throw new Error('useMixingCenterComparison must be used within a MixingCenterComparisonProvider');
+        throw new Error('useComparisonContext must be used within a ComparisonProvider');
     }
     return context;
 };
 
-// export { MixingCenterComparisonProvider, useMixingCenterComparison };
+// export { ComparisonProvider, useComparisonContext };

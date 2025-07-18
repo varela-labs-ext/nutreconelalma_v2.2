@@ -6,7 +6,7 @@ import { Logger } from "@/utils/logger";
 import useMixingCenterContext from "../MixingCenterContext/useMixingCenterContext";
 
 
-export interface ComputerFileHandlerContextProps {
+export interface FileStorageContextType {
     createNewFileAsync: () => Promise<void>;
     openFileAsync: (inFileName: string) => Promise<void>;
     saveFileAsync: () => Promise<void>;
@@ -14,9 +14,9 @@ export interface ComputerFileHandlerContextProps {
 }
 
 // ------------------- Contexto -------------------
-export const ComputerFileHandlerContext = createContext<ComputerFileHandlerContextProps | undefined>(undefined);
+export const FileStorageContext = createContext<FileStorageContextType | undefined>(undefined);
 
-export const ComputerFileHandlerProvider = ({ children }: { children: React.ReactNode }) => {
+export const FileStorageProvider = ({ children }: { children: React.ReactNode }) => {
     const {
         activeFilename: activeFilename,
         setActiveFilename: setCurrentFilename,
@@ -28,13 +28,13 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
     const createNewFileAsync = async (): Promise<void> => {
         try {
             setIsProcessing(true);
-            Logger.info("ComputerFileHandlerProvider.createNewFileAsync() STARTS...");
+            Logger.info("FileStorageProvider.createNewFileAsync() STARTS...");
 
             let userDefaultValues: ComputerBigGroupModel | null = await StorageProvider.loadUserDefaultsAsync();
 
             if (userDefaultValues === undefined || userDefaultValues === null) {
                 userDefaultValues = DefaultsProvider.getDefaultsForBigGroupData();
-                Logger.info("ComputerFileHandlerProvider.createNewFileAsync() USING FABRIC DEFAULT VALUES...");
+                Logger.info("FileStorageProvider.createNewFileAsync() USING FABRIC DEFAULT VALUES...");
                 Logger.info(userDefaultValues);
                 Logger.info("");
             }
@@ -46,7 +46,7 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
             throw error;
         } finally {
             setIsProcessing(false);
-            Logger.info("ComputerFileHandlerProvider.createNewFileAsync() ENDS...");
+            Logger.info("FileStorageProvider.createNewFileAsync() ENDS...");
         }
     }
 
@@ -128,7 +128,7 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
     }
 
     return (
-        <ComputerFileHandlerContext.Provider
+        <FileStorageContext.Provider
             value={{
                 createNewFileAsync,
                 openFileAsync,
@@ -138,13 +138,13 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
             <div>
                 {children}
             </div>
-        </ComputerFileHandlerContext.Provider>
+        </FileStorageContext.Provider>
     );
 }
 
 
-export const useComputerFileHandlerContext = (): ComputerFileHandlerContextProps => {
-    const context = useContext(ComputerFileHandlerContext);
+export const useFileStorageContext = (): FileStorageContextType => {
+    const context = useContext(FileStorageContext);
     if (!context) {
         throw new Error("useMixingCenterContext debe usarse dentro de un MixingCenterProvider");
     }
