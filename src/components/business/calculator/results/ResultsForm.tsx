@@ -1,6 +1,3 @@
-//ResultsForm
-
-import ResultItemModel from "@/logic/models/ResultItemModel";
 
 import ResultItemField from "./ResultItemField";
 import ResultsFormHeaders from "./ResultsFormHeaders";

@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { useComputerFileHandlerContext } from "./FileStorageContext/FileStorageProvider";
+import { useFileStorageContext } from "./FileStorageContext/FileStorageProvider";
 import { Logger } from "@/utils/logger";
 
 const InitLogic = ({ children }: { children: React.ReactNode }) => {
-    const { createNewFileAsync } = useComputerFileHandlerContext();
+    const { createNewFileAsync } = useFileStorageContext();
 
     const init = async (): Promise<void> => {
         Logger.info("ComputerInitializer.init() STARTS COUNTER...");

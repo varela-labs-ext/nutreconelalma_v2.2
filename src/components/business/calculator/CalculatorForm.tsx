@@ -6,6 +6,7 @@ import CalculatorFormResults from "./CalculatorFormResults";
 import CalculatorFormSets from "./CalculatorFormSets";
 import SectionTitle from "@/components/ui/titles/SectionTitle";
 import useMixingCenterContext from "@/context/MixingCenterContext/useMixingCenterContext";
+import { useMixingCenterComparison } from "@/context/ComparisonContext/MixingCenterComparisonContext";
 
 
 interface CalculatorFormProps {
@@ -14,11 +15,20 @@ interface CalculatorFormProps {
 
 const CalculatorForm = (props: CalculatorFormProps) => {
     const { activeFilename } = useMixingCenterContext();
+    const { setStartComparision } = useMixingCenterComparison();
+
+
     const [activeComputerTabIndex, setActiveComputerTabIndex] = useState<number>(0);
 
-    const handleOnTabsChange = (index: number) => {
+    const handleOnSetActiveTabIndexChaged = (index: number): void => {
         console.log('Cambió a tab:', index); // Just in case
         setActiveComputerTabIndex(index);
+    }
+
+    const handleOnTabChanged = (index: number): void => {
+        if (index === 1) {
+            setStartComparision(true);
+        }
     }
 
     return (
@@ -34,7 +44,12 @@ const CalculatorForm = (props: CalculatorFormProps) => {
                 )}
             </div>
             {/* setActiveTabIndex={setActiveTabIndex} */}
-            <IconTabs defaultTabIndex={0} activeTabIndex={activeComputerTabIndex} setActiveTabIndex={handleOnTabsChange}>
+            <IconTabs
+                defaultTabIndex={0}
+                activeTabIndex={activeComputerTabIndex}
+                setActiveTabIndex={handleOnSetActiveTabIndexChaged}
+                onTabChange={handleOnTabChanged}
+            >
                 <IconTab label="Central de Mezclas" icon={Home}>
                     <CalculatorFormSets />
                     {/* <ComputerFormLeft

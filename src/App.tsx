@@ -10,7 +10,7 @@ import CalculadoraPage from "./ui/pages/CalculatorPage";
 import HistoryPage from "./ui/pages/HistoryPage";
 import OperatingResourcesPage from "./ui/pages/OperatingResourcesPage";
 import NotFoundPage404 from "./ui/pages/NotFoundPage404";
-import AppInitializer from "./app/AppInitializer";
+import AppInitializer from "./AppInitializer";
 
 
 

@@ -1,13 +1,9 @@
 import ResultItemModel from "@/logic/models/ResultItemModel";
-import ReadOnlyNumberField from "../../../../ui/common/ReadOnlyNumberField";
+import ReadOnlyNumberField from "@/ui/common/ReadOnlyNumberField";
 
 interface ResultItemFieldProps {
     inData: ResultItemModel;
-    // inLabel: string;
     inName: string;
-    // inSymbol: string | null;
-    // inValueA: number;
-    // inValueB: number;
 }
 
 const ResultItemField = (props: ResultItemFieldProps) => {
