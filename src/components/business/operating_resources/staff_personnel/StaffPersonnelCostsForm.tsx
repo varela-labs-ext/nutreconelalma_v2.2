@@ -4,10 +4,8 @@ import StaffSalaryGroupModel from "@/logic/models/operating_resources/StaffSalar
 import { useEffect, useRef, useState } from "react";
 import CalculationService from "@/logic/services/CalculationService";
 import StaffPersonnelCostsAccourd from "./StaffPersonnelCostsAccourd";
-import DefaultsProvider from "@/logic/Providers/DefaultsProvider";
-import { useMixingCenterContext } from "@/context/MixingCenterContext/MixingCenterProvider";
 import { handleOnInternalModelChange, safeSetState } from "@/context/MixingCenterContext/MixingCenterUtils";
-import { deepClone } from "@/utils/objectUtils";
+import useMixingCenterContext from "@/context/MixingCenterContext/useMixingCenterContext";
 
 
 interface StaffPersonnelCostsFormProps {
@@ -18,10 +16,10 @@ interface StaffPersonnelCostsFormProps {
 
 const StaffPersonnelCostsForm = (props: StaffPersonnelCostsFormProps) => {
     const {
-        currentChemistSalary,
-        currentAssistantSalary,
-        setCurrentChemistSalary,
-        setCurrentAssistantSalary
+        activeChemistSalary,
+        activeAssistantSalary,
+        setActiveChemistSalary,
+        setActiveAssistantSalary
     } = useMixingCenterContext();
 
     const [loaded, setLoaded] = useState<boolean>(false);
@@ -32,18 +30,18 @@ const StaffPersonnelCostsForm = (props: StaffPersonnelCostsFormProps) => {
     const debounceRefByAssistantSalary = useRef<number | null>(null);
 
     useEffect(() => {
-        safeSetState(setInternalChemistSalary, currentChemistSalary);
-        safeSetState(setInternalAssistantSalary, currentAssistantSalary);
+        safeSetState(setInternalChemistSalary, activeChemistSalary);
+        safeSetState(setInternalAssistantSalary, activeAssistantSalary);
         setLoaded(true);
     }, []);
 
     useEffect(() => {
-        safeSetState(setInternalChemistSalary, currentChemistSalary);
-    }, [currentChemistSalary]);
+        safeSetState(setInternalChemistSalary, activeChemistSalary);
+    }, [activeChemistSalary]);
 
     useEffect(() => {
-        safeSetState(setInternalAssistantSalary, currentAssistantSalary);
-    }, [currentAssistantSalary]);
+        safeSetState(setInternalAssistantSalary, activeAssistantSalary);
+    }, [activeAssistantSalary]);
 
 
     useEffect(() => {
@@ -51,8 +49,8 @@ const StaffPersonnelCostsForm = (props: StaffPersonnelCostsFormProps) => {
             handleOnInternalModelChange(
                 debounceRefByChemistSalary,
                 internalChemistSalary,
-                currentChemistSalary,
-                setCurrentChemistSalary);
+                activeChemistSalary,
+                setActiveChemistSalary);
         };
     }, [internalChemistSalary]);
 
@@ -61,8 +59,8 @@ const StaffPersonnelCostsForm = (props: StaffPersonnelCostsFormProps) => {
             handleOnInternalModelChange(
                 debounceRefByAssistantSalary,
                 internalAssistantSalary,
-                currentAssistantSalary,
-                setCurrentAssistantSalary);
+                activeAssistantSalary,
+                setActiveAssistantSalary);
         };
     }, [internalAssistantSalary]);
 
@@ -75,7 +73,7 @@ const StaffPersonnelCostsForm = (props: StaffPersonnelCostsFormProps) => {
     //             handleOnAssistantSalaryChange(deepClone(internalAssistantSalary));
     //         }
     //     }
-    // }, [currentMixingCenterSettings]);
+    // }, [activeSettings]);
 
 
     const handleOnChemistSalaryChange = (inNewItem: StaffSalaryGroupModel) => {

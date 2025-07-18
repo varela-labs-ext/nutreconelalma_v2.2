@@ -6,62 +6,38 @@ import useMixingCenterContext from "./useMixingCenterContext";
 
 const MixingCenterUseEffects = ({ children }: { children: React.ReactNode }) => {
     const {
-        activeAutomatedEquipment: currentAutomatedEquipment,
-        activeHygieneAndCleaning: currentHygieneAndCleaning,
-        activePersonalProtection: currentPersonalProtection,
-        activeSterileWorkEquipment: currentSterileWorkEquipment,
-        activeMaintenanceCosts: currentMaintenanceCosts,
-        activeProductionCosts: currentProductionCosts,
-        activeChemistSalary: currentChemistSalary,
-        activeAssistantSalary: currentAssistantSalary,
-        recalculateAdditionalCostsSummary
+        activeSettings,
+        activeAutomatedEquipment,
+        activeHygieneAndCleaning,
+        activePersonalProtection,
+        activeSterileWorkEquipment,
+        activeMaintenanceCosts,
+        activeProductionCosts,
+        activeChemistSalary,
+        activeAssistantSalary,
+        recalculateAdditionalCostsSummary,
+        handleMixingCenterSettingsChange
     } = useMixingCenterContext();
 
-    // useEffect(() => {
-    //     Logger.info("MixingCenterSettings cambió:", mixingCenterSettings);
-    //     const _backup = structuredClone(mixingCenterSettings);
-    //     setBackupMixingCenterSettings(_backup);
-    // }, [mixingCenterSettings]);
 
-    // useEffect(() => {
-    //     refreshAdditionalSummary();
-    // }, [/* dependencias */]);
-
-
-
+    useEffect(() => {
+        handleMixingCenterSettingsChange(activeSettings);
+        Logger.info("useEffect -> activeSettings");
+        Logger.info(activeSettings);
+    }, [activeSettings]);
 
     useEffect(() => {
         recalculateAdditionalCostsSummary();
-    }, [currentAutomatedEquipment]);
-
-    useEffect(() => {
-        recalculateAdditionalCostsSummary();
-    }, [currentHygieneAndCleaning]);
-
-    useEffect(() => {
-        recalculateAdditionalCostsSummary();
-    }, [currentPersonalProtection]);
-
-    useEffect(() => {
-        recalculateAdditionalCostsSummary();
-    }, [currentSterileWorkEquipment]);
-
-    useEffect(() => {
-        recalculateAdditionalCostsSummary();
-    }, [currentMaintenanceCosts]);
-
-    useEffect(() => {
-        recalculateAdditionalCostsSummary();
-    }, [currentProductionCosts]);
-
-    useEffect(() => {
-        recalculateAdditionalCostsSummary();
-    }, [currentChemistSalary]);
-
-    useEffect(() => {
-        recalculateAdditionalCostsSummary();
-    }, [currentAssistantSalary]);
-
+    }, [
+        activeAutomatedEquipment,
+        activeHygieneAndCleaning,
+        activePersonalProtection,
+        activeSterileWorkEquipment,
+        activeMaintenanceCosts,
+        activeProductionCosts,
+        activeChemistSalary,
+        activeAssistantSalary
+    ]);
 
     return (
         <>

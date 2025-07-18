@@ -42,4 +42,5 @@ export default interface MixingCenterContextProps {
     buildBackupPayload: () => ComputerBigGroupModel;
     loadBackupFromPayload: (inExternalData: ComputerBigGroupModel | undefined | null) => void;
     recalculateAdditionalCostsSummary: () => void;
+    handleMixingCenterSettingsChange: (inMC_Settings: MixingCenterSettingsModel) => void;
 };

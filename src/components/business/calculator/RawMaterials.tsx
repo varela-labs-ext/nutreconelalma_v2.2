@@ -1,10 +1,10 @@
 import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 import { useEffect, useRef, useState } from "react";
 import RawMaterialsSet from "../raw_material/RawMaterialsSet";
-import { useMixingCenterContext } from "@/context/MixingCenterContext/MixingCenterProvider";
-import { deepClone, deepEqual } from "@/utils/objectUtils";
+
 import { handleOnInternalModelChange, safeSetState } from "@/context/MixingCenterContext/MixingCenterUtils";
 import CalculationService from "@/logic/services/CalculationService";
+import useMixingCenterContext from "@/context/MixingCenterContext/useMixingCenterContext";
 
 interface RawMaterialsProps {
 
@@ -12,10 +12,10 @@ interface RawMaterialsProps {
 
 const RawMaterials = (props: RawMaterialsProps) => {
     const {
-        currentMixingCenterSettings,
-        currentRawMaterial,
+        activeSettings,
+        activeRawMaterialGroup,
         additionalCostsSummary,
-        setCurrentRawMaterial
+        setActiveRawMaterialGroup
     } = useMixingCenterContext();
 
     const [loaded, setLoaded] = useState<boolean>(false);
@@ -25,14 +25,14 @@ const RawMaterials = (props: RawMaterialsProps) => {
 
     // Montaje inicial
     useEffect(() => {
-        safeSetState(setInternalRawMaterial, currentRawMaterial);
+        safeSetState(setInternalRawMaterial, activeRawMaterialGroup);
         setLoaded(true);
     }, []);
 
     // Cambio en el contexto externo → actualizar interno
     useEffect(() => {
-        safeSetState(setInternalRawMaterial, currentRawMaterial);
-    }, [currentRawMaterial]);
+        safeSetState(setInternalRawMaterial, activeRawMaterialGroup);
+    }, [activeRawMaterialGroup]);
 
     // Cambio en interno → actualizar contexto (con debounce)
     useEffect(() => {
@@ -40,8 +40,8 @@ const RawMaterials = (props: RawMaterialsProps) => {
             handleOnInternalModelChange(
                 debounceRefByRawMaterial,
                 internalRawMaterial,
-                currentRawMaterial,
-                setCurrentRawMaterial);
+                activeRawMaterialGroup,
+                setActiveRawMaterialGroup);
         };
     }, [internalRawMaterial]);
 
@@ -56,7 +56,7 @@ const RawMaterials = (props: RawMaterialsProps) => {
             <RawMaterialsSet
                 inData={internalRawMaterial ?? new RawMaterialGroupModel()}
                 inAdditionalCosts={additionalCostsSummary}
-                inCentralType={currentMixingCenterSettings.centralType}
+                inCentralType={activeSettings.centralType}
                 onChange={handleOnRawMaterialsSetChange}
             />
         </>

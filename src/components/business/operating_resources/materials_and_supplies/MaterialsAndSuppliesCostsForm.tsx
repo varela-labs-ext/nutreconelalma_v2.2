@@ -6,9 +6,9 @@ import PersonalProtectionModel from "@/logic/models/operating_resources/Personal
 import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
 import MaterialsAndSuppliesCostsAccourd from "./MaterialsAndSuppliesCostsAccourd";
 import CalculationService from "@/logic/services/CalculationService";
-import { useMixingCenterContext } from "@/context/MixingCenterContext/MixingCenterProvider";
 import { handleOnInternalModelChange, safeSetState } from "@/context/MixingCenterContext/MixingCenterUtils";
 import { deepClone } from "@/utils/objectUtils";
+import useMixingCenterContext from "@/context/MixingCenterContext/useMixingCenterContext";
 
 
 interface MaterialsAndSuppliesCostsFormProps {
@@ -19,15 +19,16 @@ interface MaterialsAndSuppliesCostsFormProps {
 
 const MaterialsAndSuppliesCostsForm = (props: MaterialsAndSuppliesCostsFormProps) => {
     const {
-        currentMixingCenterSettings,
-        currentAutomatedEquipment,
-        currentHygieneAndCleaning,
-        currentPersonalProtection,
-        currentSterileWorkEquipment,
-        setCurrentAutomatedEquipment,
-        setCurrentHygieneAndCleaning,
-        setCurrentPersonalProtection,
-        setCurrentSterileWorkEquipment,
+        activeSettings,
+        activeAutomatedEquipment,
+        activeHygieneAndCleaning,
+        activePersonalProtection,
+        activeSterileWorkEquipment,
+
+        setActiveAutomatedEquipment,
+        setActiveHygieneAndCleaning,
+        setActivePersonalProtection,
+        setActiveSterileWorkEquipment,
     } = useMixingCenterContext();
 
     const [loaded, setLoaded] = useState<boolean>(false);
@@ -42,36 +43,36 @@ const MaterialsAndSuppliesCostsForm = (props: MaterialsAndSuppliesCostsFormProps
     const debounceRefBySterileWorkEquipment = useRef<number | null>(null);
 
     useEffect(() => {
-        safeSetState(setInternalAutomatedEquipment, currentAutomatedEquipment);
-        safeSetState(setInternalHygieneAndCleaning, currentHygieneAndCleaning);
-        safeSetState(setInternalPersonalProtection, currentPersonalProtection);
-        safeSetState(setInternalSterileWorkEquipment, currentSterileWorkEquipment);
+        safeSetState(setInternalAutomatedEquipment, activeAutomatedEquipment);
+        safeSetState(setInternalHygieneAndCleaning, activeHygieneAndCleaning);
+        safeSetState(setInternalPersonalProtection, activePersonalProtection);
+        safeSetState(setInternalSterileWorkEquipment, activeSterileWorkEquipment);
         setLoaded(true);
     }, []);
 
     useEffect(() => {
-        safeSetState(setInternalAutomatedEquipment, currentAutomatedEquipment);
-    }, [currentAutomatedEquipment]);
+        safeSetState(setInternalAutomatedEquipment, activeAutomatedEquipment);
+    }, [activeAutomatedEquipment]);
 
     useEffect(() => {
-        safeSetState(setInternalHygieneAndCleaning, currentHygieneAndCleaning);
-    }, [currentHygieneAndCleaning]);
+        safeSetState(setInternalHygieneAndCleaning, activeHygieneAndCleaning);
+    }, [activeHygieneAndCleaning]);
 
     useEffect(() => {
-        safeSetState(setInternalPersonalProtection, currentPersonalProtection);
-    }, [currentPersonalProtection]);
+        safeSetState(setInternalPersonalProtection, activePersonalProtection);
+    }, [activePersonalProtection]);
 
     useEffect(() => {
-        safeSetState(setInternalSterileWorkEquipment, currentSterileWorkEquipment);
-    }, [currentSterileWorkEquipment]);
+        safeSetState(setInternalSterileWorkEquipment, activeSterileWorkEquipment);
+    }, [activeSterileWorkEquipment]);
 
     useEffect(() => {
         if (internalAutomatedEquipment) {
             handleOnInternalModelChange(
                 debounceRefByAutomatedEquipment,
                 internalAutomatedEquipment,
-                currentAutomatedEquipment,
-                setCurrentAutomatedEquipment);
+                activeAutomatedEquipment,
+                setActiveAutomatedEquipment);
         };
     }, [internalAutomatedEquipment]);
 
@@ -80,8 +81,8 @@ const MaterialsAndSuppliesCostsForm = (props: MaterialsAndSuppliesCostsFormProps
             handleOnInternalModelChange(
                 debounceRefByHygieneAndCleaning,
                 internalHygieneAndCleaning,
-                currentHygieneAndCleaning,
-                setCurrentHygieneAndCleaning);
+                activeHygieneAndCleaning,
+                setActiveHygieneAndCleaning);
         };
     }, [internalHygieneAndCleaning]);
 
@@ -90,8 +91,8 @@ const MaterialsAndSuppliesCostsForm = (props: MaterialsAndSuppliesCostsFormProps
             handleOnInternalModelChange(
                 debounceRefByPersonalProtection,
                 internalPersonalProtection,
-                currentPersonalProtection,
-                setCurrentPersonalProtection);
+                activePersonalProtection,
+                setActivePersonalProtection);
         };
     }, [internalPersonalProtection]);
 
@@ -100,8 +101,8 @@ const MaterialsAndSuppliesCostsForm = (props: MaterialsAndSuppliesCostsFormProps
             handleOnInternalModelChange(
                 debounceRefBySterileWorkEquipment,
                 internalSterileWorkEquipment,
-                currentSterileWorkEquipment,
-                setCurrentSterileWorkEquipment);
+                activeSterileWorkEquipment,
+                setActiveSterileWorkEquipment);
         };
     }, [internalSterileWorkEquipment]);
 
@@ -120,7 +121,7 @@ const MaterialsAndSuppliesCostsForm = (props: MaterialsAndSuppliesCostsFormProps
     //             handleOnSterileWorkEquipmentChange(deepClone(internalSterileWorkEquipment));
     //         }
     //     }
-    // }, [currentMixingCenterSettings]);
+    // }, [activeSettings]);
 
     const handleOnAutomatedEquipmentChange = (inNewItem: AutomatedEquipmentGroupModel) => {
         CalculationService.computeAutomatedEquipment(inNewItem);
@@ -144,7 +145,7 @@ const MaterialsAndSuppliesCostsForm = (props: MaterialsAndSuppliesCostsFormProps
 
     return (
         <MaterialsAndSuppliesCostsAccourd
-            inCentralType={currentMixingCenterSettings.centralType}
+            inCentralType={activeSettings.centralType}
             inAutomatedEquipmentData={internalAutomatedEquipment ?? new AutomatedEquipmentGroupModel()}
             inHygieneAndCleaningData={internalHygieneAndCleaning ?? new HygieneAndCleaningGroupModel()}
             inPersonalProtectionData={internalPersonalProtection ?? new PersonalProtectionModel()}

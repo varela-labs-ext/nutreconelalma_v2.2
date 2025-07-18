@@ -1,6 +1,7 @@
 import AccordionMenuItemWithContextAction, { MenuSubItem } from "@/components/ui/menu/AccordionMenuItemWithContextAction";
 import { useComputerActionsContext } from "@/context/FileDialogContext/FileDialogProvider";
-import { useMixingCenterContext } from "@/context/MixingCenterContext/MixingCenterProvider";
+import useMixingCenterContext from "@/context/MixingCenterContext/useMixingCenterContext";
+
 import { FileEdit, FilePlus, FileText, FolderOpen, Save } from "lucide-react";
 
 interface ComputerMenuProps {
@@ -12,7 +13,7 @@ interface ComputerMenuProps {
 }
 
 const ComputerMenu = (props: ComputerMenuProps) => {
-    const { currentFilename } = useMixingCenterContext();
+    const { activeFilename } = useMixingCenterContext();
     const {
         setShowNewCalcDialog,
         setShowSaveAsDialog,
@@ -23,8 +24,8 @@ const ComputerMenu = (props: ComputerMenuProps) => {
     const getMenuSubItems = (): MenuSubItem[] => {
         const output: MenuSubItem[] = [];
 
-        if (currentFilename != undefined && currentFilename !== null && currentFilename.trim() !== "") {
-            output.push({ label: `Editar: ${currentFilename}`, actionName: "file", icon: <FileText className="h-4 w-4" /> });
+        if (activeFilename != undefined && activeFilename !== null && activeFilename.trim() !== "") {
+            output.push({ label: `Editar: ${activeFilename}`, actionName: "file", icon: <FileText className="h-4 w-4" /> });
         } else {
             output.push({ label: "Editar", actionName: "file", icon: <FileText className="h-4 w-4" /> });
         }
@@ -33,7 +34,7 @@ const ComputerMenu = (props: ComputerMenuProps) => {
 
         output.push({ label: "Abrir", actionName: "open", icon: <FolderOpen className="h-4 w-4" /> });
 
-        if (currentFilename != undefined && currentFilename !== null && currentFilename.trim() !== "") {
+        if (activeFilename != undefined && activeFilename !== null && activeFilename.trim() !== "") {
             output.push({ label: "Salvar", actionName: "save", icon: <Save className="h-4 w-4" /> });
         }
 

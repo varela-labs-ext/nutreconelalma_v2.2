@@ -1,9 +1,8 @@
 import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSettingsModel";
 import MixingCenterSet from "./mixing_center/MixingCenterSet";
 import { useEffect, useRef, useState } from "react";
-import { useMixingCenterContext } from "@/context/MixingCenterContext/MixingCenterProvider";
-import { deepClone, deepEqual } from "@/utils/objectUtils";
 import { handleOnInternalModelChange, safeSetState } from "@/context/MixingCenterContext/MixingCenterUtils";
+import useMixingCenterContext from "@/context/MixingCenterContext/useMixingCenterContext";
 
 
 interface MixingCenterSettingsProps {
@@ -12,8 +11,8 @@ interface MixingCenterSettingsProps {
 
 const MixingCenterSettings = (props: MixingCenterSettingsProps) => {
     const {
-        currentMixingCenterSettings,
-        setCurrentMixingCenterSettings
+        activeSettings,
+        setActiveSettings
     } = useMixingCenterContext();
 
     const [loaded, setLoaded] = useState<boolean>(false);
@@ -23,11 +22,11 @@ const MixingCenterSettings = (props: MixingCenterSettingsProps) => {
 
     // Montaje inicial
     useEffect(() => {
-        safeSetState(setInternalMixingCenterSettings, currentMixingCenterSettings);
+        safeSetState(setInternalMixingCenterSettings, activeSettings);
         setLoaded(true);
         // setInternalData((prev) => {
-        //     if (!deepEqual(prev, currentMixingCenterSettings)) {
-        //         return deepClone(currentMixingCenterSettings); // copia profunda para evitar referencias compartidas
+        //     if (!deepEqual(prev, activeSettings)) {
+        //         return deepClone(activeSettings); // copia profunda para evitar referencias compartidas
         //     }
         //     return prev;
         // });
@@ -35,14 +34,14 @@ const MixingCenterSettings = (props: MixingCenterSettingsProps) => {
 
     // Cambio en el contexto externo → actualizar interno
     useEffect(() => {
-        safeSetState(setInternalMixingCenterSettings, currentMixingCenterSettings);
+        safeSetState(setInternalMixingCenterSettings, activeSettings);
         // setInternalData((prev) => {
-        //     if (!deepEqual(prev, currentMixingCenterSettings)) {
-        //         return deepClone(currentMixingCenterSettings); // evita re-renders innecesarios
+        //     if (!deepEqual(prev, activeSettings)) {
+        //         return deepClone(activeSettings); // evita re-renders innecesarios
         //     }
         //     return prev;
         // });
-    }, [currentMixingCenterSettings]);
+    }, [activeSettings]);
 
 
 
@@ -59,8 +58,8 @@ const MixingCenterSettings = (props: MixingCenterSettingsProps) => {
     //         handleOnInternalModelChange(
     //             debounceRef,
     //             internalData,
-    //             currentMixingCenterSettings,
-    //             setCurrentMixingCenterSettings
+    //             activeSettings,
+    //             setActiveSettings
     //         );
     //     }
 
@@ -71,8 +70,8 @@ const MixingCenterSettings = (props: MixingCenterSettingsProps) => {
     //     // }
 
     //     // debounceRef.current = window.setTimeout(() => {
-    //     //     if (!deepEqual(internalData, currentMixingCenterSettings)) {
-    //     //         setCurrentMixingCenterSettings(deepClone(internalData)); // copia profunda antes de propagar
+    //     //     if (!deepEqual(internalData, activeSettings)) {
+    //     //         setActiveSettings(deepClone(internalData)); // copia profunda antes de propagar
     //     //     }
     //     // }, 300);
 
@@ -88,8 +87,8 @@ const MixingCenterSettings = (props: MixingCenterSettingsProps) => {
             handleOnInternalModelChange(
                 debounceRefByMixingCenter,
                 internalMixingCenterSettings,
-                currentMixingCenterSettings,
-                setCurrentMixingCenterSettings);
+                activeSettings,
+                setActiveSettings);
         };
     }, [internalMixingCenterSettings]);
 

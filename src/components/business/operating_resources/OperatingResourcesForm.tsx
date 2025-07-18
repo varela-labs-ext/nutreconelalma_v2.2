@@ -4,20 +4,21 @@ import IconTab from "@/components/ui/tabs/icon_tabs/IconTab";
 import { Bot, FlaskConical } from "lucide-react";
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import OperatingResourcesByMixingCentral from "./OperatingResourcesByMixingCentral";
-import { useMixingCenterContext } from "@/context/MixingCenterContext/MixingCenterProvider";
+
 import { deepClone } from "@/utils/objectUtils";
+import useMixingCenterContext from "@/context/MixingCenterContext/useMixingCenterContext";
 
 interface OperatingResourcesFormProps {
 }
 
 const OperatingResourcesForm = (props: OperatingResourcesFormProps) => {
     const {
-        currentMixingCenterSettings,
-        setCurrentMixingCenterSettings
+        activeSettings,
+        setActiveSettings
     } = useMixingCenterContext();
 
     const getActiveTab = (): number => {
-        let index: number = currentMixingCenterSettings.centralType;
+        let index: number = activeSettings.centralType;
 
         if (index === 0) {
             return index;
@@ -28,10 +29,10 @@ const OperatingResourcesForm = (props: OperatingResourcesFormProps) => {
 
     const handleOnTabsChange = (index: number) => {
         const newCentralType: CentralTypeIdEnum = (index + 1);
-        const newCM = deepClone(currentMixingCenterSettings);
+        const newCM = deepClone(activeSettings);
         newCM.centralType = newCentralType;
 
-        setCurrentMixingCenterSettings(newCM);
+        setActiveSettings(newCM);
     }
 
     return (

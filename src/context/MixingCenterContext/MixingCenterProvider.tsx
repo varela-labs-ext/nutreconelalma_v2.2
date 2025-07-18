@@ -107,16 +107,6 @@ export const MixingCenterProvider = ({ children }: { children: React.ReactNode }
         }
     }
 
-    // const isExternalDataValid = (inExternalData: ComputerBigGroupModel): boolean => {
-    //     return (
-    //         inExternalData.mixingCenterSettings !== undefined && inExternalData.mixingCenterSettings != null &&
-    //         inExternalData.backup_MC_Automatic_RawMaterials !== undefined && inExternalData.backup_MC_Automatic_RawMaterials !== null &&
-    //         inExternalData.backup_MC_Automatic_Resources !== undefined && inExternalData.backup_MC_Automatic_Resources !== null &&
-    //         inExternalData.backup_MC_Manual_RawMaterials !== undefined && inExternalData.backup_MC_Manual_RawMaterials !== null &&
-    //         inExternalData.backup_MC_Manual_Resources !== undefined && inExternalData.backup_MC_Manual_Resources !== null
-    //     );
-    // }
-
     // Este metodo permite al sistema cargar desde una fuente cualquiera el bloque de datos.
     const hydrateFromBackupPayload = (inExternalData: ComputerBigGroupModel): void => {
         const _copyOfInData = deepClone(inExternalData);
@@ -202,8 +192,6 @@ export const MixingCenterProvider = ({ children }: { children: React.ReactNode }
             setAdditionalCostsSummary
         );
     }
-
-
 
     const setRawMaterialBackupsFromPayload = (inData: ComputerBigGroupModel | null): void => {
         if (inData === null || inData === undefined) {
@@ -450,13 +438,6 @@ export const MixingCenterProvider = ({ children }: { children: React.ReactNode }
     }
 
     useEffect(() => {
-        handleMixingCenterSettingsChange(activeSettings);
-        Logger.info("useEffect -> currentMixingCenterSettings");
-        Logger.info(activeSettings);
-    }, [activeSettings]);
-
-
-    useEffect(() => {
         Logger.info("MixingCenterContext.Provider MONTADO!!!");
     }, []);
 
@@ -491,7 +472,8 @@ export const MixingCenterProvider = ({ children }: { children: React.ReactNode }
                 setActiveAssistantSalary,
                 buildBackupPayload,
                 loadBackupFromPayload,
-                recalculateAdditionalCostsSummary
+                recalculateAdditionalCostsSummary,
+                handleMixingCenterSettingsChange
             }}
         >
             <MixingCenterUseEffects>
@@ -500,5 +482,3 @@ export const MixingCenterProvider = ({ children }: { children: React.ReactNode }
         </MixingCenterContext.Provider >
     );
 };
-
-

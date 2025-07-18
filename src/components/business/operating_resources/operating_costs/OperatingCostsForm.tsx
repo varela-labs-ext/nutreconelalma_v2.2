@@ -1,15 +1,14 @@
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
-import OperatingCostsModel from "@/logic/models/OperatingCostsModel";
+
 import { useEffect, useRef, useState } from "react";
 import MaintenanceCostsGroupModel from "@/logic/models/operating_resources/MaintenanceCostsGroupModel";
 import ProductionCostsGroupModel from "@/logic/models/operating_resources/ProductionCostsGroupModel";
-import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
-import EstimatedCostItemModel from "@/logic/models/row_item/EstimatedCostItemRowModel";
+
 import CalculationService from "@/logic/services/CalculationService";
 import OperatingCostsAccourd from "./OperatingCostsAccourd";
-import { useMixingCenterContext } from "@/context/MixingCenterContext/MixingCenterProvider";
-import { deepClone, deepEqual } from "@/utils/objectUtils";
+
 import { getProductionPerMonth, handleOnInternalModelChange, safeSetState } from "@/context/MixingCenterContext/MixingCenterUtils";
+import useMixingCenterContext from "@/context/MixingCenterContext/useMixingCenterContext";
 
 interface OperatingCostsFormProps {
     inCentralTypeEdt: CentralTypeIdEnum;
@@ -23,11 +22,11 @@ interface OperatingCostsFormProps {
 
 const OperatingCostsForm = (props: OperatingCostsFormProps) => {
     const {
-        currentMixingCenterSettings,
-        currentMaintenanceCosts,
-        currentProductionCosts,
-        setCurrentMaintenanceCosts,
-        setCurrentProductionCosts
+        activeSettings,
+        activeMaintenanceCosts,
+        activeProductionCosts,
+        setActiveMaintenanceCosts,
+        setActiveProductionCosts
     } = useMixingCenterContext();
 
     const [loaded, setLoaded] = useState<boolean>(false);
@@ -39,19 +38,19 @@ const OperatingCostsForm = (props: OperatingCostsFormProps) => {
 
     // Montaje inicial
     useEffect(() => {
-        safeSetState(setInternalMaintenanceCosts, currentMaintenanceCosts);
-        safeSetState(setInternalProductionCosts, currentProductionCosts);
+        safeSetState(setInternalMaintenanceCosts, activeMaintenanceCosts);
+        safeSetState(setInternalProductionCosts, activeProductionCosts);
         setLoaded(true);
     }, []);
 
     // Cambio en el contexto externo → actualizar interno
     useEffect(() => {
-        safeSetState(setInternalMaintenanceCosts, currentMaintenanceCosts);
-    }, [currentMaintenanceCosts]);
+        safeSetState(setInternalMaintenanceCosts, activeMaintenanceCosts);
+    }, [activeMaintenanceCosts]);
 
     useEffect(() => {
-        safeSetState(setInternalProductionCosts, currentProductionCosts);
-    }, [currentProductionCosts]);
+        safeSetState(setInternalProductionCosts, activeProductionCosts);
+    }, [activeProductionCosts]);
 
     // Cambio en interno → actualizar contexto (con debounce)
     useEffect(() => {
@@ -59,8 +58,8 @@ const OperatingCostsForm = (props: OperatingCostsFormProps) => {
             handleOnInternalModelChange(
                 debounceRefByMaintenanceCosts,
                 internalMaintenanceCosts,
-                currentMaintenanceCosts,
-                setCurrentMaintenanceCosts);
+                activeMaintenanceCosts,
+                setActiveMaintenanceCosts);
         };
     }, [internalMaintenanceCosts]);
 
@@ -69,8 +68,8 @@ const OperatingCostsForm = (props: OperatingCostsFormProps) => {
             handleOnInternalModelChange(
                 debounceRefByProductionCosts,
                 internalProductionCosts,
-                currentProductionCosts,
-                setCurrentProductionCosts);
+                activeProductionCosts,
+                setActiveProductionCosts);
         };
     }, [internalProductionCosts]);
 
@@ -83,17 +82,17 @@ const OperatingCostsForm = (props: OperatingCostsFormProps) => {
     //             handleOnProductionCostsChange(deepClone(internalProductionCosts));
     //         }
     //     }
-    // }, [currentMixingCenterSettings]);
+    // }, [activeSettings]);
 
     const handleOnMaintenanceCostsChange = (inNewItem: MaintenanceCostsGroupModel) => {
-        CalculationService.computeMaintenanceCosts(inNewItem, currentMixingCenterSettings.productionLines, getProductionPerMonth(currentMixingCenterSettings));
+        CalculationService.computeMaintenanceCosts(inNewItem, activeSettings.productionLines, getProductionPerMonth(activeSettings));
         console.log("handleOnMaintenanceCostsChange....... CALCULADO....");
         console.log(inNewItem);
         setInternalMaintenanceCosts(inNewItem);
     }
 
     const handleOnProductionCostsChange = (inNewItem: ProductionCostsGroupModel) => {
-        CalculationService.computeProductionCosts(inNewItem, currentMixingCenterSettings.productionLines, getProductionPerMonth(currentMixingCenterSettings));
+        CalculationService.computeProductionCosts(inNewItem, activeSettings.productionLines, getProductionPerMonth(activeSettings));
         console.log("handleOnProductionCostsChange....... CALCULADO....");
         console.log(inNewItem);
         setInternalProductionCosts(inNewItem);
@@ -104,8 +103,8 @@ const OperatingCostsForm = (props: OperatingCostsFormProps) => {
             inCentralType={props.inCentralTypeEdt}
             inMaintenanceCostsData={internalMaintenanceCosts ?? new MaintenanceCostsGroupModel()}
             inProductionCostsData={internalProductionCosts ?? new ProductionCostsGroupModel()}
-            inProductionLines={currentMixingCenterSettings.productionLines}
-            inProductionPerMonth={getProductionPerMonth(currentMixingCenterSettings)}
+            inProductionLines={activeSettings.productionLines}
+            inProductionPerMonth={getProductionPerMonth(activeSettings)}
             onMaintenanceCostsChange={handleOnMaintenanceCostsChange}
             onProductionCostsChange={handleOnProductionCostsChange}
         />

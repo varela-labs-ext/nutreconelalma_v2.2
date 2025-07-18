@@ -18,7 +18,7 @@ export const ComputerFileHandlerContext = createContext<ComputerFileHandlerConte
 
 export const ComputerFileHandlerProvider = ({ children }: { children: React.ReactNode }) => {
     const {
-        activeFilename: currentFilename,
+        activeFilename: activeFilename,
         setActiveFilename: setCurrentFilename,
         setIsProcessing,
         loadBackupFromPayload: loadExternalBackup,
@@ -77,7 +77,7 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
         try {
             setIsProcessing(true);
 
-            if (currentFilename === undefined || currentFilename === null || currentFilename.trim() === "") {
+            if (activeFilename === undefined || activeFilename === null || activeFilename.trim() === "") {
                 Logger.info("No hay archivo activo. Usa guardarComo(nombre) en su lugar.");
                 throw new Error("Error. No hay un archivo en uso");
             }
@@ -87,7 +87,7 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
             if (results === undefined || results === null) {
                 throw new Error("La data obtenida para salvar no es válida.");
             } else {
-                await StorageProvider.saveFileDataAsync(currentFilename, results);
+                await StorageProvider.saveFileDataAsync(activeFilename, results);
             }
         } catch (error) {
             Logger.error(error);
