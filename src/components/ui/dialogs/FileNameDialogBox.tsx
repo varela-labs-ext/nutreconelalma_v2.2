@@ -45,7 +45,7 @@ const FileNameDialogBox = (props: FileNameDialogBoxProps) => {
     }
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
             <div className="bg-white w-full max-w-md mx-4 rounded-xl shadow-lg p-6">
                 <h2 className="text-xl font-semibold text-purple-700 mb-4">
                     Definir nombre de archivo

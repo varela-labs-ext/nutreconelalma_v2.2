@@ -28,16 +28,16 @@ const FullScreenPreviewDialog = ({ isOpen, onClose }: Props) => {
         <Dialog open={isOpen} onClose={onClose} className="fixed inset-0 z-50">
             {/* Fondo oscuro */}
             <div
-                className="fixed inset-0 bg-black bg-opacity-70"
+                className="fixed inset-0 bg-black/60 backdrop-blur-sm"
                 onClick={onClose}
             />
 
             {/* Contenedor general */}
-            <div className="fixed inset-0 flex items-start justify-center px-4 my-6">
+            <div className="fixed inset-0 flex items-start justify-center px-4 my-4">
                 {/* Caja blanca del preview */}
                 <div
-                    className="relative w-full max-w-[850px] h-[100dvh] sm:aspect-[8.5/11] bg-white 
-          rounded-lg shadow-lg flex flex-col overflow-hidden"
+                    className="relative w-full max-w-[850px] max-h-[calc(100dvh-2rem)] sm:aspect-[8.5/11]
+  bg-white rounded-lg shadow-lg flex flex-col overflow-hidden"
                 >
                     {/* Encabezado */}
                     <div className="flex justify-between items-center px-4 py-3 border-b border-gray-300">
