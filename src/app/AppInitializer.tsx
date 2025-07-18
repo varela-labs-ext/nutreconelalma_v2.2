@@ -1,5 +1,5 @@
 import { AuthProvider } from "@/context/AuthContext";
-import { ComputerActionsProvider } from "@/context/ComputerActionsContext";
+import { ComputerActionsProvider } from "@/context/FileDialogContext/ComputerActionsContext";
 import { ComputerProvider } from "@/context/ComputerContext";
 import { ComputerFileHandlerProvider } from "@/context/FileStorageContext/ComputerFileHandlerContext";
 import ComputerInitializer from "@/context/ComputerInitializer";
