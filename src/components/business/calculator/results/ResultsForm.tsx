@@ -4,7 +4,7 @@ import ResultItemModel from "@/logic/models/ResultItemModel";
 
 import ResultItemField from "./ResultItemField";
 import ResultsFormHeaders from "./ResultsFormHeaders";
-import JustValueInputEditor from "../editors/JustValueInputEditor";
+import JustValueInputEditor from "../../editors/JustValueInputEditor";
 import MixingCenterResultsModel from "@/logic/models/MixingCenterResultsModel";
 
 interface ResultsFormProps {

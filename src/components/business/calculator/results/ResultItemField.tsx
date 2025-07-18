@@ -1,5 +1,5 @@
 import ResultItemModel from "@/logic/models/ResultItemModel";
-import ReadOnlyNumberField from "../../../ui/common/ReadOnlyNumberField";
+import ReadOnlyNumberField from "../../../../ui/common/ReadOnlyNumberField";
 
 interface ResultItemFieldProps {
     inData: ResultItemModel;

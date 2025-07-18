@@ -1,5 +1,5 @@
 import ResultsModel from "@/logic/models/MixingCenterResultsModel";
-import ResultsForm from "@/components/business/computer_results_form/ResultsForm";
+import ResultsForm from "@/components/business/calculator/results/ResultsForm";
 
 interface ComputerFormRightProps {
 
