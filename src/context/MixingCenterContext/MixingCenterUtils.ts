@@ -387,7 +387,7 @@ export const updateAdditionalCostsSummary = (
     newSummary.hygieneNCleanlinessTotal = inHygieneAndCleaning.total.value;
     newSummary.protectiveMaterialsTotal = inPersonalProtection.total.value;
     newSummary.sterilizedEquipmentTotal = inSterileWorkEquipment.total.value;
-    newSummary.maintenanceTotal = inMaintenanceCosts.total.value;
+    newSummary.maintenanceTotal = inMaintenanceCosts.costoNpt.value;
     newSummary.productionTotal = inProductionCosts.total.value;
     newSummary.staffTotal =
         inStaffChemistSalary.totalCompensacionSalarial.value +

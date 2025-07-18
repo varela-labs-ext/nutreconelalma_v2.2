@@ -83,9 +83,9 @@ const HistoryForm = () => {
                         <p className="text-gray-500">No hay claves almacenadas.</p>
                     ) : (
                         <ul className="space-y-2">
-                            {keys.map((cKey) => (
+                            {keys.map((Key) => (
                                 <KeyLineField
-                                    inKeySelected={cKey}
+                                    inKeySelected={Key}
                                     onShowData={handleOnKeyShowData}
                                     onUpload={handleOnKeyUpload}
                                     onKeyToDelete={(key) => setKeyToDelete(key)}
