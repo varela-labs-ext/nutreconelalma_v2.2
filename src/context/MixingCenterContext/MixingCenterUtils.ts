@@ -12,7 +12,16 @@ import ProductionCostsGroupModel from "@/logic/models/operating_resources/Produc
 import StaffSalaryGroupModel from "@/logic/models/operating_resources/StaffSalaryGroupModel";
 import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
 import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
+import { Logger } from "@/utils/logger";
 import { deepClone, deepEqual } from "@/utils/objectUtils";
+
+
+// -- VERSION NUEVA AQUI
+
+
+
+
+// --- VERSION ANTIGUA AQUI
 
 export const callByCentralType = <TModel>(
     inCentralType: CentralTypeIdEnum,

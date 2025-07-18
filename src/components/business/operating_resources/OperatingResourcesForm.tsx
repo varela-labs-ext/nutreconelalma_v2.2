@@ -4,7 +4,7 @@ import IconTab from "@/components/ui/tabs/icon_tabs/IconTab";
 import { Bot, FlaskConical } from "lucide-react";
 import CentralTypeIdEnum from "@/logic/enums/CentralTypeIdEnum";
 import OperatingResourcesByMixingCentral from "./OperatingResourcesByMixingCentral";
-import { useComputerContext } from "@/context/MixingCenterContext/MixingCenterProvider";
+import { useMixingCenterContext } from "@/context/MixingCenterContext/MixingCenterProvider";
 import { deepClone } from "@/utils/objectUtils";
 
 interface OperatingResourcesFormProps {
@@ -14,7 +14,7 @@ const OperatingResourcesForm = (props: OperatingResourcesFormProps) => {
     const {
         currentMixingCenterSettings,
         setCurrentMixingCenterSettings
-    } = useComputerContext();
+    } = useMixingCenterContext();
 
     const getActiveTab = (): number => {
         let index: number = currentMixingCenterSettings.centralType;

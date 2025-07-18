@@ -1,7 +1,7 @@
 import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 import { useEffect, useRef, useState } from "react";
 import RawMaterialsSet from "../raw_material/RawMaterialsSet";
-import { useComputerContext } from "@/context/MixingCenterContext/MixingCenterProvider";
+import { useMixingCenterContext } from "@/context/MixingCenterContext/MixingCenterProvider";
 import { deepClone, deepEqual } from "@/utils/objectUtils";
 import { handleOnInternalModelChange, safeSetState } from "@/context/MixingCenterContext/MixingCenterUtils";
 import CalculationService from "@/logic/services/CalculationService";
@@ -16,7 +16,7 @@ const RawMaterials = (props: RawMaterialsProps) => {
         currentRawMaterial,
         additionalCostsSummary,
         setCurrentRawMaterial
-    } = useComputerContext();
+    } = useMixingCenterContext();
 
     const [loaded, setLoaded] = useState<boolean>(false);
     const [internalRawMaterial, setInternalRawMaterial] = useState<RawMaterialGroupModel | null>(null);

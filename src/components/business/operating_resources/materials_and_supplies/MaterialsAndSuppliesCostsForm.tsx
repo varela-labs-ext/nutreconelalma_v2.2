@@ -6,7 +6,7 @@ import PersonalProtectionModel from "@/logic/models/operating_resources/Personal
 import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
 import MaterialsAndSuppliesCostsAccourd from "./MaterialsAndSuppliesCostsAccourd";
 import CalculationService from "@/logic/services/CalculationService";
-import { useComputerContext } from "@/context/MixingCenterContext/MixingCenterProvider";
+import { useMixingCenterContext } from "@/context/MixingCenterContext/MixingCenterProvider";
 import { handleOnInternalModelChange, safeSetState } from "@/context/MixingCenterContext/MixingCenterUtils";
 import { deepClone } from "@/utils/objectUtils";
 
@@ -28,7 +28,7 @@ const MaterialsAndSuppliesCostsForm = (props: MaterialsAndSuppliesCostsFormProps
         setCurrentHygieneAndCleaning,
         setCurrentPersonalProtection,
         setCurrentSterileWorkEquipment,
-    } = useComputerContext();
+    } = useMixingCenterContext();
 
     const [loaded, setLoaded] = useState<boolean>(false);
     const [internalAutomatedEquipment, setInternalAutomatedEquipment] = useState<AutomatedEquipmentGroupModel | null>(null);

@@ -5,14 +5,14 @@ import { FileText, Home } from "lucide-react";
 import CalculatorFormResults from "./CalculatorFormResults";
 import CalculatorFormSets from "./CalculatorFormSets";
 import SectionTitle from "@/components/ui/titles/SectionTitle";
-import { useComputerContext } from "@/context/MixingCenterContext/MixingCenterProvider";
+import { useMixingCenterContext } from "@/context/MixingCenterContext/MixingCenterProvider";
 
 interface CalculatorFormProps {
 
 }
 
 const CalculatorForm = (props: CalculatorFormProps) => {
-    const { currentFilename } = useComputerContext();
+    const { currentFilename } = useMixingCenterContext();
     const [activeComputerTabIndex, setActiveComputerTabIndex] = useState<number>(0);
 
     const handleOnTabsChange = (index: number) => {

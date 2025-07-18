@@ -1,7 +1,7 @@
 import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSettingsModel";
 import MixingCenterSet from "./mixing_center/MixingCenterSet";
 import { useEffect, useRef, useState } from "react";
-import { useComputerContext } from "@/context/MixingCenterContext/MixingCenterProvider";
+import { useMixingCenterContext } from "@/context/MixingCenterContext/MixingCenterProvider";
 import { deepClone, deepEqual } from "@/utils/objectUtils";
 import { handleOnInternalModelChange, safeSetState } from "@/context/MixingCenterContext/MixingCenterUtils";
 
@@ -14,7 +14,7 @@ const MixingCenterSettings = (props: MixingCenterSettingsProps) => {
     const {
         currentMixingCenterSettings,
         setCurrentMixingCenterSettings
-    } = useComputerContext();
+    } = useMixingCenterContext();
 
     const [loaded, setLoaded] = useState<boolean>(false);
     const [internalMixingCenterSettings, setInternalMixingCenterSettings] = useState<MixingCenterSettingsModel | null>(null);

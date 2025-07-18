@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import CalculationService from "@/logic/services/CalculationService";
 import StaffPersonnelCostsAccourd from "./StaffPersonnelCostsAccourd";
 import DefaultsProvider from "@/logic/Providers/DefaultsProvider";
-import { useComputerContext } from "@/context/MixingCenterContext/MixingCenterProvider";
+import { useMixingCenterContext } from "@/context/MixingCenterContext/MixingCenterProvider";
 import { handleOnInternalModelChange, safeSetState } from "@/context/MixingCenterContext/MixingCenterUtils";
 import { deepClone } from "@/utils/objectUtils";
 
@@ -22,7 +22,7 @@ const StaffPersonnelCostsForm = (props: StaffPersonnelCostsFormProps) => {
         currentAssistantSalary,
         setCurrentChemistSalary,
         setCurrentAssistantSalary
-    } = useComputerContext();
+    } = useMixingCenterContext();
 
     const [loaded, setLoaded] = useState<boolean>(false);
     const [internalChemistSalary, setInternalChemistSalary] = useState<StaffSalaryGroupModel | null>(null);

@@ -1,15 +1,15 @@
-import { useComputerContext } from "@/context/MixingCenterContext/MixingCenterProvider";
 import { useLoadingContext } from "@/context/LoadingContext/LoadingContext";
+import useMixingCenterContext from "@/context/MixingCenterContext/useMixingCenterContext";
 import MainHeaderBlock from "@/ui/components/MainHeaderBlock";
 import { useEffect } from "react";
 
 const SubLayout = ({ children }: { children: React.ReactNode }) => {
-    const { executingSomething } = useComputerContext();
+    const { isProcessing } = useMixingCenterContext();
     const { setLoading } = useLoadingContext();
 
     useEffect(() => {
-        setLoading(executingSomething);
-    }, [executingSomething]);
+        setLoading(isProcessing);
+    }, [isProcessing]);
 
     return (
         <div className="w-full px-4 py-8">

@@ -1,6 +1,6 @@
 import AccordionMenuItemWithContextAction, { MenuSubItem } from "@/components/ui/menu/AccordionMenuItemWithContextAction";
 import { useComputerActionsContext } from "@/context/FileDialogContext/FileDialogProvider";
-import { useComputerContext } from "@/context/MixingCenterContext/MixingCenterProvider";
+import { useMixingCenterContext } from "@/context/MixingCenterContext/MixingCenterProvider";
 import { FileEdit, FilePlus, FileText, FolderOpen, Save } from "lucide-react";
 
 interface ComputerMenuProps {
@@ -12,7 +12,7 @@ interface ComputerMenuProps {
 }
 
 const ComputerMenu = (props: ComputerMenuProps) => {
-    const { currentFilename } = useComputerContext();
+    const { currentFilename } = useMixingCenterContext();
     const {
         setShowNewCalcDialog,
         setShowSaveAsDialog,

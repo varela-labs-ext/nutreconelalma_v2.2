@@ -1,4 +1,4 @@
-import { useComputerContext } from "@/context/MixingCenterContext/MixingCenterProvider";
+import { useMixingCenterContext } from "@/context/MixingCenterContext/MixingCenterProvider";
 import { Menu, X, FileText } from "lucide-react"
 import logoBbraun from "@/assets/imgs/logo.png";
 
@@ -8,7 +8,7 @@ interface FixHeaderProps {
 }
 
 const FixHeader = (props: FixHeaderProps) => {
-    const { currentFilename } = useComputerContext();
+    const { currentFilename } = useMixingCenterContext();
 
     return (
         <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">

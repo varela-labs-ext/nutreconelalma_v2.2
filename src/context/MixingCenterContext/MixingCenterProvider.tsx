@@ -16,50 +16,25 @@ import MixingCenterRawMaterialsModel from "@/logic/models/MixingCenterRawMateria
 import MixingCenterOperatingResourcesModel from "@/logic/models/MixingCenterOperatingResourcesModel";
 import CalculationService from "@/logic/services/CalculationService";
 import { getProductionPerMonth, updateAdditionalCostsSummary } from "./MixingCenterUtils";
-import { Logger } from "@/utils/logger";
+import { getClassName, Logger } from "@/utils/logger";
 import AdditionalCostsTotalsModel from "@/logic/models/AdditionalCostsTotalsModel";
+import MixingCenterContextProps from "./MixingCenterTypes";
+import CentralTypeSwitch from "./utils/CentralTypeSwitch";
+import PopulationTypeSwitch from "./utils/PopulationTypeSwitch";
+import MixingCenterUseEffects from "./MixingCenterUseEffects";
+import { isValidBackupPayload } from "./utils/MixingCenterUtils";
 
-// ------------------- Interfaz del Contexto -------------------
-export interface ComputerContextProps {
-    executingSomething: boolean; // <- esto es para avisarle al overlay que se active o no.
-    currentFilename: string | null;
-    currentMixingCenterSettings: MixingCenterSettingsModel;
-    currentRawMaterial: RawMaterialGroupModel;
-    additionalCostsSummary: AdditionalCostsTotalsModel;
-    currentAutomatedEquipment: AutomatedEquipmentGroupModel;
-    currentHygieneAndCleaning: HygieneAndCleaningGroupModel;
-    currentPersonalProtection: PersonalProtectionGroupModel;
-    currentSterileWorkEquipment: SterileWorkEquipmentGroupModel;
-    currentMaintenanceCosts: MaintenanceCostsGroupModel;
-    currentProductionCosts: ProductionCostsGroupModel;
-    currentChemistSalary: StaffSalaryGroupModel;
-    currentAssistantSalary: StaffSalaryGroupModel;
-    setExecutingSomething: (inValue: boolean) => void;
-    setCurrentFilename: (inFileName: string | null) => void;
-    setCurrentMixingCenterSettings: (inValue: MixingCenterSettingsModel) => void;
-    setCurrentRawMaterial: (inValue: RawMaterialGroupModel) => void;
-    setCurrentAutomatedEquipment: (inValue: AutomatedEquipmentGroupModel) => void;
-    setCurrentHygieneAndCleaning: (inValue: HygieneAndCleaningGroupModel) => void;
-    setCurrentPersonalProtection: (inValue: PersonalProtectionGroupModel) => void;
-    setCurrentSterileWorkEquipment: (inValue: SterileWorkEquipmentGroupModel) => void;
-    setCurrentMaintenanceCosts: (inValue: MaintenanceCostsGroupModel) => void;
-    setCurrentProductionCosts: (inValue: ProductionCostsGroupModel) => void;
-    setCurrentChemistSalary: (inValue: StaffSalaryGroupModel) => void;
-    setCurrentAssistantSalary: (inValue: StaffSalaryGroupModel) => void;
-    gatherExternalBackup: () => ComputerBigGroupModel;
-    loadExternalBackup: (inExternalData: ComputerBigGroupModel | undefined | null) => void;
-}
 
 // ------------------- Contexto -------------------
-export const ComputerContext = createContext<ComputerContextProps | undefined>(undefined);
+export const MixingCenterContext = createContext<MixingCenterContextProps | undefined>(undefined);
 
 // ------------------- Provider -------------------
 // Antiguo calculadora provider
-export const ComputerProvider = ({ children }: { children: React.ReactNode }) => {
+export const MixingCenterProvider = ({ children }: { children: React.ReactNode }) => {
     const msgInvalidData = "Datos leidos del backup internos son inválidos!";
 
     const [isReady, setIsReady] = useState(true);
-    const [executingSomething, setExecutingSomething] = useState<boolean>(false);
+    const [isProcessing, setIsProcessing] = useState<boolean>(false);
     const [currentFilename, setCurrentFilename] = useState<string | null>(null);
 
     const [currentMixingCenterSettings, setCurrentMixingCenterSettings] = useState<MixingCenterSettingsModel>(new MixingCenterSettingsModel());
@@ -87,14 +62,14 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     const [backup_MC_Automatic_Resources, setBackup_MC_Automatic_Resources] = useState<MixingCenterOperatingResourcesModel>(new MixingCenterOperatingResourcesModel());
 
     // PUBLIC
-    const gatherExternalBackup = (): ComputerBigGroupModel => {
+    const buildBackupPayload = (): ComputerBigGroupModel => {
         const output: ComputerBigGroupModel = new ComputerBigGroupModel();
 
         try {
             setIsReady(false);
 
-            runFullOperationalResourcesBackup(currentMixingCenterSettings.centralType);
-            runFullRawMaterialBackup(currentMixingCenterSettings.centralType, currentMixingCenterSettings.populationType);
+            backupCurrentOperationalResources(currentMixingCenterSettings.centralType);
+            backupCurrentRawMaterials(currentMixingCenterSettings.centralType, currentMixingCenterSettings.populationType);
 
             output.mixingCenterSettings = deepClone(currentMixingCenterSettings);
 
@@ -105,7 +80,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
             output.backup_MC_Automatic_Resources = deepClone(backup_MC_Automatic_Resources);
 
         } catch (err) {
-            console.error(err);
+            Logger.error(err);
         } finally {
             setIsReady(true);
         }
@@ -114,13 +89,13 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     }
 
     // PUBLIC
-    const loadExternalBackup = (inExternalData: ComputerBigGroupModel | undefined | null): void => {
+    const loadBackupFromPayload = (inExternalData: ComputerBigGroupModel | undefined | null): void => {
         try {
             setIsReady(false);
-            Logger.info("ComputerProvider.loadExternalBackup() STARTS...");
+            Logger.info("MixingCenterProvider.loadExternalBackup() STARTS...");
 
-            if (inExternalData !== undefined && inExternalData !== null && isExternalDataValid(inExternalData)) {
-                loadExternalBackupProcess(inExternalData);
+            if (inExternalData !== undefined && inExternalData !== null && isValidBackupPayload(inExternalData)) {
+                hydrateFromBackupPayload(inExternalData);
             } else {
                 throw new Error("Datos de backup inválidos!");
             }
@@ -129,32 +104,32 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
             throw err;
         } finally {
             setIsReady(true);
-            Logger.info("ComputerProvider.loadExternalBackup() ENDS...");
+            Logger.info("MixingCenterProvider.loadExternalBackup() ENDS...");
         }
     }
 
-    const isExternalDataValid = (inExternalData: ComputerBigGroupModel): boolean => {
-        return (
-            inExternalData.mixingCenterSettings !== undefined && inExternalData.mixingCenterSettings != null &&
-            inExternalData.backup_MC_Automatic_RawMaterials !== undefined && inExternalData.backup_MC_Automatic_RawMaterials !== null &&
-            inExternalData.backup_MC_Automatic_Resources !== undefined && inExternalData.backup_MC_Automatic_Resources !== null &&
-            inExternalData.backup_MC_Manual_RawMaterials !== undefined && inExternalData.backup_MC_Manual_RawMaterials !== null &&
-            inExternalData.backup_MC_Manual_Resources !== undefined && inExternalData.backup_MC_Manual_Resources !== null
-        );
-    }
+    // const isExternalDataValid = (inExternalData: ComputerBigGroupModel): boolean => {
+    //     return (
+    //         inExternalData.mixingCenterSettings !== undefined && inExternalData.mixingCenterSettings != null &&
+    //         inExternalData.backup_MC_Automatic_RawMaterials !== undefined && inExternalData.backup_MC_Automatic_RawMaterials !== null &&
+    //         inExternalData.backup_MC_Automatic_Resources !== undefined && inExternalData.backup_MC_Automatic_Resources !== null &&
+    //         inExternalData.backup_MC_Manual_RawMaterials !== undefined && inExternalData.backup_MC_Manual_RawMaterials !== null &&
+    //         inExternalData.backup_MC_Manual_Resources !== undefined && inExternalData.backup_MC_Manual_Resources !== null
+    //     );
+    // }
 
     // Este metodo permite al sistema cargar desde una fuente cualquiera el bloque de datos.
-    const loadExternalBackupProcess = (inExternalData: ComputerBigGroupModel): void => {
+    const hydrateFromBackupPayload = (inExternalData: ComputerBigGroupModel): void => {
         const _copyOfInData = deepClone(inExternalData);
 
         if (_copyOfInData?.mixingCenterSettings === null) {
             throw new Error("loadExternalBackupProcess() - Los datos no pueden ser nulos.");
         }
 
-        Logger.info("ComputerContext.loadExternalBackupProcess() STARTS");
+        Logger.info("MixingCenterContext.loadExternalBackupProcess() STARTS");
 
-        loadExternalBackupIntoRawMaterialBackups(_copyOfInData); // Raw material
-        loadExternalBackupIntoRecoursesBackups(_copyOfInData); // Resources
+        setRawMaterialBackupsFromPayload(_copyOfInData); // Raw material
+        setResourceBackupsFromPayload(_copyOfInData); // Resources
         loadExternalBackupIntoCurrents(
             _copyOfInData.mixingCenterSettings?.centralType,
             _copyOfInData.mixingCenterSettings?.populationType,
@@ -162,51 +137,47 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
 
         setCurrentMixingCenterSettings(_copyOfInData.mixingCenterSettings);
 
-        Logger.info("ComputerContext.loadExternalBackupProcess() ENDS");
+        Logger.info("MixingCenterContext.loadExternalBackupProcess() ENDS");
     }
 
     const loadExternalBackupIntoCurrents = (inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum, inExternalData: ComputerBigGroupModel): void => {
 
-        switch (inCentralType) {
-            case CentralTypeIdEnum.Manual:
-                setExternalBackupIntoRawMaterialCurrents(inPopulationType, inExternalData.backup_MC_Manual_RawMaterials);
-                setExternalBackupIntoResourcesCurrents(inExternalData?.backup_MC_Manual_Resources);
-                break;
-            case CentralTypeIdEnum.Automatico:
-                setExternalBackupIntoRawMaterialCurrents(inPopulationType, inExternalData.backup_MC_Automatic_RawMaterials);
-                setExternalBackupIntoResourcesCurrents(inExternalData?.backup_MC_Automatic_Resources);
-                break;
-            default:
-                console.warn("callByCentralTypeWithReturn. Tipo de central no reconocido:", inCentralType);
-                break;
-        }
+        CentralTypeSwitch(
+            inCentralType,
+            () => {
+                setRawMaterialCurrentFromBackup(inPopulationType, inExternalData.backup_MC_Manual_RawMaterials);
+                setResourcesCurrentFromBackup(inExternalData?.backup_MC_Manual_Resources);
+            },
+            () => {
+                setRawMaterialCurrentFromBackup(inPopulationType, inExternalData.backup_MC_Automatic_RawMaterials);
+                setResourcesCurrentFromBackup(inExternalData?.backup_MC_Automatic_Resources);
+            }
+        );
     }
 
-    const setExternalBackupIntoRawMaterialCurrents = (inPopulationType: PopulationTypeIdEnum, inData: MixingCenterRawMaterialsModel | null): void => {
+    const setRawMaterialCurrentFromBackup = (inPopulationType: PopulationTypeIdEnum, inData: MixingCenterRawMaterialsModel | null): void => {
         if (inData === null || inData === undefined) {
             throw new Error("setExternalBackupIntoRawCurrents(). LA DATA NO PUEDE SER NULA.");
         }
 
-        switch (inPopulationType) {
-            case PopulationTypeIdEnum.Adulto:
+        PopulationTypeSwitch(
+            inPopulationType,
+            () => {
                 const _adulto = deepClone(inData.adultoRawMaterial);
                 setCurrentRawMaterial(_adulto);
-                break;
-            case PopulationTypeIdEnum.Neonatal:
+            },
+            () => {
                 const _neonatal = deepClone(inData.neonatalRawMaterial);
                 setCurrentRawMaterial(_neonatal);
-                break;
-            case PopulationTypeIdEnum.Pediatrica:
+            },
+            () => {
                 const _pediatrica = deepClone(inData.pediatricoRawMaterial);
                 setCurrentRawMaterial(_pediatrica);
-                break;
-            default:
-                console.warn("setExternalBackupIntoRawCurrents. Tipo de Población no reconocido:", inPopulationType);
-                break;
-        }
+            }
+        );
     }
 
-    const setExternalBackupIntoResourcesCurrents = (inData: MixingCenterOperatingResourcesModel | null): void => {
+    const setResourcesCurrentFromBackup = (inData: MixingCenterOperatingResourcesModel | null): void => {
         if (inData === null || inData === undefined) {
             throw new Error("setExternalBackupIntoResourcesCurrents(). LA DATA NO PUEDE SER NULA.");
         }
@@ -235,7 +206,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
 
 
 
-    const loadExternalBackupIntoRawMaterialBackups = (inData: ComputerBigGroupModel | null): void => {
+    const setRawMaterialBackupsFromPayload = (inData: ComputerBigGroupModel | null): void => {
         if (inData === null || inData === undefined) {
             throw new Error("loadExternalBackupIntoRawMaterialBackups(). LA DATA NO PUEDE SER NULA.");
         }
@@ -251,7 +222,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         }
     }
 
-    const loadExternalBackupIntoRecoursesBackups = (inData: ComputerBigGroupModel | null): void => {
+    const setResourceBackupsFromPayload = (inData: ComputerBigGroupModel | null): void => {
         if (inData === null || inData === undefined) {
             throw new Error("loadExternalBackupIntoRecoursesBackups(). LA DATA NO PUEDE SER NULA.");
         }
@@ -267,41 +238,37 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         }
     }
 
-    const reloadInternalRawMaterialBackupsIntoCurrents = (inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum): void => {
+    const restoreRawMaterialFromInternalBackup = (inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum): void => {
         Logger.info(`RESTAURANDO BACKUP DE MATERIA PRIMA. CENTRAL: ${CentralTypeIdEnum[inCentralType]}, POBLACION: ${PopulationTypeIdEnum[inPopulationType]}`);
 
-        switch (inCentralType) {
-            case CentralTypeIdEnum.Manual:
-                setExternalBackupIntoRawMaterialCurrents(inPopulationType, backup_MC_Manual_RawMaterials);
-                break;
-            case CentralTypeIdEnum.Automatico:
-                setExternalBackupIntoRawMaterialCurrents(inPopulationType, backup_MC_Automatic_RawMaterials);
-                break;
-            default:
-                console.warn("reloadInternalResourcesBackupsIntoCurrents. Tipo de central no reconocido:", inCentralType);
-                break;
-        }
+        CentralTypeSwitch(
+            inCentralType,
+            () => {
+                setRawMaterialCurrentFromBackup(inPopulationType, backup_MC_Manual_RawMaterials);
+            },
+            () => {
+                setRawMaterialCurrentFromBackup(inPopulationType, backup_MC_Automatic_RawMaterials);
+            }
+        );
     }
 
-    const reloadInternalResourcesBackupsIntoCurrents = (inCentralType: CentralTypeIdEnum): void => {
+    const restoreResourcesFromInternalBackup = (inCentralType: CentralTypeIdEnum): void => {
         Logger.info(`RESTAURANDO BACKUP DE LOS RESOURCES. CENTRAL: ${CentralTypeIdEnum[inCentralType]}`);
 
-        switch (inCentralType) {
-            case CentralTypeIdEnum.Manual:
+        CentralTypeSwitch(
+            inCentralType,
+            () => {
                 const manualResources = deepClone(backup_MC_Manual_Resources);
-                setExternalBackupIntoResourcesCurrents(manualResources);
-                break;
-            case CentralTypeIdEnum.Automatico:
+                setResourcesCurrentFromBackup(manualResources);
+            },
+            () => {
                 const automaticoResources = deepClone(backup_MC_Automatic_Resources);
-                setExternalBackupIntoResourcesCurrents(automaticoResources);
-                break;
-            default:
-                console.warn("reloadInternalResourcesBackupsIntoCurrents. Tipo de central no reconocido:", inCentralType);
-                break;
-        }
+                setResourcesCurrentFromBackup(automaticoResources);
+            }
+        );
     }
 
-    const getCopyOfOperationalResources = (): MixingCenterOperatingResourcesModel => {
+    const cloneCurrentOperationalResources = (): MixingCenterOperatingResourcesModel => {
         const resources: MixingCenterOperatingResourcesModel = new MixingCenterOperatingResourcesModel();
         resources.automatedEquipment = deepClone(currentAutomatedEquipment);
         resources.hygieneAndCleaning = deepClone(currentHygieneAndCleaning);
@@ -314,90 +281,85 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         return resources;
     }
 
-    const runFullOperationalResourcesBackup = (inCentralType: CentralTypeIdEnum): void => {
-        Logger.info(`EJECUTANDO BACKUP DE LOS RESOURCES. CENTRAL: ${CentralTypeIdEnum[inCentralType]}`);
+    const backupCurrentOperationalResources = (inCentralType: CentralTypeIdEnum): void => {
+        Logger.info(`EJECUTANDO BACKUP DE LOS RESOURCES. CENTRAL: ${CentralTypeIdEnum[inCentralType]}`, getClassName(this));
 
-        switch (inCentralType) {
-            case CentralTypeIdEnum.Manual:
-                const resourcesManual = getCopyOfOperationalResources();
+        CentralTypeSwitch(
+            inCentralType,
+            () => {
+                const resourcesManual = cloneCurrentOperationalResources();
                 setBackup_MC_Manual_Resources(resourcesManual);
-                break
-            case CentralTypeIdEnum.Automatico:
-                const resourcesAutomatic = getCopyOfOperationalResources();
+            },
+            () => {
+                const resourcesAutomatic = cloneCurrentOperationalResources();
                 setBackup_MC_Automatic_Resources(resourcesAutomatic);
-                break;
-            default:
-                console.warn("runFullOperationalResourcesBackup. Tipo de central no reconocido:", inCentralType);
-                break;
-        }
+            }
+        );
     }
 
-    const getCopyOfRawMaterials = (inPopulationType: PopulationTypeIdEnum, inData: MixingCenterRawMaterialsModel): MixingCenterRawMaterialsModel => {
+    const cloneRawMaterialsIntoPopulationGroup = (inPopulationType: PopulationTypeIdEnum, inData: MixingCenterRawMaterialsModel): MixingCenterRawMaterialsModel => {
         const resources = deepClone(inData);
 
-        switch (inPopulationType) {
-            case PopulationTypeIdEnum.Adulto:
+        PopulationTypeSwitch(
+            inPopulationType,
+            () => {
                 resources.adultoRawMaterial = deepClone(currentRawMaterial)
-                break
-            case PopulationTypeIdEnum.Neonatal:
+            },
+            () => {
                 resources.neonatalRawMaterial = deepClone(currentRawMaterial)
-                break;
-            case PopulationTypeIdEnum.Pediatrica:
+            },
+            () => {
                 resources.pediatricoRawMaterial = deepClone(currentRawMaterial)
-                break;
-            default:
-                console.warn("getCopyOfRawMaterials. Tipo de Población no reconocido:", inPopulationType);
-                break;
-        }
+            }
+        );
 
         return resources;
     }
 
-    const runFullRawMaterialBackup = (inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum): void => {
+    const backupCurrentRawMaterials = (inCentralType: CentralTypeIdEnum, inPopulationType: PopulationTypeIdEnum): void => {
         Logger.info(`EJECUTANDO BACKUP DE MATERIA PRIMA. CENTRAL: ${CentralTypeIdEnum[inCentralType]}, POBLACION: ${PopulationTypeIdEnum[inPopulationType]}`);
 
-        switch (inCentralType) {
-            case CentralTypeIdEnum.Manual:
-                const rawMaterialManual = getCopyOfRawMaterials(inPopulationType, backup_MC_Manual_RawMaterials);
+        CentralTypeSwitch(
+            inCentralType,
+            () => {
+                const rawMaterialManual = cloneRawMaterialsIntoPopulationGroup(inPopulationType, backup_MC_Manual_RawMaterials);
                 setBackup_MC_Manual_RawMaterials(rawMaterialManual);
-                break;
-            case CentralTypeIdEnum.Automatico:
-                const rawMaterialAutomatic = getCopyOfRawMaterials(inPopulationType, backup_MC_Automatic_RawMaterials);
+            },
+            () => {
+                const rawMaterialAutomatic = cloneRawMaterialsIntoPopulationGroup(inPopulationType, backup_MC_Automatic_RawMaterials);
                 setBackup_MC_Automatic_RawMaterials(rawMaterialAutomatic);
-                break;
-            default:
-                console.warn("runFullRawMaterialBackup. Tipo de central no reconocido:", inCentralType);
-                break;
-        }
+            }
+        );
     }
 
-    const handleOnCentralTypeChange = (inNewSettings: MixingCenterSettingsModel): void => {
+    const switchResourcesAndRawMaterialByCentral = (inNewSettings: MixingCenterSettingsModel): void => {
         Logger.info("EL TIPO DE CENTRAL ES DIFERENTE AL TIPO DE CENTRAL ALMACENADO.");
 
         // HACE RESPALDO DE LOS DATOS ACTUALES CON LA CONFIGURACION ACTUAL
-        runFullOperationalResourcesBackup(backup_MixingCenterSettings.centralType);
-        runFullRawMaterialBackup(backup_MixingCenterSettings.centralType, backup_MixingCenterSettings.populationType);
+        backupCurrentOperationalResources(backup_MixingCenterSettings.centralType);
+        backupCurrentRawMaterials(backup_MixingCenterSettings.centralType, backup_MixingCenterSettings.populationType);
 
         // CARGA LOS DATOS USANDO LA CONFIGURACION NUEVA
-        reloadInternalResourcesBackupsIntoCurrents(inNewSettings.centralType);
-        reloadInternalRawMaterialBackupsIntoCurrents(inNewSettings.centralType, inNewSettings.populationType);
+        restoreResourcesFromInternalBackup(inNewSettings.centralType);
+        restoreRawMaterialFromInternalBackup(inNewSettings.centralType, inNewSettings.populationType);
     }
 
-    const handleOnPopulationTypeChange = (inNewSettings: MixingCenterSettingsModel): void => {
+    const switchRawMaterialByPopulationType = (inNewSettings: MixingCenterSettingsModel): void => {
         Logger.info("EL TIPO DE POBLACION ES DIFERENTE AL TIPO DE POBLACION ALMACENADO.");
 
         // HACE RESPALDO DE LOS DATOS ACTUALES CON LA CONFIGURACION ACTUAL
-        runFullRawMaterialBackup(backup_MixingCenterSettings.centralType, backup_MixingCenterSettings.populationType);
+        backupCurrentRawMaterials(backup_MixingCenterSettings.centralType, backup_MixingCenterSettings.populationType);
 
         // CARGA LOS DATOS USANDO LA CONFIGURACION NUEVA
-        reloadInternalRawMaterialBackupsIntoCurrents(inNewSettings.centralType, inNewSettings.populationType);
+        restoreRawMaterialFromInternalBackup(inNewSettings.centralType, inNewSettings.populationType);
     }
 
     const handleOnPercentagesChange = (inData: MixingCenterSettingsModel): void => {
         Logger.info("LOS PORCENTAJES CAMBIARON");
+        //TODO: PENDIENTE DE DEFINIR POR EL USUARIO
     }
 
-    const handleOnProductionChange = (inData: MixingCenterSettingsModel): void => {
+    const recalculateCostsByProduction = (inData: MixingCenterSettingsModel): void => {
         Logger.info("LA PRODUCCION CAMBIO");
 
         const _productionPerMonth = getProductionPerMonth(inData);
@@ -430,15 +392,15 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         setBackup_MC_Automatic_Resources(_automaticResourcesBackup);
     }
 
-    const isDifferentCentralType = (inData: MixingCenterSettingsModel): boolean => {
+    const hasCentralTypeChanged = (inData: MixingCenterSettingsModel): boolean => {
         return (inData.centralType !== backup_MixingCenterSettings.centralType);
     }
 
-    const isDifferentPopulationType = (inData: MixingCenterSettingsModel): boolean => {
+    const hasPopulationTypeChanged = (inData: MixingCenterSettingsModel): boolean => {
         return (inData.populationType !== backup_MixingCenterSettings.populationType);
     }
 
-    const areDifferentPercentages = (inData: MixingCenterSettingsModel): boolean => {
+    const hasPercentageDistributionChanged = (inData: MixingCenterSettingsModel): boolean => {
         return (
             inData.percentPerAdult != backup_MixingCenterSettings.percentPerAdult ||
             inData.percentPerNeonatal != backup_MixingCenterSettings.percentPerNeonatal ||
@@ -446,24 +408,24 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         );
     }
 
-    const isDifferentProduction = (inData: MixingCenterSettingsModel): boolean => {
+    const hasProductionChanged = (inData: MixingCenterSettingsModel): boolean => {
         return (
             inData.productionLines != backup_MixingCenterSettings.productionLines ||
             inData.productionPerDay != backup_MixingCenterSettings.productionPerDay
         );
     }
 
-    const runOnMixingCenterSettingsChange = (inMC_Settings: MixingCenterSettingsModel): void => {
-        Logger.info("runOnMixingCenterSettingsChange");
+    const handleMixingCenterSettingsChange = (inMC_Settings: MixingCenterSettingsModel): void => {
+        Logger.info("handleMixingCenterSettingsChange");
 
-        if (isDifferentCentralType(inMC_Settings) === true) {
-            handleOnCentralTypeChange(inMC_Settings);
-        } else if (isDifferentPopulationType(inMC_Settings) === true) {
-            handleOnPopulationTypeChange(inMC_Settings);
-        } else if (areDifferentPercentages(inMC_Settings) === true) {
+        if (hasCentralTypeChanged(inMC_Settings) === true) {
+            switchResourcesAndRawMaterialByCentral(inMC_Settings);
+        } else if (hasPopulationTypeChanged(inMC_Settings) === true) {
+            switchRawMaterialByPopulationType(inMC_Settings);
+        } else if (hasPercentageDistributionChanged(inMC_Settings) === true) {
             handleOnPercentagesChange(inMC_Settings);
-        } else if (isDifferentProduction(inMC_Settings) === true) {
-            handleOnProductionChange(inMC_Settings);
+        } else if (hasProductionChanged(inMC_Settings) === true) {
+            recalculateCostsByProduction(inMC_Settings);
         } else {
             Logger.info("NO HUBO NINGUN CAMBIO EN LA CONFIGURACION DE LA CENTRAL");
             return;
@@ -474,7 +436,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
         setBackup_MixingCenterSettings(_backup_settings);
     }
 
-    const refreshAdditionSummary = (): void => {
+    const recalculateAdditionalCostsSummary = (): void => {
         updateAdditionalCostsSummary(
             currentAutomatedEquipment,
             currentHygieneAndCleaning,
@@ -489,53 +451,21 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
     }
 
     useEffect(() => {
-        runOnMixingCenterSettingsChange(currentMixingCenterSettings);
+        handleMixingCenterSettingsChange(currentMixingCenterSettings);
         Logger.info("useEffect -> currentMixingCenterSettings");
         Logger.info(currentMixingCenterSettings);
     }, [currentMixingCenterSettings]);
 
+
     useEffect(() => {
-        Logger.info("ComputerContext.Provider MONTADO!!!");
+        Logger.info("MixingCenterContext.Provider MONTADO!!!");
     }, []);
-
-    useEffect(() => {
-        refreshAdditionSummary();
-    }, [currentAutomatedEquipment]);
-
-    useEffect(() => {
-        refreshAdditionSummary();
-    }, [currentHygieneAndCleaning]);
-
-    useEffect(() => {
-        refreshAdditionSummary();
-    }, [currentPersonalProtection]);
-
-    useEffect(() => {
-        refreshAdditionSummary();
-    }, [currentSterileWorkEquipment]);
-
-    useEffect(() => {
-        refreshAdditionSummary();
-    }, [currentMaintenanceCosts]);
-
-    useEffect(() => {
-        refreshAdditionSummary();
-    }, [currentProductionCosts]);
-
-    useEffect(() => {
-        refreshAdditionSummary();
-    }, [currentChemistSalary]);
-
-    useEffect(() => {
-        refreshAdditionSummary();
-    }, [currentAssistantSalary]);
-
 
 
     return (
-        <ComputerContext.Provider
+        <MixingCenterContext.Provider
             value={{
-                executingSomething,
+                isProcessing,
                 currentFilename,
                 currentMixingCenterSettings,
                 currentRawMaterial,
@@ -548,7 +478,7 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 currentProductionCosts,
                 currentChemistSalary,
                 currentAssistantSalary,
-                setExecutingSomething,
+                setIsProcessing,
                 setCurrentFilename,
                 setCurrentMixingCenterSettings,
                 setCurrentRawMaterial,
@@ -560,20 +490,16 @@ export const ComputerProvider = ({ children }: { children: React.ReactNode }) =>
                 setCurrentProductionCosts,
                 setCurrentChemistSalary,
                 setCurrentAssistantSalary,
-                gatherExternalBackup,
-                loadExternalBackup
+                gatherExternalBackup: buildBackupPayload,
+                loadExternalBackup: loadBackupFromPayload,
+                recalculateAdditionalCostsSummary
             }}
         >
-            {children}
-        </ComputerContext.Provider>
+            <MixingCenterUseEffects>
+                {children}
+            </MixingCenterUseEffects>
+        </MixingCenterContext.Provider >
     );
 };
 
 
-export const useComputerContext = (): ComputerContextProps => {
-    const context = useContext(ComputerContext);
-    if (!context) {
-        throw new Error("useComputerContext debe usarse dentro de un ComputerProvider");
-    }
-    return context;
-};

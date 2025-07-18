@@ -7,7 +7,7 @@ import UnitCostItemModel from "@/logic/models/row_item/UnitCostItemRowModel";
 import EstimatedCostItemModel from "@/logic/models/row_item/EstimatedCostItemRowModel";
 import CalculationService from "@/logic/services/CalculationService";
 import OperatingCostsAccourd from "./OperatingCostsAccourd";
-import { useComputerContext } from "@/context/MixingCenterContext/MixingCenterProvider";
+import { useMixingCenterContext } from "@/context/MixingCenterContext/MixingCenterProvider";
 import { deepClone, deepEqual } from "@/utils/objectUtils";
 import { getProductionPerMonth, handleOnInternalModelChange, safeSetState } from "@/context/MixingCenterContext/MixingCenterUtils";
 
@@ -28,7 +28,7 @@ const OperatingCostsForm = (props: OperatingCostsFormProps) => {
         currentProductionCosts,
         setCurrentMaintenanceCosts,
         setCurrentProductionCosts
-    } = useComputerContext();
+    } = useMixingCenterContext();
 
     const [loaded, setLoaded] = useState<boolean>(false);
     const [internalMaintenanceCosts, setInternalMaintenanceCosts] = useState<MaintenanceCostsGroupModel | null>(null);

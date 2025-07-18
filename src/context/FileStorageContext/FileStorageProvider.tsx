@@ -1,9 +1,9 @@
 import { createContext, useContext } from "react";
-import { useComputerContext } from "../MixingCenterContext/MixingCenterProvider";
 import StorageProvider from "@/providers/StorageProvider";
 import ComputerBigGroupModel from "@/logic/models/ComputerBigGroupModel";
 import DefaultsProvider from "@/providers/DefaultsProvider";
 import { Logger } from "@/utils/logger";
+import useMixingCenterContext from "../MixingCenterContext/useMixingCenterContext";
 
 
 export interface ComputerFileHandlerContextProps {
@@ -20,14 +20,14 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
     const {
         currentFilename,
         setCurrentFilename,
-        setExecutingSomething,
+        setIsProcessing,
         loadExternalBackup,
         gatherExternalBackup
-    } = useComputerContext();
+    } = useMixingCenterContext();
 
     const createNewFileAsync = async (): Promise<void> => {
         try {
-            setExecutingSomething(true);
+            setIsProcessing(true);
             Logger.info("ComputerFileHandlerProvider.createNewFileAsync() STARTS...");
 
             let userDefaultValues: ComputerBigGroupModel | null = await StorageProvider.loadUserDefaultsAsync();
@@ -45,14 +45,14 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
             Logger.error(error);
             throw error;
         } finally {
-            setExecutingSomething(false);
+            setIsProcessing(false);
             Logger.info("ComputerFileHandlerProvider.createNewFileAsync() ENDS...");
         }
     }
 
     const openFileAsync = async (inFileName: string): Promise<void> => {
         try {
-            setExecutingSomething(true);
+            setIsProcessing(true);
 
             if (inFileName) {
                 const results: ComputerBigGroupModel | null = await StorageProvider.loadFileDataAsync(inFileName);
@@ -68,14 +68,14 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
             Logger.error(error);
             throw error;
         } finally {
-            setExecutingSomething(false);
+            setIsProcessing(false);
         }
     }
 
     const saveFileAsync = async (): Promise<void> => {
 
         try {
-            setExecutingSomething(true);
+            setIsProcessing(true);
 
             if (currentFilename === undefined || currentFilename === null || currentFilename.trim() === "") {
                 Logger.info("No hay archivo activo. Usa guardarComo(nombre) en su lugar.");
@@ -93,13 +93,13 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
             Logger.error(error);
             throw error;
         } finally {
-            setExecutingSomething(false);
+            setIsProcessing(false);
         }
     }
 
     const saveFileAsAsync = async (inFileName: string): Promise<void> => {
         try {
-            setExecutingSomething(true);
+            setIsProcessing(true);
 
             if (inFileName === undefined || inFileName === null || inFileName.trim() === "") {
                 throw new Error("Error. Nombre de archivo inválido.");
@@ -123,7 +123,7 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
             throw error;
         } finally {
             setCurrentFilename(inFileName);
-            setExecutingSomething(false);
+            setIsProcessing(false);
         }
     }
 
@@ -146,7 +146,7 @@ export const ComputerFileHandlerProvider = ({ children }: { children: React.Reac
 export const useComputerFileHandlerContext = (): ComputerFileHandlerContextProps => {
     const context = useContext(ComputerFileHandlerContext);
     if (!context) {
-        throw new Error("useComputerContext debe usarse dentro de un ComputerProvider");
+        throw new Error("useMixingCenterContext debe usarse dentro de un MixingCenterProvider");
     }
     return context;
 };
