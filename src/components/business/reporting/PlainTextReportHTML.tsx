@@ -1,5 +1,7 @@
 // src/components/pdf/PlainTextReportHTML.tsx
 
+import { generateEmployeeReportHeader } from "./generateEmployeeReportHeader";
+import { formatEmployeeReport } from "./reportFormatter";
 import { padText } from "./textPadding";
 
 
@@ -10,10 +12,25 @@ const data = [
 ];
 
 export const PlainTextReportHTML = () => {
+    const headerLines = generateEmployeeReportHeader();
+    const contentLines = formatEmployeeReport(data);
     const header = `${padText('Nombre', 20)}${padText('Edad', 6, 'right')}  ${padText('Cargo', 25)}`;
 
     return (
         <pre className="font-mono text-sm whitespace-pre-wrap">
+            {[
+                'Reporte de Empleados',
+                "",
+                ...headerLines,
+                // '-'.repeat(headerLines.length),
+                ...contentLines,
+            ].join('\n')}
+        </pre>
+    );
+};
+
+/*
+<pre className="font-mono text-sm whitespace-pre-wrap">
             {[
                 'Reporte de Empleados',
                 header,
@@ -23,5 +40,5 @@ export const PlainTextReportHTML = () => {
                 ),
             ].join('\n')}
         </pre>
-    );
-};
+
+*/
