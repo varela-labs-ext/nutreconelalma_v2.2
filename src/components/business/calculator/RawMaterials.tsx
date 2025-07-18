@@ -1,9 +1,9 @@
 import RawMaterialGroupModel from "@/logic/models/RawMaterialGroupModel";
 import { useEffect, useRef, useState } from "react";
 import RawMaterialsSet from "../raw_material/RawMaterialsSet";
-import { useComputerContext } from "@/context/ComputerContext";
+import { useComputerContext } from "@/context/MixingCenterContext/ComputerContext";
 import { deepClone, deepEqual } from "@/utils/objectUtils";
-import { handleOnInternalModelChange, safeSetState } from "@/context/ComputerContextExt";
+import { handleOnInternalModelChange, safeSetState } from "@/context/MixingCenterContext/ComputerContextExt";
 import CalculationService from "@/logic/services/CalculationService";
 
 interface RawMaterialsProps {

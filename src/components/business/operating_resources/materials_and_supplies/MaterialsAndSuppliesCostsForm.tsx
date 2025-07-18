@@ -6,8 +6,8 @@ import PersonalProtectionModel from "@/logic/models/operating_resources/Personal
 import SterileWorkEquipmentGroupModel from "@/logic/models/operating_resources/SterileWorkEquipmentGroupModel";
 import MaterialsAndSuppliesCostsAccourd from "./MaterialsAndSuppliesCostsAccourd";
 import CalculationService from "@/logic/services/CalculationService";
-import { useComputerContext } from "@/context/ComputerContext";
-import { handleOnInternalModelChange, safeSetState } from "@/context/ComputerContextExt";
+import { useComputerContext } from "@/context/MixingCenterContext/ComputerContext";
+import { handleOnInternalModelChange, safeSetState } from "@/context/MixingCenterContext/ComputerContextExt";
 import { deepClone } from "@/utils/objectUtils";
 
 

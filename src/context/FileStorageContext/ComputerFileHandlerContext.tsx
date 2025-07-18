@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { useComputerContext } from "../ComputerContext";
+import { useComputerContext } from "../MixingCenterContext/ComputerContext";
 import StorageProvider from "@/providers/StorageProvider";
 import ComputerBigGroupModel from "@/logic/models/ComputerBigGroupModel";
 import DefaultsProvider from "@/providers/DefaultsProvider";

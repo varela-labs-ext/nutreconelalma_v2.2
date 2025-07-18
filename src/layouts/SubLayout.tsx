@@ -1,4 +1,4 @@
-import { useComputerContext } from "@/context/ComputerContext";
+import { useComputerContext } from "@/context/MixingCenterContext/ComputerContext";
 import { useLoadingContext } from "@/context/LoadingContext/LoadingContext";
 import MainHeaderBlock from "@/ui/components/MainHeaderBlock";
 import { useEffect } from "react";

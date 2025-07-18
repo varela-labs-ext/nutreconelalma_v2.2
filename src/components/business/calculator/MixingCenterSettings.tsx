@@ -1,9 +1,9 @@
 import MixingCenterSettingsModel from "@/logic/models/common/MixingCenterSettingsModel";
 import MixingCenterSet from "./mixing_center/MixingCenterSet";
 import { useEffect, useRef, useState } from "react";
-import { useComputerContext } from "@/context/ComputerContext";
+import { useComputerContext } from "@/context/MixingCenterContext/ComputerContext";
 import { deepClone, deepEqual } from "@/utils/objectUtils";
-import { handleOnInternalModelChange, safeSetState } from "@/context/ComputerContextExt";
+import { handleOnInternalModelChange, safeSetState } from "@/context/MixingCenterContext/ComputerContextExt";
 
 
 interface MixingCenterSettingsProps {

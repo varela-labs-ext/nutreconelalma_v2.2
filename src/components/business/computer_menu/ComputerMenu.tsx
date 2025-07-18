@@ -1,6 +1,6 @@
 import AccordionMenuItemWithContextAction, { MenuSubItem } from "@/components/ui/menu/AccordionMenuItemWithContextAction";
 import { useComputerActionsContext } from "@/context/FileDialogContext/ComputerActionsContext";
-import { useComputerContext } from "@/context/ComputerContext";
+import { useComputerContext } from "@/context/MixingCenterContext/ComputerContext";
 import { FileEdit, FilePlus, FileText, FolderOpen, Save } from "lucide-react";
 
 interface ComputerMenuProps {

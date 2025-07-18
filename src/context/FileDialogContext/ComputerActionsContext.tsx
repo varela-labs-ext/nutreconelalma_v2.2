@@ -2,7 +2,7 @@ import FileNameDialogBox from "@/components/ui/dialogs/FileNameDialogBox";
 import SelectFileDialogBox from "@/components/ui/dialogs/SelectFileDialogBox";
 import YesNoModal from "@/components/ui/dialogs/YesNoModal";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { useComputerContext } from "../ComputerContext";
+import { useComputerContext } from "../MixingCenterContext/ComputerContext";
 import { toastService } from "@/services/toastService";
 import { useComputerFileHandlerContext } from "../FileStorageContext/ComputerFileHandlerContext";
 import StorageProvider from "@/providers/StorageProvider";

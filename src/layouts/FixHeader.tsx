@@ -1,4 +1,4 @@
-import { useComputerContext } from "@/context/ComputerContext";
+import { useComputerContext } from "@/context/MixingCenterContext/ComputerContext";
 import { Menu, X, FileText } from "lucide-react"
 import logoBbraun from "@/assets/imgs/logo.png";
 
