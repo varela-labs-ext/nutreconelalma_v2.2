@@ -1,4 +1,3 @@
-// src/components/ui/PanelTab.tsx
 import { ReactNode } from "react";
 
 export type PanelTabProps = {
