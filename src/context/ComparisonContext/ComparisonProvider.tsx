@@ -9,6 +9,10 @@ import MixingCenterOperatingResourcesModel from '@/logic/models/MixingCenterOper
 import { deepClone } from '@/utils/objectUtils';
 import MixingCenterSettingsModel from '@/logic/models/common/MixingCenterSettingsModel';
 import MixingCenterRawMaterialsModel from '@/logic/models/MixingCenterRawMaterialsModel';
+import { BuildTextPlainReport, calculateResources, calculateResourcesTotal } from './ComparisonProviderUtils';
+import { padText } from '@/components/business/reporting/textPadding';
+import ResultItemModel from '@/logic/models/ResultItemModel';
+import JustValueItemModel from '@/logic/models/row_item/OneValueItemRowModel';
 
 
 // type MixingCenterComparisonState = {
@@ -19,6 +23,7 @@ import MixingCenterRawMaterialsModel from '@/logic/models/MixingCenterRawMateria
 type ComparisonContextType = {
     startComparision: boolean;
     results: MixingCenterResultsModel;
+    printingResults: string[];
     // loadResults: (inData: MixingCenterResultsModel) => void;
     resetResults: () => void;
     setStartComparision: (value: boolean) => void;
@@ -40,57 +45,24 @@ export const ComparisonProvider = ({ children }: { children: React.ReactNode }) 
 
     const [startComparision, setStartComparision] = useState<boolean>(false);
     const [results, setResults] = useState<MixingCenterResultsModel>(new MixingCenterResultsModel());
+    const [printingResults, setPrintingResults] = useState<string[]>([]);
 
-    // const setResults = (data: MixingCenterResultsModel) => {
-    //     // setResults((prev) => ({
-    //     //     ...prev,
-    //     //     manual: data,
-    //     // }));
-    // };
 
-    // const setAutomatedResults = (data: MixingCenterResultsModel) => {
-    //     setResults((prev) => ({
-    //         ...prev,
-    //         automated: data,
-    //     }));
-    // };
+
 
     const resetResults = (): void => {
         setResults(new MixingCenterResultsModel());
+        setPrintingResults([]);
     };
 
-    const calculateResources = (inData: MixingCenterOperatingResourcesModel | null): AdditionalCostsTotalsModel => {
-        if (inData === null) {
-            throw new Error("EL VALOR NO PUEDE SER NULO");
-        }
 
-        return getAdditionalCostsSummary(
-            inData.automatedEquipment,
-            inData.hygieneAndCleaning,
-            inData.personalProtection,
-            inData.sterileWorkEquipment,
-            inData.maintenanceCosts,
-            inData.productionCosts,
-            inData.staffChemistSalary,
-            inData.staffAssistantSalary
-        );
-    }
-
-    const calculateResourcesTotal = (newSummary: AdditionalCostsTotalsModel, manual: boolean): void => {
-        newSummary.totalSinStaff =
-            (manual === true ? 0 : newSummary.automatedEquipmentTotal) +
-            newSummary.hygieneNCleanlinessTotal +
-            newSummary.protectiveMaterialsTotal +
-            newSummary.sterilizedEquipmentTotal +
-            newSummary.maintenanceTotal +
-            newSummary.productionTotal;
-    }
 
     const startProcess = (): void => {
         try {
             Logger.info("Start Results Process", getClassName(this));
 
             const brandNewResults: MixingCenterResultsModel = new MixingCenterResultsModel();
+
 
             const dataBackupPayload: ComputerBigGroupModel = buildBackupPayload();
 
@@ -126,7 +98,6 @@ export const ComparisonProvider = ({ children }: { children: React.ReactNode }) 
             brandNewResults.productionCosts.valueNptAutomatic = summaryAutomatic.productionTotal;
             brandNewResults.sterileEquipmentCosts.valueNptAutomatic = summaryAutomatic.sterilizedEquipmentTotal;
             brandNewResults.automatedEquipmentCosts.valueNptAutomatic = summaryAutomatic.automatedEquipmentTotal;
-
 
             if (dataBackupPayload.backup_MC_Manual_Resources !== null) {
                 const resourcesManual: MixingCenterOperatingResourcesModel = dataBackupPayload.backup_MC_Manual_Resources;
@@ -261,7 +232,10 @@ export const ComparisonProvider = ({ children }: { children: React.ReactNode }) 
                     brandNewResults.valorTotalNeonatal.valueNptAutomatic;
             }
 
+
+            const _printingResults = BuildTextPlainReport(brandNewResults);
             setResults(brandNewResults);
+            setPrintingResults(_printingResults);
         } catch (err) {
             Logger.error(err);
         } finally {
@@ -281,6 +255,7 @@ export const ComparisonProvider = ({ children }: { children: React.ReactNode }) 
             value={{
                 startComparision,
                 results,
+                printingResults,
                 resetResults,
                 setStartComparision
             }}

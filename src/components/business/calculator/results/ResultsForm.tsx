@@ -7,13 +7,55 @@ import DownloadReportButton from "../../reporting/DownloadReportButton";
 import PreviewReportButton from "../../reporting/PreviewReportButton";
 import { useState } from "react";
 import FullScreenPreviewDialog from "../../reporting/FullScreenPreviewDialog";
+import { useComparisonContext } from "@/context/ComparisonContext/ComparisonProvider";
+import { pdf } from "@react-pdf/renderer";
+import { PlainTextReportPDF } from "../../reporting/PlainTextReportPDF";
+import { Logger } from '../../../../utils/logger';
+import useMixingCenterContext from "@/context/MixingCenterContext/useMixingCenterContext";
 
 interface ResultsFormProps {
-    inData: MixingCenterResultsModel;
 }
 
 const ResultsForm = (props: ResultsFormProps) => {
+    const { setIsProcessing } = useMixingCenterContext();
+    const { results, printingResults } = useComparisonContext();
     const [openPreview, setOpenPreview] = useState(false);
+
+
+    const generatePdfReport = async (): Promise<void> => {
+        try {
+            setIsProcessing(true);
+
+            // 1. Generar el PDF en memoria
+            const blob = await pdf(<PlainTextReportPDF inPrintResuls={printingResults} />).toBlob();
+
+            // 2. Simular retardo de 1 segundo
+            await new Promise((res) => setTimeout(res, 2000));
+
+            // 3. Crear URL temporal y disparar descarga
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'reporte.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url); // Limpieza
+        } catch (err) {
+            Logger.error(err);
+        } finally {
+            setIsProcessing(false);
+        }
+    }
+
+    const handleOnDownloadReport = (): void => {
+        generatePdfReport().then(() => {
+            Logger.info("REPORT PDF DONE");
+        }
+        ).catch(() => {
+            Logger.error("REPORT PDF ERROR");
+        });
+    }
 
     return (
         <div>
@@ -22,38 +64,38 @@ const ResultsForm = (props: ResultsFormProps) => {
                 {/* <h3 className="text-lg font-semibold text-purple-500 mb-4">Resultados</h3> */}
                 <div>
                     <JustValueInputEditor
-                        inData={props.inData.lineasProduccion}
+                        inData={results.lineasProduccion}
                         inName="inProductionLines"
                         isReadOnly={true}
                         onChange={(A, B) => { }}
                     />
                     <JustValueInputEditor
-                        inData={props.inData.produccionDiaria}
+                        inData={results.produccionDiaria}
                         inName="inProductionPerDay"
                         isReadOnly={true}
                         onChange={(A, B) => { }}
                     />
                     <JustValueInputEditor
-                        inData={props.inData.produccionMensual}
+                        inData={results.produccionMensual}
                         inName="inProductionPerMonth"
                         isReadOnly={true}
                         onChange={(A, B) => { }}
                     />
                     <div></div>
                     <JustValueInputEditor
-                        inData={props.inData.porcentajeAdulto}
+                        inData={results.porcentajeAdulto}
                         inName="porcentajeAdulto"
                         isReadOnly={true}
                         onChange={(A, B) => { }}
                     />
                     <JustValueInputEditor
-                        inData={props.inData.porcentajePediatric}
+                        inData={results.porcentajePediatric}
                         inName="porcentajePediatric"
                         isReadOnly={true}
                         onChange={(A, B) => { }}
                     />
                     <JustValueInputEditor
-                        inData={props.inData.porcentajeNeonatal}
+                        inData={results.porcentajeNeonatal}
                         inName="porcentajeNeonatal"
                         isReadOnly={true}
                         onChange={(A, B) => { }}
@@ -66,27 +108,27 @@ const ResultsForm = (props: ResultsFormProps) => {
                         <ResultsFormHeaders />
                         <div>
                             <ResultItemField
-                                inData={props.inData.PersonalProtectiveMaterialsCosts}
+                                inData={results.PersonalProtectiveMaterialsCosts}
                                 inName="PersonalProtectiveMaterialsCosts"
                             />
                             <ResultItemField
-                                inData={props.inData.hygieneNCleaningMaterialsCosts}
+                                inData={results.hygieneNCleaningMaterialsCosts}
                                 inName="hygieneNCleaningMaterialsCosts"
                             />
                             <ResultItemField
-                                inData={props.inData.maintenanceCosts}
+                                inData={results.maintenanceCosts}
                                 inName="maintenanceCosts"
                             />
                             <ResultItemField
-                                inData={props.inData.productionCosts}
+                                inData={results.productionCosts}
                                 inName="productionCosts"
                             />
                             <ResultItemField
-                                inData={props.inData.sterileEquipmentCosts}
+                                inData={results.sterileEquipmentCosts}
                                 inName="sterileEquipmentCosts"
                             />
                             <ResultItemField
-                                inData={props.inData.automatedEquipmentCosts}
+                                inData={results.automatedEquipmentCosts}
                                 inName="automatedEquipmentCosts"
                             />
                         </div>
@@ -97,20 +139,20 @@ const ResultsForm = (props: ResultsFormProps) => {
                         <ResultsFormHeaders />
                         <div>
                             <ResultItemField
-                                inData={props.inData.chemicalStaffHours}
+                                inData={results.chemicalStaffHours}
                                 inName="chemicalStaffHours"
                             />
                             <ResultItemField
-                                inData={props.inData.costPerChemicalStaff}
+                                inData={results.costPerChemicalStaff}
                                 inName="costPerChemicalStaff"
                             />
 
                             <ResultItemField
-                                inData={props.inData.auxiliaryStaffHours}
+                                inData={results.auxiliaryStaffHours}
                                 inName="auxiliaryStaffHours"
                             />
                             <ResultItemField
-                                inData={props.inData.costPerAuxiliaryStaff}
+                                inData={results.costPerAuxiliaryStaff}
                                 inName="costPerAuxiliaryStaff"
                             />
                         </div>
@@ -121,15 +163,15 @@ const ResultsForm = (props: ResultsFormProps) => {
                         <ResultsFormHeaders />
                         <div>
                             <ResultItemField
-                                inData={props.inData.cost1NptAdult}
+                                inData={results.cost1NptAdult}
                                 inName="cost1NptAdult"
                             />
                             <ResultItemField
-                                inData={props.inData.cost1NptPediatric}
+                                inData={results.cost1NptPediatric}
                                 inName="cost1NptPediatric"
                             />
                             <ResultItemField
-                                inData={props.inData.cost1NptNeonatal}
+                                inData={results.cost1NptNeonatal}
                                 inName="cost1NptNeonatal"
                             />
                         </div>
@@ -140,15 +182,15 @@ const ResultsForm = (props: ResultsFormProps) => {
                         <ResultsFormHeaders />
                         <div>
                             <ResultItemField
-                                inData={props.inData.costoTotalPreparacionNptAdult}
+                                inData={results.costoTotalPreparacionNptAdult}
                                 inName="costoTotalPreparacionNptAdult"
                             />
                             <ResultItemField
-                                inData={props.inData.costoTotalPreparacionNptPediatric}
+                                inData={results.costoTotalPreparacionNptPediatric}
                                 inName="costoTotalPreparacionNptPediatric"
                             />
                             <ResultItemField
-                                inData={props.inData.costoTotalPreparacionNptNeonatal}
+                                inData={results.costoTotalPreparacionNptNeonatal}
                                 inName="costoTotalPreparacionNptNeonatal"
                             />
                         </div>
@@ -159,21 +201,21 @@ const ResultsForm = (props: ResultsFormProps) => {
                         <ResultsFormHeaders />
                         <div>
                             <ResultItemField
-                                inData={props.inData.valorTotalAdult}
+                                inData={results.valorTotalAdult}
                                 inName="valorTotalAdult"
                             />
                             <ResultItemField
-                                inData={props.inData.valorTotalPediatric}
+                                inData={results.valorTotalPediatric}
                                 inName="valorTotalPediatric"
                             />
                             <ResultItemField
-                                inData={props.inData.valorTotalNeonatal}
+                                inData={results.valorTotalNeonatal}
                                 inName="valorTotalNeonatal"
                             />
 
                             <div>
                                 <ResultItemField
-                                    inData={props.inData.valorTotalNutriciosDia}
+                                    inData={results.valorTotalNutriciosDia}
                                     inName="valorTotalNutriciosDia"
                                 />
                             </div>
@@ -182,13 +224,17 @@ const ResultsForm = (props: ResultsFormProps) => {
                     {/* <div className="flex flex-col sm:flex-row items-center justify-center gap-4"> */}
                     <div className="w-full pt-6 max-w-screen-md mx-auto flex flex-col sm:flex-row items-center justify-center gap-4 px-4">
 
-                        <DownloadReportButton />
+                        <DownloadReportButton onClick={handleOnDownloadReport} />
                         <PreviewReportButton onClick={() => setOpenPreview(true)} />
                     </div>
                 </div>
             </div>
             <div>
-                <FullScreenPreviewDialog isOpen={openPreview} onClose={() => setOpenPreview(false)} />
+                <FullScreenPreviewDialog
+                    isOpen={openPreview}
+                    onClose={() => setOpenPreview(false)}
+                    onClick={handleOnDownloadReport}
+                />
             </div>
         </div>
     );

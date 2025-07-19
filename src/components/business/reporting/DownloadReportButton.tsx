@@ -4,27 +4,18 @@ import { FileDownIcon, Loader2Icon } from 'lucide-react';
 import { PlainTextReportPDF } from './PlainTextReportPDF';
 import { pdf } from '@react-pdf/renderer';
 
-const DownloadReportButton: FC = () => {
+interface DownloadReportButtonProps {
+    onClick: () => void;
+}
+
+
+const DownloadReportButton = (props: DownloadReportButtonProps) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleDownload = async () => {
         setIsLoading(true);
 
-        // 1. Generar el PDF en memoria
-        const blob = await pdf(<PlainTextReportPDF />).toBlob();
-
-        // 2. Simular retardo de 1 segundo
-        await new Promise((res) => setTimeout(res, 2000));
-
-        // 3. Crear URL temporal y disparar descarga
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'reporte.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url); // Limpieza
+        props.onClick();
 
         setIsLoading(false);
     };

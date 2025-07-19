@@ -3,33 +3,36 @@ import { PlainTextReportHTML } from './PlainTextReportHTML';
 import { PlainTextReportPDF } from './PlainTextReportPDF';
 import { pdf } from '@react-pdf/renderer';
 import { DownloadIcon } from 'lucide-react';
+import { useComparisonContext } from '@/context/ComparisonContext/ComparisonProvider';
 
-type Props = {
+interface FullScreenPreviewDialogProps {
     isOpen: boolean;
     onClose: () => void;
+    onClick: () => void;
 };
 
-const FullScreenPreviewDialog = ({ isOpen, onClose }: Props) => {
+const FullScreenPreviewDialog = (props: FullScreenPreviewDialogProps) => {
     const handleDownload = async () => {
-        const blob = await pdf(<PlainTextReportPDF />).toBlob();
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'reporte.pdf';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        // const blob = await pdf(<PlainTextReportPDF />).toBlob();
+        // const url = URL.createObjectURL(blob);
+        // const a = document.createElement('a');
+        // a.href = url;
+        // a.download = 'reporte.pdf';
+        // document.body.appendChild(a);
+        // a.click();
+        // document.body.removeChild(a);
+        // URL.revokeObjectURL(url);
+        props.onClose();
     };
 
-    if (!isOpen) return null;
+    if (!props.isOpen) return null;
 
     return (
-        <Dialog open={isOpen} onClose={onClose} className="fixed inset-0 z-50">
+        <Dialog open={props.isOpen} onClose={props.onClose} className="fixed inset-0 z-50">
             {/* Fondo oscuro */}
             <div
                 className="fixed inset-0 bg-black/60 backdrop-blur-sm"
-                onClick={onClose}
+                onClick={props.onClose}
             />
 
             {/* Contenedor general */}
@@ -50,7 +53,7 @@ const FullScreenPreviewDialog = ({ isOpen, onClose }: Props) => {
                         </button>
 
                         <button
-                            onClick={onClose}
+                            onClick={props.onClose}
                             className="text-2xl font-bold text-black hover:text-red-600"
                         >
                             ×

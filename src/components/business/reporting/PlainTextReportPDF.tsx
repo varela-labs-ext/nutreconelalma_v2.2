@@ -1,4 +1,5 @@
 // src/components/pdf/PlainTextReportPDF.tsx
+import { useComparisonContext } from '@/context/ComparisonContext/ComparisonProvider';
 import { Document, Page, Text, StyleSheet, Font } from '@react-pdf/renderer';
 
 // Fuente monoespaciada (Courier ya es built-in pero podrías usar otra)
@@ -26,25 +27,25 @@ const pad = (value: string | number, length: number, align: 'left' | 'right' = '
     return align === 'right' ? str.padStart(length, ' ') : str.padEnd(length, ' ');
 };
 
-export const PlainTextReportPDF = () => {
-    const data = [
-        { name: 'Juan Pérez', age: 34, role: 'Supervisor' },
-        { name: 'Ana', age: 27, role: 'Analista' },
-        { name: 'Carlos López', age: 41, role: 'Gerente de Proyectos' },
-    ];
+interface PlainTextReportPDFProps {
+    inPrintResuls: string[];
+}
 
-    const header = `${pad('Nombre', 20)}${pad('Edad', 6, 'right')}  ${pad('Cargo', 25)}`;
+export const PlainTextReportPDF = (props: PlainTextReportPDFProps) => {
+
+
+    // const header = `${pad('Nombre', 20)}${pad('Edad', 6, 'right')}  ${pad('Cargo', 25)}`;
 
     return (
         <Document>
             <Page size="A4" style={styles.page}>
-                <Text style={styles.line}>Reporte de Empleados</Text>
+                {/* <Text style={styles.line}>Reporte de Empleados</Text>
                 <Text style={styles.line}>{header}</Text>
-                <Text style={styles.line}>{'-'.repeat(header.length)}</Text>
+                <Text style={styles.line}>{'-'.repeat(header.length)}</Text> */}
 
-                {data.map((item, index) => (
+                {props.inPrintResuls.map((item, index) => (
                     <Text key={index} style={styles.line} wrap={false}>
-                        {`${pad(item.name, 20)}${pad(item.age, 6, 'right')}  ${pad(item.role, 25)}`}
+                        {item}
                     </Text>
                 ))}
             </Page>
