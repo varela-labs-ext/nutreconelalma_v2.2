@@ -18,11 +18,21 @@ class ForageManager {
     }
 
     // Obtener todas las claves
-    static async getAllKeysAsync(): Promise<string[]> {
+    static async getAllKeysAsync(inKeyPattern: string | null = null): Promise<string[]> {
         const keys: string[] = [];
-        await localforage.iterate((_value, key) => {
-            keys.push(key);
-        });
+
+        if (inKeyPattern) {
+            await localforage.iterate((_value, key) => {
+                if (key.includes(inKeyPattern)) {
+                    keys.push(key);
+                }
+            });
+        } else {
+            await localforage.iterate((_value, key) => {
+                keys.push(key);
+            });
+        }
+
         return keys;
     }
 
