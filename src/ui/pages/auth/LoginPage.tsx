@@ -1,6 +1,4 @@
 
-// import { useAuth } from "../../context/AuthContext";
-
 import LoginForm from "./LoginForm";
 import logoBbraun from "@/assets/imgs/logo.png";
 import medicalLab from "@/assets/imgs/medicalLab.jpg";

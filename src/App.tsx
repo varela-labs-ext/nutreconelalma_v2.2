@@ -12,6 +12,12 @@ import AppInitializer from "./AppInitializer";
 
 
 function App() {
+    const toastBaseClasses = "rounded-xl shadow-lg p-4 text-sm font-medium";
+    const toastColors = "bg-white text-gray-800 border-2 border-purple-500";
+    const toastTransition = "transition duration-300 ease-in-out";
+
+    const toastThemeClass = `${toastBaseClasses} ${toastColors} ${toastTransition}`;
+
     return (
         <div>
             <ErrorBoundary>
@@ -39,15 +45,14 @@ function App() {
                     hideProgressBar={false}
                     closeOnClick
                     pauseOnHover
-                    // draggable
-                    theme="colored"
-                    toastClassName="bg-purple-500 text-white rounded shadow-md"
-                    className="text-sm font-medium"
+                    toastClassName={toastThemeClass}
                     progressClassName="bg-purple-300"
                 />
             </ErrorBoundary>
         </div>
     );
+
+
 }
 
 export default App;

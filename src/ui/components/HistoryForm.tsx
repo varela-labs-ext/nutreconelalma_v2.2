@@ -4,8 +4,7 @@ import KeyLineField from "../common/KeyLineField";
 import DataDisplayModal from "../common/DataDisplayModal";
 import DeleteAllKeysModal from "../../components/ui/dialogs/DeleteAllKeysModal";
 import DeleteKeyModal from "../../components/ui/dialogs/DeleteKeyModal";
-
-const COMPUTER_DATA_KEY = 'COMPUTER_DATA_KEY';
+import { COMPUTER_DATA_KEY } from "@/common/Constants";
 
 const HistoryForm = () => {
     const [keys, setKeys] = useState<string[]>([]);
@@ -44,7 +43,6 @@ const HistoryForm = () => {
     }
 
     const handleOnKeyUpload = (key: string) => {
-        // TODO
     }
 
     const handleOnDeleteAll = (inFlag: boolean) => {
@@ -98,6 +96,7 @@ const HistoryForm = () => {
                 <div>
                     {showModal && (
                         <DataDisplayModal
+                            isOpen={showModal}
                             inSelectedKey={selectedKey || ""}
                             inSelectedValue={selectedValue || ""}
                             onSetShowModal={(value) => setShowModal(value)}

@@ -1,3 +1,4 @@
+import { COMPUTER_DATA_KEY, USER_DEFAULTS_KEY } from "@/common/Constants";
 import ForageManager from "@/logic/common/ForageManager";
 import ComputerBigGroupModel from "@/logic/models/ComputerBigGroupModel";
 
@@ -7,9 +8,6 @@ const buildKeyName = (
 ): string => {
     return (`${inMethodKey}:${inSourceKey}`).toUpperCase();
 }
-
-const COMPUTER_DATA_KEY = 'COMPUTER_DATA_KEY';
-const USER_DEFAULTS_KEY = 'USER_DEFAULTS_KEY';
 
 class StorageProvider {
     public static async loadUserDefaultsAsync(): Promise<ComputerBigGroupModel | null> {

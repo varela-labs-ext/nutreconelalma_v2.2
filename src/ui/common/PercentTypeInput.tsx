@@ -1,5 +1,3 @@
-// PercentTypeInput
-
 import { useEffect, useState } from "react";
 
 interface PercentTypeInputProps {

@@ -1,5 +1,3 @@
-import React from "react";
-
 type CustomToggleProps = {
     label: string;
     value: boolean;
@@ -14,7 +12,6 @@ const CustomToggle = (props: CustomToggleProps) => {
 
     const size = props.size ?? "md";
 
-    // Línea agregada: configuración de tamaño
     const sizeConfig = {
         sm: { width: "w-9", height: "h-5", circulo: "w-3.5 h-3.5", translate: "translate-x-4" },
         md: { width: "w-11", height: "h-6", circulo: "w-4 h-4", translate: "translate-x-5" },

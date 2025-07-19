@@ -1,9 +1,6 @@
 import { Dialog } from '@headlessui/react';
 import { PlainTextReportHTML } from './PlainTextReportHTML';
-import { PlainTextReportPDF } from './PlainTextReportPDF';
-import { pdf } from '@react-pdf/renderer';
 import { DownloadIcon } from 'lucide-react';
-import { useComparisonContext } from '@/context/ComparisonContext/ComparisonProvider';
 
 interface FullScreenPreviewDialogProps {
     isOpen: boolean;

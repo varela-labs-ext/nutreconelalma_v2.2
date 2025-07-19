@@ -1,3 +1,4 @@
+import { USER_KEY } from "@/common/Constants";
 import ForageManager from "@/logic/common/ForageManager";
 import { Logger } from "@/utils/logger";
 import { createContext, useContext, useState, useEffect } from "react";
@@ -13,8 +14,6 @@ export interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export default AuthContext;
-
-const USER_KEY = "USER_KEY";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);

@@ -11,8 +11,8 @@ const FileNameDialogBox = (props: FileNameDialogBoxProps) => {
     const [hasError, setHasError] = useState(false);
 
     const validateFileName = (value: string) => {
-        const allowedRegex = /^[A-Za-z0-9+\-.,|[\]()&%$#@]*$/;
-        return allowedRegex.test(value) && value.length <= 64;
+        const allowedRegex = /^[A-Za-zÁÉÍÓÚÜÑáéíóúñ0-9+\-\_.,|[\]()&%$#@ ]*$/;
+        return allowedRegex.test(value) && value.trim().length <= 64;
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
