@@ -2,7 +2,6 @@
 import ResultItemField from "./ResultItemField";
 import ResultsFormHeaders from "./ResultsFormHeaders";
 import JustValueInputEditor from "../../editors/JustValueInputEditor";
-import MixingCenterResultsModel from "@/logic/models/MixingCenterResultsModel";
 import DownloadReportButton from "../../reporting/DownloadReportButton";
 import PreviewReportButton from "../../reporting/PreviewReportButton";
 import { useState } from "react";

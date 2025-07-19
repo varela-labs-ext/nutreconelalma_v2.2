@@ -3,15 +3,16 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface LoginFormProps {
-    // onSuccess: () => void;
 }
+
+const isProduction: boolean = import.meta.env.MODE === 'production';
 
 const LoginForm = (props: LoginFormProps) => {
     const { login } = useAuth();
     const navigate = useNavigate();
 
-    const [usuario, setUsuario] = useState("");
-    const [password, setPassword] = useState("");
+    const [usuario, setUsuario] = useState(isProduction ? "" : "info@nutreconelalma.com");
+    const [password, setPassword] = useState(isProduction ? "" : "Nutre2025##");
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();

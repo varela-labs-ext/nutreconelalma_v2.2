@@ -1,4 +1,3 @@
-// src/services/toastService.tsx
 import { toast, ToastOptions } from 'react-toastify';
 
 const opcionesBase: ToastOptions = {
@@ -8,7 +7,7 @@ const opcionesBase: ToastOptions = {
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
-    theme: 'colored',
+    // theme: 'colored',
 };
 
 const showOk = (message: string) => {

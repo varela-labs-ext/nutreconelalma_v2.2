@@ -1,4 +1,5 @@
-import { Trash, Upload } from "lucide-react";
+import { COMPUTER_DATA_KEY } from "@/common/Constants";
+import { Trash } from "lucide-react";
 
 interface KeyLineFieldProps {
     inKeySelected: string;
@@ -6,8 +7,6 @@ interface KeyLineFieldProps {
     onUpload: (key: string) => void;
     onKeyToDelete: (key: string | null) => void;
 }
-
-const COMPUTER_DATA_KEY = 'COMPUTER_DATA_KEY';
 
 const KeyLineField = (props: KeyLineFieldProps) => {
     return (
@@ -23,14 +22,6 @@ const KeyLineField = (props: KeyLineFieldProps) => {
             </span>
 
             <div className="flex gap-2 ml-4">
-                {/* <button
-                    className="text-blue-600 hover:text-blue-800"
-                    onClick={() => props.onUpload(props.inKeySelected)}
-                    title="Upload"
-                >
-                    <Upload size={20} />
-                </button> */}
-
                 <button
                     className="text-red-600 hover:text-red-800"
                     onClick={() => props.onKeyToDelete(props.inKeySelected)}

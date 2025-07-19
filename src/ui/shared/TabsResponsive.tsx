@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface TabsResponsiveProps {
     titulos: string[];
     selectedIndex: number;

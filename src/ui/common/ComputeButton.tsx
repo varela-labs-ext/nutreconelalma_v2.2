@@ -1,5 +1,3 @@
-import React from "react";
-
 type ComputeButtonProps = {
     disabled?: boolean;
     onClick: () => void;

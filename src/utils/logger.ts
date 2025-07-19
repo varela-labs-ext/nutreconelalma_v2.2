@@ -1,10 +1,8 @@
-// src/utils/logger.ts
-
 import localforage from 'localforage';
 
 type LogLevel = 'LOG' | 'INFO' | 'WARN' | 'ERROR';
 
-const isProduction = import.meta.env.MODE === 'production';
+const isProduction: boolean = import.meta.env.MODE === 'production';
 const STORAGE_KEY = 'devLogs';
 
 interface LogEntry {
