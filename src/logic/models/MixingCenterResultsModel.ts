@@ -40,7 +40,7 @@ class MixingCenterResultsModel {
 
 
     constructor() {
-        this.lineasProduccion = new JustValueItemModel("Lineas de producción de la central");
+        this.lineasProduccion = new JustValueItemModel("Lineas de producción");
         this.produccionDiaria = new JustValueItemModel("Producción diaria");
         this.produccionMensual = new JustValueItemModel("Producción mensual");
 
@@ -57,19 +57,20 @@ class MixingCenterResultsModel {
         this.automatedEquipmentCosts = new ResultItemModel("Costos equipo automatizado", "$");
 
         // Staff
-        this.chemicalStaffHours = new ResultItemModel("Horas de químico farmacéutico para 1 nutrición parenteral", "H");
-        this.costPerChemicalStaff = new ResultItemModel("Costo por químico farmacéutico requerido para preparación", "$");
-        this.auxiliaryStaffHours = new ResultItemModel("Horas por auxiliar farmacéutico para 1 nutrición parenteral", "H");
-        this.costPerAuxiliaryStaff = new ResultItemModel("Costos por auxiliar farmacéutico para 1 nutrición parenteral", "$");
+        this.chemicalStaffHours = new ResultItemModel("Horas de químico farmacéutico para 1 NPT", "H");
+        this.costPerChemicalStaff = new ResultItemModel("Costo por químico farmacéutico para 1 NPT", "$");
+
+        this.auxiliaryStaffHours = new ResultItemModel("Horas de auxiliar farmacéutico para 1 NPT", "H");
+        this.costPerAuxiliaryStaff = new ResultItemModel("Costos por auxiliar farmacéutico para 1 NPT", "$");
 
         // Costos por npt
         this.cost1NptAdult = new ResultItemModel("Costos 1 NPT adulto", "$");
         this.cost1NptPediatric = new ResultItemModel("Costos 1 NPT pediátrica", "$");
         this.cost1NptNeonatal = new ResultItemModel("Costos 1 NPT neonatal", "$");
 
-        this.costoTotalPreparacionNptAdult = new ResultItemModel("Total de costos preparación 1 nutrición parenteral Adulto", "$");
-        this.costoTotalPreparacionNptPediatric = new ResultItemModel("Total de costos preparación 1 nutrición parenteral Pediatrica", "$");
-        this.costoTotalPreparacionNptNeonatal = new ResultItemModel("Total de costos preparación 1 nutrición parenteral Neonatal", "$");
+        this.costoTotalPreparacionNptAdult = new ResultItemModel("Costos preparación 1 NPT Adulto", "$");
+        this.costoTotalPreparacionNptPediatric = new ResultItemModel("Costos preparación 1 NPT Pediatrica", "$");
+        this.costoTotalPreparacionNptNeonatal = new ResultItemModel("Costos preparación 1 NPT Neonatal", "$");
 
         this.valorTotalAdult = new ResultItemModel("Valor total de adulto", "$");
         this.valorTotalPediatric = new ResultItemModel("Valor total pediatrica", "$");

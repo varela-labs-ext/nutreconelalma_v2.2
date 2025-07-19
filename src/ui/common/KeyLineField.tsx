@@ -7,6 +7,8 @@ interface KeyLineFieldProps {
     onKeyToDelete: (key: string | null) => void;
 }
 
+const COMPUTER_DATA_KEY = 'COMPUTER_DATA_KEY';
+
 const KeyLineField = (props: KeyLineFieldProps) => {
     return (
         <li
@@ -17,17 +19,17 @@ const KeyLineField = (props: KeyLineFieldProps) => {
                 className="flex-1 truncate cursor-pointer text-left"
                 onClick={() => props.onShowData(props.inKeySelected)}
             >
-                {props.inKeySelected}
+                {props.inKeySelected.replace(`${COMPUTER_DATA_KEY}:`, "")}
             </span>
 
             <div className="flex gap-2 ml-4">
-                <button
+                {/* <button
                     className="text-blue-600 hover:text-blue-800"
                     onClick={() => props.onUpload(props.inKeySelected)}
                     title="Upload"
                 >
                     <Upload size={20} />
-                </button>
+                </button> */}
 
                 <button
                     className="text-red-600 hover:text-red-800"

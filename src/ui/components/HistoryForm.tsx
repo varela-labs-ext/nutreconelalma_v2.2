@@ -5,6 +5,7 @@ import DataDisplayModal from "../common/DataDisplayModal";
 import DeleteAllKeysModal from "../../components/ui/dialogs/DeleteAllKeysModal";
 import DeleteKeyModal from "../../components/ui/dialogs/DeleteKeyModal";
 
+const COMPUTER_DATA_KEY = 'COMPUTER_DATA_KEY';
 
 const HistoryForm = () => {
     const [keys, setKeys] = useState<string[]>([]);
@@ -19,12 +20,12 @@ const HistoryForm = () => {
     }, []);
 
     const loadAvailableKeys = async () => {
-        const allKeys = await ForageManager.getAllKeysAsync();
+        const allKeys = await ForageManager.getAllKeysAsync(COMPUTER_DATA_KEY);
         setKeys(allKeys);
     };
 
     const deleteAll = async () => {
-        await ForageManager.deleteAllAsync();
+        await ForageManager.deleteByPatternAsync(COMPUTER_DATA_KEY);
         setShowConfirmDeleteAll(false);
         await loadAvailableKeys();
     };

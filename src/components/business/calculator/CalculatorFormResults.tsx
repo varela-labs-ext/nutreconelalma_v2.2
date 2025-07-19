@@ -7,13 +7,11 @@ interface CalculatorFormResultsProps {
 }
 
 const CalculatorFormResults = (props: CalculatorFormResultsProps) => {
-    const { results } = useComparisonContext();
+    // const { results, printingResults } = useComparisonContext();
 
     return (
         <div className="w-full">
-            <ResultsForm
-                inData={results}
-            />
+            <ResultsForm />
         </div>
     );
 }

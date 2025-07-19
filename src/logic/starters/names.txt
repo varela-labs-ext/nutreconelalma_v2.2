@@ -1,8 +1,0 @@
-
-RawMaterialAdultStarter.ts
-RawMaterialNeonatalStarter.ts
-
-
-RawMaterialPediatricStarter.ts
-
-RawMaterialStarter.ts

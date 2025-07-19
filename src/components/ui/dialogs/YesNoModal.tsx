@@ -6,7 +6,7 @@ interface YesNoModalProps {
 
 const YesNoModal = (props: YesNoModalProps) => {
     return (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center">
             <div className="bg-white w-full max-w-md p-6 rounded-lg shadow-lg text-center">
                 <h3 className="text-lg font-semibold mb-4 text-purple-600">
                     {props.mainTitle}
