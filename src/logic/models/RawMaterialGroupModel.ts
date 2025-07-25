@@ -2,6 +2,8 @@ import InsumoClinicoEnum from "@/logic/enums/InsumoClinicoNamesEnum";
 import ClinicaInputRowModel from "./row_item/ClinicaInputRowModel";
 import RawMaterialBaseModel from "./RawMaterialBaseModel";
 import ClinicalInputCategoryEnumId from "../enums/ClinicalInputCategoryEnumId";
+import InsumoClinicoIdEnum from "../enums/InsumoClinicoIdEnum";
+import FormulaTypeIdEnum from "../enums/FormulaTypeIdEnum";
 
 
 class RawMaterialGroupModel extends RawMaterialBaseModel {
@@ -45,42 +47,210 @@ class RawMaterialGroupModel extends RawMaterialBaseModel {
     constructor() {
         super();
 
-        this.AguaEsteril_500ml = new ClinicaInputRowModel(InsumoClinicoEnum.AguaEsteril_500ml, ClinicalInputCategoryEnumId.DiluyentesVehiculos);
-        this.Aminoacidos15_1000Ml = new ClinicaInputRowModel(InsumoClinicoEnum.Aminoacidos15_1000Ml, ClinicalInputCategoryEnumId.Aminoacidos);
-        this.Aminoacidos15_500Ml = new ClinicaInputRowModel(InsumoClinicoEnum.Aminoacidos15_500Ml, ClinicalInputCategoryEnumId.Aminoacidos);
-        this.AminoacidosConElectrolitos10_500Ml = new ClinicaInputRowModel(InsumoClinicoEnum.AminoacidosConElectrolitos10_500Ml, ClinicalInputCategoryEnumId.Aminoacidos);
-        this.AminoacidosInfantil100Ml = new ClinicaInputRowModel(InsumoClinicoEnum.AminoacidosInfantil100Ml, ClinicalInputCategoryEnumId.Aminoacidos);
-        this.AminoacidosInfantil1000Ml = new ClinicaInputRowModel(InsumoClinicoEnum.AminoacidosInfantil1000Ml, ClinicalInputCategoryEnumId.Aminoacidos);
-        this.AminoacidosInfantil250Ml = new ClinicaInputRowModel(InsumoClinicoEnum.AminoacidosInfantil250Ml, ClinicalInputCategoryEnumId.Aminoacidos);
-        this.AminoacidosInfantil500Ml = new ClinicaInputRowModel(InsumoClinicoEnum.AminoacidosInfantil500Ml, ClinicalInputCategoryEnumId.Aminoacidos);
-        this.AminoacidosSinElectrolitos10_500Ml = new ClinicaInputRowModel(InsumoClinicoEnum.AminoacidosSinElectrolitos10_500Ml, ClinicalInputCategoryEnumId.Aminoacidos);
-        this.Bolsa1000Ml = new ClinicaInputRowModel(InsumoClinicoEnum.Bolsa1000Ml, ClinicalInputCategoryEnumId.ContenedoresMezcladores);
-        this.Bolsa2000Ml = new ClinicaInputRowModel(InsumoClinicoEnum.Bolsa2000Ml, ClinicalInputCategoryEnumId.ContenedoresMezcladores);
-        this.Bolsa500Ml = new ClinicaInputRowModel(InsumoClinicoEnum.Bolsa500Ml, ClinicalInputCategoryEnumId.ContenedoresMezcladores);
-        this.CloruroPotasioVial_10cc = new ClinicaInputRowModel(InsumoClinicoEnum.CloruroPotasioVial_10cc, ClinicalInputCategoryEnumId.ElectrolitosMinerales);
-        this.CloruroSodioVial_10cc = new ClinicaInputRowModel(InsumoClinicoEnum.CloruroSodioVial_10cc, ClinicalInputCategoryEnumId.ElectrolitosMinerales);
+        this.AguaEsteril_500ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.AguaEsteril_500ml,
+            InsumoClinicoEnum.AguaEsteril_500ml,
+            ClinicalInputCategoryEnumId.DiluyentesVehiculos,
+            FormulaTypeIdEnum.Formula_A);
 
-        this.Complejo_B = new ClinicaInputRowModel(InsumoClinicoEnum.Complejo_B, ClinicalInputCategoryEnumId.Vitaminas);
-        this.Dextrosa_50p_Bolsa_500cc = new ClinicaInputRowModel(InsumoClinicoEnum.Dextrosa_50p_Bolsa_500cc, ClinicalInputCategoryEnumId.CarbohidratosEnergeticos);
-        this.ElementosTrazaPediatricos10Ml = new ClinicaInputRowModel(InsumoClinicoEnum.ElementosTrazaPediatricos10Ml, ClinicalInputCategoryEnumId.ElementosTraza);
-        this.ElementosTraza10Ml = new ClinicaInputRowModel(InsumoClinicoEnum.ElementosTraza10Ml, ClinicalInputCategoryEnumId.ElementosTraza);
-        this.FosfatoPotasioVial_10cc = new ClinicaInputRowModel(InsumoClinicoEnum.FosfatoPotasioVial_10cc, ClinicalInputCategoryEnumId.ElectrolitosMinerales);
-        this.GlicerofosfatoSodio20Ml = new ClinicaInputRowModel(InsumoClinicoEnum.GlicerofosfatoSodio20Ml, ClinicalInputCategoryEnumId.ElectrolitosMinerales);
-        this.GluconatoCalcioVial_10cc = new ClinicaInputRowModel(InsumoClinicoEnum.GluconatoCalcioVial_10cc, ClinicalInputCategoryEnumId.ElectrolitosMinerales);
-        this.LipidosLipofundin100Cc = new ClinicaInputRowModel(InsumoClinicoEnum.LipidosLipofundin100Cc, ClinicalInputCategoryEnumId.Lipidos);
-        this.LipidosLipofundin500Cc = new ClinicaInputRowModel(InsumoClinicoEnum.LipidosLipofundin500Cc, ClinicalInputCategoryEnumId.Lipidos);
-        this.Multivitaminas = new ClinicaInputRowModel(InsumoClinicoEnum.Multivitaminas, ClinicalInputCategoryEnumId.Vitaminas);
-        this.MixingEva1000Ml = new ClinicaInputRowModel(InsumoClinicoEnum.MixingEva1000Ml, ClinicalInputCategoryEnumId.ContenedoresMezcladores);
-        this.MixingEva2000Ml = new ClinicaInputRowModel(InsumoClinicoEnum.MixingEva2000Ml, ClinicalInputCategoryEnumId.ContenedoresMezcladores);
-        this.MixingEva250Ml = new ClinicaInputRowModel(InsumoClinicoEnum.MixingEva250Ml, ClinicalInputCategoryEnumId.ContenedoresMezcladores);
-        this.MixingEva500Ml = new ClinicaInputRowModel(InsumoClinicoEnum.MixingEva500Ml, ClinicalInputCategoryEnumId.ContenedoresMezcladores);
-        this.SulfatoMagnesioVial_10cc = new ClinicaInputRowModel(InsumoClinicoEnum.SulfatoMagnesioVial_10cc, ClinicalInputCategoryEnumId.ElectrolitosMinerales);
-        this.Tiamina = new ClinicaInputRowModel(InsumoClinicoEnum.Tiamina, ClinicalInputCategoryEnumId.Vitaminas);
+        this.Aminoacidos15_1000Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.Aminoacidos15_1000Ml,
+            InsumoClinicoEnum.Aminoacidos15_1000Ml,
+            ClinicalInputCategoryEnumId.Aminoacidos,
+            FormulaTypeIdEnum.Formula_A);
 
-        this.Vitamina_C = new ClinicaInputRowModel(InsumoClinicoEnum.Vitamina_C, ClinicalInputCategoryEnumId.Vitaminas);
-        this.VitaminasHidrosolubles = new ClinicaInputRowModel(InsumoClinicoEnum.VitaminasHidrosolubles, ClinicalInputCategoryEnumId.Vitaminas);
-        this.VitaminasLiposolublesAdulto = new ClinicaInputRowModel(InsumoClinicoEnum.VitaminasLiposolublesAdulto, ClinicalInputCategoryEnumId.Vitaminas);
-        this.VitaminasLiposolublesInfantil = new ClinicaInputRowModel(InsumoClinicoEnum.VitaminasLiposolublesInfantil, ClinicalInputCategoryEnumId.Vitaminas);
+        this.Aminoacidos15_500Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.Aminoacidos15_500Ml,
+            InsumoClinicoEnum.Aminoacidos15_500Ml,
+            ClinicalInputCategoryEnumId.Aminoacidos,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.AminoacidosConElectrolitos10_500Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.AminoacidosConElectrolitos10_500Ml,
+            InsumoClinicoEnum.AminoacidosConElectrolitos10_500Ml,
+            ClinicalInputCategoryEnumId.Aminoacidos,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.AminoacidosInfantil100Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.AminoacidosInfantil100Ml,
+            InsumoClinicoEnum.AminoacidosInfantil100Ml,
+            ClinicalInputCategoryEnumId.Aminoacidos,
+            FormulaTypeIdEnum.Formula_C);
+
+        this.AminoacidosInfantil1000Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.AminoacidosInfantil1000Ml,
+            InsumoClinicoEnum.AminoacidosInfantil1000Ml,
+            ClinicalInputCategoryEnumId.Aminoacidos,
+            FormulaTypeIdEnum.Formula_B);
+
+        this.AminoacidosInfantil250Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.AminoacidosInfantil250Ml,
+            InsumoClinicoEnum.AminoacidosInfantil250Ml,
+            ClinicalInputCategoryEnumId.Aminoacidos,
+            FormulaTypeIdEnum.Formula_B);
+
+        this.AminoacidosInfantil500Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.AminoacidosInfantil500Ml,
+            InsumoClinicoEnum.AminoacidosInfantil500Ml,
+            ClinicalInputCategoryEnumId.Aminoacidos,
+            FormulaTypeIdEnum.Formula_B);
+
+        this.AminoacidosSinElectrolitos10_500Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.AminoacidosSinElectrolitos10_500Ml,
+            InsumoClinicoEnum.AminoacidosSinElectrolitos10_500Ml,
+            ClinicalInputCategoryEnumId.Aminoacidos,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.Bolsa1000Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.Bolsa1000Ml,
+            InsumoClinicoEnum.Bolsa1000Ml,
+            ClinicalInputCategoryEnumId.ContenedoresMezcladores,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.Bolsa2000Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.Bolsa2000Ml,
+            InsumoClinicoEnum.Bolsa2000Ml,
+            ClinicalInputCategoryEnumId.ContenedoresMezcladores,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.Bolsa500Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.Bolsa500Ml,
+            InsumoClinicoEnum.Bolsa500Ml,
+            ClinicalInputCategoryEnumId.ContenedoresMezcladores,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.CloruroPotasioVial_10cc = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.CloruroPotasioVial_10cc,
+            InsumoClinicoEnum.CloruroPotasioVial_10cc,
+            ClinicalInputCategoryEnumId.ElectrolitosMinerales,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.CloruroSodioVial_10cc = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.CloruroSodioVial_10cc,
+            InsumoClinicoEnum.CloruroSodioVial_10cc,
+            ClinicalInputCategoryEnumId.ElectrolitosMinerales,
+            FormulaTypeIdEnum.Formula_A);
+
+
+        this.Complejo_B = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.Complejo_B,
+            InsumoClinicoEnum.Complejo_B,
+            ClinicalInputCategoryEnumId.Vitaminas,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.Dextrosa_50p_Bolsa_500cc = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.Dextrosa_50p_Bolsa_500cc,
+            InsumoClinicoEnum.Dextrosa_50p_Bolsa_500cc,
+            ClinicalInputCategoryEnumId.CarbohidratosEnergeticos,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.ElementosTrazaPediatricos10Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.ElementosTrazaPediatricos10Ml,
+            InsumoClinicoEnum.ElementosTrazaPediatricos10Ml,
+            ClinicalInputCategoryEnumId.ElementosTraza,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.ElementosTraza10Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.ElementosTraza10Ml,
+            InsumoClinicoEnum.ElementosTraza10Ml,
+            ClinicalInputCategoryEnumId.ElementosTraza,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.FosfatoPotasioVial_10cc = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.FosfatoPotasioVial_10cc,
+            InsumoClinicoEnum.FosfatoPotasioVial_10cc,
+            ClinicalInputCategoryEnumId.ElectrolitosMinerales,
+            FormulaTypeIdEnum.Formula_B);
+
+        this.GlicerofosfatoSodio20Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.GlicerofosfatoSodio20Ml,
+            InsumoClinicoEnum.GlicerofosfatoSodio20Ml,
+            ClinicalInputCategoryEnumId.ElectrolitosMinerales,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.GluconatoCalcioVial_10cc = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.GluconatoCalcioVial_10cc,
+            InsumoClinicoEnum.GluconatoCalcioVial_10cc,
+            ClinicalInputCategoryEnumId.ElectrolitosMinerales,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.LipidosLipofundin100Cc = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.LipidosLipofundin100Cc,
+            InsumoClinicoEnum.LipidosLipofundin100Cc,
+            ClinicalInputCategoryEnumId.Lipidos,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.LipidosLipofundin500Cc = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.LipidosLipofundin500Cc,
+            InsumoClinicoEnum.LipidosLipofundin500Cc,
+            ClinicalInputCategoryEnumId.Lipidos,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.Multivitaminas = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.Multivitaminas,
+            InsumoClinicoEnum.Multivitaminas,
+            ClinicalInputCategoryEnumId.Vitaminas,
+            FormulaTypeIdEnum.Formula_B);
+
+        this.MixingEva1000Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.MixingEva1000Ml,
+            InsumoClinicoEnum.MixingEva1000Ml,
+            ClinicalInputCategoryEnumId.ContenedoresMezcladores,
+            FormulaTypeIdEnum.Formula_B);
+
+        this.MixingEva2000Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.MixingEva2000Ml,
+            InsumoClinicoEnum.MixingEva2000Ml,
+            ClinicalInputCategoryEnumId.ContenedoresMezcladores,
+            FormulaTypeIdEnum.Formula_B);
+
+        this.MixingEva250Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.MixingEva250Ml,
+            InsumoClinicoEnum.MixingEva250Ml,
+            ClinicalInputCategoryEnumId.ContenedoresMezcladores,
+            FormulaTypeIdEnum.Formula_B);
+
+        this.MixingEva500Ml = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.MixingEva500Ml,
+            InsumoClinicoEnum.MixingEva500Ml,
+            ClinicalInputCategoryEnumId.ContenedoresMezcladores,
+            FormulaTypeIdEnum.Formula_B);
+
+        this.SulfatoMagnesioVial_10cc = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.SulfatoMagnesioVial_10cc,
+            InsumoClinicoEnum.SulfatoMagnesioVial_10cc,
+            ClinicalInputCategoryEnumId.ElectrolitosMinerales,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.Tiamina = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.Tiamina,
+            InsumoClinicoEnum.Tiamina,
+            ClinicalInputCategoryEnumId.Vitaminas,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.Vitamina_C = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.Vitamina_C,
+            InsumoClinicoEnum.Vitamina_C,
+            ClinicalInputCategoryEnumId.Vitaminas,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.VitaminasHidrosolubles = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.VitaminasHidrosolubles,
+            InsumoClinicoEnum.VitaminasHidrosolubles,
+            ClinicalInputCategoryEnumId.Vitaminas,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.VitaminasLiposolublesAdulto = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.VitaminasLiposolublesAdulto,
+            InsumoClinicoEnum.VitaminasLiposolublesAdulto,
+            ClinicalInputCategoryEnumId.Vitaminas,
+            FormulaTypeIdEnum.Formula_A);
+
+        this.VitaminasLiposolublesInfantil = new ClinicaInputRowModel(
+            InsumoClinicoIdEnum.VitaminasLiposolublesInfantil,
+            InsumoClinicoEnum.VitaminasLiposolublesInfantil,
+            ClinicalInputCategoryEnumId.Vitaminas,
+            FormulaTypeIdEnum.Formula_A);
     }
 }
 
