@@ -4,7 +4,6 @@ interface InputNumberFieldProps {
     label: string;
     name: string;
     value: number;
-    //onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChange: (name: string, value: number) => void;
     min?: number;
     max?: number;
@@ -45,19 +44,6 @@ const InputNumberField = (props: InputNumberFieldProps) => {
 
         return true;
     }
-
-    // const handleInternalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     const value = parseFloat(e.target.value);
-    //     console.log(value);
-
-    //     if (isValid(value)) {
-    //         setError(null);
-    //     } else {
-    //         return;
-    //     }
-
-    //     props.onChange(props.name, value);
-    // };
 
     const isValidString = (inValue: string | null | undefined): boolean => {
         return inValue !== undefined && inValue !== null && inValue.trim() !== '';
@@ -109,8 +95,7 @@ const InputNumberField = (props: InputNumberFieldProps) => {
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
-            // commitChange();
-            event.currentTarget.blur(); // opcional: para disparar también onBlur
+            event.currentTarget.blur();
         }
     };
 
@@ -125,17 +110,16 @@ const InputNumberField = (props: InputNumberFieldProps) => {
     const getLabelClass = () => {
         const baseClass = "block md:hidden"; /* Esto hace que cuando sea mayor o igual a md (el size) se oculte */
         const alwaysClass = "";
-        const leftClass = "w-32 text-sm font-medium text-gray-500 dark:text-gray-300";
-        const topClass = "block text-sm font-medium text-gray-500 dark:text-gray-300 mb-1";
+        const leftClass = "w-32 text-sm font-medium text-gray-500";
+        const topClass = "block text-sm font-medium text-gray-500 mb-1";
 
         return `${labelAlways === true ? alwaysClass : baseClass} ${labelPosition === "left" ? leftClass : topClass}`;
     };
 
     const getInputClass = () => {
-        const paddingLeft = props.symbol ? "pl-7" : "pl-3";
+        const paddingLeft = props.symbol ? "pl-5" : "pl-3";
         const baseClass = `rounded-xl ${paddingLeft} pr-3 py-2 w-full text-left`;
         const baseClassB = "text-gray-500 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-0 transition-colors";
-        // const moreClass = "dark:bg-gray-800 dark:text-white";
         const moreClass = "bg-gray-50 opacity-70 cursor-not-allowed";
 
         const borderClass = error
@@ -151,7 +135,6 @@ const InputNumberField = (props: InputNumberFieldProps) => {
     const inputWrapperClass = "relative w-full";
 
     const getValue = (): string => {
-        //cleanUp(localValue)
         return localValue;
     }
 
@@ -169,8 +152,6 @@ const InputNumberField = (props: InputNumberFieldProps) => {
                 <input
                     type="number"
                     name={props.name}
-                    // value={props.value}
-                    // onChange={handleInternalChange}
                     value={getValue()}
                     onChange={handleChange}
                     onBlur={commitChange}
@@ -180,9 +161,6 @@ const InputNumberField = (props: InputNumberFieldProps) => {
                     readOnly={props.readOnly}
                     className={getInputClass()}
                 />
-                {/* {error && (
-                    <p className="mt-1 text-sm text-red-600 text-right w-full block">{error}</p>
-                )} */}
             </div>
         </div >
     );

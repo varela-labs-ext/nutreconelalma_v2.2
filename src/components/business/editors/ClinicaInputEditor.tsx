@@ -61,40 +61,55 @@ const ClinicaInputEditor = (props: ClinicaInputEditorProps) => {
 
     return (
         <div className={getMainDivClassName()}>
-            <div className="pt-2 pb-2 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-5 gap-2 w-full">
+            <div className="pt-2 pb-2 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-7 gap-2 w-full">
                 {/* <input type="number" className="w-full sm:w-auto text-left border max-w-full sm:max-w-[110px]" /> */}
 
-                <div className="md:col-span-1 w-full text-left">
+                <div className="md:col-span-2 w-full text-left">
                     <div className="pt-2 text-sm text-gray-500 dark:text-white">
                         {internalData.label}
                     </div>
                 </div>
-
+                {/* Presentacion (mL) - EDITABLE */}
                 <div className="md:col-span-1 w-full ">
                     {props.inShowPresentation && (
                         <InputNumberField
-                            label="presentacionMl"
+                            label="Presentacion (Ml)"
                             name="presentacionMl"
                             value={internalData.presentacionMl}
-                            readOnly={false}
+                            readOnly={internalData.presentacionMlReadOnly}
                             onChange={handleChange}
                         />
                     )}
                 </div>
 
+                {/* Cantidad (ml) - EDITABLE */}
                 <div id="cantidadMlDiv" className="md:col-span-1 w-full ">
                     <InputNumberField
-                        label="cantidadMl"
+                        label="Cantidad (ml)"
                         name="cantidadMl"
                         value={internalData.cantidadMl}
-                        readOnly={false}
+                        readOnly={internalData.cantidadMlReadOnly}
                         onChange={handleChange}
                     />
                 </div>
 
+                {/* Cantidad (unidad) - EDITABLE */}
                 <div className="md:col-span-1 w-full">
                     <InputNumberField
-                        label="costoPorUnidad"
+                        label="Cantidad (unidad)"
+                        name="cantidadUnidad"
+                        value={internalData.cantidadUnidad}
+                        readOnly={internalData.cantidadUnidadReadOnly}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                {/* Costo x mL - CALCULADO - POR AHORA NO AGREGAR */}
+
+                {/* Costo x unidad - EDITABLE */}
+                <div className="md:col-span-1 w-full">
+                    <InputNumberField
+                        label="Costo x unidad"
                         name="costoPorUnidad"
                         value={internalData.costoPorUnidad}
                         readOnly={false}
@@ -102,10 +117,10 @@ const ClinicaInputEditor = (props: ClinicaInputEditorProps) => {
                         onChange={handleChange}
                     />
                 </div>
-
+                {/* Costo Total x Unidad - CALCULADO */}
                 <div className="md:col-span-1 w-full">
                     <ReadOnlyNumberField
-                        label="costoTotalPorUnidad"
+                        label="Costo Total x Unidad"
                         name="costoTotalPorUnidad"
                         symbol="$"
                         value={internalData.costoTotalPorUnidad}

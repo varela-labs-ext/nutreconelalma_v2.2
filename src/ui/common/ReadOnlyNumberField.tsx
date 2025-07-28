@@ -37,20 +37,9 @@ export const ReadOnlyNumberField: React.FC<ReadOnlyNumberFieldProps> = (props) =
         return `${labelAlways === true ? alwaysClass : baseClass} ${labelPosition === "left" ? leftClass : topClass}`;
     };
 
-
-
-    // const getInputClass2 = () => {
-    //     const baseClass = "border rounded-lg px-3 py-2 w-full text-left border-gray-300";
-
-    //     const moreClass = "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-white";
-
-    //     return `${baseClass} ${moreClass}`;
-    // };
-
-
     const getInputClass = () => {
-        const paddingLeft = props.symbol ? "pl-7" : "pl-3";
-        const baseClass = `rounded-xl ${paddingLeft} pr-3 py-2 w-full text-left`;
+        const paddingLeft = props.symbol ? "pl-5" : "pl-3";
+        const baseClass = `rounded-xl ${paddingLeft} pr-2 py-2 w-full text-left`;
         const baseClassB = "text-gray-600 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-0 transition-colors";
         const moreClass = "bg-gray-50 opacity-70";
 
@@ -71,8 +60,7 @@ export const ReadOnlyNumberField: React.FC<ReadOnlyNumberFieldProps> = (props) =
             const formatedValue: string = new Intl.NumberFormat("en-US", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
-            }).format(tempValue); // o "en-US", depende
-            // console.log(formatedValue);
+            }).format(tempValue); // o "en-US"
             return formatedValue;
         }
 
