@@ -1,8 +1,8 @@
 import { isUnitCostItemModel, isValidObj } from "@/utils/itemsUtils";
 import MaintenanceCostsGroupModel from "../models/operating_resources/MaintenanceCostsGroupModel";
-import BaseCalc from "../services/BaseCalc";
+import BaseCalc from "./BaseCalc";
 import UnitCostItemModel from "../models/row_item/UnitCostItemRowModel";
-import UnitCostInputCalc from "../services/UnitCostInputCalc";
+import UnitCostInputCalc from "./UnitCostInputCalc";
 
 class MaintenanceCostsCalc extends BaseCalc<MaintenanceCostsGroupModel> {
     public compute(inItem: MaintenanceCostsGroupModel): void {

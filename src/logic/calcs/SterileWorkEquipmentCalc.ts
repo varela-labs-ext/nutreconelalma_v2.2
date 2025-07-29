@@ -1,7 +1,7 @@
 import { isUnitCostItemModel, isValidObj } from "@/utils/itemsUtils";
 import SterileWorkEquipmentGroupModel from "../models/operating_resources/SterileWorkEquipmentGroupModel";
-import BaseCalc from "../services/BaseCalc";
-import UnitCostInputCalc from "../services/UnitCostInputCalc";
+import BaseCalc from "./BaseCalc";
+import UnitCostInputCalc from "./UnitCostInputCalc";
 
 class SterileWorkEquipmentCalc extends BaseCalc<SterileWorkEquipmentGroupModel> {
 

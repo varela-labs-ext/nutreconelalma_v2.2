@@ -1,7 +1,7 @@
 import { isEstimatedCostItemModel, isValidObj } from "@/utils/itemsUtils";
 import ProductionCostsGroupModel from "../models/operating_resources/ProductionCostsGroupModel";
-import BaseCalc from "../services/BaseCalc";
-import EstimatedCostInputCalc from "../services/EstimatedCostInputCalc";
+import BaseCalc from "./BaseCalc";
+import EstimatedCostInputCalc from "./EstimatedCostInputCalc";
 
 
 class ProductionCostsCalc extends BaseCalc<ProductionCostsGroupModel> {

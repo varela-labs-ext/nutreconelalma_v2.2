@@ -7,10 +7,10 @@ import MaintenanceCostsGroupModel from "../models/operating_resources/Maintenanc
 import RawMaterialGroupModel from "../models/RawMaterialGroupModel";
 import ChemistAssistantSalaryCalc from "../calcs/ChemistAssistantSalaryCalc";
 import ChemistSalaryCalc from "../calcs/ChemistSalaryCalc";
-import ClinicalInputCalc from "./ClinicalInputCalc";
-import EstimatedCostInputCalc from "./EstimatedCostInputCalc";
+import ClinicalInputCalc from "../calcs/ClinicalInputCalc";
+import EstimatedCostInputCalc from "../calcs/EstimatedCostInputCalc";
 import RawMaterialsCalc from "../calcs/RawMaterialsCalc";
-import UnitCostInputCalc from "./UnitCostInputCalc";
+import UnitCostInputCalc from "../calcs/UnitCostInputCalc";
 import ProductionCostsGroupModel from "../models/operating_resources/ProductionCostsGroupModel";
 import ProductionCostsCalc from "../calcs/ProductionCostsCalc";
 import SterileWorkEquipmentCalc from "../calcs/SterileWorkEquipmentCalc";

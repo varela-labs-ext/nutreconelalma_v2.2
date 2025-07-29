@@ -1,7 +1,7 @@
 import { isValidObj, isUnitCostItemModel } from "@/utils/itemsUtils";
 import AutomatedEquipmentGroupModel from "../models/operating_resources/AutomatedEquipmentGroupModel";
-import BaseCalc from "../services/BaseCalc";
-import UnitCostInputCalc from "../services/UnitCostInputCalc";
+import BaseCalc from "./BaseCalc";
+import UnitCostInputCalc from "./UnitCostInputCalc";
 import { getClassName, Logger } from "@/utils/logger";
 
 class AutomatedEquipmentCalc extends BaseCalc<AutomatedEquipmentGroupModel> {
