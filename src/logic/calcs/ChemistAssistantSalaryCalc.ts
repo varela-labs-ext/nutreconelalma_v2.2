@@ -1,7 +1,7 @@
 import { isValidObj } from "@/utils/itemsUtils";
 import StaffSalaryGroupModel from "../models/operating_resources/StaffSalaryGroupModel";
-import BaseCalc from "../services/BaseCalc";
-import StaffSalaryTaxesCalc from "../services/StaffSalaryTaxesCalc";
+import BaseCalc from "./BaseCalc";
+import StaffSalaryTaxesCalc from "./StaffSalaryTaxesCalc";
 
 
 class ChemistAssistantSalaryCalc extends BaseCalc<StaffSalaryGroupModel> {

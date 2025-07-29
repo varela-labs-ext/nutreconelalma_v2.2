@@ -16,7 +16,7 @@ interface RawMaterialsSetProps {
 
 const RawMaterialsSet = (props: RawMaterialsSetProps) => {
     const [showDetails, setShowDetails] = useState(false);
-    const [showPresentation, setShowPresentation] = useState(false);
+    const [showPresentation, setShowPresentation] = useState(true);
 
     return (
         <div className="flex flex-col gap-6">

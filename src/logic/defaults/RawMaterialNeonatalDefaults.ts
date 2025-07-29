@@ -30,31 +30,12 @@ class RawMaterialNeonatalDefaults extends DefaultsRawMaterialsBase<RawMaterialGr
     }
 
     protected setCommons_MixingCentral_Automatic(inItem: RawMaterialGroupModel): void {
-        this.setClinicalInput(inItem.AguaEsteril_500ml, 500.00, 100.00, 0, 0, 4000.00, 0); //4000.00
-        this.setClinicalInput(inItem.CloruroPotasioVial_10cc, 10.00, 0.4, 1.00, 0, 1500.00, 0); //1500.00
-        this.setClinicalInput(inItem.CloruroSodioVial_10cc, 10.00, 1.57, 1.00, 0, 1500.00, 0); //1500.00
-        this.setClinicalInput(inItem.Complejo_B, 0, 0, 0, 0, 3000.00, 0); //0.00
-        this.setClinicalInput(inItem.Dextrosa_50p_Bolsa_500cc, 500.00, 18.00, 0, 0, 10814.00, 0); // 0.00
-        this.setClinicalInput(inItem.FosfatoPotasioVial_10cc, 10.00, 0.3624, 1.00, 0, 5700.00, 0); //5700.00
-        this.setClinicalInput(inItem.GluconatoCalcioVial_10cc, 10.00, 2.0540, 0, 0, 1800.00, 0); //1800.00
-        this.setClinicalInput(inItem.Multivitaminas, 0, 1.00, 0, 0, 25000.00, 0); //0.00
-        this.setClinicalInput(inItem.SulfatoMagnesioVial_10cc, 10.00, 0.3624, 1.00, 0, 1500.00, 0); //1500.00
-        this.setClinicalInput(inItem.Vitamina_C, 0, 0, 0, 0, 2000.00, 0); //0.00
-        this.setClinicalInput(inItem.VitaminasHidrosolubles, 0, 1.00, 0, 0, 23000.00, 0); //23000.00
+        this.setCommons_MixingCentral_Manual(inItem);
     }
 
     protected setOthers_MixingCentral_Automatic(inItem: RawMaterialGroupModel): void {
-        this.setClinicalInput(inItem.AminoacidosInfantil100Ml, 100.00, 20.54, 1.00, 0, 40000.00, 0); // 8216.00
-        this.setClinicalInput(inItem.AminoacidosInfantil1000Ml, 1000.00, 0, 0, 0, 20546.6, 0); // 0.00
-        this.setClinicalInput(inItem.AminoacidosInfantil250Ml, 250.00, 0, 0, 0, 50000.00, 0); // 0.00
-        this.setClinicalInput(inItem.AminoacidosInfantil500Ml, 500.00, 0, 0, 0, 100000.00, 0); // 0.00
-        this.setClinicalInput(inItem.Bolsa1000Ml, 1000.00, 1.00, 0, 0, 31000.00, 0); // 0.00
-        this.setClinicalInput(inItem.Bolsa500Ml, 500.00, 0, 0, 0, 30000.00, 0); // 30000.00
-        this.setClinicalInput(inItem.ElementosTrazaPediatricos10Ml, 10.00, 0, 0, 0, 15000.00, 0); // 15000.00
-        this.setClinicalInput(inItem.LipidosLipofundin100Cc, 100.00, 10.1490, 1.00, 0, 80000.00, 0); // 8119.20
-        this.setClinicalInput(inItem.VitaminasLiposolublesInfantil, 0, 1.00, 0, 0, 13000.00, 0); // 13000.00
+        this.setOthers_MixingCentral_Manual(inItem);
     }
-
 }
 
 export default RawMaterialNeonatalDefaults;

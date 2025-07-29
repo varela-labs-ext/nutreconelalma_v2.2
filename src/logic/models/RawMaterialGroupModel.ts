@@ -47,6 +47,10 @@ class RawMaterialGroupModel extends RawMaterialBaseModel {
     constructor() {
         super();
 
+        // Formula_A => (costoPorUnidad / presentacionMl) * cantidadMl
+        // Formula_B => cantidadUnidad * costoPorUnidad
+        // Formula_C => copiar el valor de costoPorMl
+
         this.AguaEsteril_500ml = new ClinicaInputRowModel(
             InsumoClinicoIdEnum.AguaEsteril_500ml,
             InsumoClinicoEnum.AguaEsteril_500ml,
@@ -75,25 +79,25 @@ class RawMaterialGroupModel extends RawMaterialBaseModel {
             InsumoClinicoIdEnum.AminoacidosInfantil100Ml,
             InsumoClinicoEnum.AminoacidosInfantil100Ml,
             ClinicalInputCategoryEnumId.Aminoacidos,
-            FormulaTypeIdEnum.Formula_C);
+            FormulaTypeIdEnum.Formula_A);
 
         this.AminoacidosInfantil1000Ml = new ClinicaInputRowModel(
             InsumoClinicoIdEnum.AminoacidosInfantil1000Ml,
             InsumoClinicoEnum.AminoacidosInfantil1000Ml,
             ClinicalInputCategoryEnumId.Aminoacidos,
-            FormulaTypeIdEnum.Formula_B);
+            FormulaTypeIdEnum.Formula_A);
 
         this.AminoacidosInfantil250Ml = new ClinicaInputRowModel(
             InsumoClinicoIdEnum.AminoacidosInfantil250Ml,
             InsumoClinicoEnum.AminoacidosInfantil250Ml,
             ClinicalInputCategoryEnumId.Aminoacidos,
-            FormulaTypeIdEnum.Formula_B);
+            FormulaTypeIdEnum.Formula_A);
 
         this.AminoacidosInfantil500Ml = new ClinicaInputRowModel(
             InsumoClinicoIdEnum.AminoacidosInfantil500Ml,
             InsumoClinicoEnum.AminoacidosInfantil500Ml,
             ClinicalInputCategoryEnumId.Aminoacidos,
-            FormulaTypeIdEnum.Formula_B);
+            FormulaTypeIdEnum.Formula_A);
 
         this.AminoacidosSinElectrolitos10_500Ml = new ClinicaInputRowModel(
             InsumoClinicoIdEnum.AminoacidosSinElectrolitos10_500Ml,
@@ -105,19 +109,19 @@ class RawMaterialGroupModel extends RawMaterialBaseModel {
             InsumoClinicoIdEnum.Bolsa1000Ml,
             InsumoClinicoEnum.Bolsa1000Ml,
             ClinicalInputCategoryEnumId.ContenedoresMezcladores,
-            FormulaTypeIdEnum.Formula_A);
+            FormulaTypeIdEnum.Formula_B);
 
         this.Bolsa2000Ml = new ClinicaInputRowModel(
             InsumoClinicoIdEnum.Bolsa2000Ml,
             InsumoClinicoEnum.Bolsa2000Ml,
             ClinicalInputCategoryEnumId.ContenedoresMezcladores,
-            FormulaTypeIdEnum.Formula_A);
+            FormulaTypeIdEnum.Formula_B);
 
         this.Bolsa500Ml = new ClinicaInputRowModel(
             InsumoClinicoIdEnum.Bolsa500Ml,
             InsumoClinicoEnum.Bolsa500Ml,
             ClinicalInputCategoryEnumId.ContenedoresMezcladores,
-            FormulaTypeIdEnum.Formula_A);
+            FormulaTypeIdEnum.Formula_B);
 
         this.CloruroPotasioVial_10cc = new ClinicaInputRowModel(
             InsumoClinicoIdEnum.CloruroPotasioVial_10cc,
@@ -160,7 +164,7 @@ class RawMaterialGroupModel extends RawMaterialBaseModel {
             InsumoClinicoIdEnum.FosfatoPotasioVial_10cc,
             InsumoClinicoEnum.FosfatoPotasioVial_10cc,
             ClinicalInputCategoryEnumId.ElectrolitosMinerales,
-            FormulaTypeIdEnum.Formula_B);
+            FormulaTypeIdEnum.Formula_A);
 
         this.GlicerofosfatoSodio20Ml = new ClinicaInputRowModel(
             InsumoClinicoIdEnum.GlicerofosfatoSodio20Ml,
@@ -190,7 +194,7 @@ class RawMaterialGroupModel extends RawMaterialBaseModel {
             InsumoClinicoIdEnum.Multivitaminas,
             InsumoClinicoEnum.Multivitaminas,
             ClinicalInputCategoryEnumId.Vitaminas,
-            FormulaTypeIdEnum.Formula_B);
+            FormulaTypeIdEnum.Formula_A);
 
         this.MixingEva1000Ml = new ClinicaInputRowModel(
             InsumoClinicoIdEnum.MixingEva1000Ml,

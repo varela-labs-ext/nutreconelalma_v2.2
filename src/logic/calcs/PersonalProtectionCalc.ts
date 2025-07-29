@@ -1,7 +1,7 @@
 import { isUnitCostItemModel, isValidObj } from "@/utils/itemsUtils";
 import PersonalProtectionGroupModel from "../models/operating_resources/PersonalProtectionGroupModel";
-import BaseCalc from "../services/BaseCalc";
-import UnitCostInputCalc from "../services/UnitCostInputCalc";
+import BaseCalc from "./BaseCalc";
+import UnitCostInputCalc from "./UnitCostInputCalc";
 
 
 class PersonalProtectionCalc extends BaseCalc<PersonalProtectionGroupModel> {

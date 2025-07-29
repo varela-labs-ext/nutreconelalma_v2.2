@@ -1,6 +1,6 @@
-import BaseCalc from "../services/BaseCalc";
+import BaseCalc from "./BaseCalc";
 import RawMaterialGroupModel from "../models/RawMaterialGroupModel";
-import ClinicalInputCalc from "../services/ClinicalInputCalc";
+import ClinicalInputCalc from "./ClinicalInputCalc";
 import { isClinicaInputRowModel, isValidObj } from "@/utils/itemsUtils";
 import { getClassName, Logger } from "@/utils/logger";
 
