@@ -254,7 +254,7 @@ export const ComparisonProvider = ({ children }: { children: React.ReactNode }) 
             if (dataBackupPayload.backup_MC_Automatic_RawMaterials !== null) {
                 const rawMaterialsAutomatic: MixingCenterRawMaterialsModel = dataBackupPayload.backup_MC_Automatic_RawMaterials;
 
-                const operationResourcesAndStaff: number = summaryManual.totalSinStaff +
+                const operationResourcesAndStaff: number = summaryAutomatic.totalSinStaff +
                     brandNewResults.costPerChemicalStaff.valueNptAutomatic +
                     brandNewResults.costPerAuxiliaryStaff.valueNptAutomatic;
 
