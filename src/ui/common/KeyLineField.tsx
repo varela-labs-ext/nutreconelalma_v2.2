@@ -16,7 +16,7 @@ const KeyLineField = (props: KeyLineFieldProps) => {
         >
             <span
                 className="flex-1 truncate cursor-pointer text-left"
-                onClick={() => props.onShowData(props.inKeySelected)}
+                onClick={() => props.onUpload(props.inKeySelected)}
             >
                 {props.inKeySelected.replace(`${COMPUTER_DATA_KEY}:`, "")}
             </span>
