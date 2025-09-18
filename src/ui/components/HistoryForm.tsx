@@ -5,6 +5,9 @@ import DataDisplayModal from "../common/DataDisplayModal";
 import DeleteAllKeysModal from "../../components/ui/dialogs/DeleteAllKeysModal";
 import DeleteKeyModal from "../../components/ui/dialogs/DeleteKeyModal";
 import { COMPUTER_DATA_KEY } from "@/common/Constants";
+import { toastService } from "@/services/toastService";
+import { useFileStorageContext } from "@/context/FileStorageContext/FileStorageProvider";
+import { useNavigate } from "react-router-dom";
 
 const HistoryForm = () => {
     const [keys, setKeys] = useState<string[]>([]);
@@ -13,6 +16,9 @@ const HistoryForm = () => {
     const [showModal, setShowModal] = useState(false);
     const [showConfirmDeleteAll, setShowConfirmDeleteAll] = useState(false);
     const [keyToDelete, setKeyToDelete] = useState<string | null>(null);
+
+    const { openFileAsync } = useFileStorageContext();
+    const navigate = useNavigate();
 
     useEffect(() => {
         loadAvailableKeys();
@@ -43,6 +49,15 @@ const HistoryForm = () => {
     }
 
     const handleOnKeyUpload = (key: string) => {
+        key = key.replace(`${COMPUTER_DATA_KEY}:`, "");
+
+        openFileAsync(key).then(() => {
+            toastService.showOk(`Calculadora abierta: ${key}`);
+            navigate("/calculadora");
+        }).catch((error) => {
+            console.error("Error al abrir la calculadora:", error);
+            toastService.showError(`Error Fatal: ${error.message}`);
+        });
     }
 
     const handleOnDeleteAll = (inFlag: boolean) => {
